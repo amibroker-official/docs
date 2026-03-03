@@ -1,0 +1,175 @@
+<html>
+<head>
+<title>Using Fundamental data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2><b>Using fundamental data</b></h2>
+<p>AmiBroker 4.90 adds the ability to use 32 fundamental
+  data items. Fundamental data can be automatically downloaded for all U.S.
+  stocks for free using AmiQuote. New <a href="w_information.html">Information
+  window</a> allows you to view these
+  items, while new AFL function: <a href="afl/getfndata.html">GetFnData</a> allows you to access fundamentals programmatically.</p>
+<h4>INFORMATION WINDOW</h4>
+<p>To display fundamental data in Information window, please use <b>Symbol-&gt;Information</b>  menu.
+  This will open Information window with several fundamental data fields as shown
+  in the picture below (if you created new database, it probably will not 
+  have these data present initially and you would need to download them)</p>
+<p><img src="gifs/fund_info.gif"></p>
+<h4>DOWNLOADING FREE FUNDAMENTAL DATA FROM YAHOO</h4>
+<p>New version of AmiQuote now features the ability to download free fundamental
+  data from Yahoo Finance website. This is implemented using 2 different Yahoo
+  pages: </p>
+<ol>
+  <li><b>Yahoo Fundamental - Basic</b> data source (free basic fundamental data, 200 symbols
+    in one request).<br>
+    Data are retrieved from the following URL: http://finance.yahoo.com/q?s={Ticker}
+    (Download data link).
+<p>That page provides the following data:</p>
+<p>EPS (ttm)<br>
+  EPS Est Current Year<br>
+  EPS Est Next Year<br>
+  EPS Est Next Quarter<br>
+  PEG Ratio<br>
+  Book Value<br>
+  EBITDA<br>
+  Sales Revenue<br>
+  Dividend Pay date<br>
+  Ex Dividend date<br>
+  Dividend Per Share<br>
+  1yr Target Price<br>
+  Shares Float<br>
+  Shares Outstanding</p>
+<p>Explanation of values: <a href="http://help.yahoo.com/help/us/fin/quote/quote-03.html" target="_blank">http://help.yahoo.com/help/us/fin/quote/quote-03.html</a></p>
+</li>
+  <li><b>Yahoo Fundamental - Extra</b> data source (extended fundamental data, 1 symbol
+    in one request, more data - available in registered version only).<br>
+    Data are retrieved from the following URL: http://finance.yahoo.com/q/ks?s={Ticker}
+  (Key Statistics page)</li>
+</ol>
+<blockquote>
+  <p>That page provides the following data:</p>
+  <p>Forward P/E<br>
+    PEG Ratio<br>
+    Profit Margin<br>
+    Operating Margin<br>
+    Return on Assets<br>
+    Return on Equity<br>
+    Revenue (ttm)<br>
+    Qtrly Revenue Growth<br>
+    Gross Profit<br>
+    EBITDA<br>
+    (Diluted) EPS<br>
+    Qtrly Earnings Growth<br>
+    Book Value Per Share<br>
+    Operating Cash Flow<br>
+    Levered Free Cash Flow<br>
+    Beta<br>
+    Shares Outstanding<br>
+    Float<br>
+    % Held by Insiders<br>
+    % Held by Institutions<br>
+    Shares Short (prior month)<br>
+    Shares Short<br>
+    Forward Annual Dividend Rate<br>
+    Trailing Annual Dividend Rate<br>
+    Dividend Date<br>
+    Ex-Dividend Date<br>
+    Last Split Factor<br>
+    Last Split Date </p>
+  <p>Explanation of values: <a href="http://help.yahoo.com/help/us/fin/research/research-12.html" target="_blank">http://help.yahoo.com/help/us/fin/research/research-12.html</a></p>
+  <p>IMPORTANT NOTE: Unregistered version of AmiQuote allows you to download fundamental-extra
+    data for the first 20 tickers in the list. To download data for more symbols you
+  need to register AmiQuote.</p>
+</blockquote>
+<p>Downloading data is easy and straightforward:</p>
+<ol>
+  <li>Run AmiQuote</li>
+  <li>In AmiQuote, select <b>Tools-&gt;Get tickers from AmiBroker</b></li>
+  <li>Select <b>Yahoo Fundamental - Basic</b> or <b>Yahoo Fundamental -
+    Extra </b>from <b>Source</b> drop-down list</li>
+  <li>Make sure that <b>Automatic import</b> box is checked</li>
+  <li>Press Green Arrow to <b>Start Download</b></li>
+</ol>
+<p><img name="" src="gifs/fund_amiquote.gif" alt=""></p>
+<p>Once download is complete, you should see fundamental data updated in Information
+  window in AmiBroker.</p>
+<h4>ACCESSING FUNDAMENTAL DATA FROM FORMULA (AFL) LEVEL</h4>
+<p>To access fundamental data from AFL level, you can use new <a href="/afl/getfndata.html">GetFnData</a> function.
+It has a quite simple syntax:</p>
+<p>GetFnData(&quot;field&quot;) </p>
+<p>where &quot;field&quot; is any of the following fundamental data fields supported. For
+detailed list please see <a href="/afl/getfndata.html">GetFnData function reference</a>.</p>
+<p> The function returns the number (scalar) representing the current value of a fundamental
+    data
+    item. There
+    is no history of values (no arrays are returned), so it is useful for scanning,
+    explorations (for the current situation), market commentary/interpretation,
+  but not for backtesting. Example exploration formula looks as follows:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> / </FONT><FONT COLOR=#0000ff>GetFnData</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"EPS"</FONT><FONT COLOR=#000000> )
+      , </FONT><FONT COLOR=#800080>"Current P/E ratio"</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> / </FONT><FONT COLOR=#0000ff>GetFnData</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"EPSEstNextYear"</FONT><FONT COLOR=#000000> )
+, </FONT><FONT COLOR=#800080>"Est. Next Year P/E ratio"</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"lastbarinrange"</FONT><FONT COLOR=#000000>); </FONT></CODE></p>
+<p><b>IMPORTING FUNDAMENTAL DATA FROM OTHER SOURCES</b></p>
+<p>AmiBroker also allows importing fundamentals using its flexible <a href="d_ascii.html">ASCII
+  importer</a>  and/or <a href="objects.html">OLE interface</a> as all new fields are exposed as properties of <a href="objects.html">Stock</a>  object.</p>
+<p>ASCII importer $FORMAT command now supports the following extra fields for
+fundamental data:</p>
+<p>DIV_PAY_DATE<br>
+  EX_DIV_DATE<br>
+  LAST_SPLIT_DATE<br>
+  LAST_SPLIT_RATIO<br>
+  EPS<br>
+  EPS_EST_CUR_YEAR <br>
+  EPS_EST_NEXT_YEAR <br>
+  EPS_EST_NEXT_QTR <br>
+  FORWARD_EPS <br>
+  PEG_RATIO <br>
+  BOOK_VALUE (requires SHARES_OUT to be specified as well)<br>
+  BOOK_VALUE_PER_SHARE <br>
+  EBITDA <br>
+  PRICE_TO_SALES (requires CLOSE to be specified as well)<br>
+  PRICE_TO_EARNINGS (requires CLOSE to be specified as well)<br>
+  PRICE_TO_BV (requires CLOSE to be specified as well)<br>
+  FORWARD_PE (requires CLOSE to be specified as well)<br>
+  REVENUE <br>
+  SHARES_SHORT <br>
+  DIVIDEND <br>
+  ONE_YEAR_TARGET <br>
+  MARKET_CAP (requires CLOSE to be specified as well - it is used to calculate
+  shares outstanding)<br>
+  SHARES_FLOAT <br>
+  SHARES_OUT <br>
+  PROFIT_MARGIN <br>
+  OPERATING_MARGIN <br>
+  RETURN_ON_ASSETS <br>
+  RETURN_ON_EQUITY <br>
+  QTRLY_REVENUE_GROWTH <br>
+  GROSS_PROFIT <br>
+  QTRLY_EARNINGS_GROWTH <br>
+  INSIDER_HOLD_PERCENT <br>
+  INSTIT_HOLD_PERCENT <br>
+  SHARES_SHORT_PREV <br>
+  FORWARD_DIV <br>
+  OPERATING_CASH_FLOW <br>
+  FREE_CASH_FLOW <br>
+  BETA </p>
+<p>  Note that if you want to import only fundamental data using the ASCII importer
+  (without quotes) you need to use <code>$NOQUOTES 1</code> command. See Formats\aqfe.format
+  and Formats\aqfn.format files for example usage - these
+  are the files actually
+  used
+  by AmiQuote to implement
+  automatic
+  import
+  of
+  fundamental data downloaded from Yahoo.</p>
+<p>The names of extra properties of the Stock object are the same as those used by <a href="afl/getfndata.html">GetFnData</a>  function
+  and they are listed in detail in <a href="objects.html">OLE objects reference.</a></p>
+</body>
+</html>

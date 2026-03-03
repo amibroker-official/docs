@@ -1,0 +1,76 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXSELECTFONT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxSelectFont</b><br>
+        - create / select graphic font</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxSelectFont( ''facename'', pointsize, weight = fontNormal, italic = False, underline = False, orientation = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Initializes a font with the specified characteristics. Then selects the the as current for subsequent drawing operations. 
+<p>
+Parameters:
+<ul>
+<li><b>"facename"</b> - specifies the typeface name of the font
+<li><b>pointsize</b> - specifies point size of the font (fractional numbers are allowed), for example 11.5 gives 11.5 point font. 
+<li><b>weight</b> - specifies the font weight (in inked pixels per 1000). Typical values are: 300 - light, 400 - normal, 700 - bold, 800 - ultrabold
+<li><b>italic</b> - specifies whether the font is italic
+<li><b>underline</b> - specifies whether the font is underlined
+<li><b>orientation</b> - specifies the angle (in 0.1-degree units) between the baseline of a character and the x-axis. The angle is measured counterclockwise from the x-axis.
+</ul>
+<p>
+NOTE: This is LOW-LEVEL graphic function. To learn more about low-level
+graphic functions please read <a href='../h_lowlevelgfx.html'>TUTORIAL: Using low-level graphics.</a>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>GfxSelectFont</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Tahoma"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>700</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSetBkMode</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSetTextColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>colorBrown</B></FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>GfxTextOut</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Testing
+graphic capabilites"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>28<font color="#000000"> </font></FONT><FONT COLOR=#000000>);</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="gfxlineto.html">GfxLineTo()</A> function , <A HREF="gfxmoveto.html">GfxMoveTo()</A> function , <A HREF="gfxselectpen.html">GfxSelectPen()</A> function , <A HREF="gfxselectsolidbrush.html">GfxSelectSolidBrush()</A> function , <A HREF="gfxsetpixel.html">GfxSetPixel()</A> function , <A HREF="gfxtextout.html">GfxTextOut()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxSelectFont</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=GfxSelectFont' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=GfxSelectFont' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1147&hilite=GfxSelectFont' target='_blank'>BEANS-Summary of Holdings</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1444&hilite=GfxSelectFont' target='_blank'>Bid Vs Ask Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1536&hilite=GfxSelectFont' target='_blank'>Computing Cointegration and ADF Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=GfxSelectFont' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GfxSelectFont' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=GfxSelectFont' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1515&hilite=GfxSelectFont' target='_blank'>Get Moneycontrol News Snippets into Amiboker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=GfxSelectFont' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=GfxSelectFont' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=GfxSelectFont' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=GfxSelectFont' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=GfxSelectFont' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=GfxSelectFont' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=GfxSelectFont' target='_blank'>Market Profile</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1218&hilite=GfxSelectFont' target='_blank'>Multiple Ribbon Demo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=GfxSelectFont' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=GfxSelectFont' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1553&hilite=GfxSelectFont' target='_blank'>pattenz</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1348&hilite=GfxSelectFont' target='_blank'>Perceptron</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1572&hilite=GfxSelectFont' target='_blank'>Peter Cooper</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1191&hilite=GfxSelectFont' target='_blank'>Point & figure Chart India Securities</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=GfxSelectFont' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=GfxSelectFont' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=GfxSelectFont' target='_blank'>Stan Weinstein strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=GfxSelectFont' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=GfxSelectFont' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=GfxSelectFont' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=GfxSelectFont' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=GfxSelectFont' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxSelectFont">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

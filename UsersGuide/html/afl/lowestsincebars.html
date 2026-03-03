@@ -1,0 +1,61 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - LOWESTSINCEBARS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>LowestSinceBars</b><br>
+        - barssince lowest value since condition met</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Lowest/Highest<br>
+        </b>(AmiBroker 3.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>LowestSinceBars( EXPRESSION, ARRAY, <i>Nth</i> = 1 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Returns the number of bars that have passed since lowest ARRAY 
+      value since EXPRESSION was true on the<em> </em>Nth most recent occurrence. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> lowestsincebars( Cross( macd(), 0 ), Close, 1 ) returns the 
+      number of bars passed since the lowest close price was detected from the 
+      time when macd() has crossed above zero. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>LowestSinceBars</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=LowestSinceBars">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

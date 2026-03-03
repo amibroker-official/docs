@@ -1,0 +1,71 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - KURTOSIS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Kurtosis</b><br>
+        - calculates kurtosis</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Math functions<br>
+        </b>(AmiBroker 6.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Kurtosis( ARRAY, range, population = True ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function calculates Kurtosis.
+<p>
+Kurtosis( ARRAY, range, False ) - works the same as Excel's KURT function
+<p>Kurtosis( ARRAY, range, True ) - gives population Kurtosis (Excel does not have equivalent KURT.P function yet)
+<p>
+Note that these functions calculate excess kurtosis, so for normal distribution it is 0.
+<p>
+There is some controversy about what kurtosis really tells about distribution.
+<p>
+Most sources say that the kurtosis of a data set provides a measure of the peakedness of the distribution of the data, relative to the normal distribution.
+A positive kurtosis value indicates a relatively peaked distribution and a negative kurtosis value indicates a relatively flat distribution. But Dr. Peter Westfall published an article that addresses why kurtosis does not measure peakedness<p>
+http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4321753/
+<p>
+He says that 'The kurtosis [...] is a measure of the combined weight of the tails relative to the rest of the distribution.' </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="skewness.html">Skewness()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Kurtosis</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Kurtosis">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

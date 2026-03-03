@@ -1,0 +1,84 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PERCENTILE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Percentile</b><br>
+        - calculate percentile</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Statistical functions<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Percentile( <i>array, period, rank </i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The <b>Percentile</b> function gives <i>rank</i> percentile value of the array over last <i>period</i> bars.
+<p>
+rank is 0..100 - defines percentile rank in the array
+<p>
+Performance note: the implementation of percentile function involves sorting that is relatively slow process even though that quicksort algorithm is used.
+<p>Since version 5.92 Percentile supports variable period.
+<p>Note that Percentile is very computation intensive function (it involves re-sorting arrays every bar)
+ and variable-period version (if you call it with period being ARRAY) runs slower than scalar version 
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// Example 1:</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// show bars when 'current' Day Volume ranks within</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// TOP 30% of volumes of last 100 bars (is above 70th
+Percentile)</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000> > </FONT><FONT COLOR=#0000ff>Percentile</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>70</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// Example 2:</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// show bars when 'current' Day Volume ranks within</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// BOTTOM 30% of volumes of last 100 bars (is below
+30th percentile)</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000> < </FONT><FONT COLOR=#0000ff>Percentile</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>30</FONT><FONT COLOR=#000000> ); <BR>
+</FONT></CODE>
+<p>
+<CODE><font color='#008000'>// variable period version <br>
+</font>bi = <font color='#0000ff'>BarIndex</font>(); <br>
+x = <font color='#0000ff'>Percentile</font>( <b>Close</b>, bi, <font color='#800080'>50</font> ); <br>
+<font color='#0000ff'>Plot</font>( x, <font color='#800080'>&quot;Cumulative 50% Percentile&quot;</font>, <b>colorRed</b> ); <br>
+<font color='#0000ff'>Plot</font>( <b>Close</b>, <font color='#800080'>&quot;Price&quot;</font>, <b>colorDefault</b>, <b>styleCandle</b> );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="median.html">Median()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Percentile</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1518&hilite=Percentile' target='_blank'>Market Meanness Index</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Percentile">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

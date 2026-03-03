@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Warning 502. You are calling Plot()/PlotOHLC() function over 500 times, it is highly inefficient. Reduce number of calls.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><a name="E1" id="E1"></a>Warning 502. You are calling Plot()/PlotOHLC() function
+over 500 times, it is highly inefficient. Reduce number of calls.</h4>
+<p> You are calling Plot()/PlotOHLC() function over 500 times, it
+is highly inefficient. Reduce number of calls.<br>
+<br>
+It is important to understand that Plot() function involves plotting entire chart
+and
+that
+is
+rather
+costly. If you want to draw segmented line generated using for example LineArray,
+don't call Plot() multiple times. Instead combine all LineArrays into one and
+use single Plot call.</p>
+<p><CODE> <FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+      i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; i &lt; </FONT><FONT COLOR=#800080>600</FONT><FONT COLOR=#000000>;
+      i++ ) </FONT><FONT COLOR=#0000ff><br>
+{<br>
+</FONT><FONT COLOR=#000000>&nbsp;x0
+= ..; <BR>
+&nbsp;x1 = ..; <BR>
+&nbsp;y0 = ..; <BR>
+&nbsp;y1 = .. ; <BR>
+&nbsp;</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>LineArray</FONT><FONT COLOR=#000000>(
+x0, x1, y0, y1 ), </FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000>, colorRed ); </FONT><FONT COLOR=#008000>//
+DO <strong>NOT</strong> DO THIS !</FONT></CODE><CODE><FONT COLOR=#000000><BR>
+  }<BR>
+  </FONT></CODE></p>
+<p>Instead use single Plot():</p>
+<p><CODE><FONT COLOR=#000000>CombinedLine = </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i &lt; </FONT><FONT COLOR=#800080>600</FONT><FONT COLOR=#000000>; i++ ) <BR>
+{  <BR>
+&nbsp;x0 = ..; <BR>
+&nbsp;x1 = ..; <BR>
+&nbsp;y0 = ..; <BR>
+&nbsp;y1 = .. ; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<BR>
+&nbsp;La = </FONT><FONT COLOR=#0000ff>LineArray</FONT><FONT COLOR=#000000>( x0, x1,
+y0, y1 ); <BR>
+<BR>
+&nbsp;CombinedLine = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>IsNull</FONT><FONT COLOR=#000000>(
+la ), CombinedLine, la ); </FONT><FONT COLOR=#008000>// combine lines </FONT><FONT COLOR=#000000> <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( CombinedLine, </FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+THAT IS PROPER WAY - one call to Plot that does all the plotting in one shot</FONT><FONT COLOR=#000000> <BR>
+</FONT></CODE><CODE><FONT COLOR=#000000> </FONT></CODE></p>
+<p>For more examples see also <a href="http://www.amibroker.org/userkb/2007/04/20/plotting-trade-zigzag-lines/">http://www.amibroker.org/userkb/2007/04/20/plotting-trade-zigzag-lines/</a></p>
+</body>
+</html>

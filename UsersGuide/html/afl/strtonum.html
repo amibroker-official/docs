@@ -1,0 +1,66 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STRTONUM</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StrToNum</b><br>
+        - convert string to number</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> String manipulation<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StrToNum( string ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Converts string to number. 
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000>List = </FONT><FONT COLOR=#ff00ff>"123,456,789"</FONT><FONT COLOR=#000000>;
+<BR>
+</FONT><FONT COLOR=#800000><B><br>
+for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; ( Item = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( List, i ) ) != </FONT><FONT COLOR=#ff00ff>""</FONT><FONT COLOR=#000000>; i++ )
+<BR>{
+<BR>   </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"%gn"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>StrToNum</FONT><FONT COLOR=#000000>( Item ) );
+<BR>}
+<BR></FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="writeval.html">WRITEVAL()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StrToNum</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=926&hilite=StrToNum' target='_blank'>Advanced Trend Lines with S & R</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1165&hilite=StrToNum' target='_blank'>AFL_Glossary_1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=923&hilite=StrToNum' target='_blank'>ALJEHANI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=StrToNum' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1147&hilite=StrToNum' target='_blank'>BEANS-Summary of Holdings</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=StrToNum' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1336&hilite=StrToNum' target='_blank'>Daily High Low in Advance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=415&hilite=StrToNum' target='_blank'>DateNum_DateStr</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=362&hilite=StrToNum' target='_blank'>Date_To_Num(),  Time_To_Num()</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1417&hilite=StrToNum' target='_blank'>Expiry day/days - Last thursday of month</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=794&hilite=StrToNum' target='_blank'>Fast Refreshed KAGI Swing Charts (Price Swing)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1302&hilite=StrToNum' target='_blank'>Graphical sector stock amalysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=StrToNum' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=StrToNum' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1421&hilite=StrToNum' target='_blank'>IBD relative strength database ranker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1422&hilite=StrToNum' target='_blank'>IBD relative strength database Viewer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=StrToNum' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=StrToNum' target='_blank'>Market Profile</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=StrToNum' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=StrToNum' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=StrToNum' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=StrToNum' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=457&hilite=StrToNum' target='_blank'>TWS auto-export Executions-file parser</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1228&hilite=StrToNum' target='_blank'>TWS trade plotter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=StrToNum' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1023&hilite=StrToNum' target='_blank'>Woodie's Price Panel With Woodie's Pivots</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StrToNum">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,69 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ADDROW</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>AddRow</b><br>
+        - add raw text row to exploration</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>AddRow(''text'') </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function adds a raw text row to the exploration (allows outputing things without respecting Filter and without being limited to number of bars). This function is preliminary and its parameters are subject to change. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#0000ff'>SetOption</font>(<font color='#800080'>&quot;NoDefaultColumns&quot;</font>, <b>True</b> ); <br>
+<b>Filter</b> = <font color='#800080'>1</font>; <br>
+<font color='#0000ff'>AddColumn</font>( <b>Close</b>, <font color='#800080'>&quot;Column1&quot;</font> ); <br>
+<font color='#0000ff'>AddColumn</font>( <b>Null</b>, <font color='#800080'>&quot;Column2&quot;</font> ); <br>
+<br>
+<font color='#800000'><b>for</b></font>( i = <font color='#800080'>0</font>;
+i &lt; <font color='#800080'>10</font>; i++ ) <br>
+{ <br>
+&nbsp;&nbsp;
+<font color='#0000ff'>AddRow</font>( <font color='#0000ff'>StrFormat</font>( <font color='#800080'>&quot;row
+%g	second column&quot;</font>, i ) ); <br>
+}</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="addcolumn.html">AddColumn()</A> function , <A HREF="addtextcolumn.html">AddTextColumn()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>AddRow</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=AddRow">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

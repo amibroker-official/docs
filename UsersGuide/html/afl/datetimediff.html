@@ -1,0 +1,65 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - DATETIMEDIFF</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>DateTimeDiff</b><br>
+        - get difference in seconds between two datetime values</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b>(AmiBroker 5.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>DateTimeDiff( arg1, arg2 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> DateTimeDiff( arg1, arg2 ) which will return positive values if arg1 > arg2 and negative values if arg1 < arg2.
+<p>
+The difference is given in seconds.
+<p>
+The function can operate on scalar and array arguments, returning scalar if both inputs are scalars,
+and array otherwise.
+<p>
+It is important to understand that DateTime is not a simple number but rather bitset and two datetime values can only be reliably compared for equlity or inequality using == or != operators. Any other comparisions (less than/greater then), using normal operators > < may sometimes lead to wrong results (if one of dates compared is pre-1964), therefore to compare two datetime numbers reliably you should use DateTimeDiff.  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="datetime.html">DateTime()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>DateTimeDiff</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=DateTimeDiff' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=DateTimeDiff' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=DateTimeDiff' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1512&hilite=DateTimeDiff' target='_blank'>Trades per second indicator</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=DateTimeDiff">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

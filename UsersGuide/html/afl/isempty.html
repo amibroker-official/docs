@@ -1,0 +1,71 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ISEMPTY</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>IsEmpty</b><br>
+        - empty value check</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 3.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>IsEmpty( ARRAY ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top">     returns 1 (or 'true') when given point in array is {empty}<br>
+      Note: {empty} value is used internaly by AFL to mark<br>
+      bars when the value is not available - for example for the first<br>
+      20 bars the value of 20-day simple moving average is not available<br>
+      ({empty})
+  
+   
+
+
+<p>IsNull is a synonym for IsEmpty. It is suggested to use IsNull in new formulas,
+because of naming consistency with Null constant. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <code>      movagv = ma( close, 30 );<br>
+      WriteIF( <b>IsEmpty</b>( movavg ), "Moving average not available 
+        yet", WriteVal( movavg ) );
+</code> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="isempty.html">ISEMPTY()</A> function , <A HREF="isnan.html">ISNAN()</A> function , <A HREF="isnull.html">ISNULL()</A> function , <A HREF="istrue.html">ISTRUE()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>IsEmpty</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=431&hilite=IsEmpty' target='_blank'>AFL Timing functions</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1410&hilite=IsEmpty' target='_blank'>Alternative ZIG function</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=IsEmpty' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1324&hilite=IsEmpty' target='_blank'>automatic trendlines using fractal patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=IsEmpty' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=IsEmpty' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=IsEmpty' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=IsEmpty' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=569&hilite=IsEmpty' target='_blank'>Elder safe Zone Long + short</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1454&hilite=IsEmpty' target='_blank'>Fre</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=125&hilite=IsEmpty' target='_blank'>Fund Screener</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=IsEmpty' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=762&hilite=IsEmpty' target='_blank'>lastNDaysBeforeDate</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=IsEmpty' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=622&hilite=IsEmpty' target='_blank'>MACD indicator display</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=IsEmpty' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=99&hilite=IsEmpty' target='_blank'>QP2 Float Analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=IsEmpty' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=248&hilite=IsEmpty' target='_blank'>Weekly chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=472&hilite=IsEmpty' target='_blank'>Zig Zag</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=IsEmpty">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

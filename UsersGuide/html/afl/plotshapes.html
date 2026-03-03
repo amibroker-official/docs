@@ -1,0 +1,141 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PLOTSHAPES</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PlotShapes</b><br>
+        - plots arrows and other shapes</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 4.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PlotShapes( <i>shape, color, layer = 0, yposition = graph0, offset = -12, XShift = 0 </i> ); </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Plots arrows and other shapes on any chart pane.<p>
+
+Parameters: 
+<ul>
+<li>shape defines type of the symbol. when shape is zero nothing is plotted values other than zero cause plotting various pre-defined shapes. Odd values plot shape BELOW indicator, even values plot shape ABOVE indicator. 
+<li>color defines color of shape 
+<li>layer defines layer number on which shapes are plotted 
+<li>yposition defines Y-position where shapes are plotted (by default they are plotted 'around' graph0 (first indicator) line)
+<li>offset - (or distance) parameter (by default -12 ), Offset is expressed in SCREEN pixels.
+Negative offsets shift symbols down, positive offsets shift symbol up. To place the shape exactly at ypostion, specify 0 as offset
+<li>(new in 5.66) XShift - allows to visually shift the the shapes by the specified number of bars (even past the last bar).
+</ul>
+
+Constants for shapes:<p>
+shapeNone, shapeUpArrow, shapeDownArrow, shapeHollowUpArrow, shapeHollowDownArrow, 
+shapeSmallUpTriangle, 
+shapeSmallDownTriangle, 
+shapeHollowSmallUpTriangle,  
+shapeHollowSmallDownTriangle,  
+shapeUpTriangle, 
+shapeDownTriangle, 
+shapeHollowUpTriangle,  
+shapeHollowDownTriangle,  
+shapeSmallSquare,  
+shapeHollowSmallSquare,  
+shapeSquare,  
+shapeHollowSquare,  
+shapeSmallCircle,  
+shapeHollowSmallCircle,
+shapeCircle,  
+shapeHollowCircle,  
+shapeStar,  
+shapeHollowStar,  
+shapeDigit0,  
+shapeDigit1, 
+shapeDigit2,  
+shapeDigit3,  
+shapeDigit4, 
+shapeDigit5,  
+shapeDigit6,  
+shapeDigit7,  
+shapeDigit8,  
+shapeDigit9,  
+shapePositionAbove   </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> Example 1:<p><code>
+PlotShapes( IIF( buy, shapeDigit9 + shapePositionAbove, shapeNone ), colorGreen ); 
+</code>
+
+<p>
+Example 2:
+<p>
+<code>
+Graph0=MACD();<br>
+Graph1=Signal();<br>
+Buy=Cross(Graph0, Graph1);<br>
+Sell=Cross(Graph1, Graph0);<br>
+PlotShapes( ( Buy OR Sell ) * ( 1 + Cum( Buy OR Sell ) % 52 ), IIf( Buy, colorGreen, colorRed ), 5 );<br>
+GraphXSpace = 5;<br>
+</code>
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="plot.html">PLOT()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2003-07-01 09:31:04</td><td valign="top">You can position your arrows relative to High/Low too. See the code below for the example:<br />
+<br />
+Buy=Cross(MACD(), Signal());<br />
+<br />
+Sell=Cross(Signal(), MACD());<br />
+<br />
+shape = Buy * shapeUpArrow + Sell * shapeDownArrow;<br />
+<br />
+Plot( Close, &quot;Price&quot;, colorBlack, styleCandle );<br />
+<br />
+PlotShapes( shape, IIf( Buy, colorGreen, colorRed ), 0, IIf( Buy, Low, High ) );<br />
+<br />
+GraphXSpace = 5;<br />
+ </td></tr><TR bgcolor=#ccccff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2006-06-07 17:14:40</td><td valign="top">ShapePositionAbove must NOT be used together with shapes that have positions already<br />
+included (all those which have &quot;Down&quot; or &quot;Up&quot; in the name).<br />
+All &quot;Down&quot; shapes are positioned ABOVE already and &quot;Up&quot; shapes are positioned BELOW already,<br />
+so it makes no sense to add those two.<br />
+<br />
+So you may only use ShapePosition above to the following shapes:<br />
+shapeSmallSquare, shapeHollowSmallSquare, shapeSquare, shapeHollowSquare, shapeSmallCircle, shapeHollowSmallCircle, shapeCircle, <br />
+shapeHollowCircle, shapeStar, shapeHollowStar, shapeDigit0, shapeDigit1, shapeDigit2, shapeDigit3, shapeDigit4, shapeDigit5, <br />
+shapeDigit6, shapeDigit7, shapeDigit8, shapeDigit9</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>PlotShapes</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1539&hilite=PlotShapes' target='_blank'>3 ways to use RMI in one script</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1247&hilite=PlotShapes' target='_blank'>4% Model - Determine Stock Market Direction</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1599&hilite=PlotShapes' target='_blank'>Abhimanyu </A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1383&hilite=PlotShapes' target='_blank'>Adaptive Centre of Gravity</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1384&hilite=PlotShapes' target='_blank'>Adaptive Cyber Cycle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1385&hilite=PlotShapes' target='_blank'>Adaptive Relative Vigour Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1519&hilite=PlotShapes' target='_blank'>Add SL/TGT other params to any strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=925&hilite=PlotShapes' target='_blank'>Advanced MA system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=926&hilite=PlotShapes' target='_blank'>Advanced Trend Lines with S & R</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1088&hilite=PlotShapes' target='_blank'>Advisory NRx price chart display.</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=545&hilite=PlotShapes' target='_blank'>AFL Example</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=547&hilite=PlotShapes' target='_blank'>AFL Example - Enhanced</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=923&hilite=PlotShapes' target='_blank'>ALJEHANI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=PlotShapes' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=PlotShapes' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1410&hilite=PlotShapes' target='_blank'>Alternative ZIG function</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=PlotShapes' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=739&hilite=PlotShapes' target='_blank'>An n bar Reversal Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1013&hilite=PlotShapes' target='_blank'>Aroon The Advisor</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1571&hilite=PlotShapes' target='_blank'>Auto Fib Ext&Retracement</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1405&hilite=PlotShapes' target='_blank'>Automatic Linear Trend Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1351&hilite=PlotShapes' target='_blank'>Automatic Linear Trend Channel 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1324&hilite=PlotShapes' target='_blank'>automatic trendlines using fractal patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=PlotShapes' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=PlotShapes' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=PlotShapes' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1234&hilite=PlotShapes' target='_blank'>Awsome Oscilator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1264&hilite=PlotShapes' target='_blank'>babaloo chapora</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=PlotShapes' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1111&hilite=PlotShapes' target='_blank'>Brian Wild</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=PlotShapes' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=PlotShapes' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=423&hilite=PlotShapes' target='_blank'>Candle Stick Analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1012&hilite=PlotShapes' target='_blank'>CCI 14 DrBobStyle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1000&hilite=PlotShapes' target='_blank'>CCI 50 DrBob Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1386&hilite=PlotShapes' target='_blank'>Centre of Gravity</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1187&hilite=PlotShapes' target='_blank'>Chandelier Exit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=720&hilite=PlotShapes' target='_blank'>Chandelier Exit or Advanced Trailing Stop</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=PlotShapes' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=PlotShapes' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=826&hilite=PlotShapes' target='_blank'>com-out</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=PlotShapes' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1201&hilite=PlotShapes' target='_blank'>Coppock Trade Signal on Price Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1200&hilite=PlotShapes' target='_blank'>Coppock Trade Signal v1.1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1387&hilite=PlotShapes' target='_blank'>Cyber Cycle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1562&hilite=PlotShapes' target='_blank'>Darvas Wisestocktrader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1508&hilite=PlotShapes' target='_blank'>Double Super Trend System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=295&hilite=PlotShapes' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=296&hilite=PlotShapes' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=927&hilite=PlotShapes' target='_blank'>Dynamtic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1277&hilite=PlotShapes' target='_blank'>Effective Swing Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=598&hilite=PlotShapes' target='_blank'>ekeko price chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=659&hilite=PlotShapes' target='_blank'>EKEKO SAR-MF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=570&hilite=PlotShapes' target='_blank'>Elder Impulse Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=585&hilite=PlotShapes' target='_blank'>Elder Impulse Indicator V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=569&hilite=PlotShapes' target='_blank'>Elder safe Zone Long + short</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=461&hilite=PlotShapes' target='_blank'>Expiry Thursday for Indian markets</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1391&hilite=PlotShapes' target='_blank'>Fisher Centre of Gravity</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1392&hilite=PlotShapes' target='_blank'>Fisher Cyber Cycle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1393&hilite=PlotShapes' target='_blank'>Fisher Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1394&hilite=PlotShapes' target='_blank'>Fisher Relative Vigour Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1454&hilite=PlotShapes' target='_blank'>Fre</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=PlotShapes' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=617&hilite=PlotShapes' target='_blank'>Gordon Rose</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=PlotShapes' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=PlotShapes' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1416&hilite=PlotShapes' target='_blank'>Heikin Ashi Delta</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1396&hilite=PlotShapes' target='_blank'>Hilbert Sine Wave Support & Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=785&hilite=PlotShapes' target='_blank'>Hull Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=741&hilite=PlotShapes' target='_blank'>Hurst "Like" DE</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1431&hilite=PlotShapes' target='_blank'>ICHIMOKU SIGNAL TRADER</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1506&hilite=PlotShapes' target='_blank'>Ichimoku System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1241&hilite=PlotShapes' target='_blank'>IchimokuBrianViorelRO</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=375&hilite=PlotShapes' target='_blank'>IFT of RSI - Multiple TimeFrames</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=293&hilite=PlotShapes' target='_blank'>Indicator Explorer (ZigZag)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1217&hilite=PlotShapes' target='_blank'>interactively test discretionary trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=PlotShapes' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1263&hilite=PlotShapes' target='_blank'>Intraday Range and Periods Framer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=PlotShapes' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=PlotShapes' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=625&hilite=PlotShapes' target='_blank'>Lagging MA-Xover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1449&hilite=PlotShapes' target='_blank'>Last Five Trades Result Dashboard &#8211; AFL code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=PlotShapes' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1592&hilite=PlotShapes' target='_blank'>Linear Candle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1424&hilite=PlotShapes' target='_blank'>Lunar Phases - original</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=682&hilite=PlotShapes' target='_blank'>LunarPhase</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=PlotShapes' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=797&hilite=PlotShapes' target='_blank'>Meu Sistema de Trading - vers&atilde;o 1.0</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=PlotShapes' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1190&hilite=PlotShapes' target='_blank'>mitalpradip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=884&hilite=PlotShapes' target='_blank'>Modified Head & Shoulder Pattern</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1605&hilite=PlotShapes' target='_blank'>Momentum Volume Price (MVP) Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=624&hilite=PlotShapes' target='_blank'>Moving Averages NoX</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=PlotShapes' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=PlotShapes' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=PlotShapes' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1553&hilite=PlotShapes' target='_blank'>pattenz</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1348&hilite=PlotShapes' target='_blank'>Perceptron</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1427&hilite=PlotShapes' target='_blank'>Pivot End Of Day Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=359&hilite=PlotShapes' target='_blank'>Pivot Finder</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=PlotShapes' target='_blank'>Polyfit Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=PlotShapes' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1124&hilite=PlotShapes' target='_blank'>Relative Momentum Index  (RMI)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1398&hilite=PlotShapes' target='_blank'>Relative Vigour Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1603&hilite=PlotShapes' target='_blank'>Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1250&hilite=PlotShapes' target='_blank'>RI - Auto Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=307&hilite=PlotShapes' target='_blank'>RUTVOL timing signal with BB Scoring routine</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1235&hilite=PlotShapes' target='_blank'>shailu lunia</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=PlotShapes' target='_blank'>Stan Weinstein strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1401&hilite=PlotShapes' target='_blank'>Stochastic Centre of Gravity</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1402&hilite=PlotShapes' target='_blank'>Stochastic Cyber Cycle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1403&hilite=PlotShapes' target='_blank'>Stochastic Relative Vigour Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1404&hilite=PlotShapes' target='_blank'>Stochastic RSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1133&hilite=PlotShapes' target='_blank'>Stops on percentages</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=PlotShapes' target='_blank'>Stress with SuperSmoother</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1376&hilite=PlotShapes' target='_blank'>Super Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1505&hilite=PlotShapes' target='_blank'>Super Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=PlotShapes' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=PlotShapes' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1210&hilite=PlotShapes' target='_blank'>TD Moving Average 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1208&hilite=PlotShapes' target='_blank'>TD REI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=396&hilite=PlotShapes' target='_blank'>TD sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=PlotShapes' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=921&hilite=PlotShapes' target='_blank'>Three Day Balance Point</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=437&hilite=PlotShapes' target='_blank'>Trading ATR 10-1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1274&hilite=PlotShapes' target='_blank'>Trailing Stop Loss</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=418&hilite=PlotShapes' target='_blank'>Trend Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1275&hilite=PlotShapes' target='_blank'>Trend Following System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1258&hilite=PlotShapes' target='_blank'>TrendingRibbonArrowsADX</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=696&hilite=PlotShapes' target='_blank'>Triangular Moving Average new</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1589&hilite=PlotShapes' target='_blank'>TSV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1073&hilite=PlotShapes' target='_blank'>TTM Squeeze</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=457&hilite=PlotShapes' target='_blank'>TWS auto-export Executions-file parser</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1228&hilite=PlotShapes' target='_blank'>TWS trade plotter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1465&hilite=PlotShapes' target='_blank'>Updated Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=466&hilite=PlotShapes' target='_blank'>Using From and To dates from Auto Analysis in Code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1170&hilite=PlotShapes' target='_blank'>Vikram's Floor Pivot Intraday System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1482&hilite=PlotShapes' target='_blank'>visual turtle trading system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=660&hilite=PlotShapes' target='_blank'>Visualization of stoploses and profit in chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1203&hilite=PlotShapes' target='_blank'>Volatility</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=388&hilite=PlotShapes' target='_blank'>Volatility System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1272&hilite=PlotShapes' target='_blank'>Volume Occilator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1526&hilite=PlotShapes' target='_blank'>Volume Zone Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=PlotShapes' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=353&hilite=PlotShapes' target='_blank'>Zig Zag Indicator with Valid Entry and Exit Points</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=PlotShapes' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PlotShapes">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

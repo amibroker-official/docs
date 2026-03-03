@@ -1,0 +1,102 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ADDTOCOMPOSITE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>AddToComposite</b><br>
+        - add value to composite ticker</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Composites<br>
+        </b>(AmiBroker 40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>AddToComposite( array, ''ticker'', ''field'', flags = atcFlagDefaults ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Allows you to create composite indicators with ease. <a href=&quot;../a_addtocomposite.html&quot;>More 
+        info...</a><br>
+        Parameters:<br>
+        array - the array of values to be added to &quot;field&quot; in &quot;ticker&quot; 
+        composite symbol <br>
+        &quot;ticker&quot; - the ticker of composite symbol. It is advised to 
+        use ~comp (tilde at the beginning)<br>
+        newly added composites are assigned to group 253 by default and<br>
+        have &quot;use only local database&quot; feature switched on for proper 
+        operation with external sources
+      possible field codes: &quot;C&quot; - close , &quot;O&quot; - open, &quot;H&quot; 
+        - high, &quot;L&quot; - low, &quot;V&quot; - volume, &quot;I&quot; - open 
+        interest, &quot;1&quot; - Aux1 field, &quot;2&quot; - Aux2 field, &quot;X&quot; - updates all OHLC fields at once<br>
+        <br>
+        flags - contains the sum of following values<br>
+      
+      <ul>
+        <li>atcFlagDeleteValues = 1 - deletes all previous data from composite symbol at the beginning of scan (recommended)</li>
+        <li>atcFlagCompositeGroup = 2 - put composite ticker into group 253 and 
+          EXCLUDE all other tickers from group 253 (avoids adding composite to 
+          composite)</li>
+        <li>atcFlagTimeStamp = 4 - put last scan date/time stamp into FullName 
+          field</li>
+        <li>atcFlagEnableInBacktest = 8 - allow running AddToComposite in backtest/optimization 
+          mode </li>
+        <li>atcFlagEnableInExplore = 16 - allow running AddToComposite in exploration 
+          mode</li>
+<li>atcFlagResetValues = 32 - reset values at the beginning of scan (not required if you use atcFlagDeleteValues)</li>
+        <li>atcFlagDefaults = 7<br>
+          (this is a composition of atcFlagResetValues | atcFlagCompositeGroup 
+          | atcFlagTimeStamp flags)<br>
+          <br>
+        </li>
+<li>atcFlagEnableInPortfolio = 64 - allow running AddToComposite in custom portfolio backtester phase</li>
+<li>atcFlagEnableInIndicator = 128 - allow running AddToComposite in indicator mode</li>
+<li>atcFlagNormalize = 256 - performs normalization by dividing OHLCV fields by the field given as argument (either &quot;I&quot;, &quot;1&quot; or &quot;2&quot;) after scan is completed
+      </ul>
+      AddToComposite function also detects the context in which it is run<br>
+        (it works ONLY in scan mode, unless atcFlagEnableInBacktest or atcFlagEnableInExplore 
+        flags are specified) and does NOT affect composite ticker when run in 
+        Indicator or Commentary mode, so it is now allowed to join scan and indicator 
+        into single formula. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>AddToComposite</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>() > </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;~BullMACD&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;V&quot;</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#000000><B>Graph0</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;~BullMACD&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;V&quot;</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#008000>// Now you can use the same formula in scan AND indicator</FONT><FONT COLOR=#000000><BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>AddToComposite</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=276&hilite=AddToComposite' target='_blank'>30 Week Hi Indicator - Calculate</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=502&hilite=AddToComposite' target='_blank'>52 Week New High-New Low Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=887&hilite=AddToComposite' target='_blank'>Bad Tick Trim on 5 sec database</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=251&hilite=AddToComposite' target='_blank'>Bullish Percent Index 2 files combined</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=367&hilite=AddToComposite' target='_blank'>Bullish Percent Index 2004</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=709&hilite=AddToComposite' target='_blank'>Calculate composites for tickers in list files</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=188&hilite=AddToComposite' target='_blank'>Compare Sectors against Tickers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1311&hilite=AddToComposite' target='_blank'>Detailed Equity Curve</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=AddToComposite' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=AddToComposite' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=232&hilite=AddToComposite' target='_blank'>Index of 30 Wk Highs Vs Lows</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=176&hilite=AddToComposite' target='_blank'>Market Direction</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=179&hilite=AddToComposite' target='_blank'>Overbought issues, Oversold issues</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=307&hilite=AddToComposite' target='_blank'>RUTVOL timing signal with BB Scoring routine</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=187&hilite=AddToComposite' target='_blank'>SectorRSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=180&hilite=AddToComposite' target='_blank'>Stochastic Divergences, PDI, NDI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=178&hilite=AddToComposite' target='_blank'>Stochastic OSI & OBI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=173&hilite=AddToComposite' target='_blank'>The Mean RSIt</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=172&hilite=AddToComposite' target='_blank'>The Mean RSIt (variations)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=181&hilite=AddToComposite' target='_blank'>The Relative Slope Pivots</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=177&hilite=AddToComposite' target='_blank'>Trending or Trading ?</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=554&hilite=AddToComposite' target='_blank'>Weighted Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=710&hilite=AddToComposite' target='_blank'>WLBuildProcess</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=AddToComposite">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

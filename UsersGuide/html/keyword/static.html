@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>switch Statement</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><font size="4"><a name="for"></a>static Keyword</font>
+</h4>
+<div>
+  <p>The static keyword allows to declare </p>
+  <p>Syntax:</p>
+  <p><b>static</b> <i>identifier;</i></p>
+  <p><b>static</b> <i>identifier1, identifier2, identifier3, ...;</i></p>
+  <p>The <strong>static </strong>keyword declares identifier as static variable</p>
+  <p>Declared static variables
+    can and should be used as 'regular' variables, no
+    need to call functions (Static*). </p>
+  <p>IMPORTANT: The <strong>static</strong> keyword is only available when you
+    use</p>
+  <p><CODE><font color='#917b00'>#pragma</font> <font color='#800000'><b>enable_static_decl</b></font>(prefix)
+      </CODE></p>
+  <p>at the top of your formula. The <em>prefix</em> is added automatically to
+    actual static variable name to avoid name clashes/conflicts. Prefix should
+    be constant string literal (as in Example 1).</p>
+  <p>You can  also have declared static variable with unique prefix that includes
+    current chartID, interval or symbol.
+    To do so use {chartid}, {interval} or {symbol} runtime tokens in the prefix
+  string. They will get replaced in runtime by corresponding values (see Example
+    2).</p>
+  <p>Example 1.</p>
+  <p><CODE><font color='#008000'>// the pragma below is required to enable
+        support for static declarations <br>
+    // it also defines the prefix which is added to variables declared with static
+    keyword <br>
+    // it is one prefix per formula. <br>
+  </font><font color='#917b00'>#pragma</font> <font color='#800000'><b>enable_static_decl</b></font>(prefix) <br>
+  <br>
+  <font color='#008000'>// it is really good idea to consequently use naming
+  convention that <br>
+  // distinguishes declared static variables from the others <br>
+  // we highly recommend using UNDERSCORE '_' before all declared static variables <br>
+  // so they can be easily spotted in the code <br>
+  // The other choice could be s_ prefix <br>
+  </font> <br>
+  <font color='#800000'><b>static</b></font> _myvar; <font color='#008000'>//
+  this var is also accessible by "prefix_myvar" <br>
+  </font> <br>
+  <font color='#0000ff'>printf</font>( <font color='#800080'>"This variable is
+  really static %g"</font>, _myvar++ ); <br>
+  <br>
+  <font color='#008000'>// keep in mind that for speed static variable is read
+  only once at the declaration <br>
+  // and saved only once - when formula execution is completed <br>
+  // This way declared static variables offer same speed as regular variables
+  (no speed penalty)</font></CODE></p>
+  <p>Example 2.</p>
+  <p><CODE><font color='#008000'>// Example 2 - if you want per-chartID declared
+        static variables <br>
+  </font><font color='#917b00'>#pragma</font> <font color='#800000'><b>enable_static_decl</b></font> <font color='#800080'>"myprefx{chartid}"</font> <br>
+  <font color='#800000'><b>static</b></font> x; <font color='#008000'>// this
+  static will really have name of myprefixIDx where ID is a current chartID</font></CODE></p>
+  <p>More information on static keyword is included on the forum: <a href="https://forum.amibroker.com/t/amibroker-6-27-1-beta-released/2925/">https://forum.amibroker.com/t/amibroker-6-27-1-beta-released/2925/</a></p>
+  <p><code></code></p>
+</div>
+</body>
+</html>

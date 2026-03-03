@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>Using Z-ordering feature</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2><b>Using Z-ordering feature</b></h2>
+<p><b>Introduction</b></p>
+<p>What is Z-order?<br>
+  <br>
+  Imagine that you could see the drawing objects arranged on the chart page like
+    puzzle pieces on a table. Some objects may appear to be placed one on top
+    of another, and others may be overlapping.
+  This third dimension of the chart page is known as &quot;Z order.&quot; If the
+  X axis relates to width and the Y axis to height, then the Z order relates
+  to depth. Although Z order cannot be seen directly, just as you can position
+  objects along X and Y (horizontal and vertical) axes, you can also position
+  them in the Z order.<br>
+  Every object on the page has its Z order, positioned in back-to-front order,
+  so that objects at the front will take precedence over objects behind them.
+  Z order gives you the ability to superimpose objects one on top of another. <br>
+</p>
+<p><strong>Usage</strong><br>
+  <br>
+  Z-order is a parameter that defines the Z-axis position of a given plot/drawing.</p>
+<p>Z-order parameter can be passed to <a href="afl/plot.html">Plot</a>(), <a href="afl/plotohlc.html">PlotOHLC</a>()
+  and <a href="afl/plotforeign.html">PlotForeign</a>() AFL functions and can
+  be set from the user interface  for any manual <a href="drawtools.html">drawing
+  tool</a>.</p>
+<p>You can change the Z-order parameter for drawing tools using the Properties dialog
+as well as using the Format-&gt;Z-Order-&gt;Bring Forward / Send Backward menus
+(and default keystrokes Shift+Page Up and Shift+Page Down).</p>
+<p>The default z-order value is zero. Z-order = 0 also means where the &quot;grid&quot; is
+  located. So if you want to plot BEHIND the grid, you need to specify a negative
+  z-order parameter. Smaller values are drawn first (i.e., BEHIND others), higher
+  values are drawn later (ON TOP of others).</p>
+<p>Plots are drawn in the following order: </p>
+<ul>
+  <li>Z-order parameter takes precedence
+    over the order of calling Plot() functions, so if a z-order is set, it determines
+    plotting order. <br>
+  See this picture:<br>
+  <img src="gifs/zorder.gif"><br>
+  <br>
+  </li>
+  <li>  If multiple plots use
+      the same z-order parameter, they are plotted in reverse call order (ones
+    that appear last in the code are plotted first). This
+        rule can be changed by an already existing switch graphzorder = 1, which,
+    when specified,
+  reverses this behavior (so plots are drawn in call order). </li>
+</ul>
+<p>Please note
+    the above applies to each Z-order &quot;layer&quot; separately (so
+        within the same Z-order &quot;layer&quot; reverse call rule applies) <br>
+        <br>
+        Example (Bollinger Bands with &quot;cloud&quot; fill behind price (Z-order
+        = -1)):<br>
+        <br>
+        <br>
+        <CODE><FONT COLOR=#000000>P = </FONT><FONT COLOR=#0000ff>ParamField</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Price
+        field"</FONT><FONT COLOR=#000000>,-</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>); <BR>
+        Periods = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Periods"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>15</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+        Width = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Width"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0.05</FONT><FONT COLOR=#000000> ); <BR>
+        Color = </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Color"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorLightGrey</B></FONT><FONT COLOR=#000000> ); <BR>
+        Style = </FONT><FONT COLOR=#0000ff>ParamStyle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Style"</FONT><FONT COLOR=#000000>)
+        | </FONT><FONT COLOR=#000000><B>styleNoRescale</B></FONT><FONT COLOR=#000000>;; <BR>
+        </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( bbt = </FONT><FONT COLOR=#0000ff>BBandTop</FONT><FONT COLOR=#000000>(
+        P, Periods, Width ), </FONT><FONT COLOR=#800080>"BBTop"</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#969696>_PARAM_VALUES</FONT><FONT COLOR=#000000>(),
+        Color, Style ); <BR>
+        </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( bbb = </FONT><FONT COLOR=#0000ff>BBandBot</FONT><FONT COLOR=#000000>(
+        P, Periods, Width ), </FONT><FONT COLOR=#800080>"BBBot"</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#969696>_PARAM_VALUES</FONT><FONT COLOR=#000000>(),
+        Color, Style ); <BR>
+        </FONT><FONT COLOR=#0000ff>PlotOHLC</FONT><FONT COLOR=#000000>( bbt,
+        bbt, bbb, bbb, </FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>ColorBlend</FONT><FONT COLOR=#000000>(
+        Color, </FONT><FONT COLOR=#000000><B>colorWhite</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0.9</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>styleCloud</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000>,
+        -</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+<p>&nbsp;</p>
+</body>
+</html>

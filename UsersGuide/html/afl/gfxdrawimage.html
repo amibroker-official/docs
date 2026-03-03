@@ -1,0 +1,68 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXDRAWIMAGE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxDrawImage</b><br>
+        - draw bitmap image</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 6.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxDrawImage( &quot;filename&quot;, x, y ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function draws bitmap image given in file. Top left corner of the image is specified by x, y.
+Currently GfxDrawImage supports BMP and PNG files.<p>
+Per-pixel transparency (alpha channel) is supported ONLY for 32-bit PNG files.
+PNG files with 32-bit depth are rendered with AlphaBlend which is not be available on oldest systems (Win95).
+BMP files PNG files of lower depths are rendered without transparency using BitBlt (fast and always available)
+<p>
+Loading and drawing BMP files is much faster than PNG (as much as 10 times faster), approx load and rendering time is 0.3 ms for BMP, 3 ms for PNG (alphablended).
+Timings that you get from Code check and profile are misleading for Gfx functions because they don't include actual on-screen rendering.
+<p>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> GfxDrawImage( &quot;wizard.bmp&quot;, 100, 0 ); // bitmap - fast<br>
+GfxDrawImage( &quot;logo.png&quot;, 30, 30 ); // png - supports per-pixel alpha channel / transparency </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxDrawImage</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxDrawImage">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

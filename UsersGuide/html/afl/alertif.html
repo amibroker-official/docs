@@ -1,0 +1,116 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ALERTIF</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>AlertIf</b><br>
+        - trigger alerts</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 4.10)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>AlertIf( <i>BOOLEAN_EXPRESSION</i>, <i>command</i>, <i>text</i>,       <i>type</i> = 0, <i>flags</i> = 1+2+4+8, <i>lookback</i> = 1 ); </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> nothing </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top">     
+      Triggers alert action if BOOLEAN_EXPRESSION is true.
+<p> 
+      <i>1. BOOLEAN_EXPRESSION</i> is the expression that if evaluates to True 
+        (non zero value) triggers the alert. If it evaluates to False (zero value) 
+        no alert is triggered. Please note that only <i>lookback</i> most recent 
+        bars are considered.
+<p>      2. The <i>command</i> string defines the action taken when alert is triggered. 
+        If it is empty the alert <i>text</i> is simply displayed in the Alert 
+        output window (View->Alert Output). Other supported values of <i>command</i> 
+        string are:<br>
+      SOUND <i>the-path-to-the-WAV-file</i><br>
+        EMAIL<br>
+        EXEC <i>the-path-to-the-file-or-URL <optional args></i><p>
+      SOUND command plays the WAV file once. <br>
+      EMAIL command sends the e-mail to the account defined in the settings 
+        (Tools->Preferences->E-mail). The format of the e-mail is as follows:
+      Subject: Alert type_name (<i>type</i>) Ticker on Date/Time<br>
+        Body: <i>text</i><br>
+      EXEC command launches external application or file or URL specified after 
+        EXEC command. <optional args> are attached after file name and <i>text</i> 
+        is attached at the end
+<p>      <i>3. Text </i> defines the text that will be printed in the output window 
+        or sent via e-mail or added as argument to the application specified by 
+        EXEC command
+<p>      4. <i>Type</i> defines type of the alert. Pre-defined types are 0 - default, 
+        1 - buy, 2 - sell, 3 - short, 4- cover. YOu may specify higher values 
+        and they will get name &quot;other&quot;
+<p>      5. <i>Flags<b> </b></i>control behaviour of AlertIF function. This field 
+        is a combination (sum) of the following values:<br>
+        ( 1 - display text in the output window, 2 - make a beep (via computer 
+        speaker), 4 - don't display repeated alerts having the same type, 8 - 
+        don't display repeated alerts having the same date/time) By default all 
+        these options are turned ON.
+<p>      6. <i>lookback </i>parameter controls how many recent bars are checked
+
+<p><strong>IMPORTANT: </strong>AlertIf is not mindless function, it contains
+  internal logic (aka. finite state machine). For full understanding how AlertIf
+  function works and how to use it, you need to
+  read <a href='/guide/h_alerts.html'>Tutorial:
+  Using formula-based alerts</a>.  
+   
+  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">     
+      <code>
+        Buy = Cross( MACD(), Signal() );<br>
+        Sell = Cross( Signal(), MACD() );<br>
+        Short = Sell;<br>
+        Cover = Buy;<br>
+        AlertIF( Buy, &quot;EMAIL&quot;, &quot;A sample alert on &quot;+FullName(), 1 );<br>
+        AlertIF( Sell, &quot;SOUND C:WindowsMediaDing.wav&quot;, 
+        &quot;Audio alert&quot;, 2 );<br>
+      AlertIF( Short, &quot;EXEC Calc.exe&quot;, &quot;Launching external 
+        application&quot;, 3 );<br>
+      AlertIF( Cover, &quot;&quot;, &quot;Simple text alert&quot;, 4 
+        );<br>
+       </code>
+      <br>
+      Note EXEC command uses ShellExecute function and allows not only EXE 
+        files but URLs too. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>AlertIf</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=547&hilite=AlertIf' target='_blank'>AFL Example - Enhanced</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=270&hilite=AlertIf' target='_blank'>Alert Output As Quick Rewiev</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=AlertIf' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1347&hilite=AlertIf' target='_blank'>Basket Trading System T101</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=586&hilite=AlertIf' target='_blank'>CCI(20) Divergence Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=AlertIf' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=AlertIf' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=AlertIf' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1250&hilite=AlertIf' target='_blank'>RI - Auto Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=368&hilite=AlertIf' target='_blank'>Stock price AlertIf</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=437&hilite=AlertIf' target='_blank'>Trading ATR 10-1</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=AlertIf">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

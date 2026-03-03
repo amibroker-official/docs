@@ -1,0 +1,118 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MAPCREATE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>MapCreate</b><br>
+        - creates a map/dictionary object (holding key-value pairs)</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Map functions<br>
+        </b>(AmiBroker 6.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>MapCreate( hash_size  = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> MAP </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Creates a new Map object and returns the map. In AFL, a Map is a data structure that stores key-value pairs, similar to dictionaries in other programming languages. Map keys are strings. Values can be of any type.
+<p>
+Advanced users may pass hash table size if they want to store lots of data in a map in hash_size parameter.
+Hash size should be prime number larger than maximum expected number of elements in the map </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#008000'>// Map creation <br>
+// larger hash table size improves performance should be prime number larger
+than number of elements expected <br>
+</font>m = <font color='#0000ff'>MapCreate</font>( <font color='#800080'>997</font> ); <br>
+<br>
+<font color='#008000'>// assigning values <br>
+</font>m[<font color='#800080'>&quot;MSFT&quot;</font>] = <font color='#800080'>1</font>; <br>
+m[<font color='#800080'>&quot;NVDA&quot;</font>] = <font color='#800080'>2</font>; <br>
+m[<font color='#800080'>&quot;CSCO&quot;</font>] = <font color='#800080'>3</font>; <br>
+<br>
+<font color='#008000'>// accessing value by key <br>
+</font>value = m[ <font color='#0000ff'>Name</font>() ]; <font color='#008000'>//
+using function return value as a key <br>
+</font>value2 = m[ <font color='#800080'>&quot;MSFT&quot;</font> ]; <font color='#008000'>//
+literal key <br>
+</font> <br>
+<font color='#008000'>// checking for key existence <br>
+</font>value = m[ <font color='#0000ff'>Name</font>() ]; <br>
+<font color='#800000'><b>if</b></font> (<font color='#0000ff'>IsNull</font>(value)) <br>
+{ <br>
+&nbsp; 
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;Key not found in Map&quot;</font>); <br>
+} <br>
+<font color='#800000'><b>else</b></font> <br>
+{ <br>
+&nbsp; 
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;%g&quot;</font>, value); <br>
+} <br>
+<br>
+<font color='#008000'>// EXAMPLE 2 <br>
+</font> <br>
+<font color='#008000'>// Passing map arguments to user functions <br>
+</font><font color='#800000'><b>function</b></font> Test(x) <br>
+{ <br>
+&nbsp; 
+x[<font color='#800080'>&quot;key&quot;</font>] = <font color='#800080'>1</font>; <br>
+} <br>
+<br>
+m2 = Map(); <br>
+<br>
+<font color='#008000'>// IMPORTANT CAVEAT: <br>
+// UNLIKE other data types, <br>
+// Maps are always passed by reference so this call modifies its contents <br>
+</font>Test(m2); <br>
+<br>
+<font color='#008000'>// Check the modified map <br>
+</font>value = m2[<font color='#800080'>&quot;key&quot;</font>]; <br>
+<br>
+<font color='#800000'><b>if</b></font> (<font color='#0000ff'>IsNull</font>(value)) <br>
+{ <br>
+&nbsp; 
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;Key not found in Map&quot;</font>); <br>
+} <br>
+<font color='#800000'><b>else</b></font> <br>
+{ <br>
+&nbsp; 
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;%g&quot;</font>, value); <br>
+}</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>MapCreate</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=MapCreate">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

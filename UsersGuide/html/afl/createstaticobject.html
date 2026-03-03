@@ -1,0 +1,68 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - CREATESTATICOBJECT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>CreateStaticObject</b><br>
+        - create static COM object</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 3.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>createstaticobject( <i> </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> OBJECT </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Creates the single static instance (one per AmiBroker session) of <i>"Server.Class"</i> 
+        COM object. The return value should be assigned to a variable that is 
+        used latter for calling the methods of the object.
+      This function is useful for "heavyweight" COM object like QuotesPlus 
+        ActiveX for example.<br>
+        Note: this function creates the instance of the object only once when 
+        the formula is executed for the first time. Then the object is cached 
+        internally for all consecutive calls. It is also shared if multiple formulas 
+        use the same object using CreateStaticObject call. The object is automatically 
+        released when AmiBroker is closed. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> myobj = CreateStaticObject("MyOwnActiveX.Class1");<br>
+        myobj.Method( 1, 2, Close ); // call the method of myobj COM object </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="createobject.html">CreateObject()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>CreateStaticObject</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=CreateStaticObject">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

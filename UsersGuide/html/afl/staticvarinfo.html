@@ -1,0 +1,81 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STATICVARINFO</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StaticVarInfo</b><br>
+        - get the information about static variable(s)</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 5.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StaticVarInfo( ''varname'', ''field'' ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING or NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function provides information about static variables.<p>
+Arguments:
+<ul>
+<li>&quot;varname&quot; - is a variable name. It can be also a wildcard template such as &quot;myvariable*&quot; and then it means that AmiBroker will search for all variables beginning with &quot; myvariable&quot;. * character matches any string, ? matches any single character
+<li>&quot;field&quot; - defines the information to retrieve. Supported &quot;field&quot; values are:
+<ul>
+<li>&quot;list&quot; - returns the list of static variables
+<li>&quot;memory&quot; - returns memory usage in bytes (not including memory used for variable name itself)
+<li>&quot;totalmemory&quot; - returns memory usage in bytes (including memory used for variable name)
+<li>&quot;count&quot; - returns the number of static variables matching the wildcard string (new in AmiBroker 6.90)
+</ul>
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;my_array1&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;my_array2&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;my_scalar&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>12</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarSetText</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;my_text&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;Text123456&quot;</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#800080>&quot;All variables in memory: &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StaticVarInfo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;*&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;list&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#800080>&quot; Total static var memory: &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StaticVarInfo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;*&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;totalmemory&quot;</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#800080>&quot; Only my_ variables: &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StaticVarInfo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;my_*&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;list&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#800080>&quot; Memory 2 arrays (bytes): &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StaticVarInfo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;my_array*&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;memory&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#800080>&quot; Memory scalar (bytes): &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StaticVarInfo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;my_scalar&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;memory&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#800080>&quot; Memory text (bytes): &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StaticVarInfo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;my_text&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;memory&quot;</FONT><FONT COLOR=#000000> );</FONT></CODE>
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="staticvarcompareexchange.html">StaticVarCompareExchange()</A> function , <A HREF="staticvarcount.html">StaticVarCount()</A> function , <A HREF="staticvarget.html">StaticVarGet()</A> function , <A HREF="staticvargettext.html">StaticVarGetText()</A> function , <A HREF="staticvarremove.html">StaticVarRemove()</A> function , <A HREF="staticvarset.html">StaticVarSet()</A> function , <A HREF="staticvarsettext.html">StaticVarSetText()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StaticVarInfo</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=StaticVarInfo' target='_blank'>elliott wave manual labelling</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StaticVarInfo">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<html>
+
+<head>
+<title>How to use AmiBroker with Real-Time data plugins</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>How to work with Real-Time data plugins </h2>
+<H4>One-time setup </H4>
+<H4>In order to use AmiBroker with any real-time data source, you have to set
+   up the database with the appropriate data plugin first. This is required only
+  once during database creation. Instructions for setting up are available
+  here: <a href="h_esignal.html">eSignal</a>, <a href="h_mytrack.html">myTrack</a>, <a href="h_iqfeed.html">IQFeed</a>, <a href="h_qtracker.html">QuoteTracker</a>.</H4>
+<H4>Check also the online data sources page at <a href="http://www.amibroker.com/quotes.html" target="_blank">http://www.amibroker.com/quotes.html</a> for
+  new plugins.</H4>
+<H4>Adding symbols</H4>
+<P>Now you can add symbols to your database. To do so, please go to <B>Symbol-&gt;New</B> menu.
+  In the 'add symbol' dialog, enter one or more tickers (comma-separated) you wish
+  to add to your database. If you want to see the chart for a newly added symbol,
+  just select it from the Symbol tree in the workspace window. Please allow a few
+  seconds (depending on the speed of your Internet connection) to backfill historical
+  data.</P>
+<P>You may add more tickers than your&nbsp;RT  account allows. AmiBroker
+  will automatically switch/update/refresh symbols, so the most recently used
+  symbols are active and older ones are automatically removed from the Data Manager.
+  Doing so, however, may lead to some problems if you exceed your subscription
+  limits significantly. So it is advisable to use this feature responsibly and not
+  expect to get 500 symbols when your subscription is limited to only 50. </P>
+<P>Note that the above mechanism does not apply to the Real-Time Quote window, and it
+  cannot hold more symbols than your subscription limit.</P>
+<H4>Showing Real-Time Quote Window</H4>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+    <TR>
+      <TD vAlign=top>
+        <P align=left>AmiBroker RT features a real-time watch window, which allows
+          you to watch streaming quotes. To show this window, choose the <B>Window-&gt;Realtime
+          Quote </B>menu option. (see image to the right ----&gt;)</P>
+        <P><img src="gifs/addwatch.gif"></P>
+        <P>To add symbols to the Real-Time Quote window, you either double-click on
+          the symbol tree or use the right-mouse-button menu's 'Add to Real-Time Quote'
+          option, as shown in the picture above.</P>
+        <P></P>
+        <P>&nbsp;</P>
+      </TD>
+      <TD><img src="gifs/showwatch.gif"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>Working with Real-Time Quote Window</H4>
+<P>The RT Quote window provides real-time streaming quotes and some basic fundamental
+  data. It is fairly easy to operate, as shown in the picture below:</P>
+<P><img src="gifs/main.gif"></P>
+<P>You can also display a context menu by pressing the right mouse button over the RT
+  Quote window.</P>
+<P><img src="gifs/w_rtquote.gif"></P>
+<p>The context menu allows you to access the following options:</p>
+<ul>
+  <li><B>Time &amp; Sales</B><BR>
+    Opens <a href="w_timesales.html">Time &amp; Sales window</a>, which provides
+    information about every bid, ask, and trade streaming from the market.<br>
+  </li>
+  <li><b>Easy Alerts</b><br>
+    Opens <a href="w_easyalerts.html">Easy Alerts</a> window, which provides a way
+    to define real-time alerts executed when bid/ask/last and other fields hit
+    user-defined levels.<br>
+  </li>
+  <li> <B>Add Symbol</B><BR>
+    Adds the current symbol to the Real-Time Quote list.<br>
+  </li>
+  <li><b>Add Watchlist...<br>
+    </b>Adds the entire watchlist to the Real-Time Quote window.<br>
+  </li>
+  <li> <B>Remove Symbol<br>
+    </B>Removes the highlighted line (symbol) from the Real-Time Quote list.<br>
+  </li>
+  <li><b>Remove All<br>
+    </b>Removes all symbols from the Real-Time Quote list.<br>
+  </li>
+  <li> <b>Hide</b><BR>
+    Hides the Real-Time Quote list.</li>
+</ul>
+<P><strong><a name="BIDASKTREND"></a>Bid/Ask Trend Indicator</strong></P>
+<P><img src="gifs/bidasktrend.gif" width="526" height="83"></P>
+<p>Version 5.90 adds Bid/Ask trend - a graphical indicator showing the direction
+  of the 10 most recent changes in real-time bid/ask prices. The right-most box is
+  the most recent, and as new bid/ask quotes arrive, they are shifted to the left.
+  Color coding is as follows:</p>
+<ul>
+  <li><strong><font color="#008000">Dark green</font>:</strong> bid &gt; previous
+    bid OR ask &gt; previous ask.</li>
+  <li><strong><font color="#00FF00">Bright green</font>: </strong>bid &gt; previous
+    bid AND ask &gt; previous ask.</li>
+  <li><strong><font color="#800000">Dark red</font>:</strong> bid &lt; previous
+    bid OR ask &lt; previous ask.</li>
+  <li><strong><font color="#FF0000">Bright red</font></strong>: bid &lt; previous
+    bid AND ask &lt; previous ask.</li>
+  <li><strong><font color="#990000">Red</font> / <font color="#009900">Green</font> box:</strong> ask &lt; previous
+    ask AND bid &gt; previous bid.</li>
+  <li><strong><font color="#009900">Green</font> / <font color="#990000">Red</font> box:</strong> ask &gt; previous
+    ask AND bid &lt; previous bid.</li>
+</ul>
+<p>If bid/ask prices don't change, there is no new box. NOTE: This column works
+  only if real-time quotes are streaming (markets are open).</p>
+<h4 align="left"><b>Working with intraday and daily charts</b></h4>
+<p align="left">If your data source supports mixed EOD/intraday mode (such as
+eSignal or IQFeed), you can use a single database for both types of charts.</p>
+<p align="left">However, if your data source does not support mixed EOD/intraday
+  mode, and if you want to have long daily histories AND intraday charts, you should
+    consider running
+    two
+    instances
+    of
+    AmiBroker:
+    one
+    for EOD
+    charts
+and a second for intraday charting. Both may use the same real-time data source.</p>
+<h4 align="left"><b>Connection status display</b></h4>
+<p align="left">The data plugin connection status is displayed in the plugin status display area,
+  located in the lower-right part of the AmiBroker main
+  window, as shown in the picture below. When the connection status changes, AmiBroker
+  plays
+  a beep sound and pops up a bubble tooltip to inform about the status change.</p>
+<p align="left"><img src="gifs/rtstatus.gif" alt=""></p>
+<p align="left">The bubble tooltip provides more detailed information text and
+  disappears automatically after two seconds.</p>
+<p align="left">If you want to re-display it, just hover your mouse over the plugin
+  status display area.</p>
+<p align="left">To enable quick examination of connection status, AmiBroker displays
+  color-coded information:</p>
+<ul>
+  <li><strong>OK (green light)</strong> means that the connection is OK and indicates
+    correct operation of the plugin.</li>
+  <li><strong>WAIT (yellow light)</strong> means that the connection
+      is being set up right now, or the
+      plugin is connected only partially (to a few of many servers). Usually, this
+      state is transient, and within a few seconds, the status comes back to &quot;OK&quot;.</li>
+  <li><strong>ERR (red light)</strong> means that the connection is broken. It may
+    mean an invalid username/password for your subscription, or the fact that some
+    third-party component/program required is not running (for example, if QuoteTracker
+    is not running and you are using the QuoteTracker plugin). This state usually
+    requires some user intervention, such as checking/fixing the username/password in
+    File-&gt;Database Settings-&gt;Configure or running the required component. When you
+    fix the reason, the plugin will automatically attempt to reconnect (and
+    if reconnection is successful, then &quot;OK&quot; will be displayed).</li>
+  <li><strong>SHUT (purple light) </strong> means that some serious problem occurred,
+    and the plugin will not attempt to reconnect automatically. In most cases, you
+    have to first fix the problem that caused this state and then reconnect
+    manually using the plugin context menu described below. Alternatively, you can
+    just restart AmiBroker.</li>
+</ul>
+<p align="left"><b>Using plugin context menu</b></p>
+<p align="left">Real-time plugins provide some additional controls via the plugin
+  context menu. This context menu is available when you click with the right mouse
+  button over the plugin status display area. If you do, a menu like this will
+  be displayed:</p>
+<p align="left"></p>
+<p align="left"><img src="gifs/rtmenu.gif" alt=""></p>
+<P>Please note that various plugins offer various options in this menu; however,
+  most plugins provide at least three basic and useful options:</P>
+<ul>
+  <li><strong>Reconnect</strong> - This option allows you to reconnect manually.
+    Most RT plugins attempt to reconnect automatically, but sometimes manual
+    reconnection is necessary.</li>
+  <li><strong>Shutdown</strong> (Disconnect) - This allows you to shut down the RT plugin.
+    This is useful when you want to stop streaming quotes.</li>
+  <li><strong>Force backfill </strong> - This option causes the plugin to re-download
+    the entire (intraday) history from the server. Usually, the plugin automatically
+    handles all backfills, so you don't need to trigger backfills by hand. If
+    the plugin detects that you have some missing quotes from the last available
+    bar until the current date/time, it triggers backfills, and it is all automatic.
+    But... in at least two cases, this option is useful:
+    <ul>
+      <li>backfilling more bars after a settings change (when you enlarge 'number
+        of bars to load' in the File-&gt;Database Settings dialog, you have to force
+        a backfill for symbols that were backfilled previously with a smaller number
+        of bars)</li>
+      <li>cleaning up bad ticks (when you see a bad tick, you may try forcing
+        a backfill in the hope that the data vendor has cleaned up its database and you
+        will get fixed data - works well for eSignal, which really appears to fix
+        bad ticks after they happen).</li>
+    </ul>
+  </li>
+</ul>
+<p><b>Things you should NOT do, or you should do very carefully</b></p>
+<p>You should note the fact that when you are using a data plugin, then the plugin
+  controls the quotation database (see the <a href="h_workspace.html">Understanding Database Concepts</a>
+  article); therefore, you should NOT import quotes from ASCII files (this includes AmiQuote)
+  for symbols that are already present in the real-time database.</p>
+<p>If you do, the plugin will eventually overwrite your imports with the real-time
+  data, or your database will become corrupted (if you import end-of-day data
+  over an intraday database).</p>
+<p>So please do not import ASCII (especially EOD data) into a real-time intraday
+  database fed by the plugin.</p>
+<p>You may ask why this is not disabled at all. The answer is that sometimes
+  it is useful, and sometimes it will work (but these are rare cases). For example,
+  it will work if you import INTRADAY data into the intraday database fed by
+  the QuoteTracker plugin, and both the database and imported data have exactly the
+  same bar interval. </p>
+<p>It also works if you import the data for symbols that are
+    not present in the database. In this case, newly imported symbols are marked
+    by the ASCII importer as &quot;use only local database for this symbol&quot; (See the <a href="w_information.html">Information
+    Window</a> for details), so they are excluded from the real-time update.
+    This is useful if you want to import some other data (even non-quote data)
+    and access
+    it via the <a href="afl/foreign.html">Foreign</a> function while using your real-time
+    database.</p>
+<p>So ASCII import is not disabled in a real-time database, but you have to use
+  it with extreme care and know what you are doing.</p>
+<p>The second thing is using <a href="w_manualentry.html">Quote Editor</a>. Although
+  data is controlled by the plugin, it is in most cases possible to use Quote
+  Editor. However, please note that you will be able to edit only one-minute data
+  or a higher interval, and you will only be able to edit symbols that are backfilled
+  completely (there is no running backfill for that particular symbol), and you will not
+  be able to edit the last three bars. This is so because the last three bars
+  are cached in the plugin. So, you will be able to edit them only when new bars
+  arrive, making them 'older' than the last three.</p>
+<p><b><a name="WAITFORBACKFILL"></a>'WAIT FOR BACKFILL' feature</b></p>
+<p><b></b>The users of eSignal, myTrack, and IQFeed real-time plugins may now
+  check the &quot;wait for backfill&quot; box in the Automatic Analysis window, and all scans,
+  explorations, and backfills will wait for completion of the backfill
+  process for a given symbol. This flag has no effect on databases that do not
+  use plugins (external data sources) or use end-of-day plugins (like FastTrack,
+  QP2, TC2000/TCNet, etc.). This flag also has no effect when using the QT plugin
+  because QuoteTracker manages backfills by itself and does not provide any
+  control over the backfill process to third-party applications.</p>
+<p><strong>BACKFILLING ALL SYMBOLS AT ONCE</strong></p>
+<p>To backfill all symbols at once in a data source that supports the &quot;Wait for
+  backfill&quot; feature (IQFeed, eSignal), one can use the Analysis window. The procedure
+  is as follows:</p>
+<p>1. Open <a href="w_afledit.html">Formula Editor</a> and type a simple single-line
+  rule, as shown below, and choose <strong>Tools-&gt;Send to Analysis</strong></p>
+<blockquote>
+  <p><code>Buy = 1;</code></p>
+</blockquote>
+<p>2. In the Analysis window, select <strong>Apply to: *All symbols</strong> and <strong>Range: one recent bar</strong></p>
+<p><img src="gifs/analysisonebar.png" width="338" height="93"></p>
+<p>and turn on the <strong>Wait for backfill</strong> option.</p>
+<p><img src="gifs/waitforbackfill.png" width="301" height="194"></p>
+<p>3. Press the <strong>Scan</strong> button.</p>
+<p>The Analysis window will iterate through all symbols, requesting a backfill
+  for each symbol and waiting until the data arrives; so, at the end of the scan, all symbols
+  will be backfilled.</p>
+</body>
+</html>

@@ -1,0 +1,76 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - LINEARRAY</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>LineArray</b><br>
+        - generate trend-line array</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>LineArray( <i> x0, y0, x1, y1, extend = 0, usebarindex = False </i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The <b>LineArray</b> function generates array equivalent to trend line drawn from point (x0, y0) to point (x1, y1). x coordinates are in bars (zero based), y coordinates are in dollars.
+<p>Note: x0 must be SMALLER than x1. 
+<p>Note 2: the function accepts only numbers therefore
+generates single line. To produce multiple lines you have to call it many times with different co-ordinates.
+<p>
+<i>extend</i> parameter controls automatic extension of the trend line:
+if extend is 1 then line is right extended.
+if extend is 2 then line is left extended
+if extend is 3 then line is left and right extended
+<p>
+<i>usebarindex</i> parameter controls if x coordinates are interpreted as current array indexes (from 0..BarCount-1) (when <i>usebarindex</i> = False) or as absolute bar indexes (returned by BarIndex() function) when <i>usebarindex</i> = True. These two may differ if QuickAFL feature is turned on. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000>y0=</FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>Trough</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>)); <BR>
+  y1=</FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>Trough</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>)); <BR>
+  x0=</FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>TroughBars</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>)); <BR>
+  x1=</FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>TroughBars</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>)); <BR>
+  Line = </FONT><FONT COLOR=#0000ff>LineArray</FONT><FONT COLOR=#000000>( x0,
+  y0, x1, y1, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"C"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorWhite</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000>); <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(
+  Line, </FONT><FONT COLOR=#ff00ff>"Trend line"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>LineArray</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=413&hilite=LineArray' target='_blank'>3 Price Break</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=926&hilite=LineArray' target='_blank'>Advanced Trend Lines with S & R</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=584&hilite=LineArray' target='_blank'>Another FIb Level</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=586&hilite=LineArray' target='_blank'>CCI(20) Divergence Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=LineArray' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1412&hilite=LineArray' target='_blank'>Fib Fan Based on ZZ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1371&hilite=LineArray' target='_blank'>Fibonacci Calculations & Speed Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1084&hilite=LineArray' target='_blank'>Fibonacci Internal and External Retracements</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1256&hilite=LineArray' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1257&hilite=LineArray' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=347&hilite=LineArray' target='_blank'>Gartley 222 Pattern Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=617&hilite=LineArray' target='_blank'>Gordon Rose</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=LineArray' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1408&hilite=LineArray' target='_blank'>Harmonic Patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=LineArray' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=LineArray' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=LineArray' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1429&hilite=LineArray' target='_blank'>Non-repaitning Zigzag line</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1553&hilite=LineArray' target='_blank'>pattenz</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=348&hilite=LineArray' target='_blank'>PF Chart - Close - April 2004</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=399&hilite=LineArray' target='_blank'>Pivot Point with S/R Trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1191&hilite=LineArray' target='_blank'>Point & figure Chart India Securities</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=LineArray' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=564&hilite=LineArray' target='_blank'>Rea Time Daily Price Levels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=LineArray' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=LineArray' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=LineArray' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=597&hilite=LineArray' target='_blank'>Tom DeMark Trend Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1428&hilite=LineArray' target='_blank'>Trend Lines from 2 points</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1338&hilite=LineArray' target='_blank'>Wolfe Wave Patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=LineArray' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=930&hilite=LineArray' target='_blank'>ZigZag Retracements</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=LineArray">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

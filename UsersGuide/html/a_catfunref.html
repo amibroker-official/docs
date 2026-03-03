@@ -1,0 +1,973 @@
+<html>
+<head>
+<title>AFL Function Reference</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<h2>AFL Function Reference - Categorized list of functions</h2>
+<ul>
+	</ul>
+	<p><b> Basic price pattern detection</b></p>		
+	<ul>
+  <li><b><a href="./afl/fft.html">FFT </a></b> - 
+  performs Fast Fourier Transform (AFL 2.90)</li>
+  <li><b><a href="./afl/gapdown.html">GapDown </a></b> - 
+  gap down.</li>
+  <li><b><a href="./afl/gapup.html">GapUp </a></b> - 
+  gap up.</li>
+  <li><b><a href="./afl/inside.html">Inside </a></b> - 
+  inside day.</li>
+  <li><b><a href="./afl/outside.html">Outside </a></b> - 
+  outside bar.</li>
+  <li><b><a href="./afl/peak.html">Peak </a></b> - 
+  peak (AFL 1.1)</li>
+  <li><b><a href="./afl/peakbars.html">PeakBars </a></b> - 
+  bars since peak (AFL 1.1)</li>
+  <li><b><a href="./afl/plottextsetfont.html">PlotTextSetFont </a></b> - 
+  write text on the chart with user-defined font (AFL 2.80)</li>
+  <li><b><a href="./afl/shellexecute.html">ShellExecute </a></b> - 
+  execute a file (AFL 3.40)</li>
+  <li><b><a href="./afl/trough.html">Trough </a></b> - 
+  trough (AFL 1.1)</li>
+  <li><b><a href="./afl/troughbars.html">TroughBars </a></b> - 
+  bars since trough (AFL 1.1)</li>
+  <li><b><a href="./afl/zig.html">ZIG </a></b> - 
+  zig-zag indicator (AFL 1.1)</li>
+	</ul>
+	<p><b> Composites</b></p>		
+	<ul>
+  <li><b><a href="./afl/addtocomposite.html">AddToComposite </a></b> - 
+  add value to composite ticker (AFL 2.0)</li>
+  <li><b><a href="./afl/adline.html">ADLine </a></b> - 
+  advance/decline line (AFL 1.2)</li>
+  <li><b><a href="./afl/advissues.html">AdvIssues </a></b> - 
+  advancing issues (AFL 1.2)</li>
+  <li><b><a href="./afl/advvolume.html">AdvVolume </a></b> - 
+  advancing issues volume (AFL 1.2)</li>
+  <li><b><a href="./afl/decissues.html">DecIssues </a></b> - 
+  declining issues (AFL 1.2)</li>
+  <li><b><a href="./afl/decvolume.html">DecVolume </a></b> - 
+  declining issues volume (AFL 1.2)</li>
+  <li><b><a href="./afl/trin.html">Trin </a></b> - 
+  traders (Arms) index (AFL 1.2)</li>
+  <li><b><a href="./afl/uncissues.html">UncIssues </a></b> - 
+  unchanged issues (AFL 1.2)</li>
+  <li><b><a href="./afl/uncvolume.html">UncVolume </a></b> - 
+  unchanged issues volume (AFL 1.2)</li>
+	</ul>
+	<p><b> Date/Time</b></p>		
+	<ul>
+  <li><b><a href="./afl/barindex.html">BarIndex </a></b> - 
+  get zero-based bar number (AFL 2.3)</li>
+  <li><b><a href="./afl/beginvalue.html">BeginValue </a></b> - 
+  Value of the array at the beginning of the range (AFL 2.3)</li>
+  <li><b><a href="./afl/date.html">Date </a></b> - 
+  date (AFL 1.1)</li>
+  <li><b><a href="./afl/datenum.html">DateNum </a></b> - 
+  date number (AFL 1.4)</li>
+  <li><b><a href="./afl/datetime.html">DateTime </a></b> - 
+  retrieves encoded date/time (AFL 2.3)</li>
+  <li><b><a href="./afl/datetimeadd.html">DateTimeAdd </a></b> - 
+  adds specified number of seconds/minutes/hours/days to datetime (AFL 3.40)</li>
+  <li><b><a href="./afl/datetimeconvert.html">DateTimeConvert </a></b> - 
+  date/time format conversion (AFL 2.90)</li>
+  <li><b><a href="./afl/datetimediff.html">DateTimeDiff </a></b> - 
+  get difference in seconds between two datetime values (AFL 3.30)</li>
+  <li><b><a href="./afl/datetimeformat.html">DateTimeFormat </a></b> - 
+  converts datetime to string (AFL 4.20)</li>
+  <li><b><a href="./afl/datetimetostr.html">DateTimeToStr </a></b> - 
+  convert datetime to string (AFL 2.8)</li>
+  <li><b><a href="./afl/day.html">Day </a></b> - 
+  day of month (AFL 1.4)</li>
+  <li><b><a href="./afl/dayofweek.html">DayOfWeek </a></b> - 
+  day of week (AFL 1.4)</li>
+  <li><b><a href="./afl/dayofyear.html">DayOfYear </a></b> - 
+  get ordinal number of day in a year (AFL 2.4)</li>
+  <li><b><a href="./afl/dayssince1900.html">DaysSince1900 </a></b> - 
+  get number of days since January 1st, 1900 (AFL 3.20)</li>
+  <li><b><a href="./afl/endvalue.html">EndValue </a></b> - 
+  value of the array at the end of the selected range (AFL 2.3)</li>
+  <li><b><a href="./afl/getplaybackdatetime.html">GetPlaybackDateTime </a></b> - 
+  get bar replay position date/time (AFL 3.0)</li>
+  <li><b><a href="./afl/hour.html">Hour </a></b> - 
+  get current bar's hour (AFL 2.0)</li>
+  <li><b><a href="./afl/interval.html">Interval </a></b> - 
+  get bar interval (in seconds) (AFL 2.1)</li>
+  <li><b><a href="./afl/lookup.html">Lookup </a></b> - 
+  search the array for bar with specified date/time (AFL 3.40)</li>
+  <li><b><a href="./afl/microsec.html">MicroSec </a></b> - 
+  get bar's microsecond part of the timestamp.</li>
+  <li><b><a href="./afl/millisec.html">MilliSec </a></b> - 
+  get bar's millisecond part of the timestamp.</li>
+  <li><b><a href="./afl/minute.html">Minute </a></b> - 
+  get current bar's minute (AFL 2.0)</li>
+  <li><b><a href="./afl/month.html">Month </a></b> - 
+  month (AFL 1.4)</li>
+  <li><b><a href="./afl/now.html">Now </a></b> - 
+  gets current system date/time (AFL 2.3)</li>
+  <li><b><a href="./afl/second.html">Second </a></b> - 
+  get current bar's second (AFL 2.0)</li>
+  <li><b><a href="./afl/timenum.html">TimeNum </a></b> - 
+  get current bar time (AFL 2.0)</li>
+  <li><b><a href="./afl/year.html">Year </a></b> - 
+  year (AFL 1.4)</li>
+  <li><b><a href="./afl/_dt.html">_DT </a></b> - 
+  convert string to datetime (AFL 3.40)</li>
+	</ul>
+	<p><b> Indicators</b></p>		
+	<ul>
+  <li><b><a href="./afl/accdist.html">AccDist </a></b> - 
+  Accumulation/Distribution.</li>
+  <li><b><a href="./afl/adx.html">ADX </a></b> - 
+  average directional movement index (AFL 1.3)</li>
+  <li><b><a href="./afl/atr.html">ATR </a></b> - 
+  average true range (AFL 1.3)</li>
+  <li><b><a href="./afl/bbandbot.html">BBandBot </a></b> - 
+  Bottom Bollinger Band.</li>
+  <li><b><a href="./afl/bbandtop.html">BBandTop </a></b> - 
+  Top Bollinger Band.</li>
+  <li><b><a href="./afl/cci.html">CCI </a></b> - 
+  Commodity Channel Index.</li>
+  <li><b><a href="./afl/chaikin.html">Chaikin </a></b> - 
+  Chaikin Oscillator.</li>
+  <li><b><a href="./afl/colorblend.html">ColorBlend </a></b> - 
+  blends (mixes) two colors (AFL 3.30)</li>
+  <li><b><a href="./afl/firstvisiblevalue.html">FirstVisibleValue </a></b> - 
+  get first visible value of array (AFL 3.40)</li>
+  <li><b><a href="./afl/getchartbkcolor.html">GetChartBkColor </a></b> - 
+  get the RGB color value of chart background (AFL 3.20)</li>
+  <li><b><a href="./afl/getcursormousebuttons.html">GetCursorMouseButtons </a></b> - 
+  get current state of mouse buttons (AFL 2.80)</li>
+  <li><b><a href="./afl/getcursorxposition.html">GetCursorXPosition </a></b> - 
+  get current X position of mouse pointer (AFL 2.80)</li>
+  <li><b><a href="./afl/getcursoryposition.html">GetCursorYPosition </a></b> - 
+  get current Y position of mouse pointer (AFL 2.80)</li>
+  <li><b><a href="./afl/highestvisiblevalue.html">HighestVisibleValue </a></b> - 
+  get the highest value within visible chart area (AFL 3.30)</li>
+  <li><b><a href="./afl/lastvisiblevalue.html">LastVisibleValue </a></b> - 
+  get last visible value of array (AFL 3.40)</li>
+  <li><b><a href="./afl/lowestvisiblevalue.html">LowestVisibleValue </a></b> - 
+  get the lowest value within visible chart area (AFL 3.30)</li>
+  <li><b><a href="./afl/macd.html">MACD </a></b> - 
+  Moving Average Convergence/Divergence.</li>
+  <li><b><a href="./afl/mdi.html">MDI </a></b> - 
+  minus directional movement indicator (-DI) (AFL 1.3)</li>
+  <li><b><a href="./afl/mfi.html">MFI </a></b> - 
+  Money Flow Index.</li>
+  <li><b><a href="./afl/nvi.html">NVI </a></b> - 
+  Negative Volume Index.</li>
+  <li><b><a href="./afl/obv.html">OBV </a></b> - 
+  On Balance Volume.</li>
+  <li><b><a href="./afl/oscp.html">OscP </a></b> - 
+  Price Oscillator.</li>
+  <li><b><a href="./afl/oscv.html">OscV </a></b> - 
+  Volume Oscillator.</li>
+  <li><b><a href="./afl/pdi.html">PDI </a></b> - 
+  plus directional movement indicator (AFL 1.3)</li>
+  <li><b><a href="./afl/percentrank.html">PercentRank </a></b> - 
+  calculate percent rank (AFL 3.40)</li>
+  <li><b><a href="./afl/plottext.html">PlotText </a></b> - 
+  write text on the chart (AFL 2.80)</li>
+  <li><b><a href="./afl/plotvapoverlaya.html">PlotVAPOverlayA </a></b> - 
+  plot multiple-segment Volume-At-Price chart (AFL 3.20)</li>
+  <li><b><a href="./afl/pvi.html">PVI </a></b> - 
+  Positive Volume Index.</li>
+  <li><b><a href="./afl/requestmousemoverefresh.html">RequestMouseMoveRefresh </a></b> - 
+  request chart to be refreshed when user moves mouse cursor (AFL 4.30)</li>
+  <li><b><a href="./afl/requesttimedrefresh.html">RequestTimedRefresh </a></b> - 
+  forces periodic refresh of indicator pane (AFL 2.90)</li>
+  <li><b><a href="./afl/rmi.html">RMI </a></b> - 
+  Relative Momentum Index (AFL 2.1)</li>
+  <li><b><a href="./afl/roc.html">ROC </a></b> - 
+  Percentage Rate of Change.</li>
+  <li><b><a href="./afl/rsi.html">RSI </a></b> - 
+  Relative Strength Index.</li>
+  <li><b><a href="./afl/rwi.html">RWI </a></b> - 
+  Random Walk Index.</li>
+  <li><b><a href="./afl/rwihi.html">RWIHi </a></b> - 
+  Random Walk Index of Highs.</li>
+  <li><b><a href="./afl/rwilo.html">RWILo </a></b> - 
+  Random Walk Index of Lows.</li>
+  <li><b><a href="./afl/sar.html">SAR </a></b> - 
+  parabolic stop-and-reverse (AFL 1.3)</li>
+  <li><b><a href="./afl/setbarfillcolor.html">SetBarFillColor </a></b> - 
+  set bar/candlestick/cloud chart fill color (AFL 3.1)</li>
+  <li><b><a href="./afl/setchartbkcolor.html">SetChartBkColor </a></b> - 
+  set background color of a chart (AFL 2.80)</li>
+  <li><b><a href="./afl/setchartbkgradientfill.html">SetChartBkGradientFill </a></b> - 
+  enables background gradient color fill in indicators (AFL 2.90)</li>
+  <li><b><a href="./afl/setgradientfill.html">SetGradientFill </a></b> - 
+  set the colors of a gradient fill plot (AFL 3.60)</li>
+  <li><b><a href="./afl/signal.html">Signal </a></b> - 
+  MACD Signal Line.</li>
+  <li><b><a href="./afl/stochd.html">StochD </a></b> - 
+  Stochastic Slow %D.</li>
+  <li><b><a href="./afl/stochk.html">StochK </a></b> - 
+  Stochastic Slow %K.</li>
+  <li><b><a href="./afl/trix.html">TRIX </a></b> - 
+  Triple Exponential Smoothed Price.</li>
+  <li><b><a href="./afl/ultimate.html">Ultimate </a></b> - 
+  Ultimate Oscillator.</li>
+	</ul>
+	<p><b> Information / Categories</b></p>		
+	<ul>
+  <li><b><a href="./afl/categoryaddsymbol.html">CategoryAddSymbol </a></b> - 
+  adds a symbol to a category (AFL 2.5)</li>
+  <li><b><a href="./afl/categorycreate.html">CategoryCreate </a></b> - 
+  add new category (such as watch list) (AFL 3.70)</li>
+  <li><b><a href="./afl/categoryfind.html">CategoryFind </a></b> - 
+  search for category by name (AFL 3.0)</li>
+  <li><b><a href="./afl/categorygetname.html">CategoryGetName </a></b> - 
+  get the name of a category (AFL 2.5)</li>
+  <li><b><a href="./afl/categorygetsymbols.html">CategoryGetSymbols </a></b> - 
+  retrieves comma-separated list of symbols belonging to given category (AFL 2.5)</li>
+  <li><b><a href="./afl/categoryremovesymbol.html">CategoryRemoveSymbol </a></b> - 
+  remove a symbol from a category (AFL 2.5)</li>
+  <li><b><a href="./afl/categorysetname.html">CategorySetName </a></b> - 
+  set the name of a category (group, market, watch list, industry) (AFL 3.20)</li>
+  <li><b><a href="./afl/fullname.html">FullName </a></b> - 
+  full name of the symbol (AFL 1.1)</li>
+  <li><b><a href="./afl/getcategorysymbols.html">GetCategorySymbols </a></b> - 
+  retrieves comma-separated list of symbols belonging to given category (AFL 2.4)</li>
+  <li><b><a href="./afl/getdatabasename.html">GetDatabaseName </a></b> - 
+  retrieves folder name of current database (AFL 2.3)</li>
+  <li><b><a href="./afl/getfndata.html">GetFnData </a></b> - 
+  get fundamental data (AFL 2.90)</li>
+  <li><b><a href="./afl/getfndataforeign.html">GetFnDataForeign </a></b> - 
+  get fundamental data for specified symbol (AFL 4.20)</li>
+  <li><b><a href="./afl/gicsid.html">GicsID </a></b> - 
+  get GICS category information (AFL 3.40)</li>
+  <li><b><a href="./afl/groupid.html">GroupID </a></b> - 
+  get group ID/name (AFL 1.8)</li>
+  <li><b><a href="./afl/icbid.html">IcbID </a></b> - 
+  get ICB category information (AFL 3.60)</li>
+  <li><b><a href="./afl/industryid.html">IndustryID </a></b> - 
+  get industry ID / name (AFL 1.8)</li>
+  <li><b><a href="./afl/ingics.html">InGICS </a></b> - 
+  test GICS membership. (AFL 3.40)</li>
+  <li><b><a href="./afl/inicb.html">InICB </a></b> - 
+  test ICB membership. (AFL 3.60)</li>
+  <li><b><a href="./afl/inwatchlist.html">InWatchList </a></b> - 
+  watch list membership test (by ordinal number).</li>
+  <li><b><a href="./afl/inwatchlistname.html">InWatchListName </a></b> - 
+  watch list membership test (by name) (AFL 3.0)</li>
+  <li><b><a href="./afl/iscontinuous.html">IsContinuous </a></b> - 
+  checks 'continuous quotations' flag state (AFL 2.60)</li>
+  <li><b><a href="./afl/isfavorite.html">IsFavorite </a></b> - 
+  check if current symbol belongs to favorites (AFL 2.5)</li>
+  <li><b><a href="./afl/isindex.html">IsIndex </a></b> - 
+  check if current symbol is an index (AFL 2.5)</li>
+  <li><b><a href="./afl/marketid.html">MarketID </a></b> - 
+  market ID / name (AFL 1.8)</li>
+  <li><b><a href="./afl/name.html">Name </a></b> - 
+  ticker symbol (AFL 1.1)</li>
+  <li><b><a href="./afl/sectorid.html">SectorID </a></b> - 
+  get sector ID / name (AFL 1.8)</li>
+	</ul>
+	<p><b> Lowest/Highest</b></p>		
+	<ul>
+  <li><b><a href="./afl/hhv.html">HHV </a></b> - 
+  Highest high value.</li>
+  <li><b><a href="./afl/hhvbars.html">HHVBars </a></b> - 
+  Bars since highest high.</li>
+  <li><b><a href="./afl/highest.html">Highest </a></b> - 
+  Highest value.</li>
+  <li><b><a href="./afl/highestbars.html">HighestBars </a></b> - 
+  Bars since highest value.</li>
+  <li><b><a href="./afl/highestsince.html">HighestSince </a></b> - 
+  highest value since condition met (AFL 1.4)</li>
+  <li><b><a href="./afl/highestsincebars.html">HighestSinceBars </a></b> - 
+  bars since highest value since condition met (AFL 1.4)</li>
+  <li><b><a href="./afl/llv.html">LLV </a></b> - 
+  Lowest low value.</li>
+  <li><b><a href="./afl/llvbars.html">LLVBars </a></b> - 
+  Bars since lowest low.</li>
+  <li><b><a href="./afl/lowest.html">Lowest </a></b> - 
+  Lowest value.</li>
+  <li><b><a href="./afl/lowestbars.html">LowestBars </a></b> - 
+  Bars since lowest.</li>
+  <li><b><a href="./afl/lowestsince.html">LowestSince </a></b> - 
+  lowest value since condition met (AFL 1.4)</li>
+  <li><b><a href="./afl/lowestsincebars.html">LowestSinceBars </a></b> - 
+  bars since lowest value since condition met (AFL 1.4)</li>
+	</ul>
+	<p><b> Math functions</b></p>		
+	<ul>
+  <li><b><a href="./afl/abs.html">abs </a></b> - 
+  Absolute value.</li>
+  <li><b><a href="./afl/acos.html">acos </a></b> - 
+  Arccosine function.</li>
+  <li><b><a href="./afl/almostequal.html">AlmostEqual </a></b> - 
+  rounding error insensitive comparison (AFL 2.80)</li>
+  <li><b><a href="./afl/asin.html">asin </a></b> - 
+  Arcsine function.</li>
+  <li><b><a href="./afl/atan.html">atan </a></b> - 
+  Arctangent function.</li>
+  <li><b><a href="./afl/atan2.html">atan2 </a></b> - 
+  calculates arctangent of y/x (AFL 2.90)</li>
+  <li><b><a href="./afl/ceil.html">ceil </a></b> - 
+  Ceil value.</li>
+  <li><b><a href="./afl/cos.html">cos </a></b> - 
+  Cosine.</li>
+  <li><b><a href="./afl/cosh.html">cosh </a></b> - 
+  hyperbolic cosine function (AFL 2.80)</li>
+  <li><b><a href="./afl/erf.html">erf </a></b> - 
+  calculates Gauss error function (erf) (AFL 4.40)</li>
+  <li><b><a href="./afl/exp.html">EXP </a></b> - 
+  Exponential function.</li>
+  <li><b><a href="./afl/floor.html">floor </a></b> - 
+  Floor value.</li>
+  <li><b><a href="./afl/frac.html">frac </a></b> - 
+  Fractional part.</li>
+  <li><b><a href="./afl/int.html">Int </a></b> - 
+  Integer part.</li>
+  <li><b><a href="./afl/inverf.html">inverf </a></b> - 
+  inverse Gauss erf function (AFL 4.40)</li>
+  <li><b><a href="./afl/kurtosis.html">Kurtosis </a></b> - 
+  calculates kurtosis (AFL 4.20)</li>
+  <li><b><a href="./afl/log.html">log </a></b> - 
+  Natural logarithm.</li>
+  <li><b><a href="./afl/log10.html">log10 </a></b> - 
+  Decimal logarithm.</li>
+  <li><b><a href="./afl/max.html">Max </a></b> - 
+  Maximum value of two numbers or arrays.</li>
+  <li><b><a href="./afl/min.html">Min </a></b> - 
+  Minimum value of two numbers or arrays.</li>
+  <li><b><a href="./afl/prec.html">Prec </a></b> - 
+  adjust number of decimal points of a floating-point number.</li>
+  <li><b><a href="./afl/remap.html">Remap </a></b> - 
+  re-maps one range to another (AFL 4.30)</li>
+  <li><b><a href="./afl/round.html">Round </a></b> - 
+  Round number to the nearest integer.</li>
+  <li><b><a href="./afl/safedivide.html">SafeDivide </a></b> - 
+  division with divide-by-zero protection (AFL 4.40)</li>
+  <li><b><a href="./afl/sign.html">sign </a></b> - 
+  returns the sign of the number/array (AFL 2.50)</li>
+  <li><b><a href="./afl/sin.html">sin </a></b> - 
+  Sine function.</li>
+  <li><b><a href="./afl/sinh.html">sinh </a></b> - 
+  hyperbolic sine function (AFL 2.80)</li>
+  <li><b><a href="./afl/skewness.html">Skewness </a></b> - 
+  calculate skewness (AFL 4.20)</li>
+  <li><b><a href="./afl/sqrt.html">sqrt </a></b> - 
+  Square root.</li>
+  <li><b><a href="./afl/tan.html">tan </a></b> - 
+  tangent function (AFL 1.0)</li>
+  <li><b><a href="./afl/tanh.html">tanh </a></b> - 
+  hyperbolic tangent function (AFL 2.80)</li>
+	</ul>
+	<p><b> Miscellaneous functions</b></p>		
+	<ul>
+  <li><b><a href="./afl/_include.html">#include </a></b> - 
+  preprocessor include command (AFL 2.2)</li>
+  <li><b><a href="./afl/_include_once.html">#include_once </a></b> - 
+  preprocessor include (once) command (AFL 2.70)</li>
+  <li><b><a href="./afl/_pragma.html">#pragma </a></b> - 
+  sets AFL pre-processor option (AFL 2.4)</li>
+  <li><b><a href="./afl/clipboardget.html">ClipboardGet </a></b> - 
+  retrieves current contents of Windows clipboard (AFL 2.60)</li>
+  <li><b><a href="./afl/clipboardset.html">ClipboardSet </a></b> - 
+  copies the text to the Windows clipboard (AFL 2.6)</li>
+  <li><b><a href="./afl/colorhsb.html">ColorHSB </a></b> - 
+  specify color using Hue-Saturation-Brightness (AFL 2.80)</li>
+  <li><b><a href="./afl/colorrgb.html">ColorRGB </a></b> - 
+  specify color using Red-Green-Blue components (AFL 2.80)</li>
+  <li><b><a href="./afl/createobject.html">CreateObject </a></b> - 
+  create COM object (AFL 1.8)</li>
+  <li><b><a href="./afl/createstaticobject.html">CreateStaticObject </a></b> - 
+  create static COM object (AFL 1.8)</li>
+  <li><b><a href="./afl/enablescript.html">EnableScript </a></b> - 
+  Enables scripting engine.</li>
+  <li><b><a href="./afl/enabletextoutput.html">EnableTextOutput </a></b> - 
+  allows to enable or disable text output (AFL 2.20)</li>
+  <li><b><a href="./afl/error.html">Error </a></b> - 
+  displays user-defined error message and stops the execution (AFL 3.7)</li>
+  <li><b><a href="./afl/findindex.html">FindIndex </a></b> - 
+  find index of array item matching specified value (AFL 4.40)</li>
+  <li><b><a href="./afl/getasynckeystate.html">GetAsyncKeyState </a></b> - 
+  query the current state of keyboard keys (AFL 3.60)</li>
+  <li><b><a href="./afl/getextradata.html">GetExtraData </a></b> - 
+  get extra data from external data source (AFL 1.9)</li>
+  <li><b><a href="./afl/getextradataforeign.html">GetExtraDataForeign </a></b> - 
+  get extra data from external data source for specified symbol (AFL 4.20)</li>
+  <li><b><a href="./afl/getformulapath.html">GetFormulaPath </a></b> - 
+  get file path of current formula (AFL 3.90)</li>
+  <li><b><a href="./afl/getlastoserror.html">GetLastOSError </a></b> - 
+  get text of last operating system (Windows) error (AFL 4.30)</li>
+  <li><b><a href="./afl/getobject.html">GetObject </a></b> - 
+  get handle to already running OLE object (AFL 4.40)</li>
+  <li><b><a href="./afl/getperformancecounter.html">GetPerformanceCounter </a></b> - 
+  retrieves the current value of the high-resolution performance counter (AFL 2.90)</li>
+  <li><b><a href="./afl/getrtdata.html">GetRTData </a></b> - 
+  retrieves the real-time data fields (AFL 2.60)</li>
+  <li><b><a href="./afl/getrtdataforeign.html">GetRTDataForeign </a></b> - 
+  retrieves the real-time data fields (for specified symbol) (AFL 2.80)</li>
+  <li><b><a href="./afl/getscriptobject.html">GetScriptObject </a></b> - 
+  get access to script COM object (AFL 1.8)</li>
+  <li><b><a href="./afl/isempty.html">IsEmpty </a></b> - 
+  empty value check (AFL 1.5)</li>
+  <li><b><a href="./afl/isfinite.html">IsFinite </a></b> - 
+  check if value is not infinite (AFL 2.3)</li>
+  <li><b><a href="./afl/isnan.html">IsNan </a></b> - 
+  checks for NaN (Not a Number) (AFL 2.3)</li>
+  <li><b><a href="./afl/isnull.html">IsNull </a></b> - 
+  check for Null (empty) value (AFL 2.3)</li>
+  <li><b><a href="./afl/istrue.html">IsTrue </a></b> - 
+  true value (non-empty and non-zero) check (AFL 1.5)</li>
+  <li><b><a href="./afl/noteget.html">NoteGet </a></b> - 
+  retrieves the text of the note (AFL 2.6)</li>
+  <li><b><a href="./afl/noteset.html">NoteSet </a></b> - 
+  sets text of the note (AFL 2.6)</li>
+  <li><b><a href="./afl/nullcount.html">NullCount </a></b> - 
+  count consecutive Null values (AFL 3.90)</li>
+  <li><b><a href="./afl/nz.html">Nz </a></b> - 
+  Null (Null/NaN/Infinity) to zero (AFL 2.3)</li>
+  <li><b><a href="./afl/playsound.html">PlaySound </a></b> - 
+  play back specified .WAV file (AFL 3.40)</li>
+  <li><b><a href="./afl/popupwindow.html">PopupWindow </a></b> - 
+  display pop-up window (AFL 3.0)</li>
+  <li><b><a href="./afl/prefs.html">Prefs </a></b> - 
+  retrieve preferences settings (AFL 1.4)</li>
+  <li><b><a href="./afl/reverse.html">Reverse </a></b> - 
+  reverse the order of the elements in the array (AFL 3.90)</li>
+  <li><b><a href="./afl/sendemail.html">SendEmail </a></b> - 
+  send an e-mail message (AFL 3.90)</li>
+  <li><b><a href="./afl/setbarsrequired.html">SetBarsRequired </a></b> - 
+  set number of previous and future bars needed for script/DLL to properly execute (AFL 2.1)</li>
+  <li><b><a href="./afl/sort.html">Sort </a></b> - 
+  performs a quick sort of the array (AFL 3.90)</li>
+  <li><b><a href="./afl/sparsecompress.html">SparseCompress </a></b> - 
+  compress sparse array (AFL 4.0)</li>
+  <li><b><a href="./afl/sparseexpand.html">SparseExpand </a></b> - 
+  expand compressed array to sparse array (AFL 4.0)</li>
+  <li><b><a href="./afl/sparseinterpolate.html">SparseInterpolate </a></b> - 
+  interpolate values between sparse points given as input (AFL 4.90)</li>
+  <li><b><a href="./afl/staticvaradd.html">StaticVarAdd </a></b> - 
+  an &quot;atomic&quot; addition for static variables (AFL 4.10)</li>
+  <li><b><a href="./afl/staticvarcompareexchange.html">StaticVarCompareExchange </a></b> - 
+  atomic interlocked static variable compare-exchange operation (AFL 3.50)</li>
+  <li><b><a href="./afl/staticvarcount.html">StaticVarCount </a></b> - 
+  get the total number of static variables in memory (AFL 3.30)</li>
+  <li><b><a href="./afl/staticvargenerateranks.html">StaticVarGenerateRanks </a></b> - 
+  generate ranking of multiple symbols and store it to static variables (AFL 3.70)</li>
+  <li><b><a href="./afl/staticvarget.html">StaticVarGet </a></b> - 
+  gets the value of static variable (AFL 2.60)</li>
+  <li><b><a href="./afl/staticvargetrankedsymbols.html">StaticVarGetRankedSymbols </a></b> - 
+  retrieve a list of ranked symbols from static variables (AFL 3.70)</li>
+  <li><b><a href="./afl/staticvargettext.html">StaticVarGetText </a></b> - 
+  gets the value of static variable as string (AFL 2.60)</li>
+  <li><b><a href="./afl/staticvarinfo.html">StaticVarInfo </a></b> - 
+  get the information about static variable(s) (AFL 3.60)</li>
+  <li><b><a href="./afl/staticvarremove.html">StaticVarRemove </a></b> - 
+  remove static variable (AFL 2.80)</li>
+  <li><b><a href="./afl/staticvarset.html">StaticVarSet </a></b> - 
+  sets the value of static variable (AFL 2.60)</li>
+  <li><b><a href="./afl/staticvarsettext.html">StaticVarSetText </a></b> - 
+  Sets the value of static string variable. (AFL 2.60)</li>
+  <li><b><a href="./afl/status.html">Status </a></b> - 
+  get run-time AFL status information (AFL 1.65)</li>
+  <li><b><a href="./afl/study.html">Study </a></b> - 
+  reference hand-drawn study (AFL 1.5)</li>
+  <li><b><a href="./afl/threadsleep.html">ThreadSleep </a></b> - 
+  suspend thread for specified number of milliseconds (AFL 3.50)</li>
+  <li><b><a href="./afl/varget.html">VarGet </a></b> - 
+  gets the value of dynamic variable (AFL 2.60)</li>
+  <li><b><a href="./afl/vargettext.html">VarGetText </a></b> - 
+  gets the text value of dynamic variable (AFL 2.80)</li>
+  <li><b><a href="./afl/varset.html">VarSet </a></b> - 
+  sets the value of dynamic variable (AFL 2.60)</li>
+  <li><b><a href="./afl/varsettext.html">VarSetText </a></b> - 
+  sets dynamic variable of string type (AFL 2.80)</li>
+  <li><b><a href="./afl/version.html">Version </a></b> - 
+  get version info (AFL 1.9)</li>
+  <li><b><a href="./afl/_exit.html">_exit </a></b> - 
+  terminate the execution of AFL formula (AFL 4.40)</li>
+  <li><b><a href="./afl/_trace.html">_TRACE </a></b> - 
+  print text to system debug viewer (AFL 2.4)</li>
+  <li><b><a href="./afl/_tracef.html">_TRACEF </a></b> - 
+  print formatted text to system debug viewer (AFL 4.0)</li>
+	</ul>
+	<p><b> Moving averages, summation</b></p>		
+	<ul>
+  <li><b><a href="./afl/ama.html">AMA </a></b> - 
+  adaptive moving average (AFL 1.5)</li>
+  <li><b><a href="./afl/ama2.html">AMA2 </a></b> - 
+  adaptive moving average (AFL 1.5)</li>
+  <li><b><a href="./afl/cum.html">Cum </a></b> - 
+  Cumulative sum.</li>
+  <li><b><a href="./afl/cumprod.html">CumProd </a></b> - 
+  cumulative product of all array elements (AFL 4.20)</li>
+  <li><b><a href="./afl/dema.html">DEMA </a></b> - 
+  double exponential moving average (AFL 2.0)</li>
+  <li><b><a href="./afl/ema.html">EMA </a></b> - 
+  Exponential moving average.</li>
+  <li><b><a href="./afl/fir.html">FIR </a></b> - 
+  Finite Impulse Response filter (AFL 3.40)</li>
+  <li><b><a href="./afl/hma.html">HMA </a></b> - 
+  Hull Moving Average (AFL 3.40)</li>
+  <li><b><a href="./afl/iir.html">IIR </a></b> - 
+  infinite impulse response filter (AFL 4.0)</li>
+  <li><b><a href="./afl/ma.html">MA </a></b> - 
+  Simple moving average.</li>
+  <li><b><a href="./afl/prod.html">Prod </a></b> - 
+  cumulative product of array over specified range (AFL 4.20)</li>
+  <li><b><a href="./afl/prodsince.html">ProdSince </a></b> - 
+  cumulative product since condition is met (AFL 4.20)</li>
+  <li><b><a href="./afl/sum.html">Sum </a></b> - 
+  Sums data over a specified number of bars.</li>
+  <li><b><a href="./afl/sumsince.html">SumSince </a></b> - 
+  sum of array elements since condition was true (AFL 4.10)</li>
+  <li><b><a href="./afl/tema.html">TEMA </a></b> - 
+  triple exponential moving average (AFL 2.0)</li>
+  <li><b><a href="./afl/wilders.html">Wilders </a></b> - 
+  Wilder's smoothing (AFL 1.4)</li>
+  <li><b><a href="./afl/wma.html">WMA </a></b> - 
+  weighted moving average (AFL 2.0)</li>
+	</ul>
+	<p><b> Statistical functions</b></p>		
+	<ul>
+  <li><b><a href="./afl/correlation.html">Correlation </a></b> - 
+  correlation (AFL 1.4)</li>
+  <li><b><a href="./afl/linearreg.html">LinearReg </a></b> - 
+  linear regression end-point (AFL 2.2)</li>
+  <li><b><a href="./afl/linregintercept.html">LinRegIntercept </a></b> - 
+  linear regression intercept (AFL 2.2)</li>
+  <li><b><a href="./afl/linregslope.html">LinRegSlope </a></b> - 
+  linear regression slope (AFL 1.4)</li>
+  <li><b><a href="./afl/median.html">Median </a></b> - 
+  calculate median (middle element) (AFL 2.5)</li>
+  <li><b><a href="./afl/mtrandom.html">mtRandom </a></b> - 
+  Mersenne Twister random number generator (AFL 3.0)</li>
+  <li><b><a href="./afl/mtrandoma.html">mtRandomA </a></b> - 
+  Mersenne Twister random number generator (array version) (AFL 3.0)</li>
+  <li><b><a href="./afl/normdist.html">NormDist </a></b> - 
+  normal distribution function (AFL 4.20)</li>
+  <li><b><a href="./afl/percentile.html">Percentile </a></b> - 
+  calculate percentile (AFL 2.5)</li>
+  <li><b><a href="./afl/random.html">Random </a></b> - 
+  random number (AFL 1.9)</li>
+  <li><b><a href="./afl/stderr.html">StdErr </a></b> - 
+  standard error (AFL 1.4)</li>
+  <li><b><a href="./afl/stdev.html">StDev </a></b> - 
+  standard deviation (AFL 1.4)</li>
+  <li><b><a href="./afl/tsf.html">TSF </a></b> - 
+  time series forecast (AFL 2.2)</li>
+	</ul>
+	<p><b> String manipulation</b></p>		
+	<ul>
+  <li><b><a href="./afl/asc.html">Asc </a></b> - 
+  get ASCII code of character (AFL 2.80)</li>
+  <li><b><a href="./afl/chr.html">Chr </a></b> - 
+  get string with given ASCII code (AFL 4.40)</li>
+  <li><b><a href="./afl/numtostr.html">NumToStr </a></b> - 
+  convert number to string (AFL 2.5)</li>
+  <li><b><a href="./afl/printf.html">printf </a></b> - 
+  Print formatted output to the output window. (AFL 2.5)</li>
+  <li><b><a href="./afl/strcount.html">StrCount </a></b> - 
+  count the occurrences of substring within a string (AFL 3.20)</li>
+  <li><b><a href="./afl/strextract.html">StrExtract </a></b> - 
+  extracts given item (substring) from comma-separated string (AFL 2.4)</li>
+  <li><b><a href="./afl/strfind.html">StrFind </a></b> - 
+  find substring in a string (AFL 2.5)</li>
+  <li><b><a href="./afl/strformat.html">StrFormat </a></b> - 
+  Write formatted output to the string (AFL 2.5)</li>
+  <li><b><a href="./afl/strleft.html">StrLeft </a></b> - 
+  extracts the leftmost part (AFL 2.0)</li>
+  <li><b><a href="./afl/strlen.html">StrLen </a></b> - 
+  string length (AFL 1.5)</li>
+  <li><b><a href="./afl/strmatch.html">StrMatch </a></b> - 
+  string pattern/wildcard matching (AFL 4.0)</li>
+  <li><b><a href="./afl/strmid.html">StrMid </a></b> - 
+  extracts part of the string (AFL 2.0)</li>
+  <li><b><a href="./afl/strreplace.html">StrReplace </a></b> - 
+  string replace (AFL 2.90)</li>
+  <li><b><a href="./afl/strright.html">StrRight </a></b> - 
+  extracts the rightmost part of the string (AFL 2.0)</li>
+  <li><b><a href="./afl/strsort.html">StrSort </a></b> - 
+  sort comma-separated item list (AFL 3.90)</li>
+  <li><b><a href="./afl/strtodatetime.html">StrToDateTime </a></b> - 
+  convert string to datetime (AFL 2.80)</li>
+  <li><b><a href="./afl/strtolower.html">StrToLower </a></b> - 
+  convert to lowercase (AFL 2.80)</li>
+  <li><b><a href="./afl/strtonum.html">StrToNum </a></b> - 
+  convert string to number (AFL 2.5)</li>
+  <li><b><a href="./afl/strtoupper.html">StrToUpper </a></b> - 
+  convert to uppercase (AFL 2.80)</li>
+  <li><b><a href="./afl/strtrim.html">StrTrim </a></b> - 
+  trim whitespace from the string (AFL 3.90)</li>
+	</ul>
+	<p><b> Trading system toolbox</b></p>		
+	<ul>
+  <li><b><a href="./afl/alertif.html">AlertIf </a></b> - 
+  trigger alerts (AFL 2.1)</li>
+  <li><b><a href="./afl/applystop.html">ApplyStop </a></b> - 
+  apply built-in stop (AFL 1.7)</li>
+  <li><b><a href="./afl/barssince.html">BarsSince </a></b> - 
+  Bars since.</li>
+  <li><b><a href="./afl/barssincecompare.html">BarsSinceCompare </a></b> - 
+  bars since comparison between past and present array values was true (AFL 4.40)</li>
+  <li><b><a href="./afl/cross.html">Cross </a></b> - 
+  Crossover check.</li>
+  <li><b><a href="./afl/enablerotationaltrading.html">EnableRotationalTrading </a></b> - 
+  Turns on the rotational-trading mode of the backtester (AFL 2.5)</li>
+  <li><b><a href="./afl/equity.html">Equity </a></b> - 
+  calculate single-symbol equity line (AFL 2.0)</li>
+  <li><b><a href="./afl/exrem.html">ExRem </a></b> - 
+  remove excessive signals (AFL 1.5)</li>
+  <li><b><a href="./afl/exremspan.html">ExRemSpan </a></b> - 
+  remove excessive signals spanning given number of bars (AFL 2.0)</li>
+  <li><b><a href="./afl/flip.html">Flip </a></b> - 
+  toggles a binary state (AFL 1.5)</li>
+  <li><b><a href="./afl/getbacktesterobject.html">GetBacktesterObject </a></b> - 
+  get access to the backtester object (AFL 2.60)</li>
+  <li><b><a href="./afl/getoption.html">GetOption </a></b> - 
+  gets the value of option in automatic analysis settings (AFL 2.60)</li>
+  <li><b><a href="./afl/gettradinginterface.html">GetTradingInterface </a></b> - 
+  retrieves OLE automation object to automatic trading interface (AFL 2.70)</li>
+  <li><b><a href="./afl/hold.html">Hold </a></b> - 
+  Holds the alert signal.</li>
+  <li><b><a href="./afl/iif.html">IIf </a></b> - 
+  Immediate IF function.</li>
+  <li><b><a href="./afl/lastvalue.html">LastValue </a></b> - 
+  Last value of the array.</li>
+  <li><b><a href="./afl/optimize.html">Optimize </a></b> - 
+  define optimization variable (AFL 1.7)</li>
+  <li><b><a href="./afl/optimizersetengine.html">OptimizerSetEngine </a></b> - 
+  select external optimization engine (AFL 3.20)</li>
+  <li><b><a href="./afl/optimizersetoption.html">OptimizerSetOption </a></b> - 
+  set the value of external optimizer engine parameter (AFL 3.20)</li>
+  <li><b><a href="./afl/ref.html">Ref </a></b> - 
+  References past/future values of the array.</li>
+  <li><b><a href="./afl/setbacktestmode.html">SetBacktestMode </a></b> - 
+  Sets working mode of the backtester (AFL 3.0)</li>
+  <li><b><a href="./afl/setcustombacktestproc.html">SetCustomBacktestProc </a></b> - 
+  define custom backtest procedure formula file (AFL 2.70)</li>
+  <li><b><a href="./afl/setformulaname.html">SetFormulaName </a></b> - 
+  set the name of the formula (AFL 2.5)</li>
+  <li><b><a href="./afl/setoption.html">SetOption </a></b> - 
+  sets options in automatic analysis settings (AFL 2.3)</li>
+  <li><b><a href="./afl/setpositionsize.html">SetPositionSize </a></b> - 
+  set trade size (AFL 2.70)</li>
+  <li><b><a href="./afl/setstopprecedence.html">SetStopPrecedence </a></b> - 
+  set precedence of built-in stops (AFL 4.0)</li>
+  <li><b><a href="./afl/settradedelays.html">SetTradeDelays </a></b> - 
+  allows to control trade delays applied by the backtester (AFL 2.1)</li>
+  <li><b><a href="./afl/valuewhen.html">ValueWhen </a></b> - 
+  get value of the array when condition met (AFL 1.1)</li>
+	</ul>
+	<p><b>Exploration / Indicators</b></p>		
+	<ul>
+  <li><b><a href="./afl/addcolumn.html">AddColumn </a></b> - 
+  add numeric exploration column (AFL 1.8)</li>
+  <li><b><a href="./afl/addmultitextcolumn.html">AddMultiTextColumn </a></b> - 
+  adds exploration text column based on array (AFL 4.20)</li>
+  <li><b><a href="./afl/addrankcolumn.html">AddRankColumn </a></b> - 
+  add ranking column(s) according to current sort set by SetSortColumns (AFL 5.70)</li>
+  <li><b><a href="./afl/addrow.html">AddRow </a></b> - 
+  add raw text row to exploration (AFL 4.0)</li>
+  <li><b><a href="./afl/addsummaryrows.html">AddSummaryRows </a></b> - 
+  add summary row(s) to the exploration output (AFL 3.2)</li>
+  <li><b><a href="./afl/addtextcolumn.html">AddTextColumn </a></b> - 
+  add text exploration column (AFL 1.8)</li>
+  <li><b><a href="./afl/encodecolor.html">EncodeColor </a></b> - 
+  encodes color for indicator title (AFL 2.2)</li>
+  <li><b><a href="./afl/getchartid.html">GetChartID </a></b> - 
+  get current chart ID (AFL 2.3)</li>
+  <li><b><a href="./afl/getpricestyle.html">GetPriceStyle </a></b> - 
+  get current price chart style (AFL 2.70)</li>
+  <li><b><a href="./afl/linearray.html">LineArray </a></b> - 
+  generate trend-line array (AFL 2.5)</li>
+  <li><b><a href="./afl/param.html">Param </a></b> - 
+  add user-definable numeric parameter (AFL 2.3)</li>
+  <li><b><a href="./afl/paramcolor.html">ParamColor </a></b> - 
+  add user-definable color parameter (AFL 2.3)</li>
+  <li><b><a href="./afl/paramdate.html">ParamDate </a></b> - 
+  add user-definable date parameter (AFL 2.60)</li>
+  <li><b><a href="./afl/paramfield.html">ParamField </a></b> - 
+  creates price field parameter (AFL 2.70)</li>
+  <li><b><a href="./afl/paramlist.html">ParamList </a></b> - 
+  creates the parameter that consists of the list of choices (AFL 2.70)</li>
+  <li><b><a href="./afl/paramstr.html">ParamStr </a></b> - 
+  add user-definable string parameter (AFL 2.3)</li>
+  <li><b><a href="./afl/paramstyle.html">ParamStyle </a></b> - 
+  select styles applied to the plot (AFL 2.70)</li>
+  <li><b><a href="./afl/paramtime.html">ParamTime </a></b> - 
+  add user-definable time parameter (AFL 2.60)</li>
+  <li><b><a href="./afl/paramtoggle.html">ParamToggle </a></b> - 
+  create Yes/No parameter (AFL 2.70)</li>
+  <li><b><a href="./afl/paramtrigger.html">ParamTrigger </a></b> - 
+  creates a trigger (button) in the parameter dialog (AFL 2.70)</li>
+  <li><b><a href="./afl/plot.html">Plot </a></b> - 
+  plot indicator graph (AFL 1.8)</li>
+  <li><b><a href="./afl/plotgrid.html">PlotGrid </a></b> - 
+  Plot horizontal grid line (AFL 2.3)</li>
+  <li><b><a href="./afl/plotohlc.html">PlotOHLC </a></b> - 
+  plot custom OHLC chart (AFL 2.2)</li>
+  <li><b><a href="./afl/plotshapes.html">PlotShapes </a></b> - 
+  plots arrows and other shapes (AFL 2.3)</li>
+  <li><b><a href="./afl/plotvapoverlay.html">PlotVAPOverlay </a></b> - 
+  plot Volume-At-Price overlay chart (AFL 2.4)</li>
+  <li><b><a href="./afl/selectedvalue.html">SelectedValue </a></b> - 
+  retrieves value of the array at currently selected date/time point (AFL 2.1)</li>
+  <li><b><a href="./afl/setchartoptions.html">SetChartOptions </a></b> - 
+  set/clear/overwrite defaults for chart pane options (AFL 2.70)</li>
+  <li><b><a href="./afl/setsortcolumns.html">SetSortColumns </a></b> - 
+  sets the columns which will be used for sorting in AA window (AFL 2.90)</li>
+  <li><b><a href="./afl/trimresultrows.html">TrimResultRows </a></b> - 
+  trims Analysis result list to specified number of rows (AFL 4.90)</li>
+  <li><b><a href="./afl/writeif.html">WriteIf </a></b> - 
+  Commentary conditional text output.</li>
+  <li><b><a href="./afl/writeval.html">WriteVal </a></b> - 
+  Converts number to string.</li>
+  <li><b><a href="./afl/xychartaddpoint.html">XYChartAddPoint </a></b> - 
+  add point to exploration scatter (XY) chart (AFL 3.60)</li>
+  <li><b><a href="./afl/xychartsetaxis.html">XYChartSetAxis </a></b> - 
+  set the names of X and Y axes in exploration scatter charts (AFL 3.60)</li>
+  <li><b><a href="./afl/_default_name.html">_DEFAULT_NAME </a></b> - 
+  retrieve default name of the plot (AFL 2.70)</li>
+  <li><b><a href="./afl/_n.html">_N </a></b> - 
+  no text output (AFL 2.1)</li>
+  <li><b><a href="./afl/_param_values.html">_PARAM_VALUES </a></b> - 
+  retrieve param values string (AFL 2.70)</li>
+  <li><b><a href="./afl/_section_begin.html">_SECTION_BEGIN </a></b> - 
+  section begin marker (AFL 2.70)</li>
+  <li><b><a href="./afl/_section_end.html">_SECTION_END </a></b> - 
+  section end marker (AFL 2.70)</li>
+  <li><b><a href="./afl/_section_name.html">_SECTION_NAME </a></b> - 
+  retrieve current section name (AFL 2.70)</li>
+	</ul>
+	<p><b>File Input/Output functions</b></p>		
+	<ul>
+  <li><b><a href="./afl/fclose.html">fclose </a></b> - 
+  close a file (AFL 2.5)</li>
+  <li><b><a href="./afl/fdelete.html">fdelete </a></b> - 
+  deletes a file (AFL 2.70)</li>
+  <li><b><a href="./afl/fdir.html">fdir </a></b> - 
+  list directory contents (AFL 3.70)</li>
+  <li><b><a href="./afl/feof.html">feof </a></b> - 
+  test for end-of-file (AFL 2.5)</li>
+  <li><b><a href="./afl/fgetcwd.html">fgetcwd </a></b> - 
+  get current working directory (AFL 4.10)</li>
+  <li><b><a href="./afl/fgets.html">fgets </a></b> - 
+  get a string from a file (AFL 2.5)</li>
+  <li><b><a href="./afl/fgetstatus.html">fgetstatus </a></b> - 
+  retrieves file status/properties (AFL 2.90)</li>
+  <li><b><a href="./afl/fmkdir.html">fmkdir </a></b> - 
+  creates (makes) a directory (AFL 2.70)</li>
+  <li><b><a href="./afl/fopen.html">fopen </a></b> - 
+  open a file (AFL 2.5)</li>
+  <li><b><a href="./afl/fputs.html">fputs </a></b> - 
+  write a string to a file (AFL 2.5)</li>
+  <li><b><a href="./afl/frmdir.html">frmdir </a></b> - 
+  removes a directory (AFL 2.70)</li>
+  <li><b><a href="./afl/internetclose.html">InternetClose </a></b> - 
+  close Internet file handle (AFL 4.20)</li>
+  <li><b><a href="./afl/internetgetstatuscode.html">InternetGetStatusCode </a></b> - 
+  returns HTTP status code of last Internet call (AFL 4.40)</li>
+  <li><b><a href="./afl/internetopenurl.html">InternetOpenURL </a></b> - 
+  opens Internet web resource (URL) (AFL 4.20)</li>
+  <li><b><a href="./afl/internetpostrequest.html">InternetPostRequest </a></b> - 
+  send HTTP Post request to Internet web resource (URL) (AFL 4.30)</li>
+  <li><b><a href="./afl/internetreadstring.html">InternetReadString </a></b> - 
+  read a string from Internet resource (AFL 4.20)</li>
+  <li><b><a href="./afl/internetsetagent.html">InternetSetAgent </a></b> - 
+  set agent string for Internet function (AFL 4.30)</li>
+  <li><b><a href="./afl/internetsetheaders.html">InternetSetHeaders </a></b> - 
+  set custom HTTP headers for subsequent web requests (AFL 4.40)</li>
+  <li><b><a href="./afl/internetsetoption.html">InternetSetOption </a></b> - 
+  set HTTP option for Internet session (AFL 4.40)</li>
+	</ul>
+	<p><b>GUI functions</b></p>		
+	<ul>
+  <li><b><a href="./afl/guibutton.html">GuiButton </a></b> - 
+  create on-chart button control. (AFL 4.30)</li>
+  <li><b><a href="./afl/guicheckbox.html">GuiCheckBox </a></b> - 
+  creates on-chart checkbox control (AFL 4.30)</li>
+  <li><b><a href="./afl/guidatetime.html">GuiDateTime </a></b> - 
+  creates on-chart date-time picker control (AFL 4.30)</li>
+  <li><b><a href="./afl/guiedit.html">GuiEdit </a></b> - 
+  create on-chart edit control (AFL 4.30)</li>
+  <li><b><a href="./afl/guienable.html">GuiEnable </a></b> - 
+  enables or disables on-chart control (AFL 4.30)</li>
+  <li><b><a href="./afl/guigetcheck.html">GuiGetCheck </a></b> - 
+  get checked state of control (AFL 4.30)</li>
+  <li><b><a href="./afl/guigetevent.html">GuiGetEvent </a></b> - 
+  get GUI event (AFL 4.30)</li>
+  <li><b><a href="./afl/guigettext.html">GuiGetText </a></b> - 
+  get text from on-chart control (AFL 4.30)</li>
+  <li><b><a href="./afl/guigetvalue.html">GuiGetValue </a></b> - 
+  get numeric value of on-chart control (AFL 4.30)</li>
+  <li><b><a href="./afl/guiradio.html">GuiRadio </a></b> - 
+  creates on-chart radio button control (AFL 4.30)</li>
+  <li><b><a href="./afl/guisendkeyevents.html">GuiSendKeyEvents </a></b> - 
+  request GUI notifications for specified keys (AFL 4.40)</li>
+  <li><b><a href="./afl/guisetcheck.html">GuiSetCheck </a></b> - 
+  set checked state of on-chart control (AFL 4.30)</li>
+  <li><b><a href="./afl/guisetcolors.html">GuiSetColors </a></b> - 
+  set colors for GUI controls (AFL 2.30)</li>
+  <li><b><a href="./afl/guisetfont.html">GuiSetFont </a></b> - 
+  set the font for on-chart control (AFL 4.30)</li>
+  <li><b><a href="./afl/guisetrange.html">GuiSetRange </a></b> - 
+  set slider control range (AFL 4.30)</li>
+  <li><b><a href="./afl/guisettext.html">GuiSetText </a></b> - 
+  set text value of on-chart control (AFL 4.30)</li>
+  <li><b><a href="./afl/guisetvalue.html">GuiSetValue </a></b> - 
+  set numeric value of on-chart control (AFL 4.30)</li>
+  <li><b><a href="./afl/guisetvisible.html">GuiSetVisible </a></b> - 
+  shows or hides on-chart control (AFL 4.30)</li>
+  <li><b><a href="./afl/guislider.html">GuiSlider </a></b> - 
+  creates on-chart slider control (AFL 4.30)</li>
+	</ul>
+	<p><b>Low-level graphics</b></p>		
+	<ul>
+  <li><b><a href="./afl/gfxarc.html">GfxArc </a></b> - 
+  draw an arc (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxchord.html">GfxChord </a></b> - 
+  draw a chord (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxcircle.html">GfxCircle </a></b> - 
+  draw a circle (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxdrawimage.html">GfxDrawImage </a></b> - 
+  draw bitmap image (AFL 4.20)</li>
+  <li><b><a href="./afl/gfxdrawtext.html">GfxDrawText </a></b> - 
+  draw a text (clipped to rectangle) (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxellipse.html">GfxEllipse </a></b> - 
+  draw an ellipse (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxfillsolidrect.html">GfxFillSolidRect </a></b> - 
+  fill rectangle with solid color (AFL 4.10)</li>
+  <li><b><a href="./afl/gfxgettextwidth.html">GfxGetTextWidth </a></b> - 
+  get pixel width of text (AFL 2.80)</li>
+  <li><b><a href="./afl/gfxgradientrect.html">GfxGradientRect </a></b> - 
+  draw a rectangle with gradient fill (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxlineto.html">GfxLineTo </a></b> - 
+  draw a line to specified point (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxmoveto.html">GfxMoveTo </a></b> - 
+  move graphic cursor to new position (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxpie.html">GfxPie </a></b> - 
+  draw a pie (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxpolygon.html">GfxPolygon </a></b> - 
+  draw a polygon (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxpolyline.html">GfxPolyline </a></b> - 
+  draw a polyline (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxrectangle.html">GfxRectangle </a></b> - 
+  draw a rectangle (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxroundrect.html">GfxRoundRect </a></b> - 
+  draw a rectangle with rounded corners (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxselectfont.html">GfxSelectFont </a></b> - 
+  create / select graphic font (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxselecthatchbrush.html">GfxSelectHatchBrush </a></b> - 
+  select hatch style brush (AFL 4.0)</li>
+  <li><b><a href="./afl/gfxselectpen.html">GfxSelectPen </a></b> - 
+  create / select graphic pen (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxselectsolidbrush.html">GfxSelectSolidBrush </a></b> - 
+  create / select graphic brush (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxselectstockobject.html">GfxSelectStockObject </a></b> - 
+  select built-in graphic object (AFL 4.00)</li>
+  <li><b><a href="./afl/gfxsetbkcolor.html">GfxSetBkColor </a></b> - 
+  set graphic background color (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxsetbkmode.html">GfxSetBkMode </a></b> - 
+  set graphic background mode (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxsetcoordsmode.html">GfxSetCoordsMode </a></b> - 
+  set low-level graphics coordinate mode (AFL 2.80)</li>
+  <li><b><a href="./afl/gfxsetoverlaymode.html">GfxSetOverlayMode </a></b> - 
+  set low-level graphic overlay mode (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxsetpixel.html">GfxSetPixel </a></b> - 
+  set pixel at specified position to specified color (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxsettextalign.html">GfxSetTextAlign </a></b> - 
+  set text alignment (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxsettextcolor.html">GfxSetTextColor </a></b> - 
+  set graphic text color (AFL 3.0)</li>
+  <li><b><a href="./afl/gfxsetzorder.html">GfxSetZOrder </a></b> - 
+  set current low-level graphic Z-order layer (AFL 2.80)</li>
+  <li><b><a href="./afl/gfxtextout.html">GfxTextOut </a></b> - 
+  writes text at the specified location (AFL 3.0)</li>
+	</ul>
+	<p><b>Map functions</b></p>		
+	<ul>
+  <li><b><a href="./afl/mapcreate.html">MapCreate </a></b> - 
+  creates a map/dictionary object (holding key-value pairs) (AFL 4.90)</li>
+	</ul>
+	<p><b>Matrix functions</b></p>		
+	<ul>
+  <li><b><a href="./afl/matrix.html">Matrix </a></b> - 
+  create a new matrix (AFL 4.0)</li>
+  <li><b><a href="./afl/mxcopy.html">MxCopy </a></b> - 
+  copy rectangular block from one matrix to another (AFL 4.40)</li>
+  <li><b><a href="./afl/mxdet.html">MxDet </a></b> - 
+  calculate determinant of the matrix (AFL 4.10)</li>
+  <li><b><a href="./afl/mxfromstring.html">MxFromString </a></b> - 
+  creates a new matrix from a string (AFL 4.10)</li>
+  <li><b><a href="./afl/mxgetblock.html">MxGetBlock </a></b> - 
+  get rectangular block of items from matrix (AFL 4.10)</li>
+  <li><b><a href="./afl/mxgetsize.html">MxGetSize </a></b> - 
+  get size of the matrix (AFL 4.0)</li>
+  <li><b><a href="./afl/mxidentity.html">MxIdentity </a></b> - 
+  create an identity matrix (AFL 4.0)</li>
+  <li><b><a href="./afl/mxinverse.html">MxInverse </a></b> - 
+  calculate inverse matrix (AFL 4.10)</li>
+  <li><b><a href="./afl/mxsetblock.html">MxSetBlock </a></b> - 
+  sets values in the rectangular block of matrix cells (AFL 4.10)</li>
+  <li><b><a href="./afl/mxsolve.html">MxSolve </a></b> - 
+  solves linear equation system A @ X = B (AFL 4.10)</li>
+  <li><b><a href="./afl/mxsort.html">MxSort </a></b> - 
+  sorts the matrix (AFL 4.10)</li>
+  <li><b><a href="./afl/mxsortrows.html">MxSortRows </a></b> - 
+  sort the rows of the matrix (AFL 4.10)</li>
+  <li><b><a href="./afl/mxsum.html">MxSum </a></b> - 
+  calculate grand sum of the matrix (AFL 4.20)</li>
+  <li><b><a href="./afl/mxtostring.html">MxToString </a></b> - 
+  convert matrix to string (AFL 4.10)</li>
+  <li><b><a href="./afl/mxtranspose.html">MxTranspose </a></b> - 
+  creates transpose of an input matrix (AFL 4.0)</li>
+  <li><b><a href="./afl/pricevoldistribution.html">PriceVolDistribution </a></b> - 
+  general-purpose distribution function (AFL 4.20)</li>
+	</ul>
+	<p><b>Referencing other symbol data</b></p>		
+	<ul>
+  <li><b><a href="./afl/foreign.html">Foreign </a></b> - 
+  access foreign security data (AFL 1.5)</li>
+  <li><b><a href="./afl/getbaseindex.html">GetBaseIndex </a></b> - 
+  retrieves symbol of relative strength base index (AFL 2.1)</li>
+  <li><b><a href="./afl/plotforeign.html">PlotForeign </a></b> - 
+  plot foreign security data (AFL 2.2)</li>
+  <li><b><a href="./afl/relstrength.html">RelStrength </a></b> - 
+  comparative relative strength (AFL 1.3)</li>
+  <li><b><a href="./afl/restorepricearrays.html">RestorePriceArrays </a></b> - 
+  restore price arrays to original symbol (AFL 2.5)</li>
+  <li><b><a href="./afl/setforeign.html">SetForeign </a></b> - 
+  replace current price arrays with those of foreign security (AFL 2.5)</li>
+	</ul>
+	<p><b>Text-to-Speech functions</b></p>		
+	<ul>
+  <li><b><a href="./afl/say.html">Say </a></b> - 
+  speaks provided text (AFL 2.90)</li>
+  <li><b><a href="./afl/voicecount.html">VoiceCount </a></b> - 
+  get number of SAPI voices (AFL 4.20)</li>
+  <li><b><a href="./afl/voiceselect.html">VoiceSelect </a></b> - 
+  select SAPI voice (AFL 4.20)</li>
+  <li><b><a href="./afl/voicesetrate.html">VoiceSetRate </a></b> - 
+  sets voice speech rate (AFL 4.30)</li>
+  <li><b><a href="./afl/voicesetvolume.html">VoiceSetVolume </a></b> - 
+  set the volume of speech (AFL 4.30)</li>
+  <li><b><a href="./afl/voicewaituntildone.html">VoiceWaitUntilDone </a></b> - 
+  waits until TTS voice has finished speaking (AFL 4.30)</li>
+	</ul>
+	<p><b>Time Frame functions</b></p>		
+	<ul>
+  <li><b><a href="./afl/timeframecompress.html">TimeFrameCompress </a></b> - 
+  compress single array to given time frame (AFL 2.5)</li>
+  <li><b><a href="./afl/timeframeexpand.html">TimeFrameExpand </a></b> - 
+  expand time frame compressed array (AFL 2.5)</li>
+  <li><b><a href="./afl/timeframegetprice.html">TimeFrameGetPrice </a></b> - 
+  retrieve O, H, L, C, V values from other time frame (AFL 2.5)</li>
+  <li><b><a href="./afl/timeframemode.html">TimeFrameMode </a></b> - 
+  switch time frame compression mode (AFL 2.80)</li>
+  <li><b><a href="./afl/timeframerestore.html">TimeFrameRestore </a></b> - 
+  restores price arrays to original time frame (AFL 2.5)</li>
+  <li><b><a href="./afl/timeframeset.html">TimeFrameSet </a></b> - 
+  switch price arrays to a different time frame (AFL 2.5)</li>
+</ul>
+
+</body>
+</html>

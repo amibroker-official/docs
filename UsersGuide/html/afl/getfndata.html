@@ -1,0 +1,106 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETFNDATA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetFnData</b><br>
+        - get fundamental data</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Information / Categories<br>
+        </b>(AmiBroker 4.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetFnData( ''field'' ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> GetFnData allows accessing fundamental data from Information window (Window->Symbol Information)
+
+&quot;field&quot; parameter can be one of the following:
+<ul>
+<li>&quot;EPS&quot;
+<li>&quot;EPSEstCurrentYear&quot;
+<li>&quot;EPSEstNextYear&quot;
+<li>&quot;EPSEstNextQuarter&quot;
+<li>&quot;PEGRatio&quot;
+<li>&quot;SharesFloat&quot;
+<li>&quot;SharesOut&quot;
+<li>&quot;DividendPayDate&quot;
+<li>&quot;ExDividendDate&quot;
+<li>&quot;BookValuePerShare&quot;
+<li>&quot;DividendPerShare&quot;
+<li>&quot;ProfitMargin&quot;
+<li>&quot;OperatingMargin&quot;
+<li>&quot;OneYearTargetPrice&quot;
+<li>&quot;ReturnOnAssets&quot;
+<li>&quot;ReturnOnEquity&quot;
+<li>&quot;QtrlyRevenueGrowth&quot;
+<li>&quot;GrossProfitPerShare&quot;
+<li>&quot;SalesPerShare&quot;
+<li>&quot;EBITDAPerShare&quot;
+<li>&quot;QtrlyEarningsGrowth&quot;
+<li>&quot;InsiderHoldPercent&quot;
+<li>&quot;InstitutionHoldPercent&quot;
+<li>&quot;SharesShort&quot;
+<li>&quot;SharesShortPrevMonth&quot;
+<li>&quot;ForwardDividendPerShare&quot;
+<li>&quot;ForwardEPS&quot;
+<li>&quot;OperatingCashFlow&quot;
+<li>&quot;LeveredFreeCashFlow&quot;
+<li>&quot;Beta&quot;
+<li>&quot;LastSplitRatio&quot;
+<li>&quot;LastSplitDate&quot;
+<li>&quot;Alias&quot; (returns symbol alias - string) - 5.50 and above
+<li>&quot;Address&quot; (returns symbol address - string) - 5.50 and above
+<li>&quot;Country&quot; (returns symbol country - string) - 5.60 and above
+<li>&quot;DelistingDate&quot; returns symbol delisting date (as datetime) - 5.70 and above
+<li>&quot;PointValue&quot; - returns symbols point value
+<li>&quot;FullName&quot; - returns full name of the symbol
+<li>&quot;Currency&quot; - returns currency field - 5.70 and above
+<li>&quot;WebID&quot; - returns web ID field - 5.70 and above
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> / </FONT><FONT COLOR=#0000ff>GetFnData</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;EPS&quot;</FONT><FONT COLOR=#000000> )
+, </FONT><FONT COLOR=#800080>&quot;Current P/E ratio&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> / </FONT><FONT COLOR=#0000ff>GetFnData</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;EPSEstNextYear&quot;</FONT><FONT COLOR=#000000> )
+, </FONT><FONT COLOR=#800080>&quot;Est. Next Year P/E ratio&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;lastbarinrange&quot;</FONT><FONT COLOR=#000000>);</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="getrtdata.html">GetRTData()</A> function , <A HREF="getrtdataforeign.html">GetRTDataForeign()</A> function , <A HREF="getfndataforeign.html">GetFnDataForeign()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetFnData</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1431&hilite=GetFnData' target='_blank'>ICHIMOKU SIGNAL TRADER</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1299&hilite=GetFnData' target='_blank'>Price Chart - Fundamental</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1548&hilite=GetFnData' target='_blank'>ZigZag - Days, Avg (Ord) Volume and Channels</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetFnData">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

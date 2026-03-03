@@ -1,0 +1,239 @@
+<html>
+
+<head>
+<title>Charting guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2>Beginners' charting guide</h2>
+<p><b>Introduction</b></p>
+<p>AmiBroker charting engine allows object-oriented manipulation 
+  of all drawings. Now you can simply move, resize, cut, copy, paste, and delete
+  all drawing objects with ease. This chapter will guide you through most important
+  aspects of using charting tools. </p>
+<p>Let's now take a look at the user interface:</p>
+<p><img src="gifs/chart1.gif" width="100%" style="max-width: 847px;"></p>
+<p>As you can see, in the center we have a chart area in which a price chart with 
+  a moving average and Bollinger bands is plotted (<b>you can control the appearance
+  of built-in charts</b> from the <b><a href="w_preferences.html">Tools-&gt;Preferences</a></b> window).</p>
+<p>In the bottom of the chart you can see a date axis (marked with red color), and 
+  below it, a scroll bar and chart sheets tab control. The scroll bar can be used to display 
+  past quotes, while the sheet tab allows you to view different chart pages/sheets (<a href="h_sheets.html">click 
+  here to learn more about chart sheets</a>).</p>
+<p>To the right, you can see the Y-axis area (marked with blue color) that shows the Y-scale 
+  and value labels. Value labels are color fields that display precisely the &quot;last 
+  value&quot; of plots. &quot;Last value&quot; is the value of the indicator (or 
+  price) for the last currently displayed (rightmost) bar. The Y-axis area is also used 
+  to move/size charts vertically.</p>
+<p>Next to the right is a drawing objects toolbar that allows you to choose from 
+  available drawing types (note that only the most popular tools are shown here; a complete 
+  set is available from the <b>Insert</b> menu). A special tool called &quot;Select&quot; 
+  (red arrow) is used to select/move/resize already drawn objects and to select quotes from the chart.</p>
+<p>In the upper part, you can see the formatting toolbar that allows you to quickly 
+  modify the color, style (thick/dotted), and mode (snap to price) of the currently selected 
+  drawing object. </p>
+<p>In the picture, you can also see a trend line drawn with sizing handles marked. 
+  These handles are used to drag/size the object, as will be explained below.</p>
+<p><b>Basic operations</b></p>
+<p><i>Scrolling</i></p>
+<p>To <b>scroll</b> the chart forward/backward, just drag the scroll bar thumb or use 
+  &lt; and &gt; arrows on the left and right sides of the scroll bar. Note that 
+  using the &lt; &gt; scroll bar arrows allows you to move the chart by one bar. To scroll 
+  the chart, you can also use the mouse equipped with a wheel. Just roll the wheel 
+  up and down to scroll backward and forward.</p>
+<p><i>Zooming</i></p>
+<p>To <b>zoom</b> the chart (increase or decrease the number of data points (bars)
+   displayed), you can use either the <b>View-&gt;Zoom</b> menu, the zoom toolbar, or the mouse
+    wheel.<br>
+    You can also zoom by <strong>dragging the left or right edge of the scroll bar</strong>. 
+  The following options are available: zoom-in - decreases the number
+   
+  of data points displayed; zoom-out - increases the number of data points displayed;
+    zoom-all - displays all available bars; zoom-normal resets the number of bars
+   displayed 
+  to the value defined in <b>Tools-&gt;Preferences-&gt;Charting. </b>Zoom-in
+  and zoom-out options are accessible directly from the View toolbar (see the picture
+  
+  below). To zoom using the mouse wheel, just press and hold down the CTRL key and roll
+   the wheel. You can also zoom to any 'from-to' range selected on the chart (see
+  'Marking Range' later in this tutorial).</p>
+<p><i>Shrinking, expanding, and moving Y-axis scale</i></p>
+<p>To <b>move</b> the Y-axis scale, hover the mouse over the Y-axis area (marked with blue 
+  color in the picture above), and you will see that the cursor changes to an up/down 
+  arrow. Now, you click and drag the Y-axis up/down and release the button when the axis 
+  is in the correct position.</p>
+<p>To <b>shrink/expand</b> the Y-axis scale: press and hold down the SHIFT key and click in the 
+  Y-axis area; now, shrink/expand the Y-axis scale by moving your mouse up and down. 
+  Release the button to finish.</p>
+<p>To <b>reset</b> the Y-axis scale and position, simply double-click in the Y-axis 
+  area.</p>
+<p><i>Changing bar interval (periodicity)</i></p>
+<p>You can easily switch between daily/weekly/monthly and intraday intervals by 
+  choosing it from the <b>View</b> menu and pressing the toolbar button (see below). 
+</p>
+<table width="100%" border="0">
+  <tr>
+    <td><img src="gifs/chart2.gif"> </td>
+    <td valign="top"> 
+      <p>The toolbar uses the following notation for intervals: <b>i</b> - intraday, 
+        <b>h</b> - hourly, <b>d</b> - daily, <b>w</b> - weekly, <b>m</b> - monthly. 
+        The <b>i</b> represents the &quot;base&quot; intraday interval as defined 
+        in <b>File-&gt;Database Settings</b>. Remaining intraday intervals are 
+        available from the <b>View-&gt;Intraday</b> menu.</p>
+      <p>The interval setting affects the <u>active</u> window only, so each window 
+        can have a different interval. </p>
+      <p>Please note that intraday intervals are disabled if your database is 
+        in end-of-day mode. Intraday modes are available only for databases that 
+        have &quot;Base time interval&quot; in <b>File-&gt;Database Settings</b> 
+        set to anything less than end-of-day. If you, for example, set &quot;Base 
+        time interval&quot; in <b>File-&gt;Database Settings</b> to 5-minute, 
+        all chart periodicities from 5-minute up will be enabled.</p>
+    </td>
+  </tr>
+</table>
+<p>The following intervals are built-in:</p>
+<ul>
+  <li>daily</li>
+  <li>weekly</li>
+  <li>monthly</li>
+  <li>hourly (intraday)</li>
+  <li>15-minute (intraday)</li>
+  <li>5-minute (intraday)</li>
+  <li>1-minute (intraday)</li>
+  <li>15-second (intraday RT only)</li>
+  <li>5-second (intraday RT only)</li>
+  <li>tick (intraday RT only)</li>
+</ul>
+<p>In addition, you can define 5 custom n-minute bar intervals and 5 custom 
+  n-tick intervals in <b>Tools-&gt;Preferences-&gt;Intraday</b>. Custom intervals are 
+  available from the <b>View-&gt;Intraday</b> menu only.</p>
+<p><i>Selecting a quote</i></p>
+<p>You can very easily see past quotes and indicator values by using the &quot;select&quot; 
+  mode. To <b>select</b> a past quote, first, switch to &quot;Select&quot; mode 
+  (red arrow in the toolbar), then click in the chart area (but not on the drawing object). 
+  A vertical line will show up marking the quote under the cursor. The chart title 
+  will display this bar's quote. Indicator panes will show the indicator value for the given 
+  bar. Once a quote is selected, you can move to the previous/next quote using the keyboard 
+  left and right arrow keys (&lt;- and -&gt;).</p>
+<p>To <b>switch off</b> quote selection, either click again on the line, or click in the date axis area (marked with red in the picture above), or click 
+  in the right margin (blank quotes) area. When selection is off, the chart title displays 
+  the values for the last visible bar.</p>
+<p><i>Marking range</i></p>
+<p>To show a range marker, just double-click the chart at the beginning of the range
+  and double-click again at the end of the range. You can also use the F12 key in
+  conjunction with &quot;select&quot; mode (described above). Just select a quote and press
+  F12 for the beginning, and SHIFT+F12 for the range end. You can switch off the range
+  marker by pressing the CTRL+F12 key or double-clicking in the same place twice.</p>
+<p>Range markers can be used to select a zoom-in range (View-&gt;Zoom-&gt;Range) and
+  to perform calculations on selected values via BeginValue and EndValue AFL
+  functions.</p>
+<p><i>Adding / closing chart panes</i></p>
+<p>Each window can consist of several panes displaying various charts/indicators. 
+  <FONT size=2>To display a new indicator in a separate chart pane, just find
+  the indicator in the Charts list (use <b>Window -&gt; Charts</b> menu) and <b>double-click</b> on
+  the indicator name.</FONT> For more information, see <a href="h_dragdrop.html">Drag&amp;drop
+  charting</a> tutorial.</p>
+<p>To close any chart pane: click on the pane, then use either <b>View-&gt;Pane-&gt;Close</b> from the main menu or <b>click
+    on the pane with the right mouse button</b> and
+     choose 
+  <b>Close</b> from the context menu.</p>
+<p><em>Linking and locking charts</em></p>
+<p>Multiple chart windows (that were open using<strong> File-&gt;New-&gt;Default Chart</strong> or <strong>File-&gt;New-&gt;Blank Chart</strong>) can be interval-linked, symbol-linked using appropriate small 
+  &quot;S&quot; and &quot;I&quot; buttons that appear on the left side of the scroll bar. When you
+  click on a button, the menu showing colors will pop up. Select a color; then, charts and symbols linked using that same color will be linked using the symbol and/or interval across 2 or more charts. Linking means that a change of the symbol and/or interval in one of the linked windows automatically changes the symbol and/or interval in all linked windows using the same link color. </p>
+<p>You can also prevent a symbol from being changed for a given chart. It can be
+  done by turning on the little padlock button (&quot;Symbol Lock&quot;) on the right side
+  of the scroll bar. When a chart is symbol-locked, it will not allow the selected symbol to be changed unless the lock is released (by pressing the padlock button
+  again).</p>
+<p><i>Using drawing tools</i></p>
+<p>AmiBroker features an extensive set of drawing tools:</p>
+<table width="100%" border="0" cellspacing="0" cellpadding="4">
+  <tr> 
+    <td valign="top"><img src="gifs/drawtool.gif"></td>
+    <td valign="top"> 
+      <p>The following tools are available:</p>
+      <ul>
+        <li>trend line</li>
+        <li>ray (new in 4.20)</li>
+        <li>extended line (new in 4.20)</li>
+        <li>vertical line</li>
+        <li>horizontal line</li>
+        <li>parallel lines (new in 4.20)</li>
+        <li>Regression channels: Raff, standard deviation, standard error (all 
+          new in 4.20)</li>
+        <li>Fibonacci Retracement study (enhanced in 4.20)</li>
+        <li>Fibonacci Time Zones study</li>
+        <li>Fibonacci Fan </li>
+        <li>Fibonacci Arc</li>
+        <li>Gann Square (new in 4.20)</li>
+        <li>Gann Fan (new in 4.20)</li>
+        <li>Ellipse tool</li>
+        <li>Arc tool</li>
+        <li>Rectangle</li>
+        <li>text box tool</li>
+      </ul>
+      <p>They are available from the <b>Insert</b> menu and <b>Draw</b> toolbar. Each 
+        drawing object can be moved, resized, copied, deleted, and modified after 
+        it is drawn. </p>
+      <p>&nbsp;</p>
+    </td>
+  </tr>
+</table>
+<p>To <b>draw</b> an object on the chart, switch on the appropriate tool button (see the picture below) and start drawing on the chart by pointing the mouse and pressing 
+  the left mouse button where you want to start the drawing. Then, move the mouse. 
+  A study tracking line will appear. Release the left mouse button when you want to 
+  finish drawing. You can also cancel study drawing by pressing the ESC (escape) key. 
+</p>
+<p>If you hover your mouse over the object, you will see that the cursor shape changes 
+  in the proximity of the object. This means that.</p>
+<p>If the cursor is near either end of the object, it will change its shape to a <b>sizing</b> 
+  pointer: <br>
+  <img src="gifs/cursize.gif"> </p>
+<p>If the cursor is near the remaining parts of the object, it will change its shape 
+  to a <b>moving</b> pointer:<br>
+  <img src="gifs/curmove.gif"></p>
+<p>Once an object is drawn, it can be selected, moved, resized, deleted, or copied.</p>
+<p></p>
+<table width="100%" border="0">
+  <tr>
+    <td><img src="gifs/chart3.gif"></td>
+    <td valign="top"> 
+      <p>To <b>select</b> the object, simply move the mouse over the object so 
+        the &quot;moving pointer&quot; appears and click once - the object will be 
+        marked, and the sizing handles (see the first picture) will appear.</p>
+      <p>To <b>de-select</b>, click in the blank chart space.</p>
+      <p></p>
+      <p>To <b>size</b> the object, click on the sizing handle and drag to the 
+        desired location as shown in the picture.</p>
+      <p>To <b>move</b> the object, click on any other part of the object and move it 
+        to the desired location.</p>
+    </td>
+  </tr>
+</table>
+<p>To <b>delete</b> an object - select it first and press the <b>DEL</b> (<b>DELETE</b>) 
+  key on the keyboard, or use the <b>Edit-&gt;Delete</b> menu, or use the Delete toolbar 
+  button. </p>
+<p>To <b>copy</b> the object to the clipboard - select it first and press <b>Ctrl+C</b> 
+  or use the <b>Edit-&gt;Copy</b> menu or use the Copy toolbar button.</p>
+<p>To <b>cut</b> the object - select it first and press <b>Ctrl+X</b> or use the <b>Edit-&gt;Cut</b> 
+  menu or use the Cut toolbar button.</p>
+<p>To <b>paste</b> the object from the clipboard, press <b>Ctrl+V</b> or use <b>Edit-&gt;Paste</b>, 
+  or use the Paste toolbar button. A pasted object will be drawn in the exact same location 
+  as the copied one and will be selected automatically so you can move it to a new 
+  location.</p>
+<p>To <b>apply color or style</b> to the object, select it and use the Format menu 
+  or Format toolbar buttons to change color, thick, dotted, and snap to price 
+  styles. Note that you can also select the color and style of the object <u>before</u> 
+  drawing a new object: simply deselect the previous object (if any), change color/style selections, and draw a new object. </p>
+<p>To <b>modify properties</b> of the object, either double-click it or use the <b>Edit-&gt;Properties</b> 
+  menu or the <b>Alt+ENTER</b> key.</p>
+<p>To <b>delete all</b> objects, use the <b>Edit-&gt;Delete All</b> menu.</p>
+<p><b>Further information</b></p>
+<p>To learn more about drawing tools, please read the <a href="drawtools.html">Drawing 
+  Tools Reference</a> chapter.</p>
+</body>
+</html>

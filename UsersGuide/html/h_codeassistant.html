@@ -1,0 +1,185 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Using AI-based AFL Code Assistant</title>
+<link href="guide.css" rel="stylesheet" type="text/css">
+<style>
+img { height: auto; max-width: 100%; }
+ul, ol {
+ padding-left:10pt;
+}
+</style>
+</head>
+<body><!-- PAGE BREAK -->
+<h2 class="atx" id="đź§ -part-1-setup-ai-brain">Using AFL Code
+Assistant (AI-driven)</h2>
+<p class="atx"><em>IMPORTANT: Please note that using AI-driven AFL Code Assistant
+    requires one-time configuration of its "brain", large language model, and
+    the process
+    is described later in
+  this guide.</em></p>
+<p><img src="gifs/ai6.png" alt="" width="981" height="750"></p>
+<p>The Assistant is available as a side window in the AFL Editor (you can show/hide
+  the Assistant window using the Window -&gt; AFL Code Assistant menu).</p>
+<p>The Assistant window is divided into two parts</p>
+<ul>
+  <li>Upper pane - showing history of actions / requests</li>
+  <li>Lower pane - with edit field where you enter your question / request</li>
+</ul>
+<p>You don't need to be verbose in your request; the Assistant is smart enough
+  to produce useful results with minimal prompts like "write channel breakout".
+  The entire code that can be seen on the screenshot was generated in response
+  to just this single prompt.</p>
+<p>There are 3 basic actions that you do with the Assistant, represented by buttons
+  at the bottom of the Assistant window </p>
+<ol>
+  <li><strong>Ask</strong> - you just ask a question or request things from the
+    assistant (this is the default mode. If you press "RETURN/ENTER" key in the edit
+    field, it will trigger the "Ask" action without the need to press the button</li>
+  <li><strong>Fix</strong> - fix any errors in the formula - note that it first
+    runs the AFL parser to find any errors. If errors are detected, then the AI gets
+    the list and descriptions of those errors to be able to fix them for you
+    automatically. If the AFL parser doesn't detect any errors, this action will
+    not make any changes.</li>
+  <li><strong>Explain</strong> - this feature explains in plain English what
+    the formula is doing. It is useful for beginners trying to understand code
+    written by someone else</li>
+</ol>
+<p>Of course, you can also ask any other question / give any other request. The
+  Assistant may either generate code for you and offer changes, or it may generate
+  a textual response (as in the "Explain" case) that is displayed in the upper pane.</p>
+<p>When the Assistant proposes changes in the code, it will display changes directly
+  in the editor; new (added) parts will be displayed with a green background and
+  italic font. Lines that are to be deleted are struck through using a red line as
+  shown in the picture. Now it is the user's task to review and accept or reject changes
+  using "Accept" or "Reject" buttons. Note that any manual edits done to the
+  formula while the wizard waits for you to decide, will result in the automatic rejection
+  of the changes.</p>
+<p><img src="gifs/ai7.png" alt="" width="951" height="750"></p>
+<h2 class="atx">Set up AI Brain</h2>
+<h3 class="atx" id="option-a-use-cloud-services">Option A: Use Cloud Services</h3>
+<p><strong>PRIVACY NOTE:</strong> by using Cloud AI services like OpenAI/Google Gemini, you will be sending your questions / requests and the formula that you edit to OpenAI/Gemini large language model for inference. Privacy-wise, it is no different from using OpenAI/Google website directly. The transmission is secure and encrypted (via SSL/HTTPS), but obviously OpenAI and Google can see what you are sending to them. </p>
+<p><strong>PERFORMANCE NOTE:</strong> Using cloud-based LLM gives you access to state-of-the-art models that are much faster and much more capable than any local or open-source model can be. The trade-off is privacy.</p>
+<h4 class="atx" id="obtaining-your-api-keys">Obtaining Your API Keys</h4>
+<h5 class="atx" id="đź”‘-openai-api-key">OpenAI API Key</h5>
+<ol>
+<li><strong>Visit</strong> <a href="https://platform.openai.com/signup">OpenAI's API platform</a> and <strong>sign in</strong> or <strong>create an account</strong>.</li>
+<li><strong>Click</strong> on your profile icon in the top-right corner and select <strong>"View API keys"</strong>.</li>
+<li><strong>Click</strong> <strong>"Create new secret key"</strong>.</li>
+<li><strong>Copy</strong> the generated key immediately and <strong>store it securely</strong>.</li>
+</ol>
+<blockquote>
+<p><em>Note: You won't be able to view this key again once you navigate away from the page.</em></p>
+</blockquote>
+<h5 class="atx" id="đź”‘-google-gemini-api-key">Google Gemini API Key</h5>
+<ol>
+<li><strong>Go to</strong> <a href="https://aistudio.google.com">Google AI Studio</a> and <strong>sign in</strong> with your Google account.</li>
+<li><strong>Navigate</strong> to the <strong>"Get API key"</strong> section.</li>
+<li><strong>Click</strong> <strong>"Create API key"</strong>.</li>
+<li><strong>Choose</strong> an existing Google Cloud project or <strong>create a new one</strong>.</li>
+<li><strong>Copy</strong> the generated API key and <strong>store it securely</strong>.</li>
+</ol>
+<blockquote>
+<p><em>Note: This key is essential for authenticating API requests.</em></p>
+</blockquote>
+<hr>
+<h3 class="atx" id="option-b-use-local-private-llm">Option B: Use Local Private LLM</h3>
+<p><strong>PRIVACY NOTE:</strong> by using local private LLM, your requests and your code do NOT leave your machine. Everything is processed locally and nothing is sent anywhere.</p>
+<p><strong>PERFORMANCE NOTE:</strong> Using local private LLM gives you maximum privacy but limits you to open-weight models that are typically smaller and much less capable than state-of-the-art offered by cloud-based services. Typically they are also much (10x) slower (when run on consumer-grade graphics cards). To get any kind of tolerable performance you need a dedicated graphics card (NVidia or AMD) with at least 8GB of VRAM (12GB or more preferred) that is needed to accelerate inference.</p>
+<h2 class="atx" id="hammer_and_pick-setting-up-a-local-llm-with-lm-studio">Setting
+Up a Local LLM with LM Studio</h2>
+<p>If you prefer not to rely on external APIs, you can run a local LLM using LM Studio.</p>
+<h3 class="atx" id="âś…-system-requirements">System Requirements</h3>
+<ul>
+<li><strong>Operating System</strong>: Windows 10/11, macOS 10.15+, or a modern Linux distribution.</li>
+<li><strong>RAM</strong>: At least 16 GB.</li>
+<li><strong>Disk Space</strong>: SSD with at least 50 GB available.</li>
+<li><strong>GPU</strong>: 8GB VRAM, 12GB or more recommended RTX 3060 or higher</li>
+</ul>
+<h3 class="atx" id="đź§©-installation-and-setup">Installation and Setup</h3>
+<ol>
+<li><strong>Download</strong> LM Studio from the <a href="https://lmstudio.ai/">official website</a>.</li>
+<li><strong>Install</strong> the application following the on-screen instructions.</li>
+<li><strong>Launch</strong> LM Studio.</li>
+<li><strong>Navigate</strong> to the <strong>"Developer"</strong> tab.</li>
+<li><strong>Enable</strong> the <strong>"Local Server"</strong> option.</li>
+<li><strong>Download</strong> a model:<ul>
+<li>Go to the <strong>"Discover"</strong> tab.</li>
+<li>Search for models like <strong>Qwen2.5 Coder</strong> or Gemma.</li>
+<li>Click <strong>"Download"</strong> for the desired model.</li>
+</ul>
+</li>
+<li><strong>Load</strong> the model:<ul>
+<li>Go to the <strong>"Chat"</strong> tab.</li>
+<li>Click <strong>"Load Model"</strong> and select the downloaded model.</li>
+</ul>
+</li>
+<li>Go to the <strong>"Developer"</strong> tab and configure the local server:<ul>
+<li>Set the <strong>host</strong> to <code>127.0.0.1</code>.</li>
+<li>Set the <strong>port</strong> to <code>1234</code>.</li>
+<li>Change <strong>Status</strong> to <strong>"Running"</strong>.</li>
+</ul>
+</li>
+</ol>
+<p>For detailed instructions, refer to the <a href="https://lmstudio.ai/docs/local-server">LM Studio documentation</a>.</p>
+<hr>
+<h2 class="atx" id="đź”Ś-part-2-configuring-amibroker">Configuring AmiBroker</h2>
+<ol>
+<li><p><strong>Open</strong> AmiBroker.</p>
+</li>
+<li><p><strong>Navigate</strong> to <strong>Tools â†’ Preferences â†’ AI</strong> tab.</p>
+</li>
+<li><p><strong>For OpenAI</strong>:</p>
+<ul>
+<li>Choose <strong>API Type</strong>: "OpenAI API"</li>
+<li><strong>Model</strong>: <code>gpt-4.1-mini</code> (we recommend this one for a balance between cost and performance, but you can use any other)</li>
+<li><strong>Endpoint URL</strong>: <code>https://api.openai.com/v1/chat/completions</code></li>
+<li>Paste your OpenAI API key into the <strong>API key</strong> field.
+<br>  It should look like this:<br>
+<img src="gifs/ai1.png" alt="" width="667" height="719"></li>
+</ul>
+</li>
+<li><p><strong>For Google Gemini</strong>:</p>
+<ul>
+<li>Choose <strong>API Type</strong>: "Google/Gemini API"</li>
+<li><strong>Model</strong>: <code>gemini-2.5-flash</code> (we recommend this one for a balance between cost and performance, but you can use any other)</li>
+<li><strong>Endpoint URL</strong>: <code>https://generativelanguage.googleapis.com/v1beta/models/</code></li>
+<li>Paste your Google Gemini API key into the <strong>API key</strong> field.
+<br>
+ It should look like this:<br>
+ <img src="gifs/ai2.png" alt="" width="667" height="719"></li>
+</ul>
+</li>
+<li><p><strong>For Local LLM</strong>:</p>
+<ul>
+<li>Choose <strong>API Type</strong>: "OpenAI API"</li>
+<li><strong>Model</strong>: <code>qwen/qwen2.5-coder-14b</code> (this model we have been testing, it works relatively well on a 12GB RTX 3060 or higher)</li>
+<li><strong>Endpoint URL</strong>: <code>http://127.0.0.1:1234/v1/vhat/completions</code></li>
+<li>You do NOT need an API key for a local LLM.
+<br> It should look like this:<br>
+<img src="gifs/ai3.png" alt="" width="667" height="719"></li>
+</ul>
+</li>
+</ol>
+<h2 class="atx" id="part-3-final-steps">Final Steps</h2>
+<p>At the end, you need to decide whether you want to use "Short" (about 4K tokens) or "Long" (about 32K tokens) context length. The difference is that, when you choose "Long" context, significantly more information is fed into the LLM (including full function reference) and that enables much better responses. The trade-off is the speed. Long Context means a slower response. It also means more VRAM use in the case of a local LLM. During our own testing, we found that for a local LLM it is rather impossible to use Long Context. On the other hand, Long Context works absolutely great with fast and capable cloud-based models like <code>gemini-2.5-flash</code> </p>
+<p>After you have configured everything as above, now it is time to test whether it works at all. You should press the <strong>Test LLM</strong> button. If everything is set up properly, you should see a message similar to this (text may vary depending on LLM used):</p>
+<p><img src="gifs/ai4.png" alt="" width="511" height="262"></p>
+<p>If something went wrong, you will see an error message with an explanation of what the error is. </p>
+<p>The final step is entering the AFL Code Wizard License Key into the respective field:</p>
+<p><img src="gifs/ai5.png" alt="" width="667" height="719"></p>
+<p>Anyone who has AFL Code Wizard already installed and registered will have the license key pre-filled. If you don't have a key, you would find it either in the "AFL Code Wizard registration" email or, if you purchased the <strong>AmiBroker ULTIMATE PACK</strong>, in the "AmiBroker registration" email. Note that the AFL Code Wizard license is separate from AmiBroker (unless you purchased Ultimate Pack).</p>
+<p>If you don't have an AFL Code Wizard license and don't want to purchase it, the ability to use the AI Assistant in the AFL Code Editor will be limited to 5 completions/responses per run.</p>
+<h2 class="atx" id="part-4-costs">Costs</h2>
+<p>Depending on which route you choose, there might be extra costs involved in using AI features. Running a local LLM gives you a cost-free solution (not counting the fact that you pay electricity bills and you need to have a machine with a dedicated graphics card). Running cloud-based AI typically involves paying fees for inference to the AI/LLM vendor. Pricing depends on the model that you choose and the number of tokens used. AmiBroker doesn't use many tokens as it does NOT accumulate chat history; therefore, it only sends the current request/question plus the content of the formula plus the system prompt (user-selectable, either 4K tokens or 32K tokens). To simplify things, a token can be seen more or less as a "word". Open AI pricing is here: <a href="https://openai.com/api/pricing/">https://openai.com/api/pricing/</a>, Gemini pricing is here: <a href="https://ai.google.dev/gemini-api/docs/pricing">https://ai.google.dev/gemini-api/docs/pricing</a>. Pricing is typically per million tokens, so OpenAI 4.1 mini with <span class="katex"><span class="katex-mathml"></span><span aria-hidden="true" class="katex-html"><span class="base"><span style="height:1em;vertical-align:-0.25em;" class="strut"></span><span class="mord">$0.40/1M tokens would cost something like </span></span></span></span>$0.02 per single request/completion using long context.</p>
+<p>Google is even better as it has an <a href="https://ai.google.dev/gemini-api/docs/rate-limits">absolutely great "free tier"</a> that costs nothing and allows, for example, with the <strong>Gemini 2.5 Flash</strong> model, up to 10 requests per minute, 250,000 tokens per minute, and 250 requests per day.</p>
+<h2 class="atx" id="part-5-performance">Performance</h2>
+<p>There are huge differences in performance between various models. We have seen very good results and fast completions with <strong>Gemini 2.5 Flash</strong> and "Large" context. Still, it can take even 30 seconds if Google servers are particularly busy and the task to do is complex.
+Using "Short" prompt makes things ~3x faster, but at the expense of the quality of response.
+While state-of-the-art models from Google and OpenAI work quite well, certain open-source models (especially smaller than 12B parameters) struggle to follow instructions and the system prompt and will NOT work at all or work poorly.
+As far as private LLMs are concerned, we had average success with <code>qwen2.5-coder-14b</code>, which is an open-weight model specifically trained for coding. Your mileage with open-weight models will vary a lot from being unusable at all to average. Currently open-weight models are nowhere near the state of the art when it comes to AFL writing capabilities.</p>
+<p>We have done months of extreme prompt tweaking and experiments to steer these models to cooperate and understand non-obvious aspects of AFL. Please treat these new AI features as a work-in-progress as models evolve, so our prompting techniques evolve too, and we can expect improvements in the future.</p>
+<p>Lastly, you might wonder which model I like the most, and I can definitely say the Google Gemini 2.5 family of models is currently best in terms of both performance and coding ability.</p>
+<h2 class="atx" id="part-6-quick-tutorial-on-using-new-features">&nbsp;</h2>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 26. File handle passed to the function is invalid (equal to zero).</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><a name="E26"></a>Error 26. File handle passed to the function is invalid (equal to zero).
+You have to check if file handle returned by fopen is not equal to zero. If it
+is zero it means that file could not be opened.</h4>
+<p>Occurs on attempt to call file write/read/close function on null file handle.
+  <br>
+  <br>
+  Example (incorrect):<CODE><FONT COLOR=#000000><br>
+  <BR>
+fh = </FONT><FONT COLOR=#0000ff>fopen</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"nonexistingfile.txt"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"r"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+this file does not exist</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>fputs</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Test"</FONT><FONT COLOR=#000000>,
+fh ); </FONT><FONT COLOR=#008000>// error here, fh could be null</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>fclose</FONT><FONT COLOR=#000000>( fh );&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+wrong, fh could be null</FONT></CODE></p>
+<p>Correct usage would look like this:</p>
+<p><CODE><FONT COLOR=#000000>  fh = </FONT><FONT COLOR=#0000ff>fopen</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"nonexistingfile.txt"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"r"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+    this file does not exist</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( fh ) </FONT><FONT COLOR=#008000>//
+    correct, call subsequent file read/write/close only when file handle is OK</FONT><FONT COLOR=#000000> <BR>
+    { <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>fputs</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Test"</FONT><FONT COLOR=#000000>,
+    fh ); <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>fclose</FONT><FONT COLOR=#000000>(
+    fh );&nbsp;&nbsp; <BR>
+  }</FONT></CODE></p>
+<p>&nbsp;</p>
+
+</body>
+</html>

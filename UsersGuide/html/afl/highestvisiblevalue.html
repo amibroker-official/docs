@@ -1,0 +1,79 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - HIGHESTVISIBLEVALUE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>HighestVisibleValue</b><br>
+        - get the highest value within visible chart area</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 5.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>HighestVisibleValue( array ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function calculates single value (not array) representing highest value of given array within VISIBLE range (on chart).<p>
+Should be applied only in indicators as only indicators have concept of "visible" bars.
+The function will return Null value if no visible bars are present. 
+The function is equivalent to the following coding:
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> HighestVisibleValueEquivalent(
+array ) <BR>
+{ <BR>
+ bv = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"barvisible"</FONT><FONT COLOR=#000000>); <BR>
+ Hh = -</FONT><FONT COLOR=#800080>1e8</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#800000><B> for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i < </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+i++ ) <BR>
+ { <BR>
+  </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+bv[ i ] </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> array[
+i ] > Hh ) Hh = array[ i ]; <BR>
+ } <BR>
+</FONT><FONT COLOR=#800000><B> return</B></FONT><FONT COLOR=#000000> hh; <BR>
+} </FONT></CODE>
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="lowestvisiblevalue.html">LowestVisibleValue()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>HighestVisibleValue</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1571&hilite=HighestVisibleValue' target='_blank'>Auto Fib Ext&Retracement</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1555&hilite=HighestVisibleValue' target='_blank'>Day Bar No</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1371&hilite=HighestVisibleValue' target='_blank'>Fibonacci Calculations & Speed Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1454&hilite=HighestVisibleValue' target='_blank'>Fre</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=HighestVisibleValue' target='_blank'>New HL Scanner</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=HighestVisibleValue">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

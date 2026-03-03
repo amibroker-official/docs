@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 709. Optimization search space is too large (more than 1019 combinations). Decrease number of Optimize() calls</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4>Error 709. Optimization search space is too large (more than 10<sup>19</sup> combinations).
+  Decrease number of Optimize() calls.</h4>
+<p>You have attempted to use optimization on search space larger than 10 000
+  000 000 000 000 000 combinations using exhaustive method. You need to reduce
+  number of Optimize() statements and/or increase step size and/or reduce min-max
+  range
+  of optimization
+  parameters
+  in order to reduce search space size. </p>
+<p><CODE>x = <font color='#0000ff'>Optimize</font>( <font color='#800080'>"x"</font>, <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>1000</font>, <font color='#800080'>1</font> ); <font color='#008000'>//
+      10^3 <br>
+</font>y = <font color='#0000ff'>Optimize</font>( <font color='#800080'>"y"</font>, <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>1000</font>, <font color='#800080'>1</font> ); <font color='#008000'>//
+10^6 <br>
+</font>z = <font color='#0000ff'>Optimize</font>( <font color='#800080'>"z"</font>, <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>1000</font>, <font color='#800080'>1</font> ); <font color='#008000'>//
+10^9 <br>
+</font>i = <font color='#0000ff'>Optimize</font>( <font color='#800080'>"i"</font>, <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>1000</font>, <font color='#800080'>1</font> ); <font color='#008000'>//
+10^12 <br>
+</font>j = <font color='#0000ff'>Optimize</font>( <font color='#800080'>"j"</font>, <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>1000</font>, <font color='#800080'>1</font> ); <font color='#008000'>//
+10^15 <br>
+</font>k = <font color='#0000ff'>Optimize</font>( <font color='#800080'>"k"</font>, <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>1000</font>, <font color='#800080'>1</font> ); <font color='#008000'>//
+10^18 <br>
+</font>m = <font color='#0000ff'>Optimize</font>( <font color='#800080'>"m"</font>, <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>1000</font>, <font color='#800080'>1</font> ); <font color='#008000'>//
+10^21 -- TOO MUCH <br>
+</font></CODE></p>
+<p>You may try using smart (non-exhaustive) method instead although please keep
+  in mind that such large search spaces are difficult to search and you are not
+  very likely to find global minimum.</p>
+</body>
+</html>

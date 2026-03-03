@@ -1,0 +1,86 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MXGETBLOCK</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>MxGetBlock</b><br>
+        - get rectangular block of items from matrix</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Matrix functions<br>
+        </b>(AmiBroker 6.10)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>MxGetBlock( matrix, startrow, endrow, startcol, endcol, asArray = False ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> Matrix or Array </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Retrieves items from rectangular submatrix (block) and returns either smaller matrix (when asArray is set to False) or &quot;normal&quot; AFL array (when asArray is set to True). If array has different number of bars, unused elements are filled with Null.  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE>z = <font color='#0000ff'>Matrix</font>( <font color='#800080'>2</font>, <font color='#800080'>20</font>, <font color='#800080'>0</font> ); <br>
+<font color='#008000'>// first row <br>
+</font>z = <font color='#0000ff'>MxSetBlock</font>( z, <font color='#800080'>0</font>, <font color='#800080'>0</font>, <font color='#800080'>0</font>, <font color='#800080'>19</font>, <b>Close</b> ); <br>
+<font color='#008000'>// second row <br>
+</font>z = <font color='#0000ff'>MxSetBlock</font>( z, <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>0</font>, <font color='#800080'>19</font>, <font color='#0000ff'>RSI</font>( <font color='#800080'>5</font> )
+); <br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;Matrix z
+&quot;</font>); <br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+z ) ); <br>
+<br>
+x = <font color='#0000ff'>MxGetBlock</font>( z, <font color='#800080'>0</font>, <font color='#800080'>1</font>, <font color='#800080'>0</font>, <font color='#800080'>19</font>, <b>True</b> ); <br>
+<br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;Items are now in regular
+array (data series):
+&quot;</font> ); <br>
+<font color='#800000'><b>for</b></font>( i = <font color='#800080'>0</font>;
+i &lt; <font color='#800080'>20</font>; i++ ) <br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>NumToStr</font>( x[
+i ] ) + <font color='#800080'>&quot;
+&quot;</font> ); <br>
+<br>
+z = <font color='#0000ff'>MxGetBlock</font>( z, <font color='#800080'>0</font>, <font color='#800080'>1</font>, <font color='#800080'>0</font>, <font color='#800080'>1</font> ); <font color='#008000'>//
+retrieve upper 2x2 submatrix <br>
+</font><font color='#0000ff'>printf</font>(<font color='#800080'>&quot;Upper submatrix
+z
+&quot;</font>); <br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+z ) );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="matrix.html">Matrix()</A> function , <A HREF="mxsetblock.html">MxSetBlock()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>MxGetBlock</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=MxGetBlock' target='_blank'>Polyfit Lines</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=MxGetBlock">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

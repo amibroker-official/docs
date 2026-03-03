@@ -1,0 +1,79 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - RESTOREPRICEARRAYS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>RestorePriceArrays</b><br>
+        - restore price arrays to original symbol</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Referencing other symbol data<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>RestorePriceArrays( <i> tradeprices </i> = False  ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The <b>RestorePriceArrays</b> restores original price and volume arrays after the call to <b>SetForeign</b>.<p>
+
+<i>tradeprices</i> parameter <u>has to match the one used in SetForeign() function.</u><p>When <i>tradeprices</i> argument is set to TRUE, then not only OHLC, V, OI, Avg arrays are restored, but BuyPrice, SellPrice, ShortPrice, CoverPrice, PointValue, TickSize, RoundLotSize, MarginDeposit variables too. 
+<p>new in 5.90 - it can be also used to restore OHLC arrays that were directly overwritten by the user (without calling TimeFrameSet or Foreign). </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// Example 1: Plot the indicator
+using foreign security data</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetForeign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>&quot;MSFT&quot;</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Ultimate</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#ff00ff>&quot;Ultimate
+from MSFT&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>RestorePriceArrays</FONT><FONT COLOR=#000000>(); </FONT></CODE><p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// Example 2: Use SetForeign with Equity
+function</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetForeign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>&quot;MSFT&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>()); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>()); <BR>
+e = </FONT><FONT COLOR=#0000ff>Equity</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+backtest on MSFT</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>RestorePriceArrays</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>// <-
+should match parameter used in SetForeign</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="setforeign.html">SetForeign()</A> function , <A HREF="timeframeset.html">TimeFrameSet()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2004-07-10 07:03:50</td><td valign="top">TimeFrameRestore and RestorePriceArrays<br />
+is essentially the same function. So please note that calling RestorePriceArrays also resets the time interval set by eventual previous call to TimeFrameSet</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>RestorePriceArrays</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1147&hilite=RestorePriceArrays' target='_blank'>BEANS-Summary of Holdings</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1536&hilite=RestorePriceArrays' target='_blank'>Computing Cointegration and ADF Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=RestorePriceArrays' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1301&hilite=RestorePriceArrays' target='_blank'>Graphical sector analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1302&hilite=RestorePriceArrays' target='_blank'>Graphical sector stock amalysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=RestorePriceArrays' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1421&hilite=RestorePriceArrays' target='_blank'>IBD relative strength database ranker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=RestorePriceArrays' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=RestorePriceArrays' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=411&hilite=RestorePriceArrays' target='_blank'>Ranking Ticker WatchList</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=RestorePriceArrays' target='_blank'>Stress with SuperSmoother</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=RestorePriceArrays">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

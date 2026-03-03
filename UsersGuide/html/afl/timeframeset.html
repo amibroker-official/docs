@@ -1,0 +1,130 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - TIMEFRAMESET</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>TimeFrameSet</b><br>
+        - switch price arrays to a different time frame</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Time Frame functions<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>TimeFrameSet( <i>interval</i>) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The <b>TimeFrameSet</b> replaces current price/volume arrays: open, high, low, close, volume, openint, avg with time-compressed bars of specified interval once you switched to a different time frame all calculations and built-in indicators operate on selected time frame. To get back to original interval call <b>TimeFrameRestore()</b> function. Before calling <b>TimeFrameSet</b> again in the same formula with different interval you have to restore original time frame first using <b>TimeFrameRestore</b>. 
+<p>
+<i>interval</i> defines time frame interval in seconds. So 60 means 1-minute. For the convenience the following interval constants are pre-defined:
+<ul>
+<li>in1Minute = 60
+<li>in5Minute = 5 * 60 
+<li>in15Minute = 15 * 60 
+<li>inHourly = 3600 
+<li>inDaily = 24 * 3600
+<li>inWeekly = 5 * 24 * 3600 + 1 = 432001 
+<li>inMonthly = 25 * 24 * 3600 + 1 = 2160001
+<li>inQuarterly (new in 5.20)
+<li>inYearly (new in 5.20)
+</ul>
+<p>
+To get other intervals you can use multiple of pre-defined intervals,
+for example: ( 3*in1Minute ) gives 3 minute bars. Or you can use 3 * inDaily for 3-day bars. 
+
+<p>New in version 4.70 and above: You can also use NEGATIVE values for N-tick charts: -5 fives 5-tick chart. Note that N-tick compression works correct only if you have 1-tick base time interval selected in database settings.
+<p>
+You can also use TimeFrameSet to create N-volume bars as well as Range bars. See <a href='timeframemode.html'>TimeFrameMode()</a> function for more details.
+<p>
+VERY IMPORTANT:<br>
+inWeekly constant is now 432001 ( 5*inDaily + 1 ) - in previous version it was 432000<br>
+inMonthly constant is now 2160001 ( 25*inDaily + 1 ) - in previous version it was 2160000<br>
+It is changed because now N-day custom intervals are supported and they will interfere with weekly/monthly.<br>
+Note that 5*inDaily is now DIFFERENT than inWeekly. 5*inDaily creates 5-day bars that DO NOT necesarily cover Monday-Friday 
+while inWeekly ALWAYS creates bars that begin on Monday and end on Friday. Also 25*inDaily creates 25-day bars that DO NOT necesarily represent full month, while inMonthly always begins with first day of the month and ends at the last day of the month
+<p>
+Once you switch the time frame using <b>TimeFrameSet</b> , all AFL functions operate on this time frame until you switch back the time frame to original interval using <b>TimeFrameRestore</b> or set to different interval again using <b>TimeFrameSet</b>. It is good idea to ALWAYS call <b>TimeFrameRestore</b>  when you are done with processing in other time frames.
+<p>
+When time frame is switched to other than original interval the results of all functions called since <b>TimeFrameSet</b> are time-compressed too. If you want to display them in original time frame you would need to 'expand' them as described later. Variables created and assigned before call to <b>TimeFrameSet()</b> remain in the time frame they were created. This behaviour allows mixing unlimited different time frames in single formula.
+<p>
+Please note that you can only compress data from shorter interval to longer interval. So when working with 1-minute data you can compress to 2, 3, 4, 5, 6, ....N-minute data. But when working with 15 minute data you can not get 1-minute data bars. In a similar way if you have only EOD data you can not access intraday time frames.
+<p>
+For more information check: <a href='../h_timeframe.html'>Tutorial: Multiple time frame support in AFL</a> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>in5Minute</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  switch to 5 minute frame</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>/* MA now operates on 5 minute data, ma5_13 holds
+  time-compressed 13 bar MA of 5min bars */</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  ma5_13 = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>13</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+      <p><CODE><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+            restore time frame to original</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000> <BR>
+        <BR>
+        </FONT><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>inHourly</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+    switch now to hourly</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    mah_9 = </FONT><FONT COLOR=#0000ff>EMA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+    9 bar moving average from hourly data</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+    restore time frame to original</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorWhite</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> ); <BR>
+    <BR>
+    </FONT><FONT COLOR=#008000>// plot expanded average</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+    ma5_13, </FONT><FONT COLOR=#000000><B>in5Minute</B></FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#ff00ff>"13
+    bar moving average from 5 min bars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+    mah_9, </FONT><FONT COLOR=#000000><B>inHourly</B></FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#ff00ff>"9
+    bar moving average from hourly bars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="timeframerestore.html">TimeFrameRestore()</A> function , <A HREF="timeframeexpand.html">TimeFrameExpand()</A> function , <A HREF="timeframegetprice.html">TimeFrameGetPrice()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2004-06-03 04:35:37</td><td valign="top">TimeFrameSet(in15Minute);<br />
+MA10_15Min=MA(Close,10);<br />
+TimeFrameRestore();<br />
+<br />
+Buy=Cross( MA(Close,5), TimeFrameExpand(MA10_15Min, in15Minute) );<br />
+</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>TimeFrameSet</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=TimeFrameSet' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1321&hilite=TimeFrameSet' target='_blank'>3TF Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=TimeFrameSet' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=TimeFrameSet' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=887&hilite=TimeFrameSet' target='_blank'>Bad Tick Trim on 5 sec database</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=TimeFrameSet' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=TimeFrameSet' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1254&hilite=TimeFrameSet' target='_blank'>Color Price Bar - Impulse System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1252&hilite=TimeFrameSet' target='_blank'>Color Price Bars with MACD Histogram Changes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1336&hilite=TimeFrameSet' target='_blank'>Daily High Low in Advance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=659&hilite=TimeFrameSet' target='_blank'>EKEKO SAR-MF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=570&hilite=TimeFrameSet' target='_blank'>Elder Impulse Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=585&hilite=TimeFrameSet' target='_blank'>Elder Impulse Indicator V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=TimeFrameSet' target='_blank'>Elder Triple Screen Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=TimeFrameSet' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1143&hilite=TimeFrameSet' target='_blank'>Hull Multiple Moving Averages</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=375&hilite=TimeFrameSet' target='_blank'>IFT of RSI - Multiple TimeFrames</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=TimeFrameSet' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=625&hilite=TimeFrameSet' target='_blank'>Lagging MA-Xover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=TimeFrameSet' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=399&hilite=TimeFrameSet' target='_blank'>Pivot Point with S/R Trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=406&hilite=TimeFrameSet' target='_blank'>Price with Woodies Pivots</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=564&hilite=TimeFrameSet' target='_blank'>Rea Time Daily Price Levels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=758&hilite=TimeFrameSet' target='_blank'>SUPER PIVOT POINTS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1132&hilite=TimeFrameSet' target='_blank'>Twiggs money flow weekly</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=TimeFrameSet">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

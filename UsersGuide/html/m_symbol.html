@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Symbol menu</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Symbol menu<B></B></h3>
+
+<p><img src="gifs/symbolwlmenu.gif"></p>
+<P>   <B>New</B><BR>
+Allows you to add new symbols to the database. After selecting this function, you will be prompted for a new ticker symbol. Please try not to exceed 26 characters. For proper import functionality, you should enter the symbol in CAPITALS. 
+</P>
+
+<P>   <B>Delete</B><BR>
+Removes the currently selected symbol from the database. After choosing this function, you will be asked for confirmation of symbol removal. Note well that this operation cannot be undone.
+</P>
+
+<P>   <B>Split</B><BR>
+Allows you to perform a stock split. AmiBroker provides an easy way of handling stock splits. The program will try to guess the split date and ratio by analyzing the quotations. If there is just a single quotation after the split, this should work; if not, you will be asked for the split date and ratio. You can specify a split using the following expression: 
+
+x-&gt;y 
+
+which means that 'x' shares before the split become 'y' after it. For example, 2-&gt;3 means that 2 shares become 3 after the split. It is also possible to perform a reverse split, for example, 2->1, which means that two shares are joined into one share. 
+</P>
+
+<P>   <B>Merge</B><BR>
+This function allows you to merge two tickers when the ticker for the symbol is changed, and in your database, one symbol holds historical quotes and the second one holds the newest quotes (after the name change). You should just select the new ticker (after name change) and use <i>Symbol-&gt;Merge</i>. Then from the combo, you should choose the original ticker (&quot;merge with&quot;) and optionally check the following fields:
+<ul>
+  <li>Overwrite duplicate quotes - checking this option will overwrite quotes 
+    already existing in the &quot;new&quot; ticker with those present in the &quot;old&quot; 
+    ticker (this should not really be the case, but may happen).</li>
+  <li>Delete &quot;merge with&quot; afterwards - checking this option will delete 
+    the &quot;old&quot; ticker after merging.</li>
+  <li>Assign alias name - checking this option will copy the &quot;old&quot; ticker 
+    to the alias field of the &quot;new&quot; ticker.</li>
+</ul>
+</P>
+
+<P>   <B>Find</B><BR>
+Opens the <a href="w_finder.html">Symbol finder</a> window that allows you to quickly search the database for a symbol by typing the first letters of its full name or ticker.
+</P>
+
+<P>   <B>Information</B><BR>
+Opens the <a href="w_information.html">Information window</a> for the symbol, which allows you to change the symbol properties.
+</P>
+
+<P>   <B>Finances</B><BR>
+The <a href="w_finances.html">Finances window</a> allows you to enter some fundamental data for the symbol (sales income, earnings before taxes (EBT), and earnings after taxes (EAT)). AmiBroker will compute P/E (Price-to-Earnings ratio) and EPS (Earnings Per Share) indicators from the data given. 
+</P>
+
+<P>   <B>Quote Editor</B><BR>
+Opens the <a href="w_manualentry.html">Quote Editor</a> window that allows you to edit, delete, and add quotations to your database.
+</P>
+
+<P>   <B>Watchlist</B><BR>
+These options allow you to manage your watchlists. The <a href="h_watchlist.html">Working with watch lists</a> chapter explains in more detail how you can use the options below.
+<UL>
+		<LI><B>Add Selected Symbol</B> - adds the currently selected symbol to the specified watchlist(s).
+		<LI><B>Remove Selected Symbol</B> - removes the currently selected symbol from the specified watchlist(s).
+		<LI><B>Type-in Symbols</B> - allows you to type in symbols to the watchlist(s).
+		<LI><B>Import</B> - allows you to import the watchlist from the .TLS file.
+		<LI><B>Export</B> - exports the symbols belonging to the watchlist to the .TLS (symbol list) file.
+		<LI><B>Erase (make empty)</B> - removes all the symbols from the specified watchlist.
+        <LI><b>Sort alphabetically</b> - sorts tickers alphabetically in the specified
+          watchlist.
+        <LI><b>Hide empty watchlists</b> - hides watchlists with no symbols in the
+          symbol tree.
+        <LI><b>New watchlist</b> - creates a new watchlist.
+        <LI><b>Delete watchlist</b> - deletes the selected watchlist (it does not delete
+          symbols from the database).
+</UL>
+</P>
+
+<P>   <B>Categories</B><BR>
+The <a href="w_categories.html">Categories window</a> allows you to define names of markets, groups, sectors, and industries. For each market, you can also define base indexes for calculating relative strength, composite data, beta, or web profile URL.
+</P>
+
+<P>   <B>Organize assignments</B><BR>
+The <a href="w_organizer.html">Assignment organizer window</a> allows you to easily change the category assignments for the symbols or to delete multiple symbols from the database. 
+</P>
+
+<P>   <B>Calculate Composites</B><BR>
+Opens the <a href="w_recalc.html">Composite calculation window</a> that allows for automatic calculation of the number and volume of advancing/declining/unchanged issues or volume numbers for indices.
+</P>
+
+
+
+</body>
+</html>

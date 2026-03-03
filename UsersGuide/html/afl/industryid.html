@@ -1,0 +1,62 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - INDUSTRYID</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>IndustryID</b><br>
+        - get industry ID / name</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Information / Categories<br>
+        </b>(AmiBroker 3.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>IndustryID( mode = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER/STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Retrieves current stock industry ID/name
+      When mode = 0 (the default value ) this function returns numerical industry 
+        ID (consecutive industry number)<br>
+        When mode = 1 this function returns name of the industry. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> Filter = IndustryID() == 7 OR IndustryID() == 9;<br>
+        AddTextColumn( IndustryID( 1 ), "Industry name" ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">   </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>IndustryID</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=531&hilite=IndustryID' target='_blank'>Dave Landry PullBack Scan</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=IndustryID' target='_blank'>Elder Triple Screen Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=905&hilite=IndustryID' target='_blank'>qp2 industry charts as a panel in the stocks chart</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=IndustryID">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

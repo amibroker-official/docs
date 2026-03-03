@@ -1,0 +1,193 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STATICVARGENERATERANKS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StaticVarGenerateRanks</b><br>
+        - generate ranking of multiple symbols and store it to static variables</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 5.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StaticVarGenarateRanks( &quot;outputprefix&quot;, &quot;inputprefix&quot;, topranks, tiemode ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function implements general-purpose multiple symbol bar-by-bar ranking.
+<p>
+StaticVarGenarateRanks( &quot;outputprefix&quot;, &quot;inputprefix&quot;, topranks, tiemode )
+<p>
+&quot;inputprefix&quot; is a prefix that defines names of static variables that will be used as input for ranking.
+AmiBroker will search for all static variables that begin with that prefix and assume that remaining part of the variable name is a stock symbol. Say you want to rank stocks by ROC (rate of change). All you need to do is to store values into static variables.<p>
+Let us say that we will use static variable names like &quot;ValuesToSortAPPL&quot;, &quot;ValuesToSortMSFT&quot;, and so on.
+<p>
+To fill input static variables you can use this loop:
+<p>
+
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; ( sym = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>(
+symlist, i ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; i++
+) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>SetForeign</FONT><FONT COLOR=#000000>(sym ); <BR>
+Value = </FONT><FONT COLOR=#0000ff>ROC</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>RestorePriceArrays</FONT><FONT COLOR=#000000>(); <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000> +
+sym, Value ); <BR>
+}</FONT></CODE>
+
+<p>
+Now you are ready to perform sorting/ranking. There are two modes, normal ranking mode and Top/Bottom Rank mode.<p>
+Normal ranking mode is performed when toprank argument is set to zero.
+<p>
+StaticVarGenerateRanks( &quot;rank&quot;, &quot;ValuesToSort&quot;, 0, 1224 );
+
+<p>
+In this case StaticVarGenerateRanks call would generate set of static variables starting with prefix defined by 2nd argument each variable holding the rank of particular symbol, so in this case<p>
+ RankValuesToSortMSFT will hold ranking of MSFT<br>
+ RankValuesToSortAAPL will hold ranking of AAPL<br>
+<p> Note that in AmiBroker rank count start from ONE.
+<p>
+Third argument (topranks) is zero in normal ranking mode
+<p>Fourth argument (tiemode) defines how ties are ranked. Supported modes are 1234 and 1224. In 1224 mode ties are numbered with equal rank.
+<p>
+Top/bottom ranking mode (that generates top/bottom ranking tables that hold indexes to top ranking values. When topranks > 0 top ranked values are used, when topranks < 0 then bottom ranked values are used. The values are stored in variables that have format of: OutputprefixInputprefixN where N is a number 1, 2, 3 representing top/bottom ranks. Let us assume that OutputPrefix parameter is &quot;Top&quot; and Inputprefix parameter is ROC. In such case variable TopROC1 would hold the index of top rated value. TopROC2 would hold second top rated value, and so on.<p>
+ StaticVarGenerateRanks function uses rank numbering that starts from ONE.<p> 
+In top ranking mode StaticVarGenerateRanks will also prepare static variable that contains comma separated list of variable names that can be used to find out which index refers to which symbol. So if TopROC1 holds 1 you would lookup first substring in TopROCSymbols variable to find out what variable (symbol) ranked at the top. Additionally StaticVarGetRankedSymbols gives easy-to-use method to retrieve comma separated list of ranked symbols for particular datetime. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// Example 1. code for normal ranking mode</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// (everything done is done in one pass, can be used
+in indicator):</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>/////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+<BR>
+symlist = </FONT><FONT COLOR=#800080>&quot;C,CAT,DD,GE,IBM,INTC,MSFT&quot;</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// delete static variables - DO NOT forget the asterisk (wildcard) at the end</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarRemove</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;ValuesToSort*&quot;</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// fill input static arrays</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> ( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+( sym = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( symlist,
+i ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; i++ ) <BR>
+{ <BR>
+    </FONT><FONT COLOR=#0000ff>SetForeign</FONT><FONT COLOR=#000000>(
+sym ); <BR>
+    
+Value = </FONT><FONT COLOR=#0000ff>ROC</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>RestorePriceArrays</FONT><FONT COLOR=#000000>(); <BR>
+    </FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000> +
+sym, Value ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// perform ranking</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarGenerateRanks</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;rank&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1224</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+normal rank mode</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// read ranking</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> ( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+( sym = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( symlist,
+i ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; i++ ) <BR>
+{ <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>StaticVarGet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;RankValuesToSort&quot;</FONT><FONT COLOR=#000000> +
+sym ), sym, </FONT><FONT COLOR=#000000><B>colorCustom10</B></FONT><FONT COLOR=#000000> +
+i ); <BR>
+}</FONT></CODE>
+<p><p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// Example 2. Code for top ranking mode</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// (everything done is done in one pass, can be used
+in indicator):</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>/////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+<BR>
+<BR>
+symlist = </FONT><FONT COLOR=#800080>&quot;C,CAT,DD,GE,IBM,INTC,MSFT&quot;</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// delete static variables - DO NOT forget the asterisk (wildcard) at the end</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarRemove</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;ValuesToSort*&quot;</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// fill input static arrays</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> ( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+( sym = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( symlist,
+i ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; i++ ) <BR>
+{ <BR>
+    </FONT><FONT COLOR=#0000ff>SetForeign</FONT><FONT COLOR=#000000>(
+sym ); <BR>
+    
+Value = </FONT><FONT COLOR=#0000ff>ROC</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>RestorePriceArrays</FONT><FONT COLOR=#000000>(); <BR>
+    </FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000> +
+sym, Value ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// perform ranking</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarGenerateRanks</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;rank&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1224</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+normal rank mode</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>StaticVarGenerateRanks</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;top&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1224</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+top-N mode</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>StaticVarGenerateRanks</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;bot&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1224</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+bottom-N mode</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// read ranking</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> ( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+( sym = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( symlist,
+i ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; i++ ) <BR>
+{ <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>StaticVarGet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;RankValuesToSort&quot;</FONT><FONT COLOR=#000000> +
+sym ), sym, </FONT><FONT COLOR=#000000><B>colorCustom10</B></FONT><FONT COLOR=#000000> +
+i ); <BR>
+} <BR>
+<BR>
+sdt = </FONT><FONT COLOR=#0000ff>SelectedValue</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>DateTime</FONT><FONT COLOR=#000000>()
+); <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>&quot;{{NAME}}
+-{{DATE}} - {{VALUES}} TOP: &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StaticVarGetRankedSymbols</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;top&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>,
+sdt ) + <BR>
+        </FONT><FONT COLOR=#800080>&quot; BOT: &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StaticVarGetRankedSymbols</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;bot&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>,
+sdt ) ;</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="staticvargetrankedsymbols.html">StaticVarGetRankedSymbols()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StaticVarGenerateRanks</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StaticVarGenerateRanks">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Warning 509. You must use TimeFrameExpand() to expand compressed arrays</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><a name="E1" id="E1"></a>Warning 509. You must use TimeFrameExpand() to
+expand compressed arrays after you used TimeFrameSet and/or TimeFrameCompress.</h4>
+<p><strong>You are not using time frame functions correctly</strong> as described in the <a href="../h_timeframe.html">Tutorial
+  on TimeFrame usage</a>. </p>
+<p>You  formula contains calls to <a href="../afl/timeframeset.html">TimeFrameSet()</a> and/or
+  <a href="../afl/timeframecompress.html">TimeFrameCompress</a>() but you are
+  not calling <a href="../afl/timeframeexpand.html">TimeFrameExpand()</a> to expand
+  resulting arrays.</p>
+<p><a href="../afl/timeframeexpand.html">TimeFrameExpand()</a> <strong>IS ABSOLUTELY
+    REQUIRED</strong>  for any formula that uses TimeFrame* functions. If you don't expand time compressed
+  data you will have incorrect timestamps
+(see description below in &quot;How it works&quot; in  <a href="../h_timeframe.html">Tutorial
+on TimeFrame usage</a>).</p>
+<p>The <a href="../h_timeframe.html">Tutorial on TimeFrame usage</a> is
+  <strong>MUST READ</strong> for everyone wanting to use time frame functions.</p>
+<p><CODE>    <font color='#0000ff'>TimeFrameSet</font>( <b>inDaily</b> ); <font color='#008000'>//
+    will produce Warning 509 because of missing TimeFrameExpand <br>
+    </font>x = <font color='#0000ff'>MA</font>( <b>Close</b>, <font color='#800080'>5</font> ); <font color='#008000'>//
+    get daily MA <br>
+    </font><font color='#0000ff'>TimeFrameRestore</font>(); <br>
+    <br>
+    <font color='#0000ff'>AddColumn</font>( x, <font color='#800080'>"daily MA"</font> ); <font color='#008000'>//
+INCORRECT! You must call TimeFrameExpand !!!</font></CODE></p>
+<p>Correct code would look like this:</p>
+<p><code>    <br>
+    <font color='#0000ff'>TimeFrameSet</font>( <b>inDaily</b> ); <br>
+    x = <font color='#0000ff'>MA</font>( <b>Close</b>, <font color='#800080'>5</font> ); <font color='#008000'>//
+    get daily MA <br>
+    </font><font color='#0000ff'>TimeFrameRestore</font>(); <br>
+    <br>
+    <font color='#0000ff'>AddColumn</font>( <font color='#0000ff'>TimeFrameExpand</font>(
+    x, <b>inDaily</b> ), <font color='#800080'>"daily MA"</font> ); <font color='#008000'>//
+  CORRECT ! Calling TimeFrameExpand to expand compressed array</font></code></p>
+</body>
+</html>

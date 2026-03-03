@@ -1,0 +1,149 @@
+<html>
+<head>
+<title>Database Settings / Intraday Settings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3><a name="PreferencesWindow"></a>Database Settings</h3>
+<p>This window allows you to define per-database settings. It is accessible via
+  File-&gt;Database Settings menu.</p>
+<p><b><img src="gifs/w_dbsettings.gif"></b></p>
+<p><b>IMPORTANT</b>: These per-database settings in this window take precedence
+  over default
+values definable in <a href="w_preferences.html">Preferences</a> window. See
+explanation in <a href="h_workspace.html">Tutorial:
+Understanding database concepts</a>.</p>
+<p>The database settings window is divided into two parts: <i>General</i> and <i>Data source</i></p>
+<p><i>General</i> settings part is enabled <b>only at the database creation
+    time</b> (<b>File-&gt;New
+  database</b>), once the database is created, these controls become disabled.</p>
+<ul>
+  <li><b>Browse... <i>- </i></b> allows to browse for a folder where a new database
+    should be created.</li>
+  <li><b>Create</b> - clicking on this button creates the database inside the
+    folder specified in <b>Database folder</b> edit field.</li>
+</ul>
+<p>For more details about creating new databases and working with particular data
+  sources, please check the <a href="tutorial.html">Tutorial section.</a></p>
+<p><i>Data source</i> part becomes enabled once the database is created and it can
+  be used to modify settings for already existing databases (via <b>File-&gt;Database
+  Settings</b> menu). The following controls are available:</p>
+<ul>
+  <li><b>Data source: </b> defines the data source; this can be either
+    <ul>
+      <li>(local) - it means that no external source is used and data is maintained
+        by AmiBroker itself. Such a database can be updated either using <a href="h_amiquote.html">AmiQuote
+        (Tools-&gt;Auto-update quotes)</a> or using ASCII import - <a href="w_impwizard.html">Import
+        Wizard</a>, <a href="w_metastock.html">Metastock
+        importer</a>, or a <a href="objects.html">script</a>.</li>
+      <li>external data source (one of: eSignal, myTrack, QuoteTracker, Quotes
+        Plus, TC2000/TCNet, FastTrack, Metastock) - it means that data is retrieved
+        directly from an external database / data source. Such a database is updated
+        automatically via a plugin and does not require any user action in AmiBroker.
+        For example, if you use TC2000 as a data source, all data that is present
+        in the TC2000 system becomes automatically available in AmiBroker. For more
+        details, please read <a href="h_workspace.html">Tutorial: Understanding
+        database concepts</a>.</li>
+    </ul>
+  </li>
+  <li><b>Local data storage: </b> decides whether data from an <b>external data source</b>    should
+    also be stored/cached in AmiBroker's own files. If &quot;Enabled&quot;, then
+    external data is cached in local files. If &quot;Disabled&quot;, then
+  local files do not store external data. Switching this to &quot;Enabled&quot; is <b>required</b>    for
+  most <b>real-time</b> data sources, such as eSignal, myTrack, QuoteTracker. This
+  setting has no effect if the data source is set to (local).</li>
+  <li><b>Number of bars to load - </b> defines how
+    many bars should be loaded from an <b>external data source </b>and kept in AmiBroker.
+  Examples: 10-year EOD: 2600, 60-day intraday 1-minute: 30,000 (approx.). This
+  setting has no effect if the data source is set to (local).</li>
+  <li><b>Base time interval </b> - defines what 'base' bar interval is used in
+    this database. For real-time data sources, this should be set once at the
+    database creation time. This is so because real-time sources need to collect
+    RT ticks and pack them (time-compress) into interval bars. This setting defines
+    the minimum 'grain'. For EOD sources, it is End-of-day (daily). For real-time
+    sources, this should be 1-minute or higher. For some real-time sources (like
+    eSignal), this can also be set to tick, 5-second or 15-second. <br>
+    Please note that you also <b>won't be able to use intraday charting and/or
+    analysis</b>    until the base time interval is set to something below the end-of-day
+    interval (it can be 1-minute, for example).
+    For more details, please read <a href="h_charting.html">Tutorial: Basic charting
+    guide</a>.</li>
+  <li><b>Flush cache - </b>allows to force cache flushing and to retrieve fresh data from the plugin</li>
+  <li><b>Configure - </b>allows to display a data source-specific configuration
+    dialog. See <a href="tutorial.html">Tutorial section</a> for details on configuring
+    various data sources.</li>
+  <li><b>Intraday settings</b> - allows to define per-database settings for intraday
+    databases (see below)</li>
+</ul>
+<h3><a name="PreferencesWindow"></a>Intraday Settings window</h3>
+<p><img src="gifs/w_intrasettings.gif"></p>
+<ul>
+  <li><b>Filtering -</b> this provides control over the display of intraday data.
+    AmiBroker collects all the data but displays only that data that is inside
+    selected
+      trading hours start and end times. Please note
+    that this affects all charts and windows <u>except</u> the <a href="w_manualentry.html">Quote
+    Editor</a>, which always displays all available data. <b><br>
+    </b><strong><br>
+    Show 24 hours trading (no filtering)</strong> - all data is displayed (no filtering
+    at all)<br>
+    <strong>Show day session only</strong> -  only the data between day session (RTH) start and
+    end times are displayed<br>
+    <strong>Show night session only</strong> - only the data between night session (ETH) start
+    and end times are displayed<br>
+    <strong>Show day and night session only</strong> - only the data between either day session
+    start/end times or night session start/end times are displayed<b><br>
+    <br>
+    Filter weekends </b> - When checked, AmiBroker collects but does not display
+    data from weekends. When unchecked, those data is collected and displayed.<b>    <br>
+      </b> </li>
+  <li><b>Trading hours Start/End</b> - defines trading hours start and
+    end times for day (RTH) and night (ETH) sessions separately (see above).
+    Please note that the times should be specified in your local time zone.<br>
+  </li>
+  <li><strong>Daily time-compression uses - </strong> this decides how AmiBroker
+    performs intraday to daily time compression<br>
+    <br>
+    <strong>Exchange time</strong> - daily data is constructed from intraday bars starting from
+    00:00 and ending at 23:59 in the EXCHANGE (or data source) TIME ZONE.<br>
+    <strong>Local time</strong> - daily data is constructed from intraday bars starting from
+    00:00 and ending at 23:59 in the LOCAL (computer) TIME ZONE.<br>
+    <strong>Day/Night session times as defined above</strong> - daily data is constructed from
+  the intraday bars that start at the start time of night session (previous day)
+  and end at the end time of day session.<br>
+  </li>
+  <li><b>Time shift: </b> is the time difference (in hours) between your local
+    time zone and the exchange time zone.<br>
+  </li>
+  <li><strong>Allow mixed EOD/Intraday data</strong> - it allows working with a
+    database that has a mixture of intraday and EOD data in one data file. If
+    this is turned on, then in intraday modes, EOD bars are removed on-the-fly,
+    and in daily mode, EOD bars are displayed instead of time-compressed intraday,
+    or if there is no EOD bar for the corresponding day, then intraday bars are compressed
+    as usual. <br>
+    This mode works in conjunction with new versions of plugins that allow mixed
+    data. As of June 2008, Mixed mode is now supported by IQFeed plugin and eSignal
+    plugin (1.7.0 or higher). Mixed
+    mode allows for intraday plus very long daily histories
+    in one database.
+    <p>&nbsp;</p>
+  </li>
+</ul>
+<p>Note that <strong>Intraday Settings </strong>available from <strong>Database
+Settings</strong> dialog is <strong>PER-DATABASE</strong>. There is, however,
+also an option to define <strong>PER-GROUP</strong> intraday settings. To use
+<strong>PER-GROUP</strong> intraday settings, you have to open <a href="w_categories.html">Symbol-&gt;Categories</a> window,
+switch to the <strong>Groups</strong> tab and<br>
+check &quot;Group uses own intraday settings&quot; box as shown in the picture below</p>
+<p><img src="gifs/w_category2.gif"></p>
+<p>Then you can click on the <strong>Intraday Settings </strong>button to display
+  per-group settings. Please note that each group in the category list can have
+  its own individual settings, so you can easily set up groups so that they contain
+  instruments traded in different hours. You can move symbols between groups
+  using <a href="w_organizer.html">Symbol-&gt;Organize assignments</a> dialog.</p>
+<p>&nbsp;</p>
+</body>
+</html>

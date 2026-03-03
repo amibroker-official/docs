@@ -1,0 +1,98 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STATICVARADD</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StaticVarAdd</b><br>
+        - an &quot;atomic&quot; addition for static variables</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 6.10)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StaticVarAdd( &quot;name&quot;, value, keepAll = True, persistent = False ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> StaticVarAdd implements an atomic addition (interlocked read-add-write) operation for static variables.
+<p>
+It is multithreading safe addition for static variables that are shared by multiple threads. This function is atomic with respect to calls to other static variable functions.
+<p>
+<i>KeepAll</i> flag when it is set to true emulates the behavior of AddToComposite. It keeps all values that are already present, so if data holes exists in current symbol,the bars that are present in static variable but not present in current symbol remain untouched. When <i>KeepAll</i> is set to false then only bars that are present in current symbol are kept. Any other bars that were present in static variable but not present in currently processed symbols are removed. That is what normally happens with StaticVarSet().
+In fact when <i>KeepAll</i> is set to False, StaticVarAdd can be seen as the following pseudo code:
+
+<code>
+<pre>
+EnterCriticalSection
+x = Nz( StaticVarGet( &quot;name&quot; ) ); // read exisiting value (and convert Nulls to zero)
+x += Nz( value ); // add value to existing
+StaticVarSet( &quot;name&quot;, x ); // store updated value
+LeaveCriticalSection
+</pre>
+</code>
+
+<p>
+The function can be used to create composites like shown in the example below.
+<p>
+
+NOTES:
+<ul>
+<li>StaticVarAdd automatically converts all Nulls to zeros (as AddToComposite does).
+<li>If you want to replace AddToComposite with StaticVarAdd, keep in mind that by default AddToComposite skips symbols in group 253. This is done so composite symbols
+are not added to themselves. If you have composite symbols in your database and want to skip symbols in group 253 you can use<br>
+if( GroupID() != 253 ) StaticVarAdd(&quot;~Composite&quot;, values );
+<li>Thanks to extensive code tuning, StaticVarAdd generally offers better performance than AddToComposite which was already blazing fast. Single threaded StaticVarAdd may be twice as fast as ATC. With 8 threads running StaticVarAdd may be 4x as fast (it does not scale as much as naive person may think, because critical section limits performance due to lock contention). To illustrate the amount of fine tuning applied it can be said that first 'straightforward' version of StaticVarAdd was actually 20 times slower than ATC.
+<li>Be careful when using &quot;quickafl&quot; as StaticVarAdd would not increase 'required bars' (as ATC does), so if you want to actually add all bars and quick afl is turned on in analysis, it is better to add<br> SetBarsRequired(sbrAll, sbrAll)
+</ul>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#800000'><b>if</b></font>( <font color='#0000ff'>status</font>(<font color='#800080'>&quot;stocknum&quot;</font>)
+== <font color='#800080'>0</font> ) <br>
+{ <br>
+    
+<font color='#008000'>// remove any earier composite values <br>
+</font>   <font color='#0000ff'>StaticVarRemove</font>(<font color='#800080'>&quot;~Composite&quot;</font>); <br>
+} <br>
+<br>
+<font color='#0000ff'>StaticVarAdd</font>( <font color='#800080'>&quot;~Composite&quot;</font>, <font color='#0000ff'>MACD</font>() > <font color='#0000ff'>Signal</font>()
+); <br>
+<b>Buy</b> = <font color='#800080'>0</font>;</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="staticvarset.html">StaticVarSet()</A> function , <A HREF="staticvarget.html">StaticVarGet()</A> function , <A HREF="staticvarcompareexchange.html">StaticVarCompareExchange()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StaticVarAdd</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StaticVarAdd">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

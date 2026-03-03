@@ -1,0 +1,116 @@
+<html>
+
+<head>
+<title>How to update US quotes automatically using AmiQuote</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2>How to update US quotes automatically using AmiQuote</h2>
+<b>QUICK START</b> 
+<p>Run AmiBroker </p>
+<p>Choose <b>Tools-&gt;Auto-update quotes (US &amp; Canada)</b></p>
+<p><b>HOW IT WORKS</b></p>
+<p>AmiQuote loads (or retrieves from AmiBroker) a ticker list file (.TLS) which 
+  is a simple ASCII file with ticker symbols, then parses it and generates URLs 
+  to the Yahoo! finance site based on ticker name, mode (current quotes or historical), 
+  country and From/To date. Then, when you start the download process, it requests 
+  the data from Yahoo and stores downloaded data in the separate .AQD (daily) 
+  or .AQH (historical) files for each ticker. After download, if AmiBroker is 
+  running, AmiQuote will import the quotes into AmiBroker automatically.</p>
+<p><b>USAGE</b></p>
+<p><font size="-1"><b>Automatic update</b></font></p>
+<p>The easiest method to work with AmiQuote and AmiBroker is to use the procedure 
+  given in <b>Quick Start</b> section of this document. Just run AmiBroker and 
+  AmiQuote and choose <b>Tools-&gt;Auto-update AmiBroker database</b>. This method 
+  updates historical quotes from the last date present in AmiBroker up to today. 
+  When performing automatic update, AmiQuote performs internally 4 steps: a) retrieves 
+  the ticker list from AmiBroker (all symbols loaded currently in AmiBroker);<br>
+  b) gets the last quotation date available in AmiBroker;<br>
+  c) performs historical download from the last date up to today;<br>
+  d) instructs AmiBroker to import downloaded files.</p>
+<p>Please note that this procedure works only for US &amp; Canada markets, because 
+  Yahoo provides historical quotes only for those markets.</p>
+<p>Note that AmiQuote currently supports a new command line parameter: <b>/autoupdate</b>. 
+  This option forces AmiQuote to perform the automatic update procedure without user 
+  intervention. <br>
+  By default AmiBroker's Tools menu is configured as follows:</p>
+<p><code>C:\Program Files\AmiBroker\AmiQuote\Quote.EXE /autoupdate </code></p>
+<p>So, you are able to update your US database with a single click on <b>Tools-&gt;Auto-update 
+  quotes (US &amp; Canada)</b> in AmiBroker</p>
+<p><font size="-1"><b>Manual operation</b></font></p>
+<p>Automatic mode is nice, but there are cases when you have to perform some tasks 
+  manually. There is a good old document describing that mode of operation at: 
+  <a href="h_amiquote.html">How to download quotes manually using AmiQuote</a> 
+  . Everything written in this document remains valid with one exception - now 
+  importing to AmiBroker is performed automatically if you have the <b>Automatic 
+  import</b> checkbox marked.</p>
+<p>There are also several cases when you prefer to do things manually; then please 
+  don't forget about some useful tools available at your fingertips:</p>
+<p><b>File-&gt;Open, File-&gt;Save, File-&gt;Save As </b></p>
+<blockquote>
+  <p>These functions enable you to load and save your edited ticker lists for 
+    future repeated use.</p>
+</blockquote>
+<p><b>Edit-&gt;Add tickers</b></p>
+<blockquote>
+  <p>This function allows you to add tickers to the list. Just type space-separated 
+    tickers into the field that will show up when you choose this function.</p>
+</blockquote>
+<p><b>Edit-&gt;Delete tickers</b></p>
+<blockquote>
+  <p>This function allows you to delete tickers from the list. Just select the 
+    items you want to delete from the list view (multiple selection possible by 
+    holding SHIFT or CTRL key while clicking on items), and choose this function.</p>
+</blockquote>
+<p><b>Edit-&gt;Mark all, Edit-&gt;Unmark all, Edit-&gt;Toggle, Edit-&gt;Mark selection, 
+  Edit-&gt;Unmark selection</b></p>
+<blockquote>
+  <p>These functions allow you to mark tickers for download. Please note that 
+    AmiQuote puts a checkmark before the ticker name in the list view. Only MARKED 
+    items will be downloaded. This allows you to perform selective downloads/updates.</p>
+</blockquote>
+<p><b>View-&gt;Refresh</b></p>
+<blockquote>
+  <p>Basically AmiQuote handles refreshes by itself when needed. For example, if 
+    you changed the date range, the list will be refreshed before starting the download. 
+    But there are some cases when you may want to refresh the list by yourself. 
+    For example, if you downloaded and imported quotes once and want to do this 
+    again, you would need to choose this function. The Refresh function simply 
+    applies all date and type settings to the URLs listed, and MARKS all tickers 
+    for a new download.</p>
+</blockquote>
+<p><b>Tools-&gt;Import into AmiBroker</b></p>
+<blockquote>
+  <p>This function is useful if you want to import just downloaded quotes into 
+    AmiBroker but you have the <b>Automatic import</b> checkbox cleared.</p>
+</blockquote>
+<p><b>Tools-&gt;Get tickers from AmiBroker</b></p>
+<blockquote>
+  <p>This function retrieves all symbols from the currently loaded AmiBroker database 
+    and fills the AmiQuote ticker list with them.</p>
+</blockquote>
+<p><b>Tools-&gt;Get last update date</b></p>
+<blockquote>
+  <p>This function retrieves the date of the most recent quotation of the first 
+    symbol present in the currently loaded AmiBroker database and sets the <b>From</b> 
+    date to this date.</p>
+</blockquote>
+<p><b>Tools-&gt;Settings</b></p>
+<blockquote>
+  <p>Displays the settings window where you can define the destination directory 
+    where all downloads are stored. Note that a blank destination directory means 
+    that downloads will be stored in the current working directory (in most cases 
+    this is the folder from where the current .TLS file was loaded).</p>
+  <p>In this window you can also change the mode of writing the files. By default, 
+    historical files are overwritten while daily files get appended. This is the recommended 
+    setup. Appending daily files simply allows you to create intraday historical 
+    files when you do the updates daily. You may change this behavior for your 
+    particular purpose.</p>
+</blockquote>
+<p>&nbsp;</p>
+</body>
+</html>

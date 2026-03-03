@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Volume At Price</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+<h3>VAP - Volume At Price histogram</h3>
+<p>Volume At Price histogram is also known as &quot;Volume Profile&quot; chart.</p>
+<p>To turn it on, simply go to <strong>Tools-&gt;Preferences</strong> and change the VAP Type from
+  &quot;NONE&quot; to &quot;Left-side solid area chart, behind&quot; for example.</p>
+<p>VAP shows total volume of trading that occurred at a given price level. VAP
+is calculated from data bars that are currently visible.</p>
+<p>The actual algorithm involves not one price, but a High-Low price range.</p>
+<p>AmiBroker equally distributes the bar's volume over the High-Low range to produce a
+  VAP histogram. For example, if a bar's volume is 10000 and the H-L range spans 3 'lines' of the
+  VAP histogram, then 10000/3 is added to each of the 3 lines<br>
+  involved to produce statistics. This gives much more accurate
+  results than using a single price,<br>
+  as some other implementations do.</p>
+<p>To turn VAP on/off, use: Tools-&gt;Preferences-&gt;Main chart<br>
+  You can also add VAP to your own custom charts using <a href="afl/plotvapoverlay.html">PlotVAPOverlay</a> AFL
+  function.</p>
+</body>
+</html>

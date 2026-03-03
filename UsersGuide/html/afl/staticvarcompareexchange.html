@@ -1,0 +1,183 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STATICVARCOMPAREEXCHANGE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StaticVarCompareExchange</b><br>
+        - atomic interlocked static variable compare-exchange operation</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 5.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StaticVarCompareExchange( ''varname'', exchange, comperand ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Parameters:
+<ul>
+<li>"varname" -
+Specifies the name of the destination static variable. Static variable if exists must be scalar numeric type. If static variable is not initialized, the function assumes that it has value of zero.
+<li>exchange - specifies the exchange value. Scalar numeric.
+<li>comperand - specifies the value to compare to the destination static variable. Scalar numeric.
+</ul>
+Return Values:<br>
+The return value is the initial value of the destination static variable. If variable did not exist, it returns zero. 
+<p>
+The StaticVarCompareExchange function performs an atomic comparison of the "varname" static variable value with the Comperand value. If the static variable value is equal to the Comperand value, the Exchange value is stored in the static variable. Otherwise, no operation is performed.
+<p>
+The function StaticVarCompareExchange provides a simple mechanism for synchronizing access to static variables that are shared by multiple threads. The following examples show how to implement semaphore and critical section in AFL using StaticVarCompareExchange function. For more details see <a href='/h_multithreading.html'>Tutorial: Efficient use of multithreading</a>.
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// EXAMPLE 1 : Simple semaphore
+(no waiting) </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>StaticVarCompareExchange</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"semaphore"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> )
+== </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>//
+obtain semaphore </FONT><FONT COLOR=#000000> <BR>
+{ <BR>
+   
+</FONT><FONT COLOR=#008000>// protected section here </FONT><FONT COLOR=#000000> <BR>
+   
+</FONT><FONT COLOR=#008000>// Here you have exclusive access (no other threads
+that check for semaphore will enter simultaneously)    </FONT><FONT COLOR=#000000> <BR>
+   
+</FONT><FONT COLOR=#008000>///////////////////////// </FONT><FONT COLOR=#000000> <BR>
+   
+</FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"semaphore"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+reset semaphore </FONT><FONT COLOR=#000000> <BR>
+} <BR>
+</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+{ <BR>
+  </FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Can
+not obtain semaphore"</FONT><FONT COLOR=#000000>); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#008000>/////////////// </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// EXAMPLE 2 HOW TO IMPLEMENT CRITICAL SECTION IN
+AFL </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>/////////////// </FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> _TryEnterCS(
+secname ) <BR>
+{ <BR>
+  </FONT><FONT COLOR=#800000><B>global</B></FONT><FONT COLOR=#000000> _cursec; <BR>
+  
+_cursec= </FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+  </FONT><FONT COLOR=#008000>// try obtaining semaphore for 1000 ms </FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; i < </FONT><FONT COLOR=#800080>1000</FONT><FONT COLOR=#000000>;
+i++ ) <BR>
+   
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>StaticVarCompareExchange</FONT><FONT COLOR=#000000>(
+secname, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> )
+== </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ) <BR>
+   
+{ <BR>
+       
+_cursec = secname; <BR>
+      </FONT><FONT COLOR=#800000><B>break</B></FONT><FONT COLOR=#000000>; <BR>
+   
+} <BR>
+   
+</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>ThreadSleep</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//sleep
+one millisecond </FONT><FONT COLOR=#000000> <BR>
+<BR>
+  </FONT><FONT COLOR=#800000><B>return</B></FONT><FONT COLOR=#000000> _cursec
+!= </FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000>; <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// call it ONLY when _TryEnterCS returned TRUE ! </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> _LeaveCS() <BR>
+{     <BR>
+   
+</FONT><FONT COLOR=#800000><B>global</B></FONT><FONT COLOR=#000000> _cursec; <BR>
+   
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( _cursec != </FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000> ) <BR>
+    
+{ <BR>
+      </FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>(
+_cursec, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ); <BR>
+       
+_cursec = </FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000>; <BR>
+    
+} <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> TimeConsumingWork() <BR>
+{ <BR>
+   
+</FONT><FONT COLOR=#008000>// WARNING: the Percentile is CPU hungry as it involves
+lots of sorting, the loop below may take > 1 second to complete </FONT><FONT COLOR=#000000> <BR>
+   
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i< </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000>; i++ ) </FONT><FONT COLOR=#0000ff>Percentile</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#008000>//_TRACE("Without CS Begin " + GetChartID() ); </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>//TimeConsumingWork(); // some time consuming calculation </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>//_TRACE("Without CS End" + GetChartID() ); </FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// Example usage (critical section) </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( _TryEnterCS( </FONT><FONT COLOR=#800080>"mysemaphore"</FONT><FONT COLOR=#000000> )
+) <BR>
+{ <BR>
+  </FONT><FONT COLOR=#008000>// you are inside critical section now </FONT><FONT COLOR=#000000> <BR>
+   
+</FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Begin
+CS "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>GetChartID</FONT><FONT COLOR=#000000>()
+); <BR>
+   
+TimeConsumingWork(); </FONT><FONT COLOR=#008000>// some time consuming calculation </FONT><FONT COLOR=#000000> <BR>
+   
+</FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"End
+CS "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>GetChartID</FONT><FONT COLOR=#000000>()
+); <BR>
+   
+_LeaveCS(); <BR>
+} <BR>
+</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+{ <BR>
+   
+</FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Unable
+to enter CS"</FONT><FONT COLOR=#000000>); <BR>
+}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="threadsleep.html">ThreadSleep()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StaticVarCompareExchange</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StaticVarCompareExchange">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

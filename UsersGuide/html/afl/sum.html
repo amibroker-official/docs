@@ -1,0 +1,84 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SUM</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Sum</b><br>
+        - sum data over specified number of bars</li></h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Moving averages, summation<br>
+        </b></p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Sum( ARRAY, <em>periods</em> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Calculates a cumulative sum of the ARRAY for the specified 
+      number of lookback <em>periods</em> (including today).
+
+The function accepts periods parameter that can be constant as well as time-variant (array). </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> The formula "sum( CLOSE, 14 )" returns the sum of 
+      the preceding 14 closing prices. A 14-period simple moving average could 
+      be written "sum(C,14) / 14." </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="cum.html">CUM()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Graham Kavanagh</b><br>gkavanagh [at] e-wire.net.au<br>2004-08-09 07:52:41</td><td valign="top">Sum adds up the last &quot;n&quot; number of bars. It sums whatever you put into the first part of the sum formula.<br />
+<br />
+Cum(1) adds 1 to the previous value of Cum, so the first bar is 1 and it just keeps adding one to the last bar value of cum(1). <br />
+You can use Cum to add anything, like how many times you get rising days in the entire chart:<br />
+<br />
+Rise = C&gt;O; //this gives results of 0 or 1<br />
+TotalRise = Cum(Rise);<br />
+<br />
+You could limit this as well to time periods, or any other condition Example would be one for total rise days since 1995:<br />
+<br />
+RecentRise = C&gt;O and Year()&gt;=1995; //this gives results of 0 or 1 <br />
+TotalRise = Cum(RecentRise);<br />
+<br />
+<br />
+If you wanted to know how many rising days in the last 12 bars you would use:<br />
+<br />
+LastRises = Sum(Rise,12);<br />
+<br />
+Hope this helps</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>Sum</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1300&hilite=Sum' target='_blank'> 	Pivots And Prices And Swing Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1385&hilite=Sum' target='_blank'>Adaptive Relative Vigour Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=29&hilite=Sum' target='_blank'>Against all odds</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=25&hilite=Sum' target='_blank'>AJDX system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=157&hilite=Sum' target='_blank'>Alpha and Beta and R_Squared Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1410&hilite=Sum' target='_blank'>Alternative ZIG function</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=Sum' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=Sum' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=Sum' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=Sum' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=196&hilite=Sum' target='_blank'>Bollinger band normalization</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=680&hilite=Sum' target='_blank'>Buff Volume Weighted Moving Averages</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1249&hilite=Sum' target='_blank'>Buyer Seller Force</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=Sum' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=770&hilite=Sum' target='_blank'>CandleStick Comentary--Help needed</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=26&hilite=Sum' target='_blank'>CandleStochastics</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=6&hilite=Sum' target='_blank'>Chaikin Money Flow</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=239&hilite=Sum' target='_blank'>Chande Momentum Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=Sum' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=127&hilite=Sum' target='_blank'>Cole</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1380&hilite=Sum' target='_blank'>Connors TPS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=281&hilite=Sum' target='_blank'>crBeta</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=278&hilite=Sum' target='_blank'>crMathLib</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=10&hilite=Sum' target='_blank'>DeMarker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=295&hilite=Sum' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=296&hilite=Sum' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=927&hilite=Sum' target='_blank'>Dynamtic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=598&hilite=Sum' target='_blank'>ekeko price chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=569&hilite=Sum' target='_blank'>Elder safe Zone Long + short</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=Sum' target='_blank'>Elder Triple Screen Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=303&hilite=Sum' target='_blank'>Elder's SafeZone Stop</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=318&hilite=Sum' target='_blank'>ElderSafeZoneStopLong</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=319&hilite=Sum' target='_blank'>ElderSafeZoneStopShort</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=361&hilite=Sum' target='_blank'>Fib CMO</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1394&hilite=Sum' target='_blank'>Fisher Relative Vigour Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1454&hilite=Sum' target='_blank'>Fre</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1128&hilite=Sum' target='_blank'>Frequency distribution of returns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=Sum' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=66&hilite=Sum' target='_blank'>Hilbert Study</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=65&hilite=Sum' target='_blank'>Hurst Constant</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1135&hilite=Sum' target='_blank'>Intraday Average Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1457&hilite=Sum' target='_blank'>Kiss and Touch with the Modified True Range </A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=193&hilite=Sum' target='_blank'>Linear Regression Line & Bands</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=21&hilite=Sum' target='_blank'>MACD commentary</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1518&hilite=Sum' target='_blank'>Market Meanness Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1605&hilite=Sum' target='_blank'>Momentum Volume Price (MVP) Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=369&hilite=Sum' target='_blank'>MultiCycle 1.0</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=Sum' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1348&hilite=Sum' target='_blank'>Perceptron</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=72&hilite=Sum' target='_blank'>Performance Check</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=128&hilite=Sum' target='_blank'>Peterson</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=231&hilite=Sum' target='_blank'>Polarized Fractal Efficiency</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=344&hilite=Sum' target='_blank'>Projection Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=99&hilite=Sum' target='_blank'>QP2 Float Analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=15&hilite=Sum' target='_blank'>Range Expansion Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=106&hilite=Sum' target='_blank'>Regression Analysis Line</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=150&hilite=Sum' target='_blank'>Relative Vigour Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1398&hilite=Sum' target='_blank'>Relative Vigour Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=226&hilite=Sum' target='_blank'>RSI of Weekly Price Array</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=153&hilite=Sum' target='_blank'>RSIS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=184&hilite=Sum' target='_blank'>Sector Tracking</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1179&hilite=Sum' target='_blank'>Sony</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=225&hilite=Sum' target='_blank'>Stochastic of Weekly Price Array</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1403&hilite=Sum' target='_blank'>Stochastic Relative Vigour Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1208&hilite=Sum' target='_blank'>TD REI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=396&hilite=Sum' target='_blank'>TD sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=Sum' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=238&hilite=Sum' target='_blank'>The Saturation Indicator D_sat</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=223&hilite=Sum' target='_blank'>Time Frame Weekly Bars</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=358&hilite=Sum' target='_blank'>Time segment value</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1339&hilite=Sum' target='_blank'>Tracking Error</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1340&hilite=Sum' target='_blank'>Tracking Error</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1274&hilite=Sum' target='_blank'>Trailing Stop Loss</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=771&hilite=Sum' target='_blank'>Trend Analysis_Comentary</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=163&hilite=Sum' target='_blank'>Trend Continuation Factor</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1260&hilite=Sum' target='_blank'>Trend Exploration: Count Number of New Highs</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1275&hilite=Sum' target='_blank'>Trend Following System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=775&hilite=Sum' target='_blank'>Trigonometric Fit - TrigFit with AR for cos / sin</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1589&hilite=Sum' target='_blank'>TSV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=16&hilite=Sum' target='_blank'>Vertical Horizontal Filter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=229&hilite=Sum' target='_blank'>Vertical Horizontal Filter (VHF)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=660&hilite=Sum' target='_blank'>Visualization of stoploses and profit in chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=197&hilite=Sum' target='_blank'>Volume Weighted Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1262&hilite=Sum' target='_blank'>Volume wieghted moving average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=853&hilite=Sum' target='_blank'>VWAP - Volume Weighted Average Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1295&hilite=Sum' target='_blank'>VWAP versus Average Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1047&hilite=Sum' target='_blank'>Woodie's CCI Panel Basic</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=Sum' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1346&hilite=Sum' target='_blank'>z-distance from vwap</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1548&hilite=Sum' target='_blank'>ZigZag - Days, Avg (Ord) Volume and Channels</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Sum">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

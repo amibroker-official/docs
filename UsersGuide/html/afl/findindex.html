@@ -1,0 +1,92 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - FINDINDEX</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>FindIndex</b><br>
+        - find index of array item matching specified value</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 6.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>FindIndex( array, value, start_from = 0, dir = 1 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Find an index of array item matching specified value
+<p>
+Returns:<br>
+NUMBER - the index of matching array item 
+if value is not found in the array, the function returns -1
+<p>
+Parameters:
+<ul>
+<li>array - input data
+<li>value - what we are looking for
+<li>start - the index to start the search from
+<li>dir - the direction of the search, 1 is up, -1 is down
+<p>
+Notes:
+start can be positive - then it refers to index number counting from the beginning of array
+or it can be negative then it refers to index counting from the END of the array
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#009300'>// example find all indices when condition was true
+<br></font>
+<br>condition = <font color='#0000ff'>Cross</font>( <font color='#40e0d0'><b>C</b></font>, <font color='#0000ff'>MA</font>( <font color='#40e0d0'><b>C</b></font>, <font color='#8b0000'>20</font> ) );
+<br>
+<br><font color='#009300'>// search forwards
+<br></font><font color='#0000ff'>printf</font>(<font color='#ff0000'>&quot;Search forwards:\n&quot;</font>);
+<br><font color='#800000'><b>for</b></font>( index = <font color='#8b0000'>0</font>; ( index = <font color='#0000ff'>FindIndex</font>( condition, <font color='#40e0d0'><b>True</b></font>, index ) ) != -<font color='#8b0000'>1</font>; index++ )
+<br>{
+<br>   <font color='#0000ff'>printf</font>(<font color='#ff0000'>&quot;condition is true at index %g\n&quot;</font>, index );
+<br>}
+<br>
+<br><font color='#009300'>// search backwards
+<br></font><font color='#0000ff'>printf</font>(<font color='#ff0000'>&quot;Search backwards:\n&quot;</font>);
+<br><font color='#800000'><b>for</b></font>( index = -<font color='#8b0000'>1</font>; ( index = <font color='#0000ff'>FindIndex</font>( condition, <font color='#40e0d0'><b>True</b></font>, index, -<font color='#8b0000'>1</font> ) ) != -<font color='#8b0000'>1</font>; index-- )
+<br>{
+<br>   <font color='#0000ff'>printf</font>(<font color='#ff0000'>&quot;condition is true at index %g\n&quot;</font>, index );
+<br>}
+<br></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>FindIndex</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=FindIndex">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

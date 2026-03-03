@@ -1,0 +1,62 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MARKETID</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>MarketID</b><br>
+        - market ID / name</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Information / Categories<br>
+        </b>(AmiBroker 3.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>MarketID( mode = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER/STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Retrieves current stock market ID/name
+      When mode = 0 (the default value ) this function returns numerical marketID 
+        (consecutive market number)<br>
+        When mode = 1 this function returns name of the market. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> Filter = MarketID() == 7 OR MarketID() == 9;<br>
+        AddTextColumn( MarketID( 1 ), "Market name" ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">   </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>MarketID</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=270&hilite=MarketID' target='_blank'>Alert Output As Quick Rewiev</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=MarketID' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=188&hilite=MarketID' target='_blank'>Compare Sectors against Tickers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=531&hilite=MarketID' target='_blank'>Dave Landry PullBack Scan</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=MarketID' target='_blank'>Elder Triple Screen Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=MarketID">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

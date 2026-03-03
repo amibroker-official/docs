@@ -1,0 +1,104 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PREFS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Prefs</b><br>
+        - retrieve preferences settings</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 3.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Prefs( index ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER, STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Retrieves preferences setting. Allowed <i>index</i> values are:<br>
+        0: FatLineChart;<br>
+        1: MarkQuotations;<br>
+        2: ChartVolumeType;<br>
+        3: ShortTimeMA;<br>
+        4: STMARange;<br>
+        5: MidTimeMA;<br>
+        6: MTMARange;<br>
+        7: BollingerBands;<br>
+        8: Pref.BBFactor;<br>
+        9: ROC;<br>
+        10: RSI;<br>
+        11, 12, 13: MACD;<br>
+        14: StochSlow;<br>
+        15, 16, 17: Ultimate;<br>
+        18: VolumeType;<br>
+        19-22: /* reserved amiga only */<br>
+        23: AutoArrange;<br>
+        24: LogChartScale;<br>
+        25: MaxChartQuot;<br>
+        26: TRIX;<br>
+        27: LongTimeMA;<br>
+        28: LTMARange;<br>
+        29: VolMARange;<br>
+        30: RelativeStrengthBase (string);<br>
+        31: LimitSave;<br>
+        32: LimitSaveRange;<br>
+        33: CCI;<br>
+        34: CCIAvg;<br>
+        35: Tooltips;<br>
+        36: MFI;<br>
+        37, 38: Chaikin;<br>
+        39: DataPath (string)<br>
+        40: DataTooltips;<br>
+        41: LoadAllWhenSelect;<br>
+        42: PartialLoad;<br>
+        43: PartialLoadQty;<br>
+        44, 45: TRIN;<br>
+        46: STMAType;<br>
+        47: MTMAType;<br>
+        48: LTMAType;<br>
+        49: ADX;<br>
+        50, 51: ParabolicSAR;<br>
+        52: EnableMainChartSAR;<br>
+        53: DefaultPriceStyle;<br>
+        54: StockTreeMode;<br>
+        55: TickerListMode; </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> macd( prefs( 11 ), prefs( 12 ), prefs( 13 ) ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Prefs</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=311&hilite=Prefs' target='_blank'>Dinapoli Guru Commentary</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=598&hilite=Prefs' target='_blank'>ekeko price chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=572&hilite=Prefs' target='_blank'>hassan</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=266&hilite=Prefs' target='_blank'>Moving Trend Bands (MTB)</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Prefs">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

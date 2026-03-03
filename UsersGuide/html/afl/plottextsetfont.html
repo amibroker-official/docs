@@ -1,0 +1,82 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PLOTTEXTSETFONT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PlotTextSetFont</b><br>
+        - write text on the chart with user-defined font</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Basic price pattern detection<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PlotTextSetFont( ''text'', ''fontname'', pointsize, x, y, color, bkcolor = colorDefault, yoffset = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function writes text in specified co-ordinates using specified font 
+<p>
+where: 
+<ul>
+<li><b>'text'</b> is a text to display
+<li><b>'fontname'</b> is a type face name
+<li><b>pointsize</b> is a font size in points
+<li><b>x</b> - is x-coordinate in bars (like in LineArray) 
+<li><b>y</b> - is y-coordinate in dollars 
+<li><b>color</b> is text color 
+<li><b>bkcolor</b> is background color 
+<li><b>yoffset</b> is Y-axis offset (in pixels)
+</ul>
+ If bkcolor is NOT specified (or equal to colorDefault) text is written with TRANSPARENT background, any other value causes solid background with specified background color.
+<p>
+The function also sets font for all subsequent calls to PlotText(). </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#0000ff'>Plot</font>(<b>C</b>, <font color='#666666'>&quot;Price&quot;</font>, <b>colorDefault</b> ); <br>
+x = <font color='#0000ff'>SelectedValue</font>( <font color='#0000ff'>BarIndex</font>()
+); <br>
+y = <b>Close</b>[ x ]; <br>
+<br>
+<font color='#0000ff'>PlotTextSetFont</font>(<font color='#666666'>&quot;E&quot;</font>, <font color='#666666'>&quot;Wingdings&quot;</font>, <font color='#a52a00'>40</font>,
+x, y, <b>colorGreen</b>, <b>colorDefault</b>, -<font color='#a52a00'>30</font> ); <br>
+<font color='#0000ff'>PlotText</font>( <font color='#666666'>&quot;C&quot;</font>,  <b>BarCount</b>, <b>Close</b>[ <b>BarCount</b> - <font color='#a52a00'>1</font> ], <b>colorRed</b>, <b>colorDefault</b>,
+-<font color='#a52a00'>20</font> ); <font color='#009300'>// will use new font
+too</font></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="plottext.html">PlotText()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>PlotTextSetFont</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=PlotTextSetFont' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=PlotTextSetFont' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1452&hilite=PlotTextSetFont' target='_blank'>Inside Bar</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1453&hilite=PlotTextSetFont' target='_blank'>Inside Bar</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1553&hilite=PlotTextSetFont' target='_blank'>pattenz</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=PlotTextSetFont' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1548&hilite=PlotTextSetFont' target='_blank'>ZigZag - Days, Avg (Ord) Volume and Channels</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PlotTextSetFont">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

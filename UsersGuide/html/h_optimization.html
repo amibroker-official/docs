@@ -1,0 +1,447 @@
+<html>
+
+<head>
+<title>How to optimize a trading system</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>How to optimize a trading system</b></h2>
+<p><i>NOTE: This is a fairly advanced topic. Please read previous AFL tutorials 
+  first.</i></p>
+<p><b>Introduction</b></p>
+<p>The idea behind an optimization is simple. First, you need to have a trading 
+  system; this may be a simple moving average crossover, for example. In almost 
+  every system, there are some parameters (such as the averaging period) that decide how a 
+  given system behaves (i.e., whether it is well suited for the long term or short term, how 
+  it reacts to highly volatile stocks, etc.). Optimization is the process 
+  of finding the optimal values of those parameters (giving the highest profit from the 
+  system) for a given symbol (or a portfolio of symbols). AmiBroker is one of the 
+  very few programs that allow you to optimize your system on multiple symbols 
+at once. </p>
+<p>To optimize your system, you have to define from one up to 64 parameters to
+   be optimized. You decide what the minimum and maximum allowable value of
+  the
+   parameter is and in what increments this value should be updated. AmiBroker then
+  
+  performs multiple backtests of the system using ALL possible combinations of
+  parameter values. When this process is finished, AmiBroker displays the list
+  of results 
+  sorted by net profit. You can see the values of optimization parameters
+   that give the best result.</p>
+<p><b>Writing AFL formula</b></p>
+<p>Optimization in the backtester is supported via a new function called optimize. 
+  The syntax of this function is as follows:</p>
+<p>variable = optimize( &quot;<i>Description</i>&quot;,<i> default</i>, <i>min</i>, 
+  <i>max</i>, <i>step</i> );</p>
+<p>where:</p>
+<p>variable - is a normal AFL variable that gets assigned the value returned by 
+  the optimize function.<br>
+  With normal backtesting, scanning, exploration, and commentary modes, the optimize 
+  function returns the <i>default </i>value, so the above function call is equivalent 
+  to: variable = <i>default</i>;</p>
+<p>In optimization mode, the optimize function returns successive values from <i>min</i> 
+  to <i>max</i> (inclusively) with <i>step</i> stepping.</p>
+<p>&quot;<i>Description&quot; </i>is a string that is used to identify the optimization 
+  variable and is displayed as a column name in the optimization result list.</p>
+<p><i>default</i> is a default value that the optimize function returns in exploration, 
+  indicator, commentary, scan, and normal backtest modes</p>
+<p><i>min</i> is the minimum value of the variable being optimized</p>
+<p><i>max </i> is the maximum value of the variable being optimized</p>
+<p><i>step </i>is an interval used for increasing the value from <i>min </i> to 
+  <i>max</i></p>
+<p>Notes:</p>
+<ul>
+  <li>AmiBroker supports up to 64 calls to the optimize function (therefore up to
+    64 optimization variables). Note that if you are using exhaustive optimization,
+    then it is a good idea to limit the number of optimization variables to
+    just a few.</li>
+  <li>Each call to optimize generates <i>(max - min)/step </i>optimization loops 
+    and multiple calls to optimize multiply the number of runs needed. For example, 
+    optimizing two parameters using 10 steps will require 10*10 = 100 optimization 
+  loops.</li>
+  <li>Call the optimize function only ONCE per variable at the beginning of your formula 
+    , as each call generates new optimization loops</li>
+  <li>Multiple-symbol optimization is fully supported by AmiBroker</li>
+  <li>The maximum search space is 2<sup>64</sup> (10<sup>19</sup> = 10,000,000,000,000,000,000)
+    combinations</li>
+</ul>
+<p><b>Examples</b></p>
+<p>1. Single variable optimization:</p>
+<p><CODE><FONT COLOR=#000000>sigavg = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Signal
+      average"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000>,
+sigavg ) ); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000>,
+sigavg ), </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000> )
+);</FONT></CODE></p>
+<p>2. Two-variable optimization (suitable for 3D charting)</p>
+<p><CODE><FONT COLOR=#000000>per = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"per"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  Level = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"level"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>150</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>4</FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+  </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>CCI</FONT><FONT COLOR=#000000>(per),
+  -Level ); <BR>
+  </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(
+Level, </FONT><FONT COLOR=#0000ff>CCI</FONT><FONT COLOR=#000000>(per) ); </FONT></CODE></p>
+<p>3. Multiple (3) variable optimization:</p>
+<p><CODE><FONT COLOR=#000000>mfast = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"MACD
+      Fast"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>8</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>16</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  mslow = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"MACD
+  Slow"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>17</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>30</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  sigavg = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Signal
+average"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+<p><CODE><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(
+mfast, mslow ) , </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(
+mfast, mslow, sigavg ) ); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(
+mfast, mslow, sigavg ), </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(
+mfast, mslow ) );</FONT></CODE></p>
+<p></p>
+<p>After entering the formula, just click on the <b>Optimize</b> button in the &quot;Automatic 
+  Analysis&quot; window. AmiBroker will start testing all possible combinations 
+  of optimization variables and report the results in the list. After optimization 
+  is done, the list of results is presented sorted by the Net % profit. As you can 
+  sort the results by any column in the result list, it is easy to get the optimal 
+  values of parameters for the lowest drawdown, lowest number of trades, largest 
+  profit factor, lowest market exposure, and highest risk-adjusted annual % return. 
+  The last columns of the result list present the values of optimization variables 
+  for a given test.</p>
+<p></p>
+<p>When you decide which combination of parameters suits your needs the best, all 
+  you need to do is replace the default values in the optimize function calls with 
+  the optimal values. At the current stage, you need to type them by hand in the formula 
+  edit window (the second parameter of the optimize function call).</p>
+<p><strong>Displaying 3D animated optimization charts</strong></p>
+<p>To display a 3D optimization chart, you need to run two-variable optimization
+  first. Two-variable optimization needs a formula that has 2 Optimize() function
+  calls. An example two-variable optimization formula looks like this:</p>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top"><p><CODE><FONT COLOR=#000000>per = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"per"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  Level = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"level"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>150</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>4</FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+  </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>CCI</FONT><FONT COLOR=#000000>(per),
+  -Level ); <BR>
+  </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(
+  Level, </FONT><FONT COLOR=#0000ff>CCI</FONT><FONT COLOR=#000000>(per) ); </FONT></CODE></p>
+      <p>After
+      entering the formula, you need to click the &quot;Optimize&quot; button.      </p>
+      <p>Once optimization is complete, you should click on the drop-down arrow
+        on the <strong>Optimize</strong> button
+    and choose <strong>View 3D optimization graph</strong>. In a few seconds,
+    a colorful three-dimensional surface plot will appear in a 3D chart viewer
+    window. An example 3D chart
+    generated using the above formula is shown below.</p></td>
+    <td><img src="gifs/h_optimize2.gif"></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p><img src="gifs/h_optimize.gif"></p>
+<p>By default, the 3D charts display values of Net profit against
+  optimization variables. You can, however, plot a 3D surface chart for any column
+  in the optimization result table. Just click on the column header to sort it
+  (a blue arrow will appear, indicating that optimization results are sorted by
+   the selected column) and then choose  <strong>View 3D optimization graph </strong>again.</p>
+<p>By visualizing how your system's parameters affect trading performance, you
+  can more readily decide which parameter values produce &quot;fragile&quot; and
+  which produce &quot;robust&quot; system performance. Robust settings are regions
+  in the 3D graph that show gradual rather than abrupt changes in the surface
+plot.  3D optimization charts are a great tool to prevent curve-fitting. Curve-fitting
+  (or over-optimization) occurs when the system is more complex than it needs
+  to be, and all that complexity is focused on market conditions that may never
+  happen
+  again. Radical changes (or spikes) in the 3D optimization charts clearly show
+over-optimization areas. You should  choose a parameter region that produces  a broad and wide plateau   on a 3D chart for your
+  real-life trading.
+Parameter sets producing profit
+spikes  will not work reliably in real trading.</p>
+<p><strong>3D chart viewer controls</strong></p>
+<p>AmiBroker's 3D chart viewer offers total viewing capabilities with full graph
+  rotation and animation. Now you can view your system results from every conceivable
+  perspective. 
+  You can control the position and other parameters of the chart using the mouse,
+  toolbar, and keyboard shortcuts, whatever you find easier. Below, you
+  will find the list.</p>
+<p><em>Mouse controls:</em></p>
+<p>- to Rotate - hold down the LEFT mouse button and move in X/Y directions<br>
+  - to Zoom-in, zoom-out - hold down the RIGHT mouse button and move in X/Y directions<br>
+  - to Move (translate) - hold down the LEFT mouse button and CTRL key and move in
+  X/Y directions<br>
+  - to Animate - hold down the LEFT mouse button, drag quickly, and release the button
+while dragging</p>
+<p><em>Keyboard controls:
+</em></p>
+<p>SPACE - animate (auto-rotate)<br>
+  LEFT ARROW KEY - rotate vert. left<br>
+  RIGHT ARROW KEY - rotate vert. right<br>
+  UP ARROW KEY - rotate horiz. up<br>
+  DOWN ARROW KEY - rotate horiz. down<br>
+  NUMPAD + (PLUS) - Near (zoom in)<br>
+  NUMPAD - (MINUS) - Far (zoom out)<br>
+  NUMPAD 4 - move left<br>
+  NUMPAD 6 - move right<br>
+  NUMPAD 8 - move up<br>
+  NUMPAD 2 - move down<br>
+  PAGE UP - water level up<br>
+  PAGE DOWN - water level down
+</p>
+<p></p>
+<p></p>
+<p><b><a name="SMART"></a>Smart (non-exhaustive) optimization </b></p>
+<p><i>Introduction</i></p>
+<p>AmiBroker now offers smart (non-exhaustive) optimization in addition to regular,
+  exhaustive search. Non-exhaustive search is useful if the number of all parameter
+  combinations of a given trading system is simply too large to be feasible for
+  exhaustive search.</p>
+<p>Exhaustive search is perfectly fine as long as it is reasonable to use 
+  it. Let's say you have 2 parameters, each ranging from 1 to 100 (step 1).<br>
+  That's 10,000 combinations - perfectly OK for exhaustive search. 
+  Now with 3 parameters, you get 1 million combinations - it is still OK for exhaustive
+   search (but can be lengthy). With 4 parameters, you have 100 million combinations, and with 5 parameters (1..100), you have 10 billion combinations.
+  In that case, it would be too time-consuming to check all of them, 
+  and this is the area where non-exhaustive smart search methods can solve 
+the problem that is not solvable in reasonable time using exhaustive search.</p>
+<p><i>Quick Start</i></p>
+<p>Here is absolutely the simplest instruction on how 
+to use the new non-exhaustive optimizer (in this case, CMA-ES).</p>
+<p>1. Open your formula in the Formula Editor</p>
+<p>2. Add this single line at the top of your formula:</p>
+<blockquote>
+  <p>OptimizerSetEngine(&quot;cmae&quot;); // you can also use &quot;spso&quot; or &quot;trib&quot;
+    here</p>
+</blockquote>
+<p>3. (Optional) Select your optimization target in Automatic Analysis, Settings,
+  &quot;Walk-Forward&quot; tab, <b>Optimization target</b> field. If you skip
+  this step, it will optimize for CAR/MDD (compound annual return divided by maximum
+  % drawdown).</p>
+<p>and... that's it.</p>
+<p>Now if you run optimization using this formula,
+  it will use new evolutionary (non-exhaustive) CMA-ES optimizer.</p>
+<p>&nbsp;</p>
+<p><i>How does it work ?</i></p>
+<p>The optimization is the process of finding the minimum (or maximum) of a given function.
+  Any trading system can be considered as a function of a certain number of arguments.
+  The inputs
+  are parameters and quotation data; the output is your optimization target<br>
+(say CAR/MDD). And you are looking for the maximum of the given function.</p>
+<p>Some smart optimization algorithms are based on nature (animal behavior) - PSO algorithm, 
+  or biological processes - Genetic algorithms; <br>
+and some are based on mathematical concepts derived by humans - CMA-ES.</p>
+<p>These algorithms are used in many different areas, including finance. Enter &quot;PSO
+  finance&quot; or &quot;CMA-ES finance&quot; in
+Google, and you will find lots of info.</p>
+<p>Non-exhaustive (or &quot;smart&quot;) methods will find a global or local
+  optimum. 
+  The goal is, of course, to find the global one, but if there is a single sharp peak<br>
+  out of zillions of parameter combinations, non-exhaustive methods may fail
+  to find this single peak. However, taking it from a trader's perspective, finding a single
+  sharp peak
+  is useless for trading because that result would be unstable (too fragile)
+  and 
+  not replicable in real trading. In the optimization process, we are rather looking
+  for plateau regions with stable parameters, and this is the area where intelligent
+methods shine.</p>
+<p>As to the algorithm used by non-exhaustive search, it looks as follows:</p>
+<p>a) The optimizer generates some (usually random) starting population of parameter
+  sets<br>
+  b) A backtest is performed by AmiBroker for each parameter set from the population<br>
+  c) The results of backtests are evaluated according to the logic of the algorithm,<br>
+  and a new population is generated based on the evolution of results, <br>
+  d) If a new best is found - save it and go to step b) until stop criteria are
+  met</p>
+<p><br>
+  Example stop criteria can include:<br>
+  a) Reaching a specified maximum number of iterations<br>
+  b) Stop if the range of the best objective values of the last X generations is zero<br>
+  c) Stop if adding a 0.1 standard deviation vector in any principal axis direction
+  does not change the value of the objective function<br>
+  d) others </p>
+<p>To use any smart (non-exhaustive) optimizer in AmiBroker, you need to specify
+  the optimizer engine you want to use in the AFL formula using the OptimizerSetEngine
+  function. </p>
+<p>OptimizerSetEngine(&quot;name&quot;)</p>
+<p>The function selects an external optimization engine defined by <i>name</i>.
+  AmiBroker currently ships with 3 engines: Standard Particle Swarm Optimizer
+  (&quot;spso&quot;), Tribes (&quot;trib&quot;), and CMA-ES (&quot;cmae&quot;) - the names in braces
+  are to be used in OptimizerSetEngine calls.</p>
+<p>In addition to selecting an optimizer engine, you may want to set some of
+  its internal parameters. To do so, use the OptimizerSetOption function.</p>
+<p>OptimizerSetOption(&quot;name&quot;, value ) function</p>
+<p>The function sets additional parameters for an external optimization engine. The
+  parameters are engine-dependent.<br>
+  All three optimizers shipped with AmiBroker (SPSO, Trib, CMAE)  support two
+  parameters: &quot;Runs&quot; (number
+  of runs) and &quot;MaxEval&quot; (maximum
+  evaluations (tests) per single run). The behavior of each parameter is engine-dependent,
+  so the same values may and usually will yield different results with different
+  engines used.</p>
+<p>The difference between Runs and MaxEval is as follows: Evaluation (or test)
+   is a single backtest (or evaluation of the objective function value).<br>
+  A RUN is one full run of the algorithm (finding the optimum value) - usually involving
+many tests (evaluations).</p>
+<p> Each run simply RESTARTS the entire optimization process from a new beginning
+    (a new initial random population). <br>
+  Therefore, each run may lead to finding a different local max/min (if it does
+not find the global one). So, the Runs parameter defines the number of subsequent algorithm
+  runs. MaxEval is the maximum number of evaluations (backtests) in any single
+run.</p>
+<p>If the problem is relatively simple and 1000 tests are enough to find the global
+  max, 5x1000 is more likely to find the global maximum<br>
+  because there are fewer chances to be stuck in a local max, as subsequent runs
+will start from a different initial random population </p>
+<p>Choosing parameter values can be tricky. It depends on the problem under test,
+  its complexity, etc.</p>
+<p>Any stochastic non-exhaustive method does not give you a guarantee of finding the
+  global max/min, regardless of the number of tests if it is smaller<br>
+  than an exhaustive search. The easiest answer is to: specify as large a number of tests
+  as is reasonable for you in terms of time required to complete.<br>
+  Another simple piece of advice is to multiply the number of tests by 10 when adding
+  a new dimension. That may lead to overestimating the number<br>
+  of tests required, but it is quite safe. 
+  Shipped engines are designed to be simple to use; therefore, &quot;reasonable&quot; default/automatic
+  values are used, so optimization can usually be run without specifying anything (accepting defaults).<br>
+</p>
+<p><i>Caveat</i></p>
+<p>It is important to understand that all smart optimization methods work best
+  in continuous parameter spaces and with relatively smooth objective functions. If
+  the parameter space is discrete, evolutionary algorithms may have trouble finding
+  the optimum value. It is especially true for binary (on/off) parameters - they
+  are not suited for any search method that uses the gradient of objective
+  function change (as most smart methods do). If your trading system contains
+  many binary parameters, you should not use a smart
+  optimizer
+  directly on them.
+  Instead,
+  try to optimize only continuous parameters using a smart optimizer, and switch
+  binary parameters manually or via an external script. </p>
+<p>&nbsp;</p>
+<p><i>SPSO - Standard Particle Swarm Optimizer</i></p>
+<p>Standard Particle Swarm Optimizer is based on SPSO2007 code that is supposed
+    to produce 
+  good results, provided that the correct parameters (i.e., Runs, MaxEval) are provided
+  for a particular problem.<br>
+  Picking the correct options for the PSO optimizer can be tricky; therefore, results
+  may significantly vary from case to case.</p>
+<p>SPSO.dll comes with full source codes inside the &quot;ADK&quot; subfolder.<br>
+  <br>
+  Example
+  code for Standard Particle Swarm Optimizer: (finding the optimum value in 1000 tests within a search space of 10,000 combinations)</p>
+<p>OptimizerSetEngine(&quot;spso&quot;);<br>
+  OptimizerSetOption(&quot;Runs&quot;, 1 );<br>
+  OptimizerSetOption(&quot;MaxEval&quot;, 1000 );</p>
+<p>sl = Optimize(&quot;s&quot;, 26, 1, 100, 1 );<br>
+  fa = Optimize(&quot;f&quot;, 12, 1, 100, 1 );</p>
+<p>Buy = Cross( MACD( fa, sl ), 0 );<br>
+  Sell = Cross( 0, MACD( fa, sl ) );</p>
+<p><b><br>
+  </b><i><br>
+  TRIBES  - Adaptive Parameterless Particle Swarm Optimizer</i></p>
+<p>Tribes is an adaptive, parameterless version of the PSO (particle swarm optimization)
+  non-exhaustive optimizer.
+  For scientific background see:<br>
+  <a href="http://www.particleswarm.info/Tribes_2006_Cooren.pdf">http://www.particleswarm.info/Tribes_2006_Cooren.pdf</a></p>
+<p>In theory, it should perform better than regular PSO because it can automatically
+adjust the swarm sizes and algorithm strategy to the problem being solved. </p>
+<p>Practice shows that its performance is quite similar to PSO.</p>
+<p>The Tribes.DLL plugin implements the &quot;Tribes-D&quot; (i.e., dimensionless)
+  variant. Based on <a href="http://clerc.maurice.free.fr/pso/Tribes/TRIBES-D.zip">http://clerc.maurice.free.fr/pso/Tribes/TRIBES-D.zip</a> by Maurice
+  Clerc. Original source codes used with permission from the author.</p>
+<p>Tribes.DLL comes with full source code (inside &quot;ADK&quot; folder)</p>
+<p>Supported parameters:<br>
+  &quot;MaxEval&quot; - maximum number of evaluations (backtests) per run (default
+  = 1000).<br>
+  <br>
+  OptimizerSetOption(&quot;MaxEval&quot;, 1000 );<br>
+  <br>
+  You should increase the number of evaluations with an increasing number of dimensions
+  (number of optimization params).<br>
+  The default of 1000 is good for 2 or a maximum of 3 dimensions.</p>
+<p>&quot;Runs&quot; - number of runs (restarts). (default = 5)</p>
+<p>You can leave the number of runs at the default value of 5.</p>
+<p>By default, the number of runs (or restarts) is set to 5. </p>
+<p><br>
+  To use the Tribes optimizer, you just need to add one line to your code:</p>
+<p>OptimizerSetEngine(&quot;trib&quot;);</p>
+<p>OptimizerSetOption(&quot;MaxEval&quot;, 5000 ); // 5000 evaluations max</p>
+<p><br>
+</p>
+<p>  <i>CMA-ES - Covariance Matrix Adaptation Evolutionary Strategy optimizer</i></p>
+<p>CMA-ES (Covariance Matrix Adaptation Evolutionary Strategy) is an advanced
+  non-exhaustive optimizer.<br>
+  For scientific background see:<br>
+  <a href="http://www.bionik.tu-berlin.de/user/niko/cmaesintro.html">http://www.bionik.tu-berlin.de/user/niko/cmaesintro.html</a><br>
+  According to scientific benchmarks, it outperforms nine other most popular evolutionary
+  strategies (like PSO, Genetic, and Differential Evolution).<br>
+  <a href="http://www.bionik.tu-berlin.de/user/niko/cec2005.html">http://www.bionik.tu-berlin.de/user/niko/cec2005.html</a> </p>
+<p>The CMAE.DLL plugin implements the &quot;Global&quot; variant of search with several
+  restarts with an increasing population size<br>
+  CMAE.DLL comes with full source code (inside &quot;ADK&quot; folder) </p>
+<p>By default, the number of runs (or restarts) is set to 5. <br>
+  It is advised to leave the default number of restarts.</p>
+<p>  You may vary it using the OptimizerSetOption(&quot;Runs&quot;, N ) call, where
+  N should be in the range 1..10.<br>
+  Specifying more than 10 runs is not recommended, although possible.<br>
+  Note that each run uses TWICE the size of the population of the previous run, so it
+  grows exponentially.<br>
+  Therefore, with 10 runs, you end up with a population 2^10 greater (1024 times)
+  than the first run.</p>
+<p>There is another parameter, &quot;MaxEval&quot;. The default value is ZERO,
+  which means that the plugin will automatically calculate the MaxEval required. It is
+  advised NOT to define MaxEval by yourself, as the default works fine.</p>
+<p>The algorithm is smart enough to minimize the number of evaluations required,
+  and it converges very fast to the solution point, so often it finds solutions
+  faster than other strategies.</p>
+<p>It is normal that the plugin will skip some evaluation steps if it detects
+  that a solution was found; therefore, you should not be surprised that the optimization
+  progress bar may move very fast at some points. The plugin also has the ability
+  to increase the number of steps over the initially estimated value if it is needed
+  to find the solution. Due to its adaptive nature, the &quot;estimated time
+  left&quot; and/or &quot;number of steps&quot; displayed by the progress dialog
+  is only a &quot;best guess at the time&quot; and may vary during the optimization
+  course.</p>
+<p>To use CMA-ES optimizer, you just need to add one line to your code:</p>
+<p>OptimizerSetEngine(&quot;cmae&quot;);</p>
+<p>This will run the optimization with default settings which are fine for most
+  cases.</p>
+<p>It should be noted, as is the case with many continuous-space search algorithms,
+  that decreasing the &quot;step&quot; parameter in Optimize() function calls does
+  not significantly affect optimization times. The only thing that matters is
+  the problem &quot;dimension&quot;, i.e., the number of different parameters
+  (number of optimize function calls). The number of &quot;steps&quot; per parameter
+  can be set without affecting the optimization time, so use the finest resolution
+  you want. In theory, the algorithm should be able to find a solution in at most
+  900*(N+3)*(N+3) backtests, where &quot;N&quot; is the dimension. In practice,
+  it converges a LOT faster. For example, the solution in a 3 (N=3)-dimensional
+  parameter space (say 100*100*100 = 1 million exhaustive steps) can be found
+  in as few as 500-900 CMA-ES steps.</p>
+<p>&nbsp;</p>
+<p><strong><a name="INDIVIDUAL"></a>Multi-threaded individual optimization</strong></p>
+<p>Starting from AmiBroker 5.70, in addition to <a href="h_multithreading.html">multiple-symbol
+    multithreading</a>,
+  you can perform multi-threaded single-symbol optimization. To access this functionality,
+    click on the drop-down arrow next to the &quot;Optimize&quot; button in the New Analysis window
+    and select &quot;<strong>Individual Optimize</strong>&quot;.</p>
+<p><img src="gifs/indoptimize.gif" width="336" height="159"></p>
+<p>&quot;Individual Optimize&quot; will use all available processor cores to
+  perform single-symbol optimization, making it much faster than regular optimization.<br>
+  <br>
+  In &quot;Current symbol&quot; mode, it will perform optimization on one symbol.
+  In &quot;All symbols&quot; and &quot;Filter&quot; modes, it will process all
+  symbols sequentially, i.e., first complete optimization for the first symbol, then optimization on the second symbol,
+etc.</p>
+<p>Limitations:<br>
+  1. Custom backtester is NOT supported (yet).<br>
+  2. Smart optimization engines are NOT supported - only EXHAUSTIVE optimization
+  works.</p>
+<p>For an explanation of these limitations, see <a href="h_multithreading.html">Tutorial:
+Efficient use of multi-threading</a>.</p>
+<p>Eventually, we may get rid of limitation (1) - when AmiBroker is changed so
+  the custom backtester does not use OLE anymore.
+  But (2) is probably here to stay for a long time.</p>
+<p>&nbsp;</p>
+</body>
+</html>

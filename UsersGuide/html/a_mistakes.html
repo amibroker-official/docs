@@ -1,0 +1,246 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+<title>Common Coding Mistakes</title>
+</head><body><!-- PAGE BREAK -->
+
+<div class=Section1>
+  <h2><b>Common Coding Mistakes in AFL</b></h2>
+  <p>This document presents the most common mistakes and problems that users encounter
+    when writing their custom formulas. Please read carefully to avoid making
+    similar errors.</p>
+</div>
+<ul>
+  <li>
+    <div class=Section1><a href="#EQUALITY">`=` (assignment) vs `==` (equality
+    check)</a></div>
+  </li>
+  <li>
+    <div class=Section1><a href="#PARENTS">Using parentheses</a> </div>
+  </li>
+  <li>
+    <div class=Section1>
+      <div class=Section1><a href="#IIF">IIf function</a></div>
+    </div>
+  </li>
+  <li>
+    <div class=Section1>
+      <div class=Section1><a href="#WRITEIF">IIf is for arrays, WriteIf is for strings</a></div>
+    </div>
+  </li>
+  <li>
+    <div class=Section1>
+      <div class=Section1><a href="#IFELSE">if-else statement needs boolean (or single numeric expression),
+          not array</a></div>
+    </div>
+  </li>
+  <li>
+    <div class=Section1><a href="#BARCOUNT">BarCount vs BarIndex()</a></div>
+  </li>
+  <li>
+    <div class=Section1><a href="#TIMEFRAME">TimeFrameExpand() is required to match data with the original time frame</a></div>
+  </li>
+</ul>
+<div class=Section1><b> </b>
+  <hr>
+  <p><b><a name="EQUALITY"></a>`=` (assignment) vs `==` (equality check)</b></p>
+  <p>There are two similar-looking but completely different operators in AFL.</p>
+  <p><b>`=`</b> is a variable assignment operator</p>
+  <p>`==` is an equality check operator</p>
+  <p><b>EXAMPLE</b></p>
+  <p><em>Incorrect code:</em></p>
+  <p><CODE><FONT COLOR=#000000>result = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(
+        Variable = </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> , </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Low</B></FONT><FONT COLOR=#000000> );�</FONT><FONT COLOR=#008000>//
+        WRONG</FONT></CODE></p>
+  <p>If you want to check if a variable is equal to 10, you MUST use &#8220;==&#8221; </p>
+  <p><em>Correct code:</em></p>
+  <p><CODE><FONT COLOR=#000000>result = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(
+        Variable == </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> , </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Low</B></FONT><FONT COLOR=#000000> );�</FONT><FONT COLOR=#008000>//
+        CORRECT</FONT></CODE></p>
+  <hr>
+  <p><b><a name="PARENTS"></a>Using parentheses</b> </p>
+  <p>Parentheses can be used to control the operation precedence (the order in
+    which the operators are calculated). AmiBroker always does operations within
+    the innermost parentheses first. To learn the precedence of operations
+    when parentheses are not used, visit: <a
+href="http://www.amibroker.com/guide/a_language.html">http://www.amibroker.com/guide/a_language.html</a></p>
+  <p><b>EXAMPLE:</b></p>
+  <p>"I would like to buy whenever either Close is higher than its 10-period
+    Moving Average or Close is at least 10% higher than yesterday's close, but
+    buy should only apply when Current Volume is higher than its 10-period Moving
+    Average. However, I get Buy signals for the days when Volume is lower than
+    MA(Volume,10). Why?"</p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B> Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10 </FONT><FONT COLOR=#000000>) </FONT><FONT COLOR=#000000><B>OR</B></FONT><FONT COLOR=#000000>�</FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> == </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>,
+        -</FONT><FONT COLOR=#ff00ff>1 </FONT><FONT COLOR=#000000>) </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10 </FONT><FONT COLOR=#000000>);</FONT></CODE></p>
+  <p>The solution is to add parentheses, otherwise the system buys whenever <b>Close</b> &gt; MA(<b>Close</b>,10)
+    condition is met (or <b>Close</b> == 1.1*Ref(<b>Close</b>,-1) <b>AND </b><b>Volume</b> &gt; MA(<b>Volume</b>,10)
+    are both met).</p>
+  <p><CODE><FONT COLOR=#000000><B>Buy</B> = <strong>(</strong> <B>Close</B> &gt; </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( <B>Close</B>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ) <B>OR</B>�<B>Close</B> == </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>( <B>Close</B>,
+        -</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ) <strong>)</strong> <BR>
+          <B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND</B> <B>Volume</B> &gt; </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( <B>Volume</B>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+  <div class=Section1>
+    <hr>
+  </div>
+  <div class=Section1>
+    <p><b><a name="IIF"></a>IIf function</b></p>
+  </div>
+  <div class=Section1>
+    <p>The IIf( ) function is used to create <strong>conditional assignments. </strong></p>
+    <p>variable = IIf( EXPRESSION, TRUE_PART, FALSE_PART );</p>
+    <p>The above "IIf" statement means: For each bar, if EXPRESSION is
+      true, assign TRUE_PART to the <i>variable</i>; otherwise (when EXPRESSION
+      is false), assign FALSE_PART.</p>
+    <p><b>EXAMPLE</b></p>
+    <p><em>Incorrect code</em></p>
+    <p><CODE><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( <B>Close</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>,
+          result = </FONT><FONT COLOR=#ff00ff>7</FONT><FONT COLOR=#000000>, result
+          = </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+          WRONG</FONT></CODE></p>
+    <p><em>Correct code:</em></p>
+    <p><CODE><FONT COLOR=#000000>result = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>7</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+          CORRECT</FONT></CODE></p>
+    <hr>
+    <p><strong><a name="WRITEIF"></a>IIf is for arrays, WriteIf is for strings</strong></p>
+  </div>
+  <div class=Section1>
+    <p>IIf functions should be used to handle arrays; if you need a conditional
+      text function, use WriteIf instead.</p>
+    <p><b>EXAMPLE</b></p>
+    <p><em>Incorrect code:</em></p>
+    <p><CODE><FONT COLOR=#000000>variable = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(Condition, </FONT><FONT COLOR=#ff00ff>"Text
+          1"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>"Text 2"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+          WRONG </FONT></CODE></p>
+    <p>IIf() function returns an array, NOT A STRING, so it's impossible to
+      assign text to a variable using IIf. Use the WriteIf() function instead:</p>
+    <p><em>Correct code:</em></p>
+    <p><CODE><FONT COLOR=#000000>variable = </FONT><FONT COLOR=#0000ff>WriteIf</FONT><FONT COLOR=#000000>(
+          condition, </FONT><FONT COLOR=#ff00ff>"Text 1"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Text
+          2"</FONT><FONT COLOR=#000000> );�</FONT><FONT COLOR=#008000>// CORRECT</FONT></CODE></p>
+    <p>Please note, however, that the WriteIf function returns just a single STRING,
+      not arrays of strings, so only the <a href="afl/selectedvalue.html">selected
+      value</a> is used for evaluation.</p>
+    <hr>
+    <p><strong> <a name="IFELSE"></a>if-else statement needs boolean (or single numeric expression),
+        not array</strong></p>
+    <p>The <b>if</b> keyword executes <i>statement1</i> if <i>expression</i> is
+      true (nonzero); if <b>else</b> is present and <i>expression</i> is false
+      (zero), it executes <i>statement2</i>. After executing <i>statement1</i> or <i>statement2</i>,
+      control passes to the next statement. E<i>xpression </i>must be a boolean
+      (True/False) type (so it CANNOT be an ARRAY because there would be no way to decide whether to execute <i>statement1</i> or not, if, for example, the array was: [True,True,False,.....,False,True])</p>
+    <p><b>if</b>( expression )<br>
+&nbsp;&nbsp;&nbsp;statement1 <br>
+    <b>else</b> <br>
+&nbsp;&nbsp;&nbsp;statement2</p>
+    <p><b>EXAMPLE</b></p>
+    <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000> )�</FONT><FONT COLOR=#008000>//
+          WRONG</FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp; Color = </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//statement
+1</FONT><FONT COLOR=#000000> <BR>
+        </FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp; Color = </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//statement
+2</FONT><FONT COLOR=#000000> <BR>
+        <BR>
+        </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>"Colored
+        Price"</FONT><FONT COLOR=#000000>,Color,</FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000>);</FONT></CODE></p>
+    <p>The above example is wrong, as both <b>Open</b> and <b>Close</b> are arrays,
+      and such an expression as <b>Close</b> &gt; <b>Open </b>is also an ARRAY.
+      The solution depends on the statement. It's either possible to implement
+      it on a bar-by-bar basis, with the use of a FOR loop:</p>
+    <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+          i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+          i++ ) <BR>
+    { <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>[
+i ] &gt; </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>[ i
+] ) </FONT><FONT COLOR=#008000>// CORRECT</FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Color[ i ] = </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Color[ i ] = </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>; <BR>
+    } <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Colored
+    Price"</FONT><FONT COLOR=#000000>, Color, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+    <p>It is also possible in this case to use IIf( ) function:</p>
+    <p><CODE><FONT COLOR=#000000>Color = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> );�</FONT><FONT COLOR=#008000>//
+          ALSO CORRECT - working directly on arrays</FONT><FONT COLOR=#000000> <BR>
+            </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Colored
+    Price"</FONT><FONT COLOR=#000000>, Color, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+  </div>
+  <hr>
+<b><a name="BARCOUNT"></a>BarCount vs BarIndex()</b></div>
+<div class=Section1>
+  <p>There is a fundamental difference between <em>BarCount</em> and <em>BarIndex</em>(). <em>BarCount</em>    is
+    a <strong>numeric variable</strong> that holds just one number (the
+      count of elements in an array). On the other hand, <em>BarIndex</em>() is a
+  function that returns an ARRAY representing the consecutive index of each bar.      </p>
+  <p><b>EXAMPLE </b></p>
+  <p><em>Incorrect code:</em></p>
+  <p><em><CODE><FONT COLOR=#800000></FONT></CODE></em><CODE><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> (i
+        =</FONT><font color="#ff00ff"> 0</font><FONT COLOR=#000000>;
+        i &lt; </FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>();i++
+        ) </FONT><FONT COLOR=#008000>// WRONG</FONT><FONT COLOR=#000000> <BR>
+    { <BR>
+    &nbsp;&nbsp;</FONT><FONT COLOR=#008000>// your formula</FONT><FONT COLOR=#000000> <BR>
+  }</FONT></CODE></p>
+  <p>It's not allowed to use an ARRAY inside a <b>for </b>loop, and BarIndex()
+    returns an ARRAY. That is why it's necessary to change the formula.</p>
+  <p><em>Correct code:</em></p>
+  <p><CODE><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> (i
+          =</FONT><FONT COLOR=#ff00ff>0 </FONT><FONT COLOR=#000000>;
+          i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> ;i++
+          )&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// CORRECT</FONT><FONT COLOR=#000000> <BR>
+      { <BR>
+          </FONT><FONT COLOR=#008000>&nbsp;&nbsp;//your formula</FONT><FONT COLOR=#000000> <BR>
+  }</FONT></CODE></p>
+  </div>
+<div class=Section1>
+  <hr>
+  <p><b> <a name="TIMEFRAME"></a>TimeFrameExpand() is required to match data with original
+      time frame</b></p>
+  <p>The `TimeFrameSet()` function replaces current price/volume arrays (open, high,
+          low, close, volume, openint, avg) with time-compressed bars of a specified interval.
+          Once you've switched to a different time frame, all calculations and built-in
+          indicators operate on the selected time frame. To get back to the original interval,
+          call the `TimeFrameRestore()` function. The `TimeFrameExpand()` function is
+          used to decompress array variables that were created in a different time frame.
+          Decompressing is required to properly display and use the array created in the
+  different time frame.</p>
+  <p><b>EXAMPLE</b></p>
+  <p><em>Incorrect code:</em></p>
+  <p><CODE><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( <B>inWeekly </B>); <BR>
+    MA14_Weekly = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( <B>Close</B>, </FONT><FONT COLOR=#ff00ff>14 </FONT><FONT COLOR=#000000>); <BR>
+    </FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); <BR>
+    <B>Buy</B> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(<B> Close</B>,
+    MA14_Weekly ); </FONT><FONT COLOR=#008000>//
+  WRONG - Close and MA15_Weekly use different time scales</FONT></CODE></p>
+  <p>The above formula is wrong, as the `MA14_Weekly` variable should be EXPANDED to
+    match the original timeframe. The correct contents should be:</p>
+  <p><em>Correct code:</em></p>
+  <p><CODE><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( <B>inWeekly</B> ); <BR>
+    MA14_Weekly = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( <B>Close</B>, </FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); <BR>
+    <B>Buy</B> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( <B>Close</B>, </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+      MA14_Weekly, <B>inWeekly</B> )
+    ); </FONT><FONT COLOR=#008000>// CORRECT, expanded weekly MA can be matched
+    against daily close</FONT></CODE></p>
+  <p><b>EXAMPLE 2:</b></p>
+  <p><em>Incorrect code:</em></p>
+  <p><CODE><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( <B>inWeekly</B> ); <BR>
+MA14_Weekly = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( <B>Close</B>, </FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); <BR>
+<B>Buy</B> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( <B>Close</B>, </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+MA14_Weekly, <B>inDaily</B> ) ); </FONT><FONT COLOR=#008000>// WRONG</FONT></CODE></p>
+  <p>It's always necessary to indicate in the `TimeFrameExpand()` function which timeframe the variable was calculated in. So, if `MA14_Weekly` was calculated out of weekly data, `inWeekly` should be the correct parameter of the `TimeFrameExpand()` function.</p>
+  <p><em>Correct code:</em></p>
+  <p><CODE><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( <B>inWeekly</B> ); <BR>
+MA14_Weekly = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( <B>Close</B>, </FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); <BR>
+<B>Buy</B> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( <B>Close</B>, </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+MA14_Weekly, <B>inWeekly</B> ) );</FONT></CODE> <CODE><FONT COLOR=#008000>//
+CORRECT</FONT></CODE></p>
+  <p>&nbsp;</p>
+</div>
+</body>
+</html>

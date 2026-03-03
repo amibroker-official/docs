@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>Plugins window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Place Order dialog</h3>
+<p><font color="#FF0000">NOTE: This functionality requires an automated trading interface add-on that can be downloaded separately.</font></p>
+<p>To place an order from the chart, please first choose the <strong>Insert-&gt;Buy Order</strong> or <strong>Insert-&gt;Sell Order</strong> menu option, or appropriate buttons from the Order toolbar. Then AmiBroker will allow you to draw a horizontal line with the mouse cursor over the chart. Simply click with the LEFT mouse button over the chart and hold it down. A horizontal line will appear, marking the price level. Once you move the line to the correct level, release the left mouse button to place the order (the following dialog will appear), or press the ESC key to cancel the entire operation.</p>
+<p>  <img src="gifs/w_placeorder.gif" width="561" height="309"></p>
+<p>In the &quot;<strong>Brokerage</strong>&quot; field, the currently selected trading interface is displayed. After installing the Interactive Brokers automated trading interface (from <a href="http://www.amibroker.com/at">http://www.amibroker.com/at/</a>), the text &quot;Interactive Brokers&quot; should appear. If no trading interface is installed, the combo box will be empty. If you have installed other trading interfaces, they should appear in the list.</p>
+<p>In the &quot;<strong>Action</strong>&quot; field, you can choose either <strong>Buy</strong> or <strong>Sell</strong> - note that the preselected option is the one chosen earlier from the menu or toolbar.</p>
+<p>In the &quot;<strong>Type</strong>&quot; field, you can choose the order type (Market, Limit, Stop, StopLimit, etc.). By default, a &quot;Limit&quot; order is selected.</p>
+<p>In the &quot;<strong>Expiry</strong>&quot; field, you can choose how long a given order will be valid. Currently available options are Day and Good-Til-Canceled.</p>
+<p>In the &quot;<strong>Quantity</strong>&quot; field, you can enter the number of shares / contracts to buy/sell.</p>
+<p>In the &quot;<strong>Limit Price</strong>&quot; field, you can enter the limit price for the order. AmiBroker will fill the value selected on the chart by default.</p>
+<p>In the &quot;<strong>Stop Price</strong>&quot; field, you can enter the stop price for Stop and Stop Limit orders.</p>
+<p>In the &quot;<strong>Bracket</strong>&quot; group, you can choose additional, automatic bracket orders. Bracket orders are &quot;child&quot; stop-loss and/or take-profit orders that are connected to a main &quot;Parent&quot; order and work as an OCA (one cancels another) group (so, for example, when a take-profit is triggered, the corresponding stop-loss is canceled). Bracket prices are calculated automatically from the Limit price. The distance between the limit price and stop-loss / take-profit levels is defined by appropriate &quot;offset&quot; fields. The distance can be expressed in amount (dollars) or percentage of the limit price.</p>
+<p>All prices are subject to rounding depending on the current symbol's TickSize setting (see <a href="w_information.html">Information</a> window). If TickSize is not defined (i.e., is equal to zero), then AmiBroker assumes 0.01 (one cent).<br> <br> The Status field (highlighted in yellow) shows the connection status between AmiBroker and the trading interface. Any connection error will be displayed here, and in case of an error, AmiBroker will disable the &quot;<strong>Accept</strong>&quot; button and will attempt to reconnect every 5 seconds. You can also manually trigger a reconnection attempt by pressing the button with two green arrows. </p>
+<p>When the status field shows &quot;Connected&quot;, then the <strong>Accept</strong> button is enabled, and you can press it to place an order. Note that currently, the interface places orders with the Transmit flag set to FALSE. This means that orders are NOT actually transmitted to the exchange but await manual transmission in the TWS. This is a safety measure.</p>
+<p>Once the dialog is closed by pressing Accept, the horizontal line showing the limit price entered will stay on the chart. You cannot move it by default, but you can delete it by selecting it and pressing the &quot;DEL&quot; (Delete) key. </p>
+</body>
+</html>

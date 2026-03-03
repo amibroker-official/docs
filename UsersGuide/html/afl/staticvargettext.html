@@ -1,0 +1,76 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STATICVARGETTEXT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StaticVarGetText</b><br>
+        - gets the value of static variable as string</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StaticVarGetText( ''varname'' ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Gets the value of static variable as string.<br>
+The only difference between StaticVarGet is that this function
+always returns string, so if given static variable does not exist
+it returns empty string "" instead of Null.
+Numbers are also converted to string.
+<p>
+<i>Static variable</i> - the variable has static duration (it is allocated when the program begins and deallocated when the program ends)
+and initializes it to Null unless another value is specified. Static variables allow to share values between various formulas.
+Array static variables are now supported (version 5.30 and higher) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000>myvar = </FONT><FONT COLOR=#0000ff>StaticVarGetText</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"MyVariable"</FONT><FONT COLOR=#000000>);
+<BR>
+<BR></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( myvar  == </FONT><FONT COLOR=#ff00ff>""</FONT><FONT COLOR=#000000> )
+<BR>{ 
+<BR>  </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Not Set"</FONT><FONT COLOR=#000000>);
+<BR>}
+<BR></FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000>
+<BR>{
+<BR>  </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Variable Set: "</FONT><FONT COLOR=#000000> + myvar);
+<BR>}
+<BR></FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="staticvarget.html">StaticVarGet()</A> function , <A HREF="staticvarset.html">StaticVarSet()</A> function , <A HREF="staticvarsettext.html">StaticVarSetText()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StaticVarGetText</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=StaticVarGetText' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=StaticVarGetText' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=StaticVarGetText' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=StaticVarGetText' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=StaticVarGetText' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=StaticVarGetText' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=709&hilite=StaticVarGetText' target='_blank'>Calculate composites for tickers in list files</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=StaticVarGetText' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=StaticVarGetText' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=415&hilite=StaticVarGetText' target='_blank'>DateNum_DateStr</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=StaticVarGetText' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=StaticVarGetText' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=StaticVarGetText' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1180&hilite=StaticVarGetText' target='_blank'>Manual Bracket Order Trader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=StaticVarGetText' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=StaticVarGetText' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=457&hilite=StaticVarGetText' target='_blank'>TWS auto-export Executions-file parser</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=StaticVarGetText' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=StaticVarGetText' target='_blank'>Woodie's CCI Panel Full Stats</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StaticVarGetText">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

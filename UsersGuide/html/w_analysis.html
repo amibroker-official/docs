@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>Analysis window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Automatic analysis window </h3>
+<p><img src="gifs/analysis.gif"></p>
+<p>Automatic analysis window enables you to check your quotations against defined 
+  buy/sell rules. AmiBroker can produce a report telling you if buy/sell signals 
+  occurred on a given symbol in the specified period of time. It can also simulate 
+  trading, giving you an idea about the performance of your system.</p>
+<p>In the upper part of the window you can see the path to the formula used along
+  with <strong>Pick </strong>and <strong>Edit </strong> buttons.</p>
+<p><strong>Pick </strong> button opens a file dialog that allows you to choose
+  the formula you want to use for the analysis.</p>
+<p><strong>Edit</strong> button opens the <a href="w_afledit.html">AFL Formula
+Editor</a> that allows you to edit currently selected formula. </p>
+<p>If you want to create a new formula, just open <a href="w_afledit.html">Formula
+    Editor </a>directly from<strong> Tools-&gt;Formula
+  Editor </strong>menu, type the formula and press <strong>Analysis</strong> button in the Formula Editor
+  toolbar.</p>
+<p>In the formula editor you need to write the code that specifies either <a href="h_exploration.html">scan/exploration</a>  you
+  want to run or a <a href="h_backtest.html">trading system</a> you want to backtest. You can find the description
+  of this language in <a href="AFL.html">AFL
+  Reference Guide</a>.</p>
+<p>In order to make things work, you should write two assignment statements (one 
+  for the buy rule, the second for the sell rule), for example:</p>
+<p><code>buy = cross( macd(), 0 );<br>
+  sell = cross( 0, macd() );</code></p>
+<p>Below these fields there are several controls for setting:</p>
+<ol>
+  <li>To which symbol(s) analysis should be applied. <br>
+    You can select here all symbols, only currently selected symbol (selected
+      in  Select window) or <a href="w_filter.html">custom filter</a> settings. </li>
+  <li>Time range of analysis<br>
+    Analysis can be applied to all available quotations or only to a defined 
+    number of most recent quotations (or days) or to a date range (From/To)</li>
+</ol>
+<p>In the lower part of the analysis window you can see 4 buttons:</p>
+<ol>
+  <li><b>Scan</b><br>
+    This starts the signal scan mode - AmiBroker will search through defined range 
+    of symbols and quotations for buy/sell signals defined by your trading rules. If 
+    one of the buy/sell conditions is fulfilled, AmiBroker will display a line 
+    describing when and on which symbol the signal has occurred. Next AmiBroker 
+    proceeds to the end of the range so multiple signals on a single symbol may be 
+  generated.</li>
+  <li><b>Explore</b><br>
+    This starts an exploration mode when AmiBroker scans through the database to find 
+    symbols that match user-defined filter. The user can define output columns 
+    that show any kind of information required. For more information please check 
+    out &quot;<a href="h_exploration.html">Tutorial: How to create your own exploration</a>&quot;<br>
+  </li>
+  <li><b>Backtest</b><br>
+    This starts the backtesting mode - AmiBroker will search through defined 
+    range of symbols and quotations for a BUY signal defined by your buy rule. If 
+    the buy rule is fulfilled, AmiBroker will &quot;buy&quot; currently analyzed 
+    shares. Next, it will search for a SELL signal. Then, if the sell rule is fulfilled, 
+    AmiBroker will &quot;sell&quot; previously bought symbols. At the same time 
+    it will display the information about this trading in the list view. After 
+    performing the simulation, the summary will be displayed. <a href="h_backtest.html">Read 
+    more in &quot;Tutorial: How to backtest your trading system&quot;...</a><br>
+    The backtesting parameters could be changed using <a href="w_settings.html">Settings</a> 
+    window. <br>
+  </li>
+  <li><a href="w_settings.html">Settings</a> - allows you to change backtester 
+    settings</li>
+  <li><b>Optimize</b> - allows you to optimize your trading system. <a href="h_optimization.html">Read 
+    more in the &quot;Tutorial: How to optimize your trading system&quot;...</a><br>
+  </li>
+  <li><b>Check</b> - This option allows you to check if your formula references future 
+    quotes. AmiBroker analyzes your formula and detects if it uses quotes past 
+    the current bar. Please note that formulas referencing the future can give unrealistic 
+    backtesting results that cannot be reproduced in real trading, therefore 
+    you should avoid systems that reference the future.</li>
+  <li><b>Report</b><br>
+    This displays the <a href="w_report.html">Report window</a> that allows you to 
+  watch, print, and save test results</li>
+  <li><b>Equity</b><br>
+    - available only after backtesting - displays the Equity curve for the currently selected 
+    symbol in a new chart pane. Check out &quot;<a href="a_equity.html">AFL: Equity 
+    chart and function</a>&quot;. <br>
+  </li>
+  <li><b>Export</b> - allows you to export the results to a CSV (comma-separated values) 
+    file.</li>
+  <li><b>Close</b><br>
+  This closes the analysis window.</li>
+</ol>
+<p>Moreover, you have two options &quot;Load&quot; and &quot;Save&quot; for loading 
+  and saving your trading rules from/to files.</p>
+<p><b>Enlarging results view in Automatic analysis window</b></p>
+<p></p>
+<p>There is a small arrow button next to the &quot;Result list&quot; horizontal 
+  divider line. This button is provided to enlarge/shrink the result list. When 
+  you are editing your formula it is good to have the edit view larger, but to see 
+  the backtesting results it is convenient to enlarge the result list. In that 
+  case just click on that button and the result list will be enlarged (and the 
+  edit field will get shrunk). To do the reverse just click the button again.</p>
+<p>&nbsp;</p>
+</body>
+</html>

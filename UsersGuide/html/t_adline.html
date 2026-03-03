@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Advance/Decline Line</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Advance-Decline Line (AD-Line)</h3>
+<p>A line measuring advances and declines that reflects market breadth. In its simplest 
+  form, the AD-Line is a summation over time of the net daily difference between the 
+  number of advancing issues and the number of declining issues. AmiBroker uses a slightly improved formula which also takes into account the number of unchanged 
+  issues. The exact AFL formula for AmiBroker's AD-Line is:</p>
+<p><code>Difference = ( AdvIssues() - DecIssues() )/ ( UncIssues() 
+  + 1 );<br>
+  DiffSqrt = IIF( Difference &gt; 0, sqrt( Difference ), - sqrt( - Difference 
+  ) );<br>
+  ADLine = Cum( DiffSqrt );</code></p>
+<p>This is a classical indicator which tends to give a good reading of the overall 
+  strength of the market. A break in the A/D line usually precedes a break in 
+  prices. Look for non-confirmation and divergence.</p>
+<p>See also AFL Function reference: <a href="a_funref.html#ADLINE">AFL Function: 
+  adline()</a></p>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body>
+</html>

@@ -1,0 +1,75 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MTRANDOM</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>mtRandom</b><br>
+        - Mersene Twister random number generator</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Statistical functions<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>mtRandom( seed = Null ) <br>mtRandomA( seed = Null ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> mtRandom( seed = Null ) - returns single random number (scalar) in the range [0,1)<br>
+mtRandomA( seed = Null ) - returns array of random numbers in the range of [0,1)
+<p>
+seed is random generator seed value. If you don't specify one, the random number generator
+is automatically initialized with current time as a seed that guarantees unique sequence
+<p>
+Both functions use Mersene Twister mt19973ar-cok algorithm. 
+(Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura.)
+<p>
+Mersene Twister is vastly superior to C-runtime pseudo-random generator
+available via Random() function. 
+<p>
+It has a period of 2^19973 = approx 2.9*10^6012 For more information visit:
+<a href='http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html' target='_blank'>http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html</a>
+<p>
+See also:
+M. Matsumoto and T. Nishimura, "Mersenne Twister: A 623-Dimensionally Equidistributed Uniform Pseudo-Random Number Generator", ACM Transactions on Modeling and Computer Simulation, Vol. 8, No. 1, January 1998, pp 3--30.
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> printf("Random number: %g", mtRandom() ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="random.html">RANDOM()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>mtRandom</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1583&hilite=mtRandom' target='_blank'>Add Nifty 50 IB Equity Symbol Automatically</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=mtRandom' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=mtRandom' target='_blank'>MFE and MAE and plot trades as indicator</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=mtRandom">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

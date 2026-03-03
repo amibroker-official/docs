@@ -1,0 +1,192 @@
+<html>
+
+<head>
+<title>Walk-forward testing and optimization</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>Walk-forward testing </h2>
+<p> AmiBroker 5.10 features the automatic Walk-Forward
+test mode.</p>
+<p>The automatic walk-forward test is a system design and validation
+  technique in which you optimize the parameter values on a past segment of market
+  data (&#8221;in-sample&#8221;), then verify the performance of the system by
+  testing it forward in time on data following the optimization segment
+  (&#8221;out-of-sample&#8221;).
+  You evaluate the system based on how well it performs on the test data (&#8221;out-of-sample&#8221;),
+  not the data it was optimized on. The process can be repeated over subsequent
+  time segments. The following illustration shows how the process works.</p>
+<p><img src="gifs/walkfwd2.gif"></p>
+<p>The purpose of a walk-forward test is to determine whether the performance
+  of an optimized trading system is realistic or the result of curve-fitting.
+  The
+  performance
+  of the system can be considered
+  realistic if it has predictive value and performs well on unseen (out-of-sample)
+  market data. When the system is properly designed, the real-time trading performance
+should be consistent with that uncovered during optimization.
+  If the system is going to work in real trading, it must first pass a walk-forward
+  test. In other words, we don't really care about in-sample results, as they
+  are (or should be) always good. What matters is out-of-sample system performance.
+  It
+  is a realistic
+  estimate of how the system would work in real trading and will quickly reveal
+  any curve-fitting issues. If out-of-sample performance is poor, then you should
+  not trade such a system.</p>
+<p>The premise of performing several optimization/test steps over time is that
+  the recent past is a better foundation for selecting system parameter values
+  than the distant past. We hope that the parameter values chosen on the
+  optimization segment will be well suited to the market conditions that immediately
+  follow. This may or may not be the case as markets go through bear/bull cycles,
+so care should be taken when choosing the length of the in-sample period. For more
+  information about system design and verification using the walk-forward procedure
+  and all issues involved, we recommend Howard Bandy's book: &quot;Quantitative
+  Trading Systems&quot; (see links on AmiBroker page).<br>
+</p>
+<p>To use walk-forward optimization, please follow these steps: </p>
+<ol>
+  <li>Go to <b>Tools-&gt;Automatic Analysis</b> <br>
+  </li>
+  <li>Click the <b>Settings</b> button, then switch to the <b>Walk-Forward</b>
+  tab<br>
+  <br>
+  <b><img src="gifs/walkfwd1.gif"><br>
+  </b></li>
+  <li>Here you can see walk-forward settings for in-sample optimization and out-of-sample backtest.<br>
+<b><br>Start</b> and <b>End</b> dates mark the initial period's beginning/end<br>
+    This period will be moved forward by <b>Step</b> until the <b>End</b> reaches
+    the <b>Last</b> date.<br>
+    <br>
+    The <b>Start</b> date can move forward by <b>Step</b> too, or
+    can be anchored (constant) if the <b>Anchored</b> checkbox is selected.<br>
+    <br>
+    If you select <b>Use Today</b>, then the <b>Last</b> date
+  entered will be ignored, and Today (current date) will be used instead.<br> 
+  By
+    default, an &#8220;EASY MODE&#8221; is
+    selected, which simplifies the process of setting up WF parameters.<br>
+    <br>
+    It assumes that:<br>
+    a) The out-of-sample segment immediately follows the in-sample segment.<br>
+    b) The length of the out-of-sample segment equals the walk-forward step.<br>
+    <br>
+    Based
+  on these two assumptions, the &#8220;EASY&#8221; mode takes the in-sample
+  END date and sets
+  the out-of-sample START date to the following day. It then adds the in-sample STEP, and
+  this becomes the out-of-sample END date.<br>
+  <br>
+  In-sample and out-of-sample step values are set to the same values. The &#8220;EASY&#8221; mode
+  guarantees the correctness of WF procedure settings.<br>
+  <br>
+  You should use <b>Easy mode (EOD)</b> when testing on end-of-day data or <b>Easy
+  mode (Intraday)</b> when testing on intraday data. The difference is that in
+  EOD mode, the END date of the previous period and the START date of the next period are
+  the
+  same, thus avoiding a gap<br>
+  between periods. Intraday mode sets the START date of the next period as the NEXT DAY
+  after the END of the previous period. That guarantees<br>
+  that the boundary day is not counted twice when testing on intraday data.<br>
+  <br>
+  In the <b>Advanced mode</b>,
+  the user has complete control over all values, to the extent that
+  they may not constitute a valid WF procedure.<br>
+  The interface allows selectively disabling in-sample and out-of-sample phases
+  using checkboxes at the top
+  (for special things like running sequential backtests without optimization). <br>
+  All settings are immediately reflected in the Preview list that shows all
+  generated
+  IS/OOS segments and their dates.<br>
+  </li>
+  <li>The &#8220;<b>Optimization target</b>&#8221; field
+    defines the optimization report column name that<br>
+    will be used for sorting results and finding the best one. Any built-in column
+    can be used<br>
+    (as it appears in the optimization output), or you can use any custom metric
+    that you define<br>
+    in your custom backtester. The default is CAR/MDD; you can, however, select any
+    other built-in metric from the combo box.<br>
+    You can also type in any custom metric that you have added via the custom backtester
+    interface.<br>
+  </li>
+  <li>Once you have defined walk-forward settings, please go to Automatic Analysis
+  and <br>
+  </li>
+  <li>press the dropdown arrow on the Optimize button and select &#8220;Walk
+    Forward Optimization&#8221; <br>
+    <br>
+    This will run a sequence of optimizations and backtests, and the results will
+    be displayed in the &#8220;Walk Forward&#8221; document that is open in the
+    main application frame.
+    When optimization is running, you can click the &#8220;MINIMIZE&#8221; button
+    on the Progress dialog to minimize it. This allows you to see the Walk Forward
+    output
+  during the optimization steps.</li>
+</ol>
+<p><b>IN-SAMPLE and OUT-OF-SAMPLE combined equity</b></p>
+<p>Combined in-sample and out-of-sample equities are available via
+  ~~~ISEQUITY and ~~~OSEQUITY composite tickers (consecutive periods of IS and
+    OOS are concatenated and scaled to
+  maintain continuity of the equity line - this approach assumes that you, generally speaking, are compounding profits).<br>
+  <br> 
+To display IS and OOS equity, you may use, for example, this:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>PlotForeign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"~~~ISEQUITY"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>"In-Sample Equity"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000>); 
+<BR></FONT><FONT COLOR=#0000ff>PlotForeign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"~~~OSEQUITY"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>"Out-Of-Sample Equity"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000>); 
+<BR></FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>"{{NAME}} - {{INTERVAL}} {{DATE}} {{VALUES}}"</FONT><FONT COLOR=#000000>; </FONT></CODE><br>
+</p>
+<p><strong><a name="SUMMARY"></a>OUT-OF-SAMPLE summary report (new in 5.60)</strong></p>
+<p>Version 5.60 brings a new walk-forward summary report that covers all out-of-sample
+  steps. It is visible in the
+    Report Explorer as the last one and has &quot;PS&quot; type.<br>
+There were significant changes to walk-forward testing made to allow a summary
+out-of-sample report.
+The most important change is that each subsequent out-of-sample test uses initial
+equity equal to the previous step's ending equity.
+(Previously, it used constant initial equity.)
+This change is required for proper calculation of all statistics/metrics throughout
+all sections of the out-of-sample test. </p>
+<p>The summary report shows a note that built-in metrics correctly represent all
+  out-of-sample steps,
+  but summary custom metrics are composed using a user-definable method:<br>
+1. first step value, 2. last step value, 3. sum, 4. average, 5. minimum, 6. maximum.</p>
+<p>By default, the summary report shows the last step value of custom metrics UNLESS the user
+  specifies a different combining method in<br>
+  bo.AddCustomMetrics() call. </p>
+<p>bo.AddCustomMetrics now has a new optional parameter
+    - CombineMethod</p>
+<p>bool AddCustomMetric( string Title, variant Value, [optional] variant LongOnlyValue,
+  [optional] variant ShortOnlyValue , [optional] variant DecPlaces = 2, [optional]
+  variant CombineMethod = 2 )</p>
+<p> This method adds a custom metric to the backtest report, backtest &quot;summary&quot;, and
+  the optimization result list. Title is the name of the metric to be displayed in
+  the report, Value is the value of the metric. Optional arguments LongOnlyValue,
+  ShortOnlyValue allow providing values for additional long/short-only columns
+  in the backtest report. The last argument, DecPlaces, controls how many decimal places
+  should be used to display the value.</p>
+<p>Supported CombineMethod values are:<br>
+  1. First step value - the summary report will show the value of the custom metric from
+    the very first out-of-sample step.<br>
+  2. Last step value (default) - the summary report will show the value of the custom
+  metric from the last out-of-sample step.<br>
+  3. Sum - the summary report will show the sum of the values of the custom metric from
+  all out-of-sample steps.<br>
+  4. Average - the summary report will show the average of the values of the custom metric
+  from all out-of-sample steps.<br>
+  5. Minimum - the summary report will show the smallest value of the custom metric from
+  all out-of-sample steps.<br>
+  6. Maximum - the summary report will show the largest value of the custom metric from
+  all out-of-sample steps.</p>
+<p>Note that certain metrics calculation methods are complex, and, for example, averaging them would not lead to a mathematically correct representation of all out-of-sample tests.
+  Summaries of all built-in metrics are mathematically correct out-of-the-box
+  (i.e., they are *not* averages but properly calculated metrics using a method
+  that is appropriate for a given value). This contrasts with custom metrics, because
+  they are user-definable, and it is up to the user to select a 'combining' method.
+  Still, it may happen that none of the available methods is appropriate.<br>
+  For that reason, the report includes a note that explains what user-definable
+method was used to combine custom metrics.</p>
+<p>&nbsp; </p>
+</body>
+</html>

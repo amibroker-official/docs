@@ -1,0 +1,87 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>AmiQuote Object Model</title>
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2>AmiQuote's OLE Automation Object Model</h2>
+<div align="left">
+  <h2>Index of objects</h2>
+  <table border="0">
+    <tr>
+      <td valign="top"><ul>
+          <li><a href="#Document">Document</a></li>
+        </ul>
+      </td>
+      <td valign="top"><ul>
+        </ul>
+      </td>
+      <td valign="top"><ul>
+        </ul>
+      </td>
+      <td valign="top"><ul>
+        </ul>
+      </td>
+    </tr>
+  </table>
+  <p>AmiQuote is an SDI (single document) application; therefore, there is only one
+    class - Document - creatable using the following code:</p>
+  <p>JScript:</p>
+  <p>AB = new ActiveXObject(&quot;AmiQuote.Document&quot;);</p>
+  <p>VB/VBScript:</p>
+  <p>AB = CreateObject(&quot;AmiQuote.Document&quot;)</p>
+  <p>AFL:</p>
+  <p>AB = CreateObject(&quot;AmiQuote.Document&quot;);</p>
+  <p>&nbsp;</p>
+  <h3><a name="Document">Document</a></h3>
+  <blockquote>
+    <h4>Methods:</h4>
+    <ul>
+      <li>Function <font color="#0000FF"><strong>AddSymbols</strong></font>(ByVal <strong>pszSymbols</strong> As
+        String) As Boolean</li>
+      <li>Function <font color="#0000FF"><strong>Download</strong></font>() As
+        Boolean</li>
+      <li>Function <font color="#0000FF"><strong>GetSymbolsFromAmiBroker</strong></font>()
+        As Boolean</li>
+      <li>Function <font color="#0000FF"><strong>Import</strong></font>() As
+        Boolean</li>
+      <li>Sub <font color="#0000FF"><strong>MoveWindow</strong></font>(ByVal <strong>x</strong> As
+        Long, ByVal <strong>y</strong> As Long, ByVal <strong>width</strong> As
+        Long, ByVal <strong>height</strong> As Long)</li>
+      <li>Function <font color="#0000FF"><strong>Open</strong></font>(ByVal <strong>pszFileName</strong> As
+        String) As Boolean</li>
+      <li>Function <font color="#0000FF"><strong>RemoveAllSymbols</strong></font>()
+        As Boolean</li>
+      <li>Function <font color="#0000FF"><strong>RemoveSymbols</strong></font>(ByVal <strong>pszSymbols</strong> As
+        String) As Boolean</li>
+      <li>Function <font color="#0000FF"><strong>Save</strong></font>() As Boolean</li>
+      <li>Function <font color="#0000FF"><strong>SaveAs</strong></font>(ByVal <strong>pszFileName</strong> As
+        String) As Boolean</li>
+    </ul>
+    <h4>Properties:</h4>
+    <ul>
+      <li><font color="#0000FF"><strong>DownloadInProgress</strong></font> As
+        Boolean</li>
+      <li><font color="#0000FF"><strong>ImportInProgress</strong></font> As Boolean</li>
+      <li><font color="#0000FF"><strong>Source</strong></font> As Long</li>
+      <li><font color="#0000FF"><strong>From</strong></font> As Date</li>
+      <li><font color="#0000FF"><strong>To</strong></font> As Date</li>
+      <li><font color="#0000FF"><strong>AutoImport</strong></font> As Boolean</li>
+      <li><font color="#0000FF"><strong>AllSessions</strong></font> As Boolean</li>
+      <li><font color="#0000FF"><strong>Interval</strong></font> As Long</li>
+      <li><font color="#0000FF"><strong>RunEvery</strong></font> As Long</li>
+      <li><font color="#0000FF"><strong>DestinationFolder</strong></font> As
+        String</li>
+    </ul>
+  </blockquote>
+  <p>&nbsp; </p>
+</div>
+</body>
+</html>

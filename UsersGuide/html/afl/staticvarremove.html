@@ -1,0 +1,125 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STATICVARREMOVE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StaticVarRemove</b><br>
+        - remove static variable</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StaticVarRemove( ''variablename'' ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function removes static variable and releases associated memory.
+
+<p>
+With AmiBroker version 5.30, StaticVarRemove() supports wildcards in the variable name.
+<p>
+"varname" parameter can be either exact variable name or wildcard match string.
+<p>The '*' matches any number of characters, including zero characters. The '?' matches exactly
+one character.<p>
+Example 1:
+<p>
+StaticVarRemove("MyVariables*");
+<br>// this will remove all static variables beginning with MyVariables prefix.
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"DifferentName"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Total
+static variables = %g\n\n"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>StaticVarCount</FONT><FONT COLOR=#000000>()
+); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>;
+i &lt;= </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000>; i++ ) <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+j = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; j &lt;= </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000>;
+j++ ) <BR>
+&nbsp;&nbsp; 
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+VarName = </FONT><FONT COLOR=#800080>"Test_X="</FONT><FONT COLOR=#000000> + i
++ </FONT><FONT COLOR=#800080>"_Y="</FONT><FONT COLOR=#000000> + j; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Setting
+variable "</FONT><FONT COLOR=#000000> + VarName + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000> ); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>( Varname, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+&nbsp;&nbsp; 
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Total
+static variables = %g\n\n"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>StaticVarCount</FONT><FONT COLOR=#000000>()
+); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Now
+wildcard remove *X=1*\n"</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>StaticVarRemove</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"*X=1*"</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Total
+static variables = %g\n\n"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>StaticVarCount</FONT><FONT COLOR=#000000>()
+); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Now
+wildcard remove Test*\n"</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>StaticVarRemove</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Test*"</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Total
+static variables = %g\n\n"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>StaticVarCount</FONT><FONT COLOR=#000000>()
+); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Removing
+'differenname' variable\n"</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>StaticVarRemove</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"DifferentName"</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Total
+static variables = %g\n\n"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>StaticVarCount</FONT><FONT COLOR=#000000>()
+); <BR>
+<BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="staticvarget.html">StaticVarGet()</A> function , <A HREF="staticvargettext.html">StaticVarGetText()</A> function , <A HREF="staticvarset.html">StaticVarSet()</A> function , <A HREF="staticvarsettext.html">StaticVarSetText()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StaticVarRemove</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=StaticVarRemove' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=StaticVarRemove' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=StaticVarRemove' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=StaticVarRemove' target='_blank'>Visi-Trade</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StaticVarRemove">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

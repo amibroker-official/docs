@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Log Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Log Window</h3>
+<p>The Log Window (available from <b>Window-&gt;Log</b> menu) allows you to view:</p>
+<ul>
+  <li>edit-time
+    errors displayed during formula checking</li>
+  <li>run-time errors that occur when a formula
+    is running (not being edited)</li>
+  <li>_TRACE command output within AmiBroker (without
+      using third-party debug view) </li>
+</ul>
+<p>To perform tasks such as clearing the output, copying, or changing settings, use
+  a right-mouse click over the Log Window list.<br>
+  Double-clicking on an error line brings up the editor, allowing you to fix the error
+  easily.</p>
+<p>While the &quot;edit-time&quot; error list is cleared automatically each time
+  you check the syntax in the editor, the run-time error list is not cleared,
+  so all errors remain listed, even if they have already been fixed, unless you manually
+  clear the list.</p>
+<p>Note that _TRACE output is by default directed to an outside debugger (like DebugView);
+  in order to enable internal display, you need to switch the appropriate option in
+  the <b>Tools-&gt;Preferences-&gt;AFL</b>. You can choose to display internally
+  or externally, or in both places.<br>
+  Internal _TRACE has a much lower performance penalty (an order of magnitude) than
+  an external one, but that is achieved by the fact that<br>
+  the internal Log Window is refreshed only when the application is not busy. It is appropriate
+  for some uses, but you may prefer the more immediate<br>
+refresh offered by DebugView.</p>
+<p>Note that the internal Log Window accepts a special string &quot;!CLEAR!&quot; that causes
+  deletion of its contents, as presented in the example below:</p>
+<p>_TRACE(&quot;!CLEAR!&quot;); // This clears the internal Log Window.<br>
+_TRACE(&quot;First line after clear&quot;);</p>
+<p>&nbsp;</p>
+<p></p>
+</body>
+</html>

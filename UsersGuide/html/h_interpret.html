@@ -1,0 +1,46 @@
+<html>
+
+<head>
+<title>Using interpretation window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>Using interpretation window</b></h2>
+<p>Note: Please read <a href="h_commentary.html">How to write your own chart commentary</a> 
+  article before proceeding.</p>
+<p>Interpretation window (Window-&gt;Interpretation) shows chart-sensitive commentaries.
+   To add an interpretation just use <a href="w_afledit.html">Formula Editor</a> and add commentary code
+  after 
+  the code for the indicator. Please note that to get the best performance you
+   should use a conditional statement that ensures that interpretation code is
+  executed only in &quot;commentary&quot; mode.</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"action"</FONT><FONT COLOR=#000000>)
+      == </FONT><FONT COLOR=#000000><B>actionCommentary</B></FONT><FONT COLOR=#000000> ) <BR>
+  { <BR>
+</FONT><FONT COLOR=#008000>// printf statements here....</FONT><FONT COLOR=#000000> <BR>
+}</FONT></CODE></p>
+<p>Example:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Price"</FONT><FONT COLOR=#000000>,
+      -</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>64</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>SAR</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Prefs</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#0000ff>Prefs</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>51</FONT><FONT COLOR=#000000> )
+), </FONT><FONT COLOR=#ff00ff>"SAR"</FONT><FONT COLOR=#000000>,-</FONT><FONT COLOR=#ff00ff>17</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>8</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#ff00ff>16</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"action"</FONT><FONT COLOR=#000000>)
+== </FONT><FONT COLOR=#000000><B>actionCommentary</B></FONT><FONT COLOR=#000000> ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff> &nbsp;printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"The
+Parabolic SAR provides excellent exit points. \n"</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>&nbsp;printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"You
+should Close long positions when the price falls below\n"</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>&nbsp;printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"the
+SAR AND Close Short positions when the price rises above the SAR.\n"</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>&nbsp;printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>WriteIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Graph1</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"SAR
+is above close"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"SAR is
+below close"</FONT><FONT COLOR=#000000> ) ); <BR>
+}</FONT></CODE></p>
+<pre><CODE><FONT COLOR=#000000></FONT></CODE></pre>
+</body>
+</html>

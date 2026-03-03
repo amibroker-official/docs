@@ -1,0 +1,73 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXSELECTPEN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxSelectPen</b><br>
+        - create / select graphic pen</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxSelectPen( color, width = 1, penstyle = penSolid ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> GfxSelectPen initializes (if not already initialized) a pen with the specified style, width, and color. Then selects the pen as current for subsequent drawing operations. 
+<p>
+Parameters:
+<ul>
+<li><b>color</b> - specifies color for the pen
+<li><b>penstyle</b> - specifies the style for the pen. Solid=0, Dash=1, Dot=2, Null=5 (invisible pen). Lines of width > 1 can only use solid style. For a list of other possible values, see the Microsoft docs on CreatePen Windows API function.
+<li><b>width</b> - specifies the width of the pen. If this value is 0, the width in device units is always 1 pixel, regardless of the mapping mode (this is useful for drawing hairline lines on printer outputs).
+</ul>
+<p>
+More info on pens in Windows GDI: <a target='_blank' href='http://msdn2.microsoft.com/en-us/library/ms535467'>http://msdn2.microsoft.com/en-us/library/ms535467</a>
+<p>
+NOTE: This is LOW-LEVEL graphic function. To learn more about low-level
+graphic functions please read <a href='../h_lowlevelgfx.html'>TUTORIAL: Using low-level graphics.</a>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorYellow</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxPolygon</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>250</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>250</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>);</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="gfxlineto.html">GfxLineTo()</A> function , <A HREF="gfxmoveto.html">GfxMoveTo()</A> function , <A HREF="gfxsetpixel.html">GfxSetPixel()</A> function , <A HREF="gfxtextout.html">GfxTextOut()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxSelectPen</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=GfxSelectPen' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1321&hilite=GfxSelectPen' target='_blank'>3TF Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=GfxSelectPen' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1444&hilite=GfxSelectPen' target='_blank'>Bid Vs Ask Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1536&hilite=GfxSelectPen' target='_blank'>Computing Cointegration and ADF Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=GfxSelectPen' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GfxSelectPen' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=GfxSelectPen' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=GfxSelectPen' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=GfxSelectPen' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=GfxSelectPen' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=GfxSelectPen' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=GfxSelectPen' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=GfxSelectPen' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=GfxSelectPen' target='_blank'>Market Profile</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=GfxSelectPen' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=GfxSelectPen' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=GfxSelectPen' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=GfxSelectPen' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=GfxSelectPen' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1433&hilite=GfxSelectPen' target='_blank'>Volume Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=GfxSelectPen' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=GfxSelectPen' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=GfxSelectPen' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxSelectPen">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,66 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SENDEMAIL</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SendEmail</b><br>
+        - send an e-mail message</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 5.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SendEmail(''subject'', ''message'', ShowUI = False ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Send an e-mail to an address defined in the Preferences/Alert page.<br>
+A direct version of functionality already provided by AlertIF. This function sends e-mail unconditionally and it is easier to use if you don't need state logic provided by AlertIf.
+<p>Note that &quot;From&quot; and &quot;To&quot; addresses as well as SMTP email configuration should be done in Tools->Preferences, &quot;Alerts&quot; page. Without configuring E-mail settings first this function will not work. 
+<p>
+E-mails are sent asynchronously (so function returns BEFORE e-mail is actually sent, sending occurs in the background)
+<p>
+ShowUI parameter decides whenever user interface of e-mailer program is shown after sending e-mail or not. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#0000ff'>SendEmail</font>( <font color='#800080'>&quot;This is
+subject&quot;</font>, <font color='#800080'>&quot;Hello world&#92;n&#92;nHere we are sending the
+body of the email&#92;n&#92;nBest wishes&quot;</font> );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="alertif.html">AlertIf()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SendEmail</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SendEmail">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 62. Formatting string contains unsupported sequence. Only floating point %g, %f and %e are supported</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4> Error 62. Formatting string contains unsupported sequence. Only floating
+  point %g, %f and %e are supported<br>
+</h4>
+<p>This error means that you have incorrect formatting sequence in <a href="../afl/printf.html">printf</a>/<a href="../afl/strformat.html">StrFormat</a>  call.</p>
+<p><a href="../afl/printf.html">printf</a>/<a href="../afl/strformat.html">StrFormat</a> functions
+  use the very first string parameter as a formatting string that decides how
+  to display subsequent arguments. Currently you can only pass numbers
+  and arrays as 2nd and subsequent arguments to <a href="../afl/printf.html">printf</a>/<a href="../afl/strformat.html">StrFormat</a> so
+  you can only use floating-point format specifiers, %f, %g, %e. Other format
+  specifiers are not supported and would generate error 62.</p>
+<p><CODE><font color='#0000ff'>printf</font>(<font color='#800080'>"Close price
+      with 4 decimal digits %.4f\n"</font>, <b>Close</b> ); <font color='#008000'>//
+      OK <br>
+</font><font color='#0000ff'>printf</font>(<font color='#800080'>"Close price
+as integer (without decimal places) %.0f\n"</font>, <b>Close</b> ); <font color='#008000'>//
+OK <br>
+</font><font color='#0000ff'>printf</font>(<font color='#800080'>"Close price
+as integer %d\n"</font>, <b>Close</b> ); <font color='#008000'>// WRONG, unsupported
+%d sequence</font></CODE></p>
+<p>The other most common source of problem is forgetting the fact that actual
+  percent sign must be typed as %% (double percent signs) because single percent
+  sign
+is a start of formatting sequence, not actual percent sign.</p>
+<p><CODE><font color='#0000ff'>printf</font>(<font color='#800080'>"Actual percent
+      sign is not %."</font> ); <font color='#008000'>// WRONG use % instead
+      of %% <br>
+</font><font color='#0000ff'>printf</font>(<font color='#800080'>"Actual percent
+sign is %%."</font> ); <font color='#008000'>// correct use of %%</font></CODE></p>
+</body>
+</html>

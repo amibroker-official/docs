@@ -1,0 +1,70 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - DATETIMETOSTR</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>DateTimeToStr</b><br>
+        - convert datetime to string</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>DateTimeToStr( NUMBER, mode = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Converts number representing date/time value (for example obtained using GetCursorXPosition(), Now(), DateTime() functions) to the corresponding STRING (text).
+<p>
+The <i>mode</i> parameter defines the output mode: 
+<ul>
+<li>0 - convert both date and time portion 
+<li>1 - only date 
+<li>2 - only time. 
+<li>3 - iso date and time YYYY-MM-DD HH:MM:SS) HH:MM:SS part is only included for non-EOD records
+<li>4 - iso date only YYYY-MM-DD
+<li>5 - iso time only HH:MM:SS
+</ul>
+Note that mode 2 would give you empty string when applied on chart with daily or longer interval </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>ToolTip</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#ff00ff>&quot;X=&quot;</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>DateTimeToStr</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>GetCursorXPosition</FONT><FONT COLOR=#000000>()) <BR>
++</FONT><FONT COLOR=#ff00ff>&quot;nY=&quot;</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>GetCursorYPosition</FONT><FONT COLOR=#000000>();</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="datetime.html">DATETIME()</A> function , <A HREF="now.html">NOW()</A> function , <A HREF="strtodatetime.html">StrToDateTime()</A> function , <A HREF="datetimeformat.html">DateTimeFormat()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>DateTimeToStr</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1165&hilite=DateTimeToStr' target='_blank'>AFL_Glossary_1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=DateTimeToStr' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1215&hilite=DateTimeToStr' target='_blank'>Chart Zoom</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=DateTimeToStr' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=DateTimeToStr' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=794&hilite=DateTimeToStr' target='_blank'>Fast Refreshed KAGI Swing Charts (Price Swing)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1420&hilite=DateTimeToStr' target='_blank'>Gann Swing Charts in 3 modes with text</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=DateTimeToStr' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=DateTimeToStr' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1204&hilite=DateTimeToStr' target='_blank'>Scale Out: Futures</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=DateTimeToStr' target='_blank'>TAPE READING</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=DateTimeToStr">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

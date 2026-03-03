@@ -1,0 +1,202 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETOPTION</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetOption</b><br>
+        - gets the value of option in automatic analysis settings</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 4.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetOption(''fieldname'') </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Gets the value of various options in automatic analysis settings. <p>
+<i>field</i> - is a string that defines the option to read. There are following options available:
+<ul>
+<li>&quot;NoDefaultColumns&quot; - if set to True - exploration does not have default Ticker and Date/Time columns
+<li>&quot;InitialEquity&quot;
+<li>&quot;AllowSameBarExit&quot;
+<li>&quot;ActivateStopsImmediately&quot;
+<li>&quot;AllowPositionShrinking&quot;
+<li>&quot;FuturesMode&quot;
+<li>&quot;InterestRate&quot;
+<li>&quot;ApplyTo&quot; - returns Analysis &quot;Apply To&quot; setting 0 - all symbols, 1 - current symbol, 2 - filter 
+<li>&quot;FilterIncludeIndex&quot;, &quot;FilterIncludeFavorite&quot;, &quot;FilterIncludeMarket&quot;, &quot;FilterIncludeGroup&quot;, &quot;FilterIncludeSector&quot;, &quot;FilterIncludeIndustry&quot;, &quot;FilterIncludeWatchlist&quot; - return &quot;Include&quot; filter settings -1 - means NOT selected (not included), >= 0 index of included category 
+<li>&quot;FilterExcludeIndex&quot;, &quot;FilterExcludeFavorite&quot;, &quot;FilterExcludeMarket&quot;, &quot;FilterExcludeGroup&quot;, &quot;FilterExcludeSector&quot;, &quot;FilterExcludeIndustry&quot;, &quot;FilterExcludeWatchlist&quot; - return &quot;Exclude&quot; filter settings <li>-1 - means NOT selected (not excluded), >= 0 index of excluded category 
+&quot;BuyDelay&quot;, &quot;SellDelay&quot;, &quot;ShortDelay&quot;, &quot;CoverDelay&quot; (new in 5.90) - retrieves trade delays 
+<li>&quot;MaxOpenPositions&quot; - maximum number of simlutaneously open positions (trades) in portfolio backtest/optimization
+<li>&quot;WorstRankHeld&quot; - the worst rank of symbol to be held in rotational trading mode (see <b>EnableRotationalTrading</b> for more details)
+<li>&quot;MinShares&quot; - the minimum number of shares required to open the position in the backtester/optimizer. If you don't have enough funds to purchase that many, trade will NOT be entered
+<li>&quot;MinPosValue&quot; - (4.70.3 and above) the minimum dollar amount required to open the position in the backtester/optimizer. If you don't have enough funds trade will NOT be entered
+<li>&quot;PriceBoundChecking&quot; - if set to False - disables checking and adjusting buyprice/sellprice/coverprice/shortprice arrays to current symbol High-Low range.
+<li>CommissionMode - <br>0 - use portfolio manager commission table
+<br>1 - percent of trade
+<br>2 - $ per trade
+<br>3 - $ per share/contract
+<li>CommissionAmount - amount of commission in modes 1..3
+<li>AccountMargin (in old versios it was 'MarginRequirement') - account margin requirement (as in settings), 100 = no margin
+<li>ReverseSignalForcesExit - reverse entry signal forces exit of existing trade (default = True )
+<li>UsePrevBarEquityForPosSizing -  Affects how percent of current equity	position sizing is performed.<br>
+  False (default value) means: use current (intraday) equity to perform position sizing,<br>
+  True means: use previous bar closing equity to perform position sizing
+<li>PortfolioReportMode - sets backtester report mode:
+<br>0 - trade list
+<br>1 - detailed log
+<br>2 - summary
+<br>3 - no output (custom only)
+<li>UseCustomBacktestProc - True/False - allows to turn on/off custom backtest procedure
+<li>EveryBarNullCheck - allows to turn on checking for Nulls in arithmetic operations on every bar in the array(by default it is OFF - i.e. AmiBroker checks for nulls that appear in the beginning of the arrayand in the end of the array and once non-null value is detected it assumes no further holes (nulls) in the middle). Turning &quot;EveryBarNullCheck&quot; to True allows to extend these checks to each and every barwhich is the way 4.74.x and earlier versions worked.
+<br>
+Note however that turning it on gives huge performance penalty (arithmetic operations are performed even 4x slower when this option is ON, so don't use it unless you really have to).
+<li>
+HoldMinBars - Number - if set to value > 0 - it 
+disables exit during user-specified number of bars even if signals/stops are generated during that period
+<li>EarlyExitBars - Number if set to value > 0 - causes that special early exit (redemption) fee is charged if trade is exited during this period
+<li>EarlyExitFee - defines the % (percent) value of early exit fee 
+<li>HoldMinDays - Number - if set to value > 0 - it 
+disables exit during user-specified number of CALENDAR DAYS (not bars) even if signals/stops are generated during that period
+<li>EarlyExitDays - Number if set to value > 0 - causes that special early exit (redemption) fee is charged if trade is exited during the period specified in calendar days (not bars).
+<li>DisableRuinStop - it set to TRUE built-in ruin stop is disabled
+<li>Generate report - allows to suppress/force generation of backtest report. Allowable values: 0, 1, or 2
+<br>By default backtest reports are generated ONLY for portfolio backtests and for individual backtests if individual reporting is turned on in the settings. Reports are disabled for optimization.
+<br>Now with the SetOption() function you can either supress report generation for backtests or enable report generation during certain optimization steps, all from code level.
+<br>SetOption(&quot;GenerateReport&quot;, 0 ); // suppress generation of report
+<br>SetOption(&quot;GenerateReport&quot;, 1 ); // force generation of full report
+<br>SetOption(&quot;GenerateReport&quot;, 2 ); // only one-line report is generated (in results.rlst file) viewable as single line in Report Explorer
+<li>SeparateLongShortRank - True/False
+<br>
+When separate long/short ranking is enabled, the backtester maintains TWO separate &quot;top-ranked&quot; signal lists, one
+for long signals and one for short signals. This ensures that long and short candidates are independently even if position score
+is not symetrical (for example when long candidates have very high positive scores while short candidates have only fractional negative scores).
+That contrasts with the default mode where only absolute value of position score matters, therefore one side (long/short) may completely dominate ranking if score values are asymetrical.
+<br>
+When SeparateLongShortRank is enabled, in the second phase of backtest, two separate ranking lists are interleaved to form final signal list by 
+first taking top ranked long, then top ranked short, then 2nd top ranked long, then 2nd top ranked short, then 3rd top ranked long 
+and 3rd top ranked short, and so on... (as long as signals exist in BOTH long/short lists, if there is no more signals of given kind, then
+remaining signals from either long or short lists are appended)
+<br>
+For example:
+Entry signals(score):ESRX=Buy(60.93), GILD=Short(-47.56), CELG=Buy(57.68), MRVL=Short(-10.75), ADBE=Buy(34.75), VRTX=Buy(15.55), SIRI=Buy(2.79), 
+<br>
+As you can see Short signals get interleaved between Long signals even though their absolute values of scores are smaller than corresponding scores of long signals. Also there were only 2 short signals for that particular bar so, the rest of the list shows long signals in order of position score
+<br>
+Although this feature can be used independently, it is intended to be used in combination with MaxOpenLong and MaxOpenShort options.
+<li>MaxOpenLong - limits the number of LONG positions that can be open simultaneously
+<li>MaxOpenShort - limits the number of SHORT positions that can be open simultaneously 
+<br>
+The value of ZERO (default) means NO LIMIT. If both MaxOpenLong and MaxOpenShort are set to zero (
+or not defined at all) the backtester works old way - there is only global limit active (MaxOpenPositions) regardless of type of trade.
+<br>
+Note that these limits are independent from global limit (MaxOpenPositions).
+This means that MaxOpenLong + MaxOpenShort may or may not be equal to MaxOpenPositions.
+<br>
+If MaxOpenLong + MaxOpenShort is greater than MaxOpenPositions
+then total number of positions allowed will not exceed MaxOpenPositions, and individual long/short limits will apply too.
+For example if your system MaxOpenLong is set to 7 and maxOpenShort is set to 7 and MaxOpenPositions is set to 10
+and your system generated 20 signals: 9 long (highest ranked) and 11 short, it will open 7 long and 3 shorts.
+<br>
+If MaxOpenLong + MaxOpenShort is smaller than MaxOpenPositions (but greater than zero), the system won't be able to 
+open more than (MaxOpenLong+MaxOpenShort).
+<br>
+Please also note that MaxOpenLong and MaxOpenShort only cap the number of open positions of given type (long/short).
+They do NOT affect the way ranking is made. I.e. by default ranking is performed using ABSOLUTE value of positionscore.
+<br>
+If your position score is NOT symetrical, this may mean that you are not getting desired top-ranked signals from one side.
+Therefore, to fully utilise MaxOpenLong and MaxOpenShort in rotational balanced (&quot;market neutral&quot;) long/short systems
+it is desired to perform SEPARATE ranking for long signals and short signals.
+<br>
+To enable separate long/short ranking use:
+<br>
+SetOption(&quot;SeparateLongShortRank&quot;, True );
+<li>RefreshWhenCompleted - when set to TRUE, it will perform View->Refresh All after Automatic-Analysis operation (scan/exploration/backtest/optimize) is completed.
+<li>RequireDeclarations - when set to TRUE the AFL engine will always require variable declarations (using local/global) on formula-by-formula basis
+<li>ExtraColumnsLocation - allows the user to change the location of custom columns added during backtest/optimization.<br>
+&quot;extra&quot; columns mean:
+<br>a) any custom metrics added using custom backtester
+<br>b) any optimization parameters defined using Optimize() function 
+<p>If both custom metrics and optimization parameters are present then
+custom metrics appear first then optimization parameters
+<p>This function is provided to allow the user to change the default &quot;at the end&quot; location of custom columns/optimization parameters.
+<br>For example:
+<p>
+SetOption(&quot;ExtraColumnsLocation&quot;, 1 );
+<p>
+will cause that custom metrics and opt params will be subsequently added starting from column 1 (as opposed to last column default)
+<p>
+Note that this setting changes &quot;visual&quot; order of columns, not really in-memory order or export order, so
+exported data files or copy/paste format do not change.
+<li>SettlementDelay - this option describes the number of days (not bars) it takes for sale proceeds to settle and be available for opening new positions.<p> 
+ SetOption(&quot;SettlementDelay&quot;, 3 ); // this will cause that proceeds from sale are only available for trading on 3rd day after sale<p>
+ For detailed tracking &quot; Detailed log&quot; report option now shows available and unsettled funds for T+1, T+2 and so on 
+<p>
+Note: when using this option it is recommended to use backtestRegularRaw instead of backtestRegular, otherwise some trades may not be entered
+ because funds are not settled immediately and you need to be able to enter not on first but subsequent buy signals and that is exactly what backtestRegularRaw offers.
+<p>
+Note2: old backtester (Equity() function) ignores settlement delay
+<li>StaticVarAutoSave -  allow periodical auto-saving of persistent static variables (in addition to saving on exit, which is always done).<br><br>The interval is given in seconds.
+<br> For example:
+<br> SetOption(&quot;StaticVarAutoSave&quot;, 60 ); // auto-save persistent variables every 60 seconds (1-minute) 
+<br>
+It is important to understand that persistent variables are saved ON EXIT automatically, without any user intervention so it should be enough for most cases. If you for some reason want auto-saves when AmiBroker is running, then  you can use this function. Please note that writing many static variables into physical disk file takes time and it blocks all static variable access so you should AVOID specifying too small auto-save intervals. Saving every second is bad idea - it will cause overload. Saving every 60 seconds should be fine.
+Calling function with interval set to zero disables auto-save.
+<br>
+SetOption(&quot;StaticVarAutoSave&quot;, 0 );
+<li>MCEnable - controls Monte Carlo simulation: 0 - disabled, 1 - enabled in backtests, 2 - enabled in backtests and optimizations
+<li>MCRuns - number of Monte Carlo simulation runs (realizations) default 1000
+<li>MCPosSizeMethod - Monte Carlo position size method: 0 - don't change, 1 - fixed size, 2 - constant amount, 3 - percent of equity
+<li>MCPosSizeShares - number of shares per trade in MC simulation
+<li>MCPosSizeValue - dollar value per trade in MC simulation
+<li>MCPosSizePctEquity - percent of current equity per trade in MC simulation 
+<li>MCChartEquityCurves - true/false (1/0) - enables Monte Carlo equity chart
+<li>MCStrawBroomLines - defines number of equity lines drawn in Monte Carlo straw broom chart 
+<li>BHSymbol - (new in 6.90) - get Portfolio B&H symbol. Note that this is read-only (can't set it via SetOption)
+</ul>
+<p>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <code>
+InitialEquity = GetOption(&quot;InitialEquity&quot;);
+</code> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="setoption.html">SetOption()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetOption</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetOption">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

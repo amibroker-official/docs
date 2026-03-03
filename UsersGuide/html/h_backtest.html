@@ -1,0 +1,552 @@
+<html>
+
+<head>
+<title>Back-testing your trading ideas</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2><b>Back-testing your trading ideas</b></h2>
+<p><b>Introduction</b></p>
+<p>One of the most useful things that you can do in <a href="h_newanalysis.html">the analysis
+    window</a> is to back-test your trading strategy on historical data. 
+  This can give you valuable insight into the strengths and weaknesses of your system 
+  <b>before</b> investing real money. This single AmiBroker feature can save
+   you a lot of money. </p>
+<p><b>Writing your trading rules</b></p>
+<p>First, you need to have objective (or mechanical) rules to enter and exit the 
+  market. This step is the basis of your strategy, and you need to think about it 
+  yourself, since the system must match your risk tolerance, portfolio size, money 
+  management techniques, and many other individual factors.</p>
+<p>Once you have your own rules for trading, you should write them as buy and sell 
+  rules in AmiBroker Formula Language (plus short and cover if you want to also test 
+  short trading).</p>
+<p>In this chapter, we will consider a very basic moving average crossover system.
+   The system buys stocks/contracts when the closing price rises above a 45-day
+  exponential moving average and sells stocks/contracts when the closing price
+  falls below a 45-day
+  exponential moving average. </p>
+<p>The exponential moving average can be calculated in AFL using its built-in 
+  function EMA. All you need to do is specify the input array and averaging 
+  period, so the 45-day exponential moving average of closing prices can be obtained 
+  by the following statement:</p>
+<blockquote>
+  <p><code>ema( close, 45 );</code></p>
+</blockquote>
+<p>The <b>close</b> identifier refers to the built-in array holding closing prices 
+  of the currently analyzed symbol.</p>
+<p>To test if the closing price crosses <b>above </b>the exponential moving average, 
+  we will use the built-in cross function:</p>
+<blockquote>
+  <p><code>buy = cross( close, ema( close, 45 ) );</code></p>
+</blockquote>
+<p>The above statement defines a buy trading rule. It gives &quot;1&quot; or &quot;true&quot; 
+  when the closing price crosses above ema( close, 45 ). Then we can write the sell 
+  rule which would give &quot;1&quot; when the opposite situation occurs - the closing 
+  price crosses <b>below </b>ema( close, 45 ):</p>
+<blockquote>
+  <p><code>sell = cross( ema( close, 45 ), close );</code></p>
+</blockquote>
+<p>Please note that we are using <b>the same</b> cross function but the <b>opposite</b> 
+  order of arguments.</p>
+<p>So the complete formula for long trades will look like this:</p>
+<blockquote> 
+  <p><code>buy = cross( close, ema( close, 45 ) );<br>
+    sell = cross( ema( close, 45 ), close );</code></p>
+</blockquote>
+<p><em>NOTE: To create a new formula, please open <a href="w_afledit.html">Formula
+      Editor</a> using <strong>Analysis-&gt;Formula Editor</strong> menu, type
+      the formula and choose <strong>Tools-&gt;Send to  Analysis</strong> menu
+  in the Formula Editor</em></p>
+<p><b>Back-testing</b></p>
+<p>To back-test your system, just click on the <b>Back test</b> button in the Automatic 
+  Analysis window. Make sure you have typed in the formula that contains at least 'buy' and 'sell' trading rules (as shown above). When the formula is correct, AmiBroker 
+  starts analyzing your symbols according to your trading rules and generates a 
+  list of simulated trades. The whole process is very fast - you can back-test 
+  thousands of symbols in a matter of minutes. The progress window will show you 
+  estimated completion time. If you want to stop the process, you can just click 
+  the Cancel button in the progress window. </p>
+<p><b>Analyzing results</b></p>
+<p>When the process is finished, the list of simulated trades is shown in the bottom 
+  part of the Automatic Analysis window (the <b>Results</b> pane). You can examine 
+  when the buy and sell signals occurred just by double-clicking on a trade 
+  in the <b>Results</b> pane. This will give you raw or unfiltered signals for every 
+  bar where buy and sell conditions are met. If you want to see only single trade 
+  arrows (opening and closing currently selected trade), you should double-click the line while holding the SHIFT key down. Alternatively, you can choose 
+  the type of display by selecting the appropriate item from the context menu that 
+  appears when you click on the Results pane with the right mouse button.</p>
+<p>In addition to the results list, you can get very detailed statistics on the 
+  performance of your system by clicking on the <b>Report</b> button. To find 
+  out more about the report's statistics, please check out <a href="w_report.html">Report 
+  window description</a>.</p>
+<p><b>Changing your back-testing settings</b></p>
+<p>The back-testing engine in AmiBroker uses some predefined values to perform 
+  its task, including the portfolio size, periodicity (daily/weekly/monthly), amount 
+  of commission, interest rate, maximum loss and profit target stops, type of 
+  trades, price fields, and so on. All these settings can be changed by the user 
+  using the <a href="w_settings.html">Settings window</a>. After changing the settings, 
+  please remember to run your back-testing again if you want the results to be 
+  in sync with the settings.</p>
+<p>For example, to back-test on weekly bars instead of daily bars, just click on the 
+  <b>Settings</b> button, select '<b>Weekly</b>' from the <b>Periodicity</b> combo box, 
+  and click <b>OK</b>, then run your analysis by clicking '<b>Back test</b>'.</p>
+<p><b>Reserved variable names</b></p>
+<p>The following table shows the names of reserved variables used by Automatic 
+  Analyzer. The meaning and examples of using them are given later in this chapter.</p>
+<table width="100%" border="1" cellspacing="0" cellpadding="3" bordercolorlight="#990000" bordercolordark="#990000">
+  <tr bgcolor="#990000"> 
+    <td valign="top"><font color="#FFFFFF">Variable </font></td>
+    <td valign="top"><font color="#FFFFFF">Usage</font></td>
+    <td valign="top"><font color="#FFFFFF">Applies to</font></td>
+  </tr>
+  <tr> 
+    <td valign="top">buy</td>
+    <td valign="top">defines &quot;buy&quot; (enter long position) trading rule</td>
+    <td valign="top">Automatic Analysis, Commentary</td>
+  </tr>
+  <tr> 
+    <td valign="top">sell</td>
+    <td valign="top"> 
+      <p>defines &quot;sell&quot; (close long position) trading rule</p>
+    </td>
+    <td valign="top">Automatic Analysis, Commentary</td>
+  </tr>
+  <tr> 
+    <td valign="top">short</td>
+    <td valign="top">defines &quot;short&quot; (enter short position - short sell) 
+      trading rule</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">cover</td>
+    <td valign="top">defines &quot;cover&quot; (close short position - buy to 
+      cover) trading rule</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">buyprice</td>
+    <td valign="top">defines buying price array (this array is filled in with 
+      the default values according to the Automatic Analyzer settings)</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">sellprice</td>
+    <td valign="top">defines selling price array (this array is filled in with 
+      the default values according to the Automatic Analyzer settings)</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">shortprice</td>
+    <td valign="top">defines short selling price array (this array is filled in 
+      with the default values according to the Automatic Analyzer settings)</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">coverprice</td>
+    <td valign="top">defines buy to cover price array (this array is filled in 
+      with the default values according to the Automatic Analyzer settings)</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">exclude</td>
+    <td valign="top">If defined, a true (or 1) value of this variable excludes 
+      the current symbol from scan, exploration, or back-test. It is also not considered 
+      in buy-and-hold calculations. Useful when you want to narrow your analysis 
+      to a certain set of symbols.</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">roundlotsize</td>
+    <td valign="top">defines round lot sizes used by the backtester (see explanations 
+      below) </td>
+    <td valign="top">Automatic Analysis (new in 4.10)</td>
+  </tr>
+  <tr> 
+    <td valign="top">ticksize</td>
+    <td valign="top">defines the tick size used to align prices generated by <strong>built-in
+        stops</strong> (see explanations below) (note: it does not affect entry/exit
+    prices specified by buyprice/sellprice/shortprice/coverprice)</td>
+    <td valign="top">Automatic Analysis (new in 4.10)</td>
+  </tr>
+  <tr> 
+    <td valign="top">pointvalue</td>
+    <td valign="top">allows reading and modifying a future contract's point value (see 
+      <a href="h_futbacktest.html">backtesting futures</a>) <br>
+      CAVEAT: this AFL
+      variable is by default set to 1 (one) regardless of the contents of the Information
+      window UNLESS you turn on Futures Mode (SetOption(&quot;FuturesMode&quot;,
+      True ))</td>
+    <td valign="top">Automatic Analysis (new in 4.10)</td>
+  </tr>
+  <tr>
+    <td valign="top">margindeposit</td>
+    <td valign="top">allows reading and modifying a future contract's margin (see <a href="h_futbacktest.html">backtesting 
+      futures</a>)</td>
+    <td valign="top">Automatic Analysis (new in 4.10)</td>
+  </tr>
+  <tr> 
+    <td valign="top">positionsize</td>
+    <td valign="top"> 
+      <p>Allows control over the dollar amount or percentage of portfolio that is invested 
+        in the trade (see explanations below)</p>
+    </td>
+    <td valign="top">Automatic Analysis (new in 3.9)</td>
+  </tr>
+</table>
+<p><b>Advanced concepts</b></p>
+<p>Until now, we discussed fairly simple use of the backtester. AmiBroker, however, 
+  supports much more sophisticated methods and concepts that will be discussed 
+  later in this chapter. Please note that a beginner user should first experiment a little 
+  with the easier topics described above before proceeding.</p>
+<p>So, when you are ready, please take a look at the following recently introduced 
+  features of the backtester:</p>
+<p>a) AFL scripting host for advanced formula writers <br>
+  b) enhanced support for short trades<br>
+  c) how to control order execution price from the script<br>
+  d) various kinds of stops in the backtester<br>
+  e) position sizing<br>
+  f) round lot size and tick size<br>
+  g) margin account<br>
+  h) <a href="h_futbacktest.html">backtesting futures</a> </p>
+<p>AFL scripting host is an advanced topic that is covered in a separate document 
+  available <a href="a_script.html">here</a>, and it will not be discussed in this document. 
+  Remaining features are much easier to understand.</p>
+<p><b>Short trade support</b><i><br>
+  </i></p>
+<p>In the previous versions of AmiBroker, if you wanted to back-test a system using 
+  both long and short trades, you could only simulate a stop-and-reverse strategy. 
+  When a long position was closed, a new short position was opened immediately. 
+  It was because 'buy' and 'sell' reserved variables were used for both types of trades. 
+</p>
+<p>Now (with version 3.59 or higher), there are separate reserved variables for 
+  opening and closing long and short trades:</p>
+<p>buy - &quot;true&quot; or 1 value opens long trade<br>
+  sell - &quot;true&quot; or 1 value closes long trade<br>
+  short - &quot;true&quot; or 1 value opens short trade<br>
+  cover - &quot;true&quot; or 1 value closes short trade</p>
+<p></p>
+<p>So, in order to back-test short trades, you need to assign 'short' and 'cover' variables.<br>
+  If you use a stop-and-reverse system (always in the market), simply assign 'sell' 
+  to 'short' and 'buy' to 'cover':</p>
+<blockquote> 
+  <p><code>short = sell;<br>
+    cover = buy;</code></p>
+</blockquote>
+<p>This simulates the way pre-3.59 versions worked.<br>
+</p>
+<p>But now AmiBroker enables you to have separate trading rules for going long 
+  and for going short as shown in this simple example:</p>
+<blockquote> 
+  <p><code>// long trades entry and exit rules:<br>
+    buy = cross( cci(), 100 );<br>
+    sell = cross( 100, cci() );</code></p>
+  <p><code>// short trades entry and exit rules:<br>
+    short = cross( -100, cci() );<br>
+    cover = cross( cci(), -100 );</code></p>
+</blockquote>
+<p>Note that in this example, if CCI is between -100 and 100, you are out of the 
+  market.<br>
+</p>
+<p><b>Controlling trade price</b></p>
+<p>AmiBroker now provides 4 new reserved variables for specifying the price at 
+  which 'buy', 'sell', 'short', and 'cover' orders are executed. These arrays have the 
+  following names: 'buyprice', 'sellprice', 'shortprice', and 'coverprice'.</p>
+<p>The main application of these variables is controlling the trade price:</p>
+<blockquote> 
+  <p><code>BuyPrice = IIF( dayofweek() == 1, HIGH, CLOSE ); <br>
+    // on monday buy at high, otherwise buy on close</code></p>
+</blockquote>
+<p>So you can write the following to simulate real stop orders:</p>
+<blockquote> 
+  <p><code>BuyStop = ... the formula for buy stop level;<br>
+    SellStop = ... the formula for sell stop level;<br>
+    <br>
+    // if anytime during the day prices rise above buystop level (high&gt;buystop) 
+    <br>
+    // the buy order takes place (at buystop or low whichever is higher)<br>
+    Buy = Cross( High, BuyStop ); </code></p>
+  <p><code>// if anytime during the day prices fall below sellprice level ( low 
+    &lt; sellstop )<br>
+    // the sell order takes place (at sellstop or high whichever is lower)<br>
+    Sell = Cross( SellPrice, SellStop);</code></p>
+  <p><code>BuyPrice = max( BuyStop, Low ); // make sure buy price not less than 
+    Low <br>
+    SellPrice = min( SellStop, High ); // make sure sell price not greater than 
+    High </code></p>
+</blockquote>
+<p>Please note that AmiBroker presets 'buyprice', 'sellprice', 'shortprice', and 'coverprice' array variables with the values defined in the System Test Settings window (shown below), so you can, but don't need to, define them in your formula. If you don't 
+  define them, AmiBroker works as in older versions. </p>
+<p>During back-testing AmiBroker will check if the values you assigned to buyprice, 
+  sellprice, shortprice, coverprice fit into the high-low range of a given bar. If not, 
+  AmiBroker will adjust it to the high price (if price array value is higher than 
+  high) or to the low price (if price array value is lower than low)</p>
+<p><img src="gifs/w_settings1.gif"></p>
+<p><img src="gifs/w_settings2.gif"></p>
+<p><img src="gifs/w_settings3.gif"></p>
+<p><b>Profit target stops</b></p>
+<p>As you can see in the picture above, new settings for profit target stops are 
+  available in the System Test Settings window. Profit target stops are executed 
+  when the <b>high</b> price for a given day exceeds the stop level that can be given as a percentage or point increase from the buying price. 
+  By default, stops are executed at the price that you define as the 'sellprice' array (for long trades) 
+  or 'coverprice' array (for short trades). This behavior can be changed by using 
+  the &quot;Exit at Stop&quot; feature.</p>
+<p></p>
+<p><b>&quot;Exit at Stop&quot; feature</b></p>
+<p>If you mark the &quot;Exit at Stop&quot; box in the settings, the stops will be 
+  executed at the exact stop level, i.e., if you define a profit target stop at +10% 
+  and your buy price was 50, your stop order will be executed at 55 even if your 'sellprice' array contains a different value (for example, a closing price of 
+  56).</p>
+<p>Maximum loss stops work in a similar manner - they are executed when the <b>low</b> 
+  price for a given day drops below the stop level that can be given as a percentage 
+  or point increase from the buying price.<br>
+</p>
+<p><b>Trailing stops</b></p>
+<p> This kind of stop is used to protect profits as it tracks your trade. Each 
+  time a position's value reaches a new high, the trailing stop is placed at a higher 
+  level. When the profit drops below the trailing stop level, the position is closed. 
+  This mechanism is illustrated in the picture below (a 10% trailing stop is shown):</p>
+<img src="gifs/22trailstop.gif"><
+<p>The trailing stop, as well as two other kinds of stops, can be enabled from the 
+  user interface (the Automatic Analysis' <a href="w_settings.html">Settings window</a>) 
+  or from the formula level - using the ApplyStop function:</p>
+<p>To reproduce the example above, you would need to add the following code to 
+  your Automatic Analysis formula:</p>
+<p>ApplyStop( 2, 1, 10, 1 ); // 10% trailing stop, percent mode, exit at stop 
+  ON</p>
+<p>or you can write it using predefined constants that are more descriptive</p>
+<p>ApplyStop( stopTypeTrail, stopModePercent, 10, True );</p>
+<p>Trailing stops can also be defined in points (dollars) and percentage of profit 
+  (risk). In the latter case, the amount parameter defines the percentage of profits 
+  that could be lost without activating the stop. So a 20% profit (risk) stop will exit a trade that had a maximum profit of $100 when the profit decreases 
+  below $80.</p>
+<p><b>Dynamic stops</b></p>
+<p>The ApplyStop() function now allows changing the stop level from trade to trade. 
+  This enables you to implement, for example, volatility-based stops very easily.</p>
+<p>For example, to apply a maximum loss stop that will adapt the maximum acceptable 
+  loss based on a 10-day average true range, you would need to write:</p>
+<p>ApplyStop( 0, 2, 2 * ATR( 10 ), 1 );</p>
+<p>or you can write it using predefined constants that are more descriptive</p>
+<p>ApplyStop( stopTypeLoss, stopModePoint, 2 * ATR( 10 ), True );</p>
+<p>The function above will place the stop 2 times the 10-day ATR below the entry price.</p>
+<p>As ATR changes from trade to trade, this will result in a dynamic, volatility-based stop level. 
+  Please note that the 3rd parameter of the ApplyStop function (the amount) is sampled at the trade entry and held throughout the trade. 
+  So, in the example above, it uses the ATR(10) value from the date of the entry. 
+  Further changes in ATR do not affect the stop level.</p>
+<p>See the complete <a href="afl/applystop.html">APPLYSTOP</a> function documentation for more details.</p>
+<p><b>Coding your own custom stop types</b></p>
+<p>The ApplyStop function is intended to cover most &quot;popular&quot; kinds of stops. 
+  You can, however, code your own kinds of stops and exits using looping code. For example, the following re-implements a profit target stop and shows how to refer to the 
+  trade entry price in your formulas:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/* a sample low-level
+      implementation of Profit-target stop in AFL: */</FONT><FONT COLOR=#000000> <BR>
+      <BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>()
+); <BR>
+<BR>
+priceatbuy=</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+i++ ) <BR>
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( priceatbuy == </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> && </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>[
+i ] ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+priceatbuy = </FONT><FONT COLOR=#000000><B>BuyPrice</B></FONT><FONT COLOR=#000000>[
+i ]; <BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( priceatbuy &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> && </FONT><FONT COLOR=#000000><B>SellPrice</B></FONT><FONT COLOR=#000000>[
+i ] &gt; </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000> * priceatbuy
+) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>[ i ] = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#000000><B>SellPrice</B></FONT><FONT COLOR=#000000>[ i ] = </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000> *
+priceatbuy; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+priceatbuy = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+} <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>[ i ] = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+} <BR>
+</FONT></CODE></p>
+<p><b>Position sizing</b></p>
+<p>This is a new feature in version 3.9. Position sizing in the backtester is implemented 
+  by means of a new reserved variable:</p>
+<p>PositionSize = &lt;size array&gt;</p>
+<p>Now you can control the dollar amount or percentage of portfolio that is invested 
+  in the trade.<br>
+</p>
+<ul>
+  <li>Positive numbers define the (dollar) amount that is invested in the trade; for example:<br>
+    <br>
+    PositionSize = 1000; // invest $1000 in every trade<br>
+    <br>
+  </li>
+  <li> Negative numbers from -100 to -1 define a percentage: <br>
+    -100 gives 100% of the current portfolio size, <br>
+    -33 gives 33% of available equity; for example:<br>
+    <br>
+    PositionSize = -50; /* always invest only half of the current equity */ <br>
+    <br>
+  </li>
+  <li>Dynamic sizing example:<br>
+    <br>
+    PositionSize = - 100 + RSI();<br>
+    <br>
+    As RSI varies from 0 to 100, this will result in a position size depending on RSI values; low values of RSI will result in a higher percentage invested. </li>
+</ul>
+<p>If less than 100% of available cash is invested, then the remaining amount earns 
+  an interest rate as defined in the settings.</p>
+<p>There is also a new checkbox in the AA Settings window: &quot;Allow position 
+  size shrinking&quot; - this controls how the backtester handles the situation when 
+  the requested position size (via the 'PositionSize' variable) exceeds available cash. When this flag is checked, the position is entered with a size shrunk to available 
+  cash. If it is unchecked, the position is not entered.</p>
+<p>To see actual position sizes, please use a new report mode in the AA Settings window: 
+  &quot;Trade list with prices and pos. size&quot; </p>
+<p>Finally, here is an example of Tharp's ATR-based position sizing technique 
+  coded in AFL:</p>
+<p><code>Buy = &lt;your buy formula here&gt;<br>
+  </code><code>Sell = 0; // selling only by stop</code></p>
+<p><code>TrailStopAmount = 2 * ATR( 20 );<br>
+  Capital = 100000; /* IMPORTANT: Set it also in the Settings: Initial Equity 
+  */</code></p>
+<p><code>Risk = 0.01*Capital;<br>
+  </code><code>PositionSize = (Risk/TrailStopAmount)*BuyPrice;<br>
+  </code><code>ApplyStop( 2, 2, TrailStopAmount, 1 );</code></p>
+<p>The technique could be summarized as follows:</p>
+<p>The total equity per symbol is $100,000. We set the risk level at 1% of total 
+  equity. Risk level is defined as follows: if a trailing stop on a $50 stock 
+  is at, say, $45 (the value of two ATRs against the position), the $5 loss is 
+  divided into the $1,000 risk to give 200 shares to buy. So, the loss risk is 
+  $1,000, but the allocation risk is 200 shares x $50/share or $10,000. So, we are<br>
+  allocating 10% of the equity to the purchase but only risking $1,000. <i>(Edited 
+  excerpt from the AmiBroker mailing list)</i></p>
+<p><b>Round lot size and tick size</b></p>
+<p>Various instruments are traded with various &quot;trading units&quot; or &quot;blocks&quot;. 
+  For example, you can purchase a fractional number of units of a mutual fund, but 
+  you cannot purchase a fractional number of shares. Sometimes you have to buy 
+  in lots of 10 or 100. AmiBroker now allows you to specify the block size at a 
+  global and per-symbol level. </p>
+<p>You can define per-symbol round lot size in the Symbol-&gt;Information page 
+  (pic. 3). The value of zero means that the symbol has no special round lot size 
+  and will use &quot;Default round lot size&quot; (global setting) from the Automatic 
+  Analysis Settings page (pic. 1). If the default size is also set to zero, it means 
+  that a fractional number of shares/contracts is allowed.</p>
+<p>You can also control the round lot size directly from your AFL formula using 
+  the 'RoundLotSize' reserved variable, for example:</p>
+<blockquote> 
+  <p><code>RoundLotSize = 10;</code></p>
+</blockquote>
+<p><i> Tick size</i></p>
+<p>This setting controls the minimum price move for a given symbol. You can define 
+  it at a global and per-symbol level. As with round lot size, you can define a 
+  per-symbol tick size in the Symbol-&gt;Information page (pic. 3). The value of zero instructs 
+  AmiBroker to use &quot;default tick size&quot; defined in the Settings page 
+  (pic. 1) of the Automatic Analysis window. If the default tick size is also set to zero, 
+  it means that there is no minimum price move.</p>
+<p>You can set and retrieve the tick size also from an AFL formula using the 'TickSize' 
+  reserved variable, for example:</p>
+<blockquote> 
+  <p><code>TickSize = 0.01;</code></p>
+</blockquote>
+<p>Note that the tick size setting affects ONLY trades exited by built-in stops 
+  and/or ApplyStop(). The backtester assumes that price data follow tick size 
+  requirements and it does not change the price arrays supplied by the user.</p>
+<p>So, specifying a tick size makes sense only if you are using built-in stops, so exit points are generated at &quot;allowed&quot; price levels instead of calculated 
+  ones. For example, in Japan, you cannot have fractional parts of yen, so you should define the global tick size to 1, so built-in stops exit trades at integer levels.</p>
+<p><b>Margin account</b></p>
+<p><i>Account margin</i> setting defines the percentage margin requirement for 
+  <b>entire account</b>. The default value of <i>Account margin</i> is 100. This
+  means that you have to provide 100% funds to enter the trade, and this is the
+  way
+  the backtester 
+  worked in previous versions. But now you can simulate a margin account. When
+   you buy on margin, you are simply borrowing money from your broker to buy stock.
+  
+  With current regulations, you can put up 50% of the purchase price of the stock
+   you wish to buy and borrow the other half from your broker. To simulate this,
+  
+  just enter 50 in the <i>Account margin</i> field (see pic. 1). If your initial
+   equity is set to 10,000, your buying power will be then 20,000 and you will be
+  
+  able to enter larger positions. Please note that this setting sets the margin
+   for the entire account and it is NOT related to futures trading at all. In other
+  
+  words, you can trade stocks on a margin account.</p>
+<p><strong>Additional settings</strong></p>
+<ul>
+  <li>&quot;Reverse entry signal forces exit&quot; checkbox in the
+    Backtester Settings.<br>
+    When it is ON (the default setting) - the backtester works as in previous versions
+    and closes an already open position if a new entry signal in the reverse direction
+    is encountered. If this switch is OFF, even if a reverse signal occurs, the backtester
+    maintains the currently open trade and does not close the position until a regular exit
+    ('sell' or 'cover') signal is generated. <br>
+    In other words, when this switch is OFF, the backtester ignores 'Short' signals during
+    long trades and ignores 'Buy' signals during short trades.<br>
+        <br>
+  </li>
+  <li>&quot;Allow same bar exit (single bar trade)&quot; option in the
+    Settings<br>
+    When it is ON (the default setting) - entry and exit at the very same bar
+    are allowed (as in previous versions)<br>
+    If it is OFF - exit can happen starting from the next bar only (this applies
+    to regular signals; there is a separate setting for ApplyStop-generated exits).
+    Switching it to OFF allows to reproduce the behavior of MS backtester that
+  is not able to handle same-day exits.<br>
+  </li>
+  <li>&quot;Activate stops immediately&quot;<br>
+    <br>
+    This setting solves the problem of testing systems
+    that enter trades on market open. In versions prior to 4.09, the backtester assumed
+    that you were entering trades
+  on market close, so built-in stops were activated from the next day. The problem
+  was that when you in fact defined the open price as the trade entry price - then same-day price fluctuations did not trigger the stops. There were some published
+  workarounds based on AFL code, but now you don't need to use them. Simply, if
+  you trade on open, you should mark the &quot;Activate Stops Immediately&quot; checkbox (pic.
+  1). <br>
+  <br>
+  You may ask why not simply check the 'buyprice' or 'shortprice' array if
+  it is equal to the open price. Unfortunately, this won't work. Why? Simply because
+  there are Doji days when the open price equals the close, and then the backtester will never
+  know if a trade was entered at market open or close. So we really need a separate
+  setting. <br>
+  </li>
+  <li>&quot;Use QuickAFL&quot;<br>
+    <br>
+    QuickAFL(tm) is a feature that allows faster AFL calculation under certain
+    conditions. Initially (since 2003) it was available for indicators only,
+    as of version 5.14+ it is available in Automatic Analysis too.
+    <p>Initially, the idea was to allow faster chart redraws by calculating the
+      AFL formula only for the part that is visible on the chart. In a similar
+      manner, the Automatic Analysis window can use a subset of available quotations
+      to calculate AFL, if the selected 'range' parameter is less than 'All
+      quotations'. <br>
+      <br>
+      A detailed explanation of how QuickAFL works and how to control it is provided
+      in this Knowledge Base article: <a href="http://www.amibroker.com/kb/2008/07/03/quickafl/" target="_blank">http://www.amibroker.com/kb/2008/07/03/quickafl/</a></p>
+    Note that this option works not only in the backtester but also in optimizations,
+    explorations, and scans.<br>
+  </li>
+</ul>
+<p><b>See Also:</b></p>
+<p><a href="h_portfolio.html">Portfolio-Level Backtesting</a> article.</p>
+<p><a href="h_futbacktest.html">Backtesting Systems for Futures Contracts</a> 
+  article.</p>
+<p> <a href="afl/applystop.html">APPLYSTOP</a> function description<br>
+  <br>
+  <a href="w_afledit.html">Using AFL Editor</a> section of the guide.</p>
+<p><a href="http://www.amibroker.com/newsletter/01-2002.html" target="_blank">Insider Guide to Backtester (newsletter 1/2002)</a></p>
+</body>
+</html>

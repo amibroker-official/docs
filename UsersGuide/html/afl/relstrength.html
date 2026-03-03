@@ -1,0 +1,76 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - RELSTRENGTH</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>RelStrength</b><br>
+        - comparative relative strength</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Referencing other symbol data<br>
+        </b>(AmiBroker 3.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>RelStrength( "tickername", fixup = 1) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Calculates relative strength of currently selected security 
+      compared to "tickername" security. When you give an empty string 
+      as argument, a standard relative strength base security taken from Stock->Categories 
+      will be used.<br>
+      The last parameter - fixup - with the default value of 1 - causes filling 
+      the holes in the data with previous values (behaviour introduced in 3.90.3), 
+      if fixup is 0 - the holes are not fixed (the old, pre-3.90.3 behaviour)<br>
+      Note: you can still use Foreign/RelStrength in the old way:<br>
+      Foreign( "ticker", "field" ), RelStrength( "ticker" 
+      ) - then the holes will be fixed. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> relstrength( "^DJI" ) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>jayson</b><br><br>2003-06-23 09:20:02</td><td valign="top">Interpretation<br />
+<br />
+Comparative Relative Strength compares a security's price change with that of a &quot;base&quot; security. When the Comparative Relative Strength indicator is moving up, it shows that the security is performing better than the base security. When the indicator is moving sideways, it shows that both securities are performing the same (i.e., rising and falling by the same percentages). When the indicator is moving down, it shows that the security is performing worse than the base security (i.e., not rising as fast or falling faster).<br />
+<br />
+Comparative Relative Strength is often used to compare a security's performance with a market index. It is also useful in developing spreads (i.e., buy the best performer and short the weaker issue).<br />
+<br />
+</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>RelStrength</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=RelStrength' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=323&hilite=RelStrength' target='_blank'>Relative Strength</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=322&hilite=RelStrength' target='_blank'>Relative strength comparison with moving average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=RelStrength' target='_blank'>Stan Weinstein strategy</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=RelStrength">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

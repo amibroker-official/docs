@@ -1,0 +1,89 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - TIMEFRAMECOMPRESS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>TimeFrameCompress</b><br>
+        - compress single array to given time frame</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Time Frame functions<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>TimeFrameCompress( <i>array, interval, mode = compressLast </i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The <b>TimeFrameCompress</b> function compresses single array to given interval using given compression mode available modes:
+<ul>
+<li>compressLast - last (close) value of the array within interval
+<li>compressOpen - open value of the array within interval
+<li>compressHigh - highest value of the array within interval
+<li>compressLow - lowest value of the array within interval
+<li>compressVolume - sum of values of the array within interval
+</ul>
+<p>
+To expand compressed array you should use the <b>TimeFrameExpand</b> function.
+<p>
+The <b>TimeFrameCompress</b> function is provided for completeness and it can be used when you want to compress single array without affecting built-in OHLC,V arrays. If you call TimeFrameCompress it does not affect results of other functions (opposite to <b>TimeFrameSet</b>).
+
+<p>
+For more information check <a href='..h_timeframe.html'>Tutorial: Multiple time frame support</a> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000>wc = </FONT><FONT COLOR=#0000ff>TimeFrameCompress</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>/* now the time frame is still unchanged (say daily)
+and our MA will operate on daily data */</FONT><FONT COLOR=#000000> <BR>
+dailyma = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>/* but if we call MA on compressed array, it will
+give MA from other time frame */</FONT><FONT COLOR=#000000> <BR>
+weeklyma = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( wc, </FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+note that argument is time-compressed array</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( dailyma, </FONT><FONT COLOR=#ff00ff>"DailyMA"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+weeklyma = </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+weeklyma, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+expand for display</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( weeklyma, </FONT><FONT COLOR=#ff00ff>"WeeklyMA"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="timeframeexpand.html">TimeFrameExpand()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>TimeFrameCompress</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1263&hilite=TimeFrameCompress' target='_blank'>Intraday Range and Periods Framer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=TimeFrameCompress' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1268&hilite=TimeFrameCompress' target='_blank'>Volume Color with Dynamic Limit</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=TimeFrameCompress">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

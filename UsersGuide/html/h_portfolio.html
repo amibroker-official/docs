@@ -1,0 +1,500 @@
+<html>
+
+<head>
+<title>Portfolio-level backtesting</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>Portfolio-level backtesting</b></h2>
+<p><b>IMPORTANT: Please read the first Tutorial: <a href="h_backtest.html">Backtesting Your Trading Ideas article</a></b></p>
+<p>The new backtester <strong> works at the PORTFOLIO LEVEL</strong>, it means that there
+  is a single portfolio equity and position sizing refers to portfolio equity.
+  Portfolio equity is equal to available cash plus sum of all simultaneously
+  open positions at a given time. </p>
+<p>AmiBroker's <strong>portfolio backtester</strong> lets you combine trading signals
+  and trade-sizing strategies into simulations which exactly mimic the way you
+  would
+  trade
+  in
+  real time. A core feature is its ability to perform dynamic money management
+  and risk control at the portfolio level. Position sizes are
+  determined
+  with full knowledge of what's going on at the portfolio level at the moment
+the sizing decision is made. Just as you do in reality. </p>
+<p><strong>HOW TO SET IT UP?</strong></p>
+<p><strong>There are only two things that need to be done to perform portfolio
+    backtest:</strong></p>
+<p>1. First, you need to have the formula that generates buy/sell/short/cover
+  signals as described in &quot;<a href="h_backtest.html">Backtesting Your Trading
+  Ideas</a>&quot; article</p>
+<p>2. You should define how many simultaneous trades you want to test and what
+  position sizing algorithm you want to use.</p>
+<p><strong>SETTING UP MAXIMUM NUMBER OF SIMULTANEOUSLY OPEN TRADES</strong></p>
+<p>There are two ways to set the maximum number of simultaneously open trades:</p>
+<p>1. Go to the <strong>Settings</strong> dialog, switch to <strong>Portfolio</strong> tab
+  and enter the number in the <strong>Max. Open Positions</strong> field</p>
+<p>2. Define the maximum in the formula itself (this overrides any setting in
+  the Settings window) using <a href="afl/setoption.html">SetOption</a> function:</p>
+<p><code>SetOption(&quot;MaxOpenPositions&quot;, 5 ); // This sets maximum number of open positions
+  to 5</code></p>
+<p><strong>SETTING UP POSITION SIZE </strong></p>
+<p><strong>IMPORTANT:</strong> to enable more than one symbol to be traded, you
+  have to add the PositionSize variable to your formula, so that less than 100% of funds
+  are invested in a single security:</p>
+<p><code>PositionSize = -25; // invest 25% of portfolio equity in single trade</code></p>
+<p>or</p>
+<p><code>PositionSize = 5000; // invest $5000 into single trade</code></p>
+<p>There is quite a common way of setting both position size and maximum number
+  of open positions so that equity is spread equally among trades:</p>
+<p><code>PosQty = 5; // You can define here how many open positions you want<br>
+  SetOption(&quot;MaxOpenPositions&quot;, PosQty );<br>
+  PositionSize = -100/PosQty; // invest 100% of portfolio equity divided by max.
+  position count</code></p>
+<p>You can also use more sophisticated position sizing methods. For example volatility-based
+position sizing (Van Tharp-style):</p>
+<p><code>PositionSize = -2 * BuyPrice/(2*ATR(10));</code></p>
+<p>That way you are investing 2% of PORTFOLIO equity in the trade, adjusted
+by the BuyPrice/2*ATR factor.</p>
+<p><strong>USING POSITION SCORE</strong> </p>
+<p>You can use the new PositionScore variable to decide which trades should be entered
+  if there are more entry signals on different securities than the maximum allowable
+  number of open positions or available funds. In such a case, AmiBroker will use
+  the absolute value of PositionScore variable to decide which trades are preferred.
+  See the code below. It implements a simple MA crossover system, but with the additional
+  flavor of preferring to enter trades on symbols that have a low RSI value. If
+  more buy signals occur than available cash/max. positions, then the stock with
+  lower RSI will be preferred. You can watch the selection process if you backtest
+  with &quot;Detailed log&quot; report mode turned on.</p>
+<p>The code below also includes an example of how to find the optimum number of simultaneously
+  open positions using the new Optimization in Portfolio mode.</p>
+<p><code>/*****<br>
+  ** REGULAR PORTFOLIO mode <br>
+  ** This sample optimization<br>
+  ** finds what is optimum number of positions open simultaneously<br>
+  ** <br>
+  ****/</code></p>
+<p><code>SetOption(&quot;InitialEquity&quot;, 20000 );<br>
+  SetTradeDelays(1,1,1,1);<br>
+  RoundLotSize = 1; </code></p>
+<p><code>posqty = Optimize(&quot;PosQty&quot;, 4, 1, 20, 1 );<br>
+  SetOption(&quot;MaxOpenPositions&quot;, posqty);</code></p>
+<p><code>// desired position size is 100% portfolio equity<br>
+  // divided by PosQty positions<br>
+  <br>
+  PositionSize = -100/posqty; </code></p>
+<p><code>// The system is very simple...<br>
+  </code><code>// MA parameters could be optimized too...<br>
+  p1 = 10;<br>
+  p2 = 22;<br>
+  // simple MA crossover<br>
+  Short=Cross( MA(C,p1) , MA(C,p2) );<br>
+  Buy=Cross( MA(C,p2) , MA(C,p1) );<br>
+  // always in the market <br>
+  Sell=Short; <br>
+  Cover=Buy;</code></p>
+<p><code>// now additional score <br>
+  // that is used to rank equities <br>
+  // when there are more ENTRY signals that available<br>
+  // positions/cash<br>
+  PositionScore = 100-RSI(); // prefer stocks that have low RSI;</code></p>
+<p><strong><a name="MODES"></a>BACKTEST MODES </strong></p>
+<p>AmiBroker 5.0 offers 6 different backtest modes:</p>
+<ul>
+  <li>regular mode (backtestRegular)</li>
+  <li>regular raw mode (backtestRegularRaw) </li>
+  <li>regular raw + multiple positions mode (backtestRegularRawMulti)</li>
+  <li>regular raw2 mode (backtestRegularRaw2)</li>
+  <li>regular raw2 + multiple positions mode (backtestRegularRaw2Multi)</li>
+  <li>rotational trading mode (backtestRotational)</li>
+</ul>
+<p>All &quot;regular&quot; modes use buy/sell/short/cover signals to enter/exit trades,
+  while &quot;rotational&quot; mode (aka &quot;ranking/switching&quot; system) uses only position
+  score and is described later.</p>
+<p>Backtest modes are switchable using <a href="afl/setbacktestmode.html">SetBacktestMode</a>() AFL function.</p>
+<p>The difference between &quot;regular&quot; modes is how repeated (also known as &quot;redundant&quot;
+  or &quot;extra&quot;) entry signals are handled. An &quot;extra&quot; entry signal is the signal that
+  comes AFTER initial entry but before the first matching exit signal. </p>
+<p>In the regular mode, the default one, redundant entry signals are removed as
+  shown in the picture below.<br>
+</p>
+<p><img src="gifs/bt_regular.gif"></p>
+<p>&nbsp;</p>
+<p>As you can see, Buy-Sell signal pairs are matched and treated as a TRADE. If
+   a trade is NOT entered on first entry signal due to a weak rank, not enough
+  cash, or reaching the maximum open position count, subsequent entry signals
+  are ignored until a matching exit signal. After an exit signal, the next entry signal
+  will be a possible candidate for entering a trade. The process of removing excess
+  signals occurring after the first buy and matching sell (and short-cover pair, respectively)
+  is the same as the <a href="afl/exrem.html">ExRem()</a> AFL function provides.
+  To use regular mode, you don't need to call the SetBacktestMode function at all,
+  as this is the default mode.</p>
+<p>You may or may not consider removing extra signals desirable. If you want
+  to act on ANY entry signal, you need to use the second mode - backtestRegularRaw.
+  To turn it on you need to include this line in the code:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// signal-based backtest,
+      redundant (raw) signals are NOT removed, only one position per symbol allowed </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetBacktestMode</FONT><FONT COLOR=#000000>( backtestRegularRaw
+);</FONT></CODE></p>
+<p> It does NOT remove redundant entry signals and will act on ANY entry, provided
+      that it is scored highly enough and there is cash available and the maximum
+    number of open positions is not reached. It will, however, allow only ONE OPEN
+    POSITION
+      per symbol at any given time. It means that if a long trade is already open,
+    and later in the sequence, an extra buy signal appears, it will be ignored until a &quot;sell&quot; signal comes
+      (short-cover
+      signals work the same way). Note that you can still use sigScaleIn/sigScaleOut
+  to increase or decrease the size of this existing position, but it will appear
+  as a single line in the backtest result list.</p>
+<p>If you want ALL repeated entry signals to be acted upon and allow multiple separate positions on the same symbol without a scaling in/out effect (so multiple positions on the same symbol open simultaneously appear as separate lines in
+  the backtest report), you need to use backtestRegularRawMulti mode by adding
+  the following line to the code:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetBacktestMode</FONT><FONT COLOR=#000000>(
+backtestRegularRawMulti );</FONT></CODE></p>
+<p>In this mode MULTIPLE positions per symbol will be opened if a BUY/SHORT signal
+  is &quot;true&quot; for
+more than one bar and there are free funds available. Sell/Cover signals exit all open positions
+  on a given symbol, Scale-In/Out work on all open positions of a given symbol at
+once.</p>
+<p><i>Remark: The remaining modes are for advanced users only</i></p>
+<p>Raw2 modes are &quot;special&quot; for advanced users of the custom backtester. They are
+  only useful if you do custom processing of exit signals in a custom backtester procedure. They should NOT be used otherwise, because of the performance hit and
+memory consumption Raw2 modes cause. </p>
+<p>The common thing between Raw and Raw2
+    modes is that they both do NOT remove excess
+  ENTRY signals. The difference is that Raw modes remove excess EXIT signals,
+  while Raw2 modes do NOT.</p>
+<p>  In Raw2 modes all exit signals (even redundant ones) are passed to the second
+  phase of backtest just in case that you want to implement a strategy that skips the first exit. Let's suppose that you want to exit on some condition from the
+  first phase but only in certain hours, or after a certain number of bars in a trade,
+  or only when a portfolio equity condition is met. Now, you can do that in Raw2
+  modes.<br>
+  Note that Raw2 modes can get significantly slower when you are using custom
+  backtester code that iterates through signals as there can be zillions of exit
+  signals in the lists, even for symbols that never generated any entry signals,
+  therefore, it is advised to use it only when absolutely necessary. Raw2 modes
+  are also the most memory-consuming. Note also that if you run the system WITHOUT
+  a custom backtest procedure, there should be no difference between Raw and Raw2
+  modes (other than speed &amp; memory
+  usage), as the first matching exit signal is what is used by default.<br>
+</p>
+<p>  <strong>ROTATIONAL TRADING</strong></p>
+<p>Rotational trading (also known as fund-switching, or scoring and ranking) is
+  possible too. For more information, see the description of the <a href="afl/enablerotationaltrading.html">EnableRotationalTrading</a>  function.</p>
+<p><b>HOLDMINBARS and EARLY EXIT FEES</b></p>
+<p>(Note that these features are available in the portfolio-backtester only and not
+  compatible with the old backtester or Equity() function)</p>
+<p>HoldMinBars is a feature that disables exits during a user-specified number of
+  bars even if signals/stops are generated during that period. <br>
+  Please note that IF, during the HoldMinBars period, ANY stop is generated, it is ignored.
+  Also, this period is ignored when it comes to the calculation of trailing stops (new highest highs and drops below trailing stops generated during HoldMinBars
+  are ignored).This setting, similar to EarlyExitFee/EarlyExitBars, is available
+on a per-symbol basis (i.e., it can be set to a different value for each symbol).</p>
+<p>  Example:</p>
+<p>  <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"HoldMinBars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>127</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>()==</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#008000>// even if sell signals are generated each day, </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>//they are ignored until bar 128</FONT></CODE></p>
+<p>An early exit (redemption) fee is charged when a trade is exited during the first N
+  bars since entry. <br>
+  The fee is added to the exit commission, and you will see it in the commissions
+reported, for example, in the detailed log. However, it is NOT reflected in the portfolio
+    equity unless a trade really exits during the first N bars - this is to prevent  affecting
+    drawdowns if a trade was NOT exited early.<br>
+    <br>
+  <CODE><FONT COLOR=#008000>  // these two new options
+        can be set on per-symbol basis </FONT><FONT COLOR=#000000> <BR>
+        </FONT><FONT COLOR=#008000>// how many bars (trading days) </FONT><FONT COLOR=#000000> <BR>
+        </FONT><FONT COLOR=#008000>// an early exit (redemption) fee is applied </FONT><FONT COLOR=#000000> <BR>
+        </FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitBars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>128</FONT><FONT COLOR=#000000> ); <BR>
+        </FONT><FONT COLOR=#008000>// early redemption fee (in percent) </FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitFee"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+<p>(Note: 180 calendar days is 128 or 129 trading days.)</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// how to set it up on
+      per-symbol basis? </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// it is simple - use 'if' statement </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Name</FONT><FONT COLOR=#000000>()
+== </FONT><FONT COLOR=#ff00ff>"SYMBOL1"</FONT><FONT COLOR=#000000> ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>&nbsp;SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitBars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>128</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>&nbsp;SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitFee"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Name</FONT><FONT COLOR=#000000>()
+== </FONT><FONT COLOR=#ff00ff>"SYMBOL2"</FONT><FONT COLOR=#000000> ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>&nbsp;SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitBars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>25</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>&nbsp;SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitFee"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+</FONT></CODE><br>
+In addition to HoldMinBars and EarlyExitBars, there are sibling features (added in
+4.90) called
+<b>HoldMinDays</b> and <b>EarlyExitDays</b> that work with <b>calendar days</b> instead
+of data bars. So,
+we can rewrite the previous examples to use calendar days accurately:</p>
+<p><br>
+  <CODE><FONT COLOR=#008000>// even if sell signals are generated each day, </FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>//they are ignored until 180 calendar days since
+  entry</FONT></CODE><br>
+  <CODE><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"HoldMinBars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>180</FONT><FONT COLOR=#000000> ); <BR>
+  <B>Buy</B>=</FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>()==</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+  <B>Sell</B>=</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; <BR>
+  </FONT><FONT COLOR=#008000><br>
+  </FONT></CODE><CODE><FONT COLOR=#008000>// these
+  two new options can be set on per-symbol basis </FONT><FONT COLOR=#000000> <BR>
+      </FONT><FONT COLOR=#008000>// how many CALENDAR DAYS</FONT><FONT COLOR=#000000> <BR>
+          </FONT><FONT COLOR=#008000>// an early exit (redemption) fee is applied </FONT><FONT COLOR=#000000> <BR>
+              </FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitDays"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>180</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#000000><BR>
+                      </FONT><FONT COLOR=#008000>// early redemption fee (in percent) </FONT><FONT COLOR=#000000> <BR>
+                          </FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitFee"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+<p>(Note: 180 calendar days is 128 or 129 trading days.)</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// how to set it up on
+      per-symbol basis? </FONT><FONT COLOR=#000000> <BR>
+        </FONT><FONT COLOR=#008000>// it is simple - use 'if' statement </FONT><FONT COLOR=#000000> <BR>
+        </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Name</FONT><FONT COLOR=#000000>()
+        == </FONT><FONT COLOR=#ff00ff>"SYMBOL1"</FONT><FONT COLOR=#000000> ) <BR>
+  { <BR>
+  </FONT><FONT COLOR=#0000ff>&nbsp;SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitDays"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>180</FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#0000ff>&nbsp;SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitFee"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ); <BR>
+  } <BR>
+  <BR>
+  </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Name</FONT><FONT COLOR=#000000>()
+  == </FONT><FONT COLOR=#ff00ff>"SYMBOL2"</FONT><FONT COLOR=#000000> ) <BR>
+  { <BR>
+  </FONT><FONT COLOR=#0000ff>&nbsp;SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitDays"</FONT><FONT COLOR=#000000>, </FONT><font color="#ff00ff">30</font><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#0000ff>&nbsp;SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EarlyExitFee"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  } </FONT></CODE></p>
+<p>
+  <strong>RESOLVING SAME-BAR, SAME-SYMBOL SIGNAL CONFLICTS</strong></p>
+<p>It is possible for the system to generate on the very
+  same symbol both an entry and an exit signal at the very same bar. Consider, for example, this very simple system that generates buy and sell signals on every bar:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <br>
+<br>
+</FONT></CODE>If you add an exploration code to it to show the signals:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>"Buy"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1.0</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Sell"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1.0</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>OR</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>;</FONT></CODE></p>
+<p>you will get the following output (when you press <strong>Explore</strong>):</p>
+<p><img src="gifs/sig1.gif" width="297" height="294"></p>
+<p>Now, because of the fact that entry and exit signals do <strong>NOT </strong>carry
+  any timing information, so you don't know which signal comes first, there are
+  three ways such conflicting same-bar, entry and exit signals may be interpreted:</p>
+<ol>
+  <li><strong>only
+      one signal
+    is taken at any bar</strong>, so a trade that begins on bar 1 ends
+    on bar 2, and the next trade
+    may only be opened on bar 3 and closed on bar 4.</li>
+  <li><strong>both signals are used</strong> and <strong>an entry signal precedes
+      an exit signal</strong>,
+     so a trade that begins on bar 1 ends on bar 1, then the next
+    trade opens on bar 2 and ends on bar 2, and so on (we have single-bar trades,
+    and we are out of the market between bars).</li>
+  <li><strong>both signals are used</strong> and <strong>an entry signal comes after
+      an exit signal. </strong>In this situation, the very first signal (exit) is
+      ignored because we are flat, and a trade is opened on the same-bar entry signal.
+      Then we don't have any more signals for a given bar and a trade is closed on
+      the next bar exit signal, then we get another entry (same bar). So a trade
+      that begins on bar 1 ends on bar 2, then the next trade opens on bar 2
+      and ends
+      on bar
+      3,
+      and
+      so
+      on (we
+      have
+      
+      trades
+    that span between bars, but both exit and entry signals occurring on the very
+      same bar are acted upon).</li>
+</ol>
+<p>Since, as we mentioned already, buy/sell/short/cover arrays do
+  not carry timing information, we have to somehow tell AmiBroker how to interpret
+  such conflict. One would think that it is enough to set the buyprice to open and
+  the sellprice to close to deliver timing information, but it is <strong>NOT</strong> the
+  case. Price arrays themselves <strong>DO NOT</strong> provide timing information
+  either. You may ask why. This is quite simple. First of all, trading prices
+  do not need to be set to exact open/close. In several scenarios you may want
+  to define buyprice as open + slippage and sellprice as close - slippage. Even
+  if you do use exact open and close, it happens quite often that open is equal
+  to close (like in a doji candlestick), and then there is no way to find
+  out from price alone whether it means close or open. So again<strong> buyprice/sellprice/shortprice/coverprice
+  variables DO NOT provide any timing information.</strong></p>
+<p>The only way to control how same-bar, same-symbol entry/exit conflicts
+  are resolved is via the <strong>AllowSameBarExit</strong>  option
+  and the <strong>HoldMinBars</strong> option.</p>
+<p><strong>Scenario 1. Only one signal per symbol is taken at any bar</strong> </p>
+<p>This scenario is used when the <strong>AllowSameBarExit</strong> option is
+  set to <strong>False</strong> (turned off). </p>
+<p>In this case it does not really
+    matter whether exit or entry was the first within a single bar. It is quite
+  easy to understand: on any bar only one signal is acted upon. So if
+    we
+    are
+    flat
+    on
+    a given symbol,
+    then an <strong>entry</strong> signal
+    is taken (with a <strong>buy signal taking precedence over a short</strong>),
+    other signals are ignored, and we move to the next bar. If we are long on a given
+    symbol,
+    then a <strong>sell</strong> signal
+    is taken, the trade is exited, and we move to the next bar, ignoring other signals.
+    If we are short on a given symbol, then a <strong>cover</strong> signal
+    is taken, the trade is exited, and we move to the next bar again, ignoring other signals.
+    If we are in the market but there is no matching exit signal - the
+    position is kept and we move to the next bar.</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"AllowSameBarExit"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>False</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Buy </B></FONT><FONT COLOR=#000000>= </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; </FONT></CODE></p>
+<p>The following pictures show which signals are taken and the resulting trade list.
+  All trades begin on one day and end on the next day. A new trade is opened on the following
+  day.</p>
+<p><img src="gifs/sig1a.gif" width="297" height="294"><img src="gifs/sig1b.gif" width="457" height="201"></p>
+<p><strong>Scenario 2. Both an entry and an exit signal are used</strong> and <strong>an entry
+    signal
+precedes an exit signal</strong> </p>
+<p>This scenario is used when <strong>AllowSameBarExit</strong> option is set
+to <strong>True</strong> (turned on) and <strong>HoldMinBars</strong> is set
+to zero (which is the default setting). </p>
+<p>In this case we simply act on both signals
+  immediately (same-bar). So
+  if
+  we
+  are
+  flat
+  on
+  a given
+  symbol,
+  then an <strong>entry</strong> signal is
+    taken (with a <strong>buy signal taking precedence over a short</strong>), but
+    we do not move to the next bar immediately. Instead, we check if exit signals
+    also exist. If we are long on a given symbol, then a <strong>sell</strong> signal
+    is taken. If
+    we are short on a given symbol, then a <strong>cover</strong> signal is taken.
+    Only after processing all signals do we move to the next bar.</p>
+<p><CODE><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"AllowSameBarExit"</FONT><FONT COLOR=#000000>, <B>True</B> ); <BR>
+<B>Buy </B>= </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+<B>Sell</B> = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; </FONT></CODE></p>
+<p>The following pictures show which signals are taken and the resulting trade list.
+  As we can see, this time all signals are acted upon and we have a sequence of
+  single-bar trades.</p>
+<p><img src="gifs/sig2a.gif" width="297" height="294"><img src="gifs/sig2b.gif" width="461" height="294"></p>
+<p><strong>Scenario 3. Both signals are used</strong> and <strong>an entry signal
+comes after an exit signal.</strong></p>
+<p>This scenario is used when <strong>AllowSameBarExit</strong> option is set
+  to <strong>True</strong> (turned on) and <strong>HoldMinBars</strong> is set
+to 1 (or more). </p>
+<p>In this case we simply act on both signals in a single bar, but we respect the
+  HoldMinBars = 1 limitation, so a trade that was just opened cannot be closed on the
+  same bar. So if we are long on a given symbol,
+  then a <strong>sell</strong> signal is taken. If we are short on a given symbol,
+  then a <strong>cover</strong> signal is taken. We don't move to the next bar yet.
+  Now, if we
+  are
+  flat
+  on
+  a given
+  symbol (possibly just exited a position on this bar exit signal),
+  then an <strong>entry</strong> signal is taken, if any (with a <strong>buy signal
+  taking precedence over a short</strong>) and then we move to the next bar.</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"AllowSameBarExit"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"HoldMinBars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>;</FONT></CODE></p>
+<p>The following pictures show which signals are taken and the resulting trade list.
+As we can see, again all signals are acted upon, BUT... trade duration is longer
+  - they are <strong>not</strong> same-bar trades - they all span overnight.</p>
+<p><img src="gifs/sig3a.gif" width="297" height="294"><img src="gifs/sig3b.gif" width="462" height="294"></p>
+<p><strong>How does it work in a portfolio case?</strong></p>
+<p>The mechanism is the same regardless of whether you test on a single symbol or multiple
+  symbols. First, same-bar conflicts are resolved on every symbol separately,
+  in the way described above. Then, when you test on multiple symbols, the resulting
+  trade
+  candidates
+  are subject to scoring by the PositionScore described in an earlier part of this document.</p>
+<p>&nbsp;</p>
+<p><b><a name="NEUTRAL"></a>Support for market-neutral, long-short balanced
+strategies</b></p>
+<p>An investment strategy is considered market neutral if it seeks
+to entirely avoid some form of market risk, typically by hedging. The strategy
+  holds long/short equity positions, with long positions hedged with short
+  positions in the same and related sectors, so that the equity market-neutral
+  investor should be little affected by sector- or market-wide events. This places,
+  in essence, a bet that the long positions will outperform their sectors (or
+  the
+  short positions
+will underperform) regardless of the strength of the sectors.</p>
+<p>In version 5.20 the following backtester options have been added to simplify
+implementing market-neutral systems: <b>SeparateLongShortRank</b>, <b>MaxOpenLong</b>, <b>MaxOpenShort.</b></p>
+<p><i>SeparateLongShortRank backtester option</i></p>
+<p>To enable separate long/short ranking, use:<br>
+  SetOption(&quot;SeparateLongShortRank&quot;, True ); </p>
+<p>When separate long/short ranking is enabled, the backtester maintains TWO
+  separate &quot;top-ranked&quot; signal lists, one
+  for long signals and one for short signals. This ensures that long and short
+  candidates are independently ranked even if the position score
+  is not symmetrical (for example when long candidates have very high positive
+  scores while short candidates have only fractional negative scores).
+  That contrasts with the default mode, where only the absolute value of the PositionScore matters, therefore, one side (long/short) may completely dominate ranking
+if score values are asymmetrical.</p>
+<p>When SeparateLongShortRank is enabled, in the second phase of the backtest, two
+  separate ranking lists are interleaved to form a final signal list by
+  first taking the top-ranked long, then the top-ranked short, then the 2nd top-ranked long,
+  then the 2nd top-ranked short, then the 3rd top-ranked long
+  and the 3rd top-ranked short, and so on... (as long as signals exist in BOTH long/short
+  lists; if there are no more signals of a given kind, then
+  remaining signals from either the long or short lists are appended).</p>
+<p>For example:<br> Entry signals (score): ESRX=Buy(60.93), GILD=Short(-47.56), CELG=Buy(57.68),
+    MRVL=Short(-10.75), ADBE=Buy(34.75), VRTX=Buy(15.55), SIRI=Buy(2.79)</p>
+<p>As you can see, short signals get interleaved between long signals even though
+  their absolute values of scores are smaller than the corresponding scores of long
+  signals. Also, there were only 2 short signals for that particular bar, so the
+  rest of the list shows long signals in order of position score. Although this
+  feature can be used independently, it is intended to be used in combination
+  with the MaxOpenLong and MaxOpenShort options.</p>
+<p><i>MaxOpenLong/MaxOpenShort backtester options</i></p>
+<p>MaxOpenLong - limits the number of LONG positions that can be opened simultaneously<br>
+  MaxOpenShort - limits the number of SHORT positions that can be opened simultaneously </p>
+<p>Example:<br>
+  SetOption(&quot;MaxOpenPositions&quot;, 15 );<br>
+  SetOption(&quot;MaxOpenLong&quot;, 11 );<br>
+  SetOption(&quot;MaxOpenShort&quot;, 7 );</p>
+<p>The value of ZERO (default) means no limit. If both MaxOpenLong and MaxOpenShort
+  are set to zero (or not defined at all), the backtester works the old way - there
+  is only a global limit active (MaxOpenPositions) regardless of the type of trade.</p>
+<p>Note that these limits are independent of the global limit (MaxOpenPositions).
+  This means that MaxOpenLong + MaxOpenShort may or may not be equal to MaxOpenPositions.</p>
+<p>If MaxOpenLong + MaxOpenShort is greater than MaxOpenPositions
+  then the total number of positions allowed will not exceed MaxOpenPositions, and
+    individual long/short limits will also apply.
+  For example, if your system's MaxOpenLong is set to 7 and MaxOpenShort is set
+  to 7 and MaxOpenPositions is set to 10, and your system generated 20 signals: 9 long (highest ranked) and 11 short,
+it will open 7 long and 3 shorts.</p>
+<p>If MaxOpenLong + MaxOpenShort is smaller than MaxOpenPositions (but greater
+  than zero), the system won't be able to
+  open more than (MaxOpenLong+MaxOpenShort).</p>
+<p>Please also note that MaxOpenLong and MaxOpenShort only cap the number of
+  open positions of a given type (long/short).
+  They do NOT affect the way ranking is made. I.e., by default, ranking is performed
+  using the ABSOLUTE value of the PositionScore.</p>
+<p>If your position score is NOT symmetrical, this may mean that you are not getting
+  the desired top-ranked signals from one side.
+  Therefore, to fully utilize MaxOpenLong and MaxOpenShort in rotational, balanced (&quot;market neutral&quot;) long/short systems
+  it is desired to perform SEPARATE ranking for long signals and short signals.
+  To enable separate long/short ranking, use:<br>
+</p>
+<p>SetOption(&quot;SeparateLongShortRank&quot;, True );</p>
+<p><b>See Also:</b></p>
+<p><a href="h_backtest.html">Backtesting Your Trading Ideas</a> article.</p>
+<p><a href="h_futbacktest.html">Backtesting Systems for Futures Contracts</a>
+  article.<br>
+  <br>
+  <a href="w_afledit.html">Using the AFL Editor</a> section of the guide.</p>
+<p><a href="http://www.amibroker.com/newsletter/01-2002.html" target="_blank">Insider's Guide to the Backtester (Newsletter 1/2002)</a></p>
+</body>
+</html>

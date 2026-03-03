@@ -1,0 +1,947 @@
+<html>
+
+<head>
+<title>Understanding how AFL works</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>Understanding how AFL works</b></h2>
+<p><em><strong>Introduction</strong></em></p>
+<p>One of the most important aspects of AFL is that it is an array processing language. 
+  It operates on arrays (or rows/vectors) of data. This way of operation is quite 
+  similar to the way popular spreadsheets work (like Microsoft Excel). Anyone 
+  familiar with MS Excel should have no trouble quickly picking up AFL. In fact, 
+  all the examples in this article were created using MS Excel.</p>
+<p><em><strong>What is an Array?</strong></em></p>
+<p>An array is simply a list (or row) of values. In some books it may be referred 
+  to as a vector. Each numbered row of values in the example represents an individual 
+  array. AmiBroker has stored in its database 6 arrays for each symbol. One for 
+  the opening price, one for the low price, one for the high price, one for the closing 
+  price, one for volume (see the rows labeled 1-5 below), and one for open 
+  interest. These can be referenced in AFL as open, low, high, close, volume, 
+  openint or o, l, h, c, v, oi.</p>
+<p>All array indices in AFL are zero-based, i.e., counting bars starting from
+  bar 0 (oldest). The latest (newest) bar has an index of (BarCount-1). The 10-element
+  array will have BarCount = 10 and indices going from 0 to 9 as shown below</p>
+<TABLE width="100%" border=1 cellPadding=2 cellSpacing=0 borderColor=#999999>
+  <TBODY>
+    <TR bgColor=#eeeeee>
+      <TD>&nbsp;</TD>
+      <TD>&nbsp;</TD>
+      <TD><div align="center"><strong>(oldest)</strong></div></TD>
+      <TD colspan="8"> <div align="center">----&gt;  time stamps increasing ----&gt;</div></TD>
+      <TD><div align="center"><strong>(newest)</strong></div></TD>
+    </TR>
+    <TR bgColor=#eeeeee> 
+      <TD><B></B></TD>
+      <TD> <DIV align=right><b>Bar</b></DIV></TD>
+      <TD> <DIV align=center><B>0</B></DIV></TD>
+      <TD> <DIV align=center><B>1</B></DIV></TD>
+      <TD> <DIV align=center><b>2</b></DIV></TD>
+      <TD> <DIV align=center><B>3</B></DIV></TD>
+      <TD> <DIV align=center><B>4</B></DIV></TD>
+      <TD> <DIV align=center><B>5</B></DIV></TD>
+      <TD> <DIV align=center><B>6</B></DIV></TD>
+      <TD> <DIV align=center><B>7</B></DIV></TD>
+      <TD> <DIV align=center><B>8</B></DIV></TD>
+      <TD> <DIV align=center><B>9</B></DIV></TD>
+    </TR>
+    <TR> 
+      <TD>1</TD>
+      <TD><B>Open</B></TD>
+      <TD> <div align="center">1.23</div></TD>
+      <TD> <div align="center">1.24</div></TD>
+      <TD> <div align="center">1.21</div></TD>
+      <TD> <div align="center">1.26</div></TD>
+      <TD> <div align="center">1.24</div></TD>
+      <TD> <div align="center">1.29</div></TD>
+      <TD> <div align="center">1.33</div></TD>
+      <TD> <div align="center">1.32</div></TD>
+      <TD> <div align="center">1.35</div></TD>
+      <TD> <div align="center">1.37</div></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>Fig 1. Open price array</p>
+<p>Any other array is calculated from these 6 arrays using formulae built into 
+  AFL. These arrays are not stored in the database but calculated where necessary.</p>
+<p>Each individual value in an array has a date associated with it. If you have 
+  the tool tip option turned on (Preferences -&gt; Miscellaneous Tab -&gt; Price 
+  data tool tips), when you move your cursor over a candle on a daily candle chart, 
+  a small yellow rectangle appears. AFL then looks up the open, low, high, close, 
+  volume values in the appropriate array and displays them inside the tool tip. 
+</p>
+<p><em><strong>Processing arrays - why is AFL so fast?</strong></em></p>
+<p>Let's see how the following statement is processed:</p>
+<p>MyVariable = ( High + Low )/2;</p>
+<p>When AFL is evaluating a statement like this (High + Low)/2, it does not need 
+  to re-interpret this code for each bar. Instead, it takes the High ARRAY and 
+  Low ARRAY and adds corresponding array elements in a single stage. In other words, 
+  the + operator (and other operators too) works on arrays at once, and it is executed 
+  at full compiled-code speed; then, the resulting array (each element of it) is 
+  divided by 2, also in a single stage.</p>
+<p>Let's look into the details - see Fig 2. When the AFL engine looks at (High
+  + Low)/2, it first takes the High (1) and Low (2) arrays and produces (in a
+  single
+  compiled step) the temporary array (3). Then it creates the final array (4)
+  by dividing each element of the temporary array by two. This result is assigned
+  to MyVariable</p>
+<TABLE width="100%" border=1 cellPadding=2 cellSpacing=0 borderColor=#999999>
+  <TBODY>
+    <TR bgColor=#eeeeee> 
+      <TD><B></B></TD>
+      <TD> <DIV align=right><B>Bar</B></DIV></TD>
+      <TD>
+        <DIV align=center><B>0</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>1</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><b>2</b></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>3</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>4</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>5</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>6</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>7</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>8</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>9</B></DIV>
+      </TD>
+    </TR>
+    <TR bgColor=#eeeeee> 
+      <TD bgColor=#eeeeee>1</TD>
+      <TD bgColor=#eeeeee><B>High </B><em>(built-in array)</em></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.24</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.27</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.25</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.29</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.25</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.29</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.35</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.35</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.37</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.29</DIV></TD>
+    </TR>
+    <TR> 
+      <TD>2</TD>
+      <TD><B>Low </B><em>(built-in array)</em></TD>
+      <TD> <DIV align=right>1.20</DIV></TD>
+      <TD> <DIV align=right>1.21</DIV></TD>
+      <TD> <DIV align=right>1.19</DIV></TD>
+      <TD> <DIV align=right>1.20</DIV></TD>
+      <TD> <DIV align=right>1.21</DIV></TD>
+      <TD> <DIV align=right>1.24</DIV></TD>
+      <TD> <DIV align=right>1.30</DIV></TD>
+      <TD> <DIV align=right>1.28</DIV></TD>
+      <TD> <DIV align=right>1.31</DIV></TD>
+      <TD> <DIV align=right>1.27</DIV></TD>
+    </TR>
+    <TR> 
+      <TD bgColor=#eeeeee>3</TD>
+      <TD bgColor=#eeeeee><B>High+Low </B><em>(temporary array created during 
+        evaluation)</em></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>2.44</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>2.48</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>2.44</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>2.49</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>2.46</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>2.53</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>2.65</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>2.63</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>2.68</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>2.46</DIV></TD>
+    </TR>
+    <TR> 
+      <TD>4</TD>
+      <TD><b>( High+Low ) /2 </b><em>(gets assigned to MyVariable)</em></TD>
+      <TD> <DIV align=right>1.22</DIV></TD>
+      <TD> <DIV align=right>1.24</DIV></TD>
+      <TD> <DIV align=right>1.22</DIV></TD>
+      <TD> <DIV align=right>1.245</DIV></TD>
+      <TD> <DIV align=right>1.23</DIV></TD>
+      <TD> <DIV align=right>1.265</DIV></TD>
+      <TD> <DIV align=right>1.325</DIV></TD>
+      <TD> <DIV align=right>1.315</DIV></TD>
+      <TD> <DIV align=right>1.34</DIV></TD>
+      <TD> <DIV align=right>1.23</DIV></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>Fig 2. AFL steps when processing ( High + Low ) /2</p>
+<p><em> <strong>Moving averages, conditional statements</strong></em></p>
+<p>Let us now consider the following code:</p>
+<p><code>Cond1 = Close &lt; MA( Close, 3 );<br>
+  Cond2 = Volume &gt; Ref( Volume, -1 );<br>
+  Buy = Cond1 AND Cond2;<br>
+Sell = High &gt; 1.30;</code></p>
+<p>This code generates a buy signal when today's close is higher than the 3-day moving 
+  average of close AND today's volume is higher than yesterday's volume. It also 
+  generates a sell signal when today's high is higher than 1.30.</p>
+<p>If, in your AFL code, you need to see if the closing price is greater than, say, 
+  a 3-day simple moving average, AFL will first run through the close array, creating 
+  a new array called MA(close,3) for the symbol being analyzed. Each cell in the 
+  new array can then be compared one-for-one with the close array. In the example, 
+  an array called Cond1 is created this way. For each cell where the closing price 
+  is greater than the corresponding cell value in MA(close,3), the cell value for 
+  the new array 'Cond1' is set to '1'. If the closing price is not greater than the 
+  corresponding price in the close array, the value in 'Cond1' is set to '0'.</p>
+<P>AFL can also look forwards or backwards a number of cells in an array using 
+  the <strong>Ref</strong> function (see row 6, where a temporary array is created 
+  holding the previous day's volume)</P>
+<P> In row 9, a new array called Cond2 has been created by comparing the value 
+  of each cell in the volume array with its previous cell, setting the Cond2 cell 
+  value to '1' if true and '0' if false.</P>
+<P>Row 10 shows an array called 'Buy' created by comparing the cell values in 
+  Cond1 with the cell values in Cond2. If the cell in Cond1 has a '1' AND so does 
+  the corresponding cell in Cond2, then a '1' is placed in the 'Buy' array cell.</P>
+<P>Row 11 shows an array called 'Sell' created whenever the cell value in the 
+  close array is greater than $1.30.</P>
+<TABLE borderColor=#999999 cellSpacing=0 cellPadding=2 width="100%" border=1>
+  <TBODY>
+    <TR bgColor=#eeeeee> 
+      <TD><B></B></TD>
+      <TD> <DIV align=right><B>Bar</B></DIV></TD>
+      <TD>
+        <DIV align=center><B>0</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>1</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><b>2</b></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>3</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>4</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>5</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>6</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>7</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>8</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><B>9</B></DIV>
+      </TD>
+    </TR>
+    <TR> 
+      <TD>1</TD>
+      <TD><B>Open</B></TD>
+      <TD> <DIV align=right>1.23</DIV></TD>
+      <TD> <DIV align=right>1.24</DIV></TD>
+      <TD> <DIV align=right>1.21</DIV></TD>
+      <TD> <DIV align=right>1.26</DIV></TD>
+      <TD> <DIV align=right>1.24</DIV></TD>
+      <TD> <DIV align=right>1.29</DIV></TD>
+      <TD> <DIV align=right>1.33</DIV></TD>
+      <TD> <DIV align=right>1.32</DIV></TD>
+      <TD> <DIV align=right>1.35</DIV></TD>
+      <TD> <DIV align=right>1.37</DIV></TD>
+    </TR>
+    <TR> 
+      <TD bgColor=#eeeeee>2</TD>
+      <TD bgColor=#eeeeee><B>High</B></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.24</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.27</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.25</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.29</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.25</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.29</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.35</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.35</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.37</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.29</DIV></TD>
+    </TR>
+    <TR> 
+      <TD>3</TD>
+      <TD><B>Low</B></TD>
+      <TD> <DIV align=right>1.20</DIV></TD>
+      <TD> <DIV align=right>1.21</DIV></TD>
+      <TD> <DIV align=right>1.19</DIV></TD>
+      <TD> <DIV align=right>1.20</DIV></TD>
+      <TD> <DIV align=right>1.21</DIV></TD>
+      <TD> <DIV align=right>1.24</DIV></TD>
+      <TD> <DIV align=right>1.30</DIV></TD>
+      <TD> <DIV align=right>1.28</DIV></TD>
+      <TD> <DIV align=right>1.31</DIV></TD>
+      <TD> <DIV align=right>1.27</DIV></TD>
+    </TR>
+    <TR> 
+      <TD bgColor=#eeeeee>4</TD>
+      <TD bgColor=#eeeeee><B>Close</B></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.23</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.26</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.24</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.28</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.25</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.25</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.31</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.30</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.32</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.28</DIV></TD>
+    </TR>
+    <TR> 
+      <TD>5</TD>
+      <TD><B>Volume</B></TD>
+      <TD> <DIV align=right>8310</DIV></TD>
+      <TD> <DIV align=right>3021</DIV></TD>
+      <TD> <DIV align=right>5325</DIV></TD>
+      <TD> <DIV align=right>2834</DIV></TD>
+      <TD> <DIV align=right>1432</DIV></TD>
+      <TD> <DIV align=right>5666</DIV></TD>
+      <TD> <DIV align=right>7847</DIV></TD>
+      <TD> <DIV align=right>555 </DIV></TD>
+      <TD> <DIV align=right>6749</DIV></TD>
+      <TD> <DIV align=right>3456</DIV></TD>
+    </TR>
+    <TR> 
+      <TD bgColor=#eeeeee>6</TD>
+      <TD bgColor=#eeeeee><strong>Ref( Volume, -1 ) </strong><em>(temporary array 
+        created during eval)</em></TD>
+      <TD bgColor=#eeeeee><div align="right">Null</div></TD>
+      <TD> <DIV align=right>8310</DIV></TD>
+      <TD> <DIV align=right>3021</DIV></TD>
+      <TD> <DIV align=right>5325</DIV></TD>
+      <TD> <DIV align=right>2834</DIV></TD>
+      <TD> <DIV align=right>1432</DIV></TD>
+      <TD> <DIV align=right>5666</DIV></TD>
+      <TD> <DIV align=right>7847</DIV></TD>
+      <TD> <DIV align=right>555 </DIV></TD>
+      <TD> <DIV align=right>6749</DIV></TD>
+    </TR>
+    <TR> 
+      <TD bgColor=#eeeeee>7</TD>
+      <TD bgColor=#eeeeee><B>MA( Close, 3 ) </B><em>(temporary array created during 
+        eval)</em></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>Null</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>Null</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.243</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.260</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.257</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.260</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.270</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.287</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.310</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1.300</DIV></TD>
+    </TR>
+    <TR> 
+      <TD>8</TD>
+      <TD><B>Cond1 = Close &lt; MA(close,3) </B><em>(gives 1 (or true) if the condition
+           is met, zero otherwise)</em></TD>
+      <TD> <DIV align=right>Null</DIV></TD>
+      <TD> <DIV align=right>Null</DIV></TD>
+      <TD> <DIV align=right>1</DIV></TD>
+      <TD> <DIV align=right>0</DIV></TD>
+      <TD> <DIV align=right>1</DIV></TD>
+      <TD> <DIV align=right>1</DIV></TD>
+      <TD> <DIV align=right>0</DIV></TD>
+      <TD> <DIV align=right>0</DIV></TD>
+      <TD> <DIV align=right>0</DIV></TD>
+      <TD> <DIV align=right>1</DIV></TD>
+    </TR>
+    <TR> 
+      <TD bgColor=#eeeeee>9</TD>
+      <TD bgColor=#eeeeee><B>Cond2 = Volume &gt; Ref(volume,-1)</B></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>Null</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+    </TR>
+    <TR> 
+      <TD>10</TD>
+      <TD><B>Buy = Cond1 AND Cond2</B></TD>
+      <TD><div align="right">Null </div>
+        <DIV align=right></DIV></TD>
+      <TD> <DIV align=right>Null</DIV></TD>
+      <TD> <DIV align=right>1</DIV></TD>
+      <TD> <DIV align=right>0</DIV></TD>
+      <TD> <DIV align=right>0</DIV></TD>
+      <TD> <DIV align=right>1</DIV></TD>
+      <TD> <DIV align=right>0</DIV></TD>
+      <TD> <DIV align=right>0</DIV></TD>
+      <TD> <DIV align=right>0</DIV></TD>
+      <TD> <DIV align=right>0</DIV></TD>
+    </TR>
+    <TR> 
+      <TD bgColor=#eeeeee>11</TD>
+      <TD bgColor=#eeeeee><B>Sell = High &gt; 1.30</B></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>1</DIV></TD>
+      <TD bgColor=#eeeeee> <DIV align=right>0</DIV></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>Obviously Buy and Sell are special arrays whose results can be displayed in 
+  the Analyzer window or on screen using a red or green value as needed.</p>
+<p><b><i>Getting a little bit more complex</i></b></p>
+<p>The examples above were very simple. Now I will just explain three things that
+  seem to generate some confusion among users:</p>
+<ul>
+  <li>referencing selected values (SelectedValue, BeginValue, EndValue, LastValue)</li>
+  <li>IIF function</li>
+  <li>AMA function</li>
+</ul>
+<p>As written in the <a href="h_charting.html">Tutorial: Basic charting guide</a>, you
+  can select any quote from the chart and mark a From-To range. The bar selected 
+  by the vertical line is called the "selected" bar, while the start and end bars
+  of the range are called "begin" and "end" bars. AFL has special functions that
+  allow referencing the value of the array at the selected, begin, and end bar, respectively.
+  These functions are called SelectedValue, BeginValue and EndValue. There is
+  one more function called LastValue that allows getting the value of the array
+  at the very last bar. These four functions take the array element at a given
+  bar and return a SINGLE NUMBER representing the value of the array at a given point.
+  This allows calculating some statistics regarding selected points. For example:</p>
+<blockquote>
+  <p><code>EndValue( Close ) - BeginValue( Close )</code></p>
+</blockquote>
+<p>Will give you the dollar change between close prices in the selected From-To range.</p>
+<p>When a number retrieved by any of these functions is compared to an array,
+  or any other arithmetic operation involving a number and the array is performed,
+  it works as if the number spanned all array elements. This is illustrated in
+  the table below (rows 2, 6, 7). Green color marks the "begin" bar, and red color
+  marks the "end" bar. The selected bar is marked with blue.</p>
+<TABLE borderColor=#999999 cellSpacing=0 cellPadding=2 width="100%" border=1>
+  <TBODY>
+    <TR bgColor=#eeeeee>
+      <TD><B></B></TD>
+      <TD>
+        <DIV align=right><B>Bar</B></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><b>0</b></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><b>1</b></DIV>
+      </TD>
+      <TD bgcolor="#0066FF">
+        <DIV align=center><b>2</b></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><b>3</b></DIV>
+      </TD>
+      <TD bgcolor="#00CC00">
+        <DIV align=center><b>4</b></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><b>5</b></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><b>6</b></DIV>
+      </TD>
+      <TD bgcolor="#FF0000">
+        <DIV align=center><b>7</b></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><b>8</b></DIV>
+      </TD>
+      <TD>
+        <DIV align=center><b>9</b></DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD>1</TD>
+      <TD><B>Open</B></TD>
+      <TD>
+        <DIV align=right>1.23</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.24</DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.26</DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.29</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.33</DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.35</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgColor=#eeeeee>2</TD>
+      <TD bgColor=#eeeeee><B>BeginValue( Open )</B></TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#00CC00">1.24</font></DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD>3</TD>
+      <TD><b>EndValue( Open )</b></TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#FF0000">1.32</font></DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgColor=#eeeeee>4</TD>
+      <TD bgColor=#eeeeee><B>SelectedValue( Open )</B></TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#0066FF">1.21</font></DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD>5</TD>
+      <TD><b>LastValue( Open )</b></TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgColor=#eeeeee>6</TD>
+      <TD bgColor=#eeeeee><font color="#CC00CC"><B>Close</B></font></TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#CC00CC">1.22</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#CC00CC">1.26</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#CC00CC"><b>1.23</b></font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#CC00CC">1.28</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#CC00CC">1.25</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#CC00CC">1.25</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#CC00CC">1.31</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#CC00CC">1.30</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#CC00CC">1.32</font></DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#CC00CC">1.28</font></DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgColor=#eeeeee>7</TD>
+      <TD bgColor=#eeeeee><b>Close &lt;= BeginValue( Open )</b></TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>1</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>0</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>1</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>0</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>0</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>0</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>0</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>0</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>0</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>0</DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD>8</TD>
+      <TD><B>result = IIF( Close &lt;= BeginValue( Open ), Close, Open );</B></TD>
+      <TD>
+        <DIV align=right><font color="#CC00CC">1.22</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.24</DIV>
+      </TD>
+      <TD>
+        <DIV align=right><font color="#CC00CC">1.23</font></DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.26</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.24</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.29</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.33</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.32</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.35</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>1.37</DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgColor=#eeeeee>9</TD>
+      <TD bgColor=#eeeeee><b>Period</b></TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>2</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>3</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>4</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>2</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>3</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>5</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>2</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>3</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>4</DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>2</DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD>10</TD>
+      <TD><b>Factor = 2/(Period+1)</b></TD>
+      <TD><div align="right">0.667</div>
+          <DIV align=right></DIV>
+      </TD>
+      <TD>
+        <DIV align=right>0.500</DIV>
+      </TD>
+      <TD>
+        <DIV align=right><b>0.400</b></DIV>
+      </TD>
+      <TD>
+        <DIV align=right>0.667</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>0.500</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>0.333</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>0.667</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>0.500</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>0.400</DIV>
+      </TD>
+      <TD>
+        <DIV align=right>0.667</DIV>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgColor=#eeeeee>11</TD>
+      <TD bgColor=#eeeeee><b>1 - Factor</b></TD>
+      <TD bgColor=#eeeeee> <div align="right">0.333</div></TD>
+      <TD bgColor=#eeeeee><div align="right">0.500</div></TD>
+      <TD bgColor=#eeeeee><div align="right">0.600</div></TD>
+      <TD bgColor=#eeeeee><div align="right">0.333</div></TD>
+      <TD bgColor=#eeeeee><div align="right">0.500</div></TD>
+      <TD bgColor=#eeeeee><div align="right">0.667</div></TD>
+      <TD bgColor=#eeeeee><div align="right">0.333</div></TD>
+      <TD bgColor=#eeeeee><div align="right">0.500</div></TD>
+      <TD bgColor=#eeeeee><div align="right">0.600</div></TD>
+      <TD bgColor=#eeeeee><div align="right">0.333</div></TD>
+    </TR>
+    <TR>
+      <TD bgColor=#eeeeee>12</TD>
+      <TD bgColor=#eeeeee><B>AMA( Close, Factor )</B></TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>0.8125<br>
+        </DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><font color="#660000">1.0363</font><br>
+        </DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right><b>1.1138</b><br>
+        </DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>1.2234<br>
+        </DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>1.2367<br>
+        </DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>1.2399<br>
+        </DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>1.2853<br>
+        </DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>1.2927<br>
+        </DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>1.3036<br>
+        </DIV>
+      </TD>
+      <TD bgColor=#eeeeee>
+        <DIV align=right>1.2866</DIV>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>Now the <a href="afl/iif.html">IIF(condition, truepart, falsepart)</a> function.
+  It works by returning the value of the second (<i>truepart</i>) or third (<i>falsepart</i>)
+  argument depending
+  on
+  the <i>condition</i>. As you can see in the table above, in row 8, the values
+  come from the Close array (<i>truepart</i>) for bars when the condition is true (1)
+  and come from
+  the Open array (<i>falsepart</i>) for the remaining bars. In that case, the array
+  returned by the IIF function consists of some values from the Close and some values
+  from the Open
+  array. Note that both <i>truepart </i>and <i>falsepart</i> are arrays, and they
+  are evaluated regardless of the condition (so this is not a regular IF-THEN-ELSE
+  statement, but a <b>function </b>that returns an array)</p>
+<p>The <a href="afl/ama.html">AMA( array, factor) </a> function seems to cause
+  the most problems with understanding it. But, in fact, it is very simple. It
+  works
+  in
+  a recursive
+  way. It means that it uses
+  its previous value for the calculation of the current value. It processes the array
+  bar by bar; with each step, it multiplies a given cell of the first argument (array)
+  by a given cell of the second argument (factor) and adds it to the previous value
+  of AMA multiplied by (1-factor). Let's consider bar number 2 (marked with blue).
+  The value of AMA on that bar is given by multiplying the close price from
+  that bar (<font color="#CC00CC">1.23</font>)
+  by the factor (0.4). Then we add the previous value of AMA (<font color="#660000">1.0363</font>),
+  multiplied by (1-factor = 0.6). The result (rounded to 4 places) is 1.23 *
+  0.4 + 1.0363 * 0.6 = <b>1.1138</b>.</p>
+<p>If you look at the figures in row 12, you may notice that these values
+   look like a moving average of the close. And that's true. We actually presented
+  how to calculate a variable-period exponential moving average using the AMA function.</p>
+<p><strong>New looping</strong></p>
+<p>With version 4.40, AmiBroker brings the ability to iterate through quotes using  <em>for</em> and <em>while</em> loops
+  and adds an <em>if-else</em> flow control statement. These enhancements make it
+  possible to work both ways: either use ARRAY processing (described above) for
+  speed and simplicity, or use LOOPS for doing complex things. As an example of how
+  to implement variable-period exponential averaging (described above) using
+  looping, see the following code:</p>
+<p><code>Period = <font color="#666666">... some calculation</font></code></p>
+<p><code>vaexp[ 0 ] = Close[ 0 ]; <font color="#666666">// initialize first value</font></code></p>
+<p><code>for( i = 1; i &lt; BarCount; i++ )<br>
+{<br>
+&nbsp;&nbsp;<font color="#999999">// calculate the value of smoothing factor</font><br>
+&nbsp;&nbsp;Factor = 2/(Period[ i ] + 1 );<br>
+<br>
+&nbsp;&nbsp;<font color="#999999">// calculate the value of i-th element of array<br>
+&nbsp;&nbsp;// using this bar close ( close[ i ] ) and previous average value
+(
+vaexp[
+i - 1 ]</font></code><font color="#999999"><code> )</code></font><code><br>
+&nbsp; vaexp[ i ] = Factor * Close[ i ] + ( 1 - Factor ) * vaexp[ i - 1 ];<br>
+} </code></p>
+<p>As you can see, the code is longer, but on the other hand, it
+  is very similar to any other programming language such as C/Pascal/Basic. So,
+  people
+  with some
+  experience with programming may find it easier to grasp.</p>
+<p>If you are a beginner, I suggest learning array processing first before digging
+  into more complex looping stuff.</p>
+<p>If you're having trouble coding AFL, I suggest you generate the arrays in the 
+  example in Excel for yourself. If that's a problem, get some help from a friend, 
+  especially if that friend is an accountant.</p>
+<p>Once you've got the hang of it, you can code any system from a book on trading, 
+- or build one yourself.</p>
+<p>--- <i>Special thanks to Geoff Mulhall for <a href="http://www.amibroker.com/newsletter/09-2001.html" target="_blank">original
+      article in the newsletter</a> that
+was the basis for this tutorial ---</i></p>
+<p></p>
+</body>
+</html>

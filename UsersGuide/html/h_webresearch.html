@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>Using Web Research window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2><b>Using Web Research window</b></h2>
+<p>Web Research window allows you to view online news, research, profiles, statistics
+  and all kinds of information related to the currently selected symbol available
+  over the Internet (World Wide Web). Using Web Research instead of a plain web
+  browser has a speed advantage because you don't need to type complicated/long addresses
+  (URLs) each time you want to get desired information.</p>
+<p>Web Research window, introduced in version 4.90, replaces and enhances previously
+  available <a href="h_profiles.html">Profile window</a>. Now it allows an unlimited number of user-definable
+   web research (profile) pages, browsing to any web page (just type URL), tabbed browsing,
+  opening multiple pages at once, selective auto-synchronization.</p>
+<p>Web Research uses the Internet Explorer engine, so you can be sure that pages are
+  rendered with the same quality you would get from a stand-alone browser.</p>
+<h4>Open New Web Research Window</h4>
+<p>Use <b>File-&gt;New-&gt;Web Research</b> menu to create a new web research
+  window</p>
+<p><img src="gifs/web_new.gif"></p>
+<h4>Picking Pre-Defined Web Research Page</h4>
+<p>To display any pre-defined web research page, simply click on the drop-down
+  arrow in the Address combo box and select an item from the list. Once you do
+  so, the web page relevant to the currently selected symbol will be automatically
+  displayed.</p>
+<p><img name="" src="gifs/web_predef.gif" alt=""></p>
+<p>Now you can specify if and when the displayed page should change automatically
+  if you select a different symbol.</p>
+<p><img name="" src="gifs/web_sync.gif" alt=""></p>
+<p>The <b>Sync</b> button allows you to decide when a page should be automatically
+  synchronized with the currently selected symbol.</p>
+<ul>
+  <li><b>Don't sync</b> - means that the page should not be synchronized with the currently
+    selected symbol at all</li>
+  <li><b>Sync active</b> - means that the page should be synchronized ONLY when it is currently
+    active or becomes active (by a user clicking on a given tab) - This is the recommended
+    setting for Web Research profiles since it conserves bandwidth and resources
+    (inactive pages are not synchronized and do not consume any bandwidth)</li>
+  <li><b>Sync always</b> - means that the page is always synchronized with the currently selected symbol,
+    no matter if it is active or not.</li>
+</ul>
+<h4>Navigation</h4>
+<p>Web Research window operates in a way very similar to a stand-alone browser.
+  To display any web page, just type the URL address into the &quot;Address&quot; field and press
+  ENTER (RETURN) key. To navigate back and forth in the history use <b>&lt;-</b> and
+   <b>-&gt; </b>buttons.</p>
+<p><img name="" src="gifs/web_navigation.gif" alt=""></p>
+<p>To close the currently displayed page, use the regular window close <b>X</b> button
+  as shown in the picture above</p>
+<h4>Defining Your Own Web Research Places</h4>
+<p>In addition to Web Research pre-defined pages, you can define any number of
+  your own places. To do so, use the <b>Tools-&gt;Customize</b> menu and the <b>Web Pages</b> tab.</p>
+<p><img src="gifs/web_customize.gif"></p>
+<p>To add a new place, press the <b>New</b> button, then type the URL template in the
+  <b>URL</b> field and the web page description in the <b>Description</b> field.  </p>
+<p>The URL template is the web address that has parts that depend on the selected
+  symbol. 
+  The URL template is parsed by AmiBroker to make the actual URL for the web page.
+  For example,
+to see Yahoo's profiles page you can use the following URL template: </p>
+<p>http://biz.yahoo.com/p/<b>{t0}</b>/<b>{t}</b>.html. </p>
+<p>Symbols enclosed in brackets <b>{}</b> define fields that are evaluated at execution time. The<b> {t0}</b> symbol is evaluated to the first character of the
+  ticker name and <b>{t}</b> is evaluated to the entire ticker name. So, if AAPL
+  is selected, AmiBroker will generate the following URL from the above template: </p>
+<p>http://biz.yahoo.com/p/a/aapl.html </p>
+<p>Then AmiBroker uses its built-in web browser (Web Research window) to display
+  the contents of the page. </p>
+<p><b>Special Fields Encoding Scheme</b></p>
+<p>As shown in the above example, a template URL can contain special fields that are
+  substituted at run time by values corresponding to the currently selected symbol.
+  The format of the special field is {<i>x</i>} where <i>x</i> describes the field
+  type. Currently, there are three allowable field types: ticker symbol in original
+  case <b>{t}</b>, ticker symbol in lowercase <b>{s}</b>, ticker symbol in UPPERCASE <b>{S}</b>,
+  alias <b>{a}</b>, and Web ID <b>{i}</b>. You can specify those fields anywhere
+  within the URL and AmiBroker will replace them with appropriate values entered
+  in the Information window. You can also reference single characters of the ticker,
+  alias, or Web ID. This is useful when a given website uses the first characters of,
+  for example, a ticker to group HTML files (Yahoo Finance site does that),
+  so you have files for tickers beginning with 'a' stored in subdirectory 'a'.
+  To reference a single character of the field, use the second format style {<i>xn</i>}
+  where <i>x</i> is the field type described above and <i>n</i> is the zero-based index
+  of the character. So <b>{a0}</b> will evaluate to the first character of the
+  alias string. To get the first two characters of a ticker, write simply <b>{t0}{t1}</b>.
+  Note about the Web ID field: This new field in the Information window was added to
+  handle situations when websites do not use ticker names for storing profile
+  files. I found some sites that use their own numbering system, so they assign a unique number to each symbol. AmiBroker allows you to use this nonstandard
+  coding for viewing profiles. All you have to do is enter the correct IDs in the Web ID field
+  and use the appropriate template URL with the <b>{i}</b> keyword. </p>
+<p> <b>Pages Stored Locally</b></p>
+<p>You may want to have all pages stored on your local hard disk. This has
+  the advantage that profiles are accessible instantly, but they can take a significant
+  amount of storage space and you will need to update them from time to time.
+  To access locally stored files, use the following template URL (for example, C: denotes a drive): file://C:\the_folder_with_profile_files\{t}.html. You are not
+  limited to HTML files, you can use simple TXT files instead. Then create (or
+  download) the .html (or .txt) files for each symbol in the portfolio. These
+  files should obey the following naming convention: &lt;ticker&gt;.html. So,
+  for example, for APPLE (ticker AAPL), the profile should have the name AAPL.html
+  (or AAPL.txt)</p>
+<p><b>Web-Based Profiles</b></p>
+<p>If you want to display the profiles from remote web pages, you will need to
+  find out how they are accessible (the URL to the webpage) and how the data
+  for different symbols are accessible. I will describe the problem using the example
+  of Sharenet (<a href="http://www.sharenet.co.za">www.sharenet.co.za</a>) site
+  that provides the data for companies listed on the Johannesburg Stock Exchange. Sharenet
+  provides company information that is accessible at the following address (URL):</p>
+<p>http://www.sharenet.co.za/free/free_company_na.phtml?code=<b>JSECODE</b>&scheme=default</p>
+<p>The problem is that the database provided by Sharenet uses long ticker names and <b>JSECODE</b> is
+  a short symbol code. For example, for the &quot;Accord Technologies&quot; company,
+  the ticker in the Sharenet database is ACCORD, but the code is ACR. To solve the
+  problem, we will need to use the <b>Web ID</b> field in the Symbol Information window.
+  If you have the Sharenet database, just choose ACCORD from the ticker list,
+  open the <i>Symbol-&gt;Information</i> window, and enter ACR into the <b>Web ID</b> edit
+  box and click OK. Then
+  enter the following URL template into the <b>URL</b> edit box:</p>
+<p>http://www.sharenet.co.za/free/free_company_na.phtml?code={i}&scheme=default</p>
+<p>To be 100% sure, please select the text above with your mouse. Then copy it to
+  the clipboard (Edit->Copy, CTRL-C). Then switch to AmiBroker and click on the
+  Profile URL edit box. Delete everything from it and press CTRL-V (this will
+  paste the text). Type &quot;Sharenet&quot; into the <b>Description</b> field.</p>
+<p>Please note that we have used the<b> {i}</b> special field in the template, which will be replaced by AmiBroker with the text entered in the Web ID field of the Symbol Information window. Now please select <i>File-&gt;New-&gt;Web Research
+  </i>and
+  pick &quot;Sharenet&quot; from the Address combo box. You should see the profile for the ACCORD
+  company.</p>
+<p>You can also delete any entry by selecting it from the list and pressing the <b>Delete</b> button.
+    You can change the order in which pages appear in the Web Research address combo box
+    using the <b>Move Up</b> and <b>Move Down</b> buttons (select the item
+first and then use the buttons).</p>
+<p>Configuration data are stored in the webpages.cfg plain text file that holds
+  any number of URL templates in the form of:</p>
+<p>URLTemplate|Description</p>
+<p>(each entry in a separate line)</p>
+</body>
+</html>

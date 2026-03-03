@@ -1,0 +1,275 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Performance tuning tips</title>
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>Performance tuning tips</h2>
+<p>AmiBroker is one of the fastest (if not the fastest) technical analysis programs.
+  Still, the user, by applying incorrect settings, poor formula coding, and other
+  suboptimal choices, can significantly slow it down. In this short chapter, we will
+  give a few hints on how to make the program perform as it was originally designed
+  to.</p>
+<p>There are three areas of performance tuning:</p>
+<ol>
+  <li>Operating system / machine level</li>
+  <li>AmiBroker settings level</li>
+  <li>Formula coding</li>
+</ol>
+<p>At the operating system level, you should do the following:</p>
+<ul>
+  <li> Avoid installing unnecessary third-party programs<br>
+    <br>
+    Specifically, avoid all kinds of &quot;memory turbo,&quot; &quot;Windows optimizers,&quot; &quot;Windows
+    cleaners,&quot; and similar tools, as they only bring more load to the CPU and system
+    resources and provide zero or virtually no benefit. What is worse, they
+    could affect the normal operation of Windows and cause compatibility problems.<br>
+  </li>
+  <li>Turn OFF virus checking for DATA files<br>
+    <br>
+    Many antivirus programs turn on so-called &quot;live&quot; protection for all files on all
+    disks. This will bring system performance to its knees. Why? Simply because
+    the antivirus will intercept each and every file access and run its extensive
+    checking on each data access. This could result in a drastic slowdown of file
+    accesses to the extent that Windows boots three times slower than normal.<br>
+    See the following article
+  <a href="http://www.thepcspy.com/read/what_really_slows_windows_down/5" target="_blank">http://www.thepcspy.com/read/what_really_slows_windows_down/5</a> that
+  shows some real measurements on the impact of antivirus.<br>
+  <br>
+  While I am not saying to turn off antivirus completely, it is strongly
+  recommended to <strong>turn OFF</strong> antivirus checking on <strong>DATA
+  FILES, specifically on all data files inside the AmiBroker folder</strong>. Generally
+  speaking, there are two kinds of files: executable (.exe, .dll, .ocx) and data
+  files (.txt, .html, .wav, .jpg, .gif, .chm, etc...). Checking data files for
+  viruses actually makes very little or no sense at all because they don't contain
+  any
+  executable
+  code;
+  therefore, they cannot really be the source of infection. As long as a file does not
+  include any executable part, it is safe. Note, however, that some data files
+  (such as Excel .xls) can contain macros, and macros _are_ executable and can
+  be infected. But as far as AmiBroker goes, anything inside the AmiBroker directory
+  that does <strong>not</strong> have a .exe, .dll, or .js extension is non-executable
+  and safe.<br>
+  <br>
+  </li>
+  <li>Choose antivirus wisely<br>
+    <br>
+    As pointed out above, some antivirus products can be real resource hogs,
+    and you should check the performance tests (see the link above) before deciding
+    on
+    what antivirus to use.<br>
+  </li>
+</ul>
+<p>At the AmiBroker settings level</p>
+<ul>
+  <li>Avoid unnecessarily large &quot;Number of bars&quot; in File-&gt;Database Settings<br>
+    <br>
+    This is the most common mistake people make. For example, I have seen 50,000
+    entered into the &quot;Number of bars&quot; field for an end-of-day database. This does
+    not make sense because 50,000 daily bars is 192 years!!! There is no data
+    source that offers such history, and entering that amount is a waste of memory.
+    You need to keep in mind that whatever you enter here forces AmiBroker to
+    actually
+    allocate
+    memory
+    for
+    that
+    many
+    bars. Each data bar is 40 bytes. So if you enter 100,000 bars, you will force
+    AmiBroker to actually allocate 4MB of memory *per symbol*. It may not sound
+    like too much, but AmiBroker keeps a cache of recently used data, and if you have
+    defined a cache that is 500 symbols large, you will be able to hit 2GB
+    of memory that way. So always look at what the File-&gt;Database Settings dialog
+    displays next to the &quot;Number of bars&quot; field. It will display the number of days
+    equivalent to the entered number of bars and the chosen base time interval. Make
+    sure that you only enter reasonable values and be aware that whatever you
+    enter here has performance consequences. The consequences do not end with
+    memory consumption alone but also affect speed. Processing more bars means more
+    CPU time, especially considering the fact that while small amounts of data
+    can be kept in on-chip CPU cache, large amounts cannot. Now, considering
+    that on-chip cache is usually 10 (ten) times faster than regular memory, you
+    immediately realize that specifying too many bars here results in a performance
+    drop. Again: one bar is 40 bytes. For best performance, make sure that you
+    don't exceed CPU on-chip cache size, so if your CPU has 4MB cache, for best
+    performance, it is strongly advised not to use more than 100,000 bars in File-&gt;Database
+    Settings.<br>
+  </li>
+  <li>Decrease the size of the in-memory cache if you are using very large databases
+    (&gt;2GB in disk size).<br>
+    <br>
+    The &quot;in-memory cache&quot; size defined in Tools-&gt;Preferences, &quot;Data&quot; tab controls
+    the number of symbols in the cache and the maximum amount of memory consumed
+    by the cache. While a larger cache generally speeds up processing because data
+    does not need to be read from disk and written back all the time, you may run
+    out of memory in certain situations when your cache is too large, especially
+    on a 32-bit operating system that limits the available virtual memory per process
+    to 2GB. To avoid running out of memory, go to Tools-&gt;Preferences, &quot;Data&quot;
+    tab, and decrease the size of the in-memory cache. To set it to the minimum, enter &quot;11&quot;
+    (eleven) into &quot;in-memory cache (max. symbols)&quot;. <br>
+    IMPORTANT: It is advised NOT to decrease the cache when your databases are
+    relatively small (a few hundred MB), as a larger cache will speed up access.
+    A large cache is a good thing as long as you do not run out of memory.</li>
+</ul>
+<p>At the formula coding level</p>
+<p>Poor formula coding is the foremost reason for slowdown. People coming from
+  &quot;other&quot; languages often do not realize the full potential of AFL array processing
+  and code everything in the &quot;old&quot; style (i.e., with loops). Loops can be 10-50 times
+  slower than equivalent array-based code. So, for best speed, you should avoid
+  loops
+  altogether, replacing them with array processing, or at least make looping code
+  as short as possible.</p>
+<p>Consider the following code:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetBarsRequired</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>sbrAll</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GetPerformanceCounter</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i&lt;</FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>; i++) <BR>
+{ <BR>
+&nbsp;&nbsp;
+med[ i ] = (</FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>[ i
+] + </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>[ i ])/</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>; <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800080>"Loop time: "</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>GetPerformanceCounter</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+med = ( </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000> )/</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#800080>"Array time: "</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>GetPerformanceCounter</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>); <BR>
+</FONT></CODE><br>
+When running this code on 350,000 bars, the loop version takes 100ms (0.1s)
+to execute, and only 2ms (0.002s) to execute the array version (so array
+code is 50 times faster than looping). The difference is not as significant with
+fewer bars, but even with 300 bars, the loop requires 0.1ms and the array needs
+0.01ms, so it is 10 times faster.</p>
+<p>So, there are a few guidelines for AFL coding:</p>
+<ul>
+  <li>Use array processing instead of loops wherever possible. To learn more
+    about array processing, please read the &quot;<a href="h_understandafl.html">Understanding
+    the AFL</a>&quot; tutorial</li>
+  <li>Inside loops, use scalars only or refer to individual array elements using
+    the [] subscript operator.</li>
+  <li>Array operations and all loop-invariant code should be moved outside of
+    loops whenever possible to avoid repeated evaluation of the same function over
+    and over.<br>
+    <br>
+    Consider this code:<br>
+    <br>
+    <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+    i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+    i++ ) <BR>
+    { <BR>
+    &nbsp;&nbsp;
+    x = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+    WRONG ! loop invariant code is called over and over ! It should be OUTSIDE
+    of loop</FONT><FONT COLOR=#000000> <BR>
+    &nbsp;&nbsp;
+    y[ i ] = </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+    i ]/x[ i ]; <BR>
+    }</FONT><b><font color="#800000"><br>
+    <br>
+  </font></b></CODE>The problem with the above code is that it repeats the same
+  array-based moving average calculation with exactly the same input over and over
+  again (BarCount times). Code like this is loop-invariant (it does not depend on the loop counter and does not have any input that is calculated depending on
+  the loop counter); so it can be calculated ONCE and, as such, should be moved outside (before) the loop, as shown below:<br>
+  <br>
+  <CODE><FONT COLOR=#000000>x = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( <B>C</B>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  CORRECT ! loop invariant code located OUTSIDE of loop</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+  i &lt; <B>BarCount</B>;
+  i++ ) <BR>
+  { <BR>
+  &nbsp;&nbsp;
+  y[ i ] = <B>C</B>[ i
+  ]/x[ i ]; <BR>
+  }</FONT></CODE> <br>
+  <br>
+  </li>
+  <li>Use the AFL Formula Editor, <strong>Tools-&gt;Code check &amp; Profile</strong>, to
+    find out which functions are called how many times and which ones take the
+    most time. Start your code
+    tuning with functions that are called most often. Check if they are loop-invariant, and if so, move them OUTSIDE the loop.<br>
+  </li>
+  <li> If you need to store array data in one formula and read it back in another,
+    and were using AddToComposite/Foreign before, consider using array static
+    variables (<a href="afl/staticvarget.html">StaticVarGet</a>/<a href="afl/staticvarset.html">StaticVarSet</a>)
+    instead, because static variables work faster. Note that static variable life
+    is limited to the program's run lifetime (they are not persistent as AddToComposite
+    tickers are), unless you set the <strong>Persistent</strong> parameter to True
+    in <a href="afl/staticvarset.html">StaticVarSet</a>.</li>
+</ul>
+<h3>Performance monitoring</h3>
+<p>In order to help you with real-time monitoring of program performance, AmiBroker
+  provides two tools. First is the <a href="w_perfmonitor.html">Performance monitor</a> window;
+  the second is the Performance indicator, which is located on the rightmost
+  side of the AmiBroker status bar.</p>
+<p><img src="gifs/w_perfstatus.gif" width="324" height="163"></p>
+<p>The status bar performance indicator shows:</p>
+<ul>
+  <li> for real-time databases: a percentage
+    load factor indicator</li>
+  <li>for off-line,
+      intraday, and EOD databases: free virtual memory</li>
+</ul>
+<p>Load Factor
+       is a percentage value that shows the relative 'snappiness' of the program.
+  The load factor is calculated as (total chart refresh time in milliseconds)/2
+  +
+  (total data access time in milliseconds)/2 +
+  (free virtual memory below 20% of total memory available).
+  So it will reach 100% if any of the situations listed below occur:</p>
+<ul>
+  <li> total chart
+     refresh time is higher than 200ms</li>
+  <li>total data access time is higher than
+      200ms</li>
+  <li>free virtual memory drops below 10% of total memory (or a combination of
+    the above factors)</li>
+</ul>
+<p>Total chart refresh time is the sum of times needed to completely redraw all
+  charts displayed on screen;
+  it includes AFL execution time for each chart pane and GDI (graphics) output
+  on screen.
+(It does not include data access.)</p>
+<p>Total data access time is the sum of times required to access fresh data via the plugin
+  for all displayed
+  symbols, plus the time required to apply time filtering and time compression from the base
+interval to the displayed interval.</p>
+<p>Plug-in time per symbol is the time spent in the plug-in GetQuotes call per *single*
+  symbol.
+  If you display 10 symbol charts at once, AmiBroker will call GetQuotes 10 times,
+  so this time gets multiplied by the number of symbols displayed (this total plugin
+  time *is* included in the total data access time figure - listed above).<br>
+  If Plug-in time per symbol exceeds 10ms, it means that the plugin is slow (or does
+  not use the new ADK 2.0),
+  if this is the case, you should contact the plugin vendor to get an updated plugin
+that uses ADK 2.0.</p>
+<p>It is recommended to keep this load factor below 100%. When the load factor is
+  100%, AmiBroker is able to keep updating
+  all charts in real-time (more frequently than 5 times per second) and maintain a
+  responsive and smooth user interface.
+  With a load factor of 200%, AmiBroker is still able to keep updating all charts
+  as frequently as 2.5 times per second,
+  but user interface reaction time may be impaired a bit. Keeping the load at 100%
+  or less is recommended.<br>
+200% is the maximum value that allows more or less &quot;normal&quot; operation. </p>
+<p>When the load factor rises above 100%, a warning tooltip will pop up once, informing
+  what the reason for poor performance is.
+  When the load factor rises above 300%, the above tooltip will reappear every minute.</p>
+<p>AmiBroker will continue working with loads even above 1000%; however, the performance
+  will be bad (one update per 5 seconds or more).</p>
+<h3>Multithreading performance</h3>
+<p>For more information about the optimum use of multithreading and other general
+  remarks regarding performance, see <a href="h_multithreading.html"> Efficient
+  Use of Multithreading</a>.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

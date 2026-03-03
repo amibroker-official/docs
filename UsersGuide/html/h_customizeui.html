@@ -1,0 +1,118 @@
+<html>
+
+<head>
+<title>User interface customization</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2><b>User interface customization</b></h2>
+<p>A newly introduced customizable user interface has several nice features that
+  allow complete control over the look and feel of the AmiBroker user interface.</p>
+<p><b>Advanced nested docking / tear-off tabs</b></p>
+<p><img src="gifs/pane_docking_nested.gif"></p>
+<p>To dock a pane into any side of the application or as a tab, simply click on
+  the docking window caption bar and drag it. If you do this, docking stickers will
+  appear to make it easy to choose the destination, as shown below</p>
+<p><img src="gifs/pane_dock_stickers.gif"></p>
+<p>You can also click on a docking pane tab and drag it (tear it off) and dock it as
+  a separate window. This way, you can arrange all docking windows either as separate
+  windows, as tabs, or as a mixture of these two approaches. You can also make a
+  window/tab float by dragging it while holding down the CTRL key.</p>
+<p><br>
+  <b>Sliding Auto-hide panes</b></p>
+<p>Another very useful feature that allows you to conserve precious real estate on
+  your monitor is auto-hiding of panes. To control (switch on/off) this feature,
+  there is a pin button in the upper right corner of each docking window. If
+  you unpin it, the pane will automatically hide when it loses focus.</p>
+<p><img src="gifs/autohide_shown.gif"></p>
+<p><img src="gifs/autohide_hidden.gif"></p>
+<p><br>
+  <b>Advanced customizable toolbars, menus, and keyboard shortcuts</b></p>
+<p>The new user interface allows full user control over the appearance, layout, and position
+  of all toolbars, buttons, and menus. It allows you to add your own buttons,
+  remove or rearrange existing ones. You can also define or redefine new or existing
+  keyboard shortcuts. All these customization features are available from the <b>Tools-&gt;Customize</b>  menu
+  or from the <b>Customize</b> chevron menu.</p>
+<p><img src="gifs/Customize_dialog.gif"></p>
+<p>The chevron menu is available from a little arrow button placed at the end of the toolbar
+  strip. It allows access to auto-hidden elements of the toolbar, as well as customization
+  features.</p>
+<p><img src="gifs/Toolbar_chevron.gif"></p>
+<p>The 'Add or Remove Buttons' submenu allows you to quickly show or hide toolbar buttons
+  according to your preference. In customization mode (when you enter it using
+  <b>Tools-&gt;Customize</b>), you can also move buttons around to change the order in which
+  they appear, and you can also resize edit fields and combo fields (such as the
+  ticker selection field) by selecting them first and resizing the border that
+  will appear after making the selection.</p>
+<p><img src="gifs/Toolbar_customize_menu.gif"></p>
+<p>You can even add and design your own buttons using a built-in image editor:</p>
+<p><img src="gifs/Toolbar_edit_button.gif">&nbsp;&nbsp;&nbsp;&nbsp; <img src="gifs/Toolbar_image_editor.gif"></p>
+<p><b><br>
+  Themed appearance</b></p>
+<p>AmiBroker also allows you to pick your preferred user interface &quot;appearance&quot; or
+  &quot;theme&quot; to suit your personal taste.</p>
+<p><img src="gifs/customize_appearance.gif"></p>
+<p>&nbsp;</p>
+<p><b><a name="MDITABS"></a>MDI (multiple document interface) tabs</b></p>
+<p><img src="gifs/uimditabs.gif"></p>
+<p>AmiBroker is a multiple document interface (MDI) application. In short, it means
+  that it allows you to open and work with multiple windows at the same time.
+  To learn more about what MDI is, you may check this article:  <a href="http://en.wikipedia.org/wiki/Multiple_document_interface" target="_blank">http://en.wikipedia.org/wiki/Multiple_document_interface</a><br>
+  <br>
+  Now, MDI tabs (shown in the picture above) are just an additional
+  way to switch between multiple open windows
+  (in addition to the <b>Window</b> menu where the list of open document windows is
+  also available).<br>
+  <br>
+  It is important to understand that MDI tabs are <b>not</b> &quot;user-definable&quot; in
+  the sense that you cannot define their names freely, unlike
+  <a href="h_sheets.html">chart sheets (which are definable)</a>. Their names
+  are automatically derived from the document/window name. For chart windows, the
+  name is always in the format: Symbol - FullName;
+  web browser windows use the HTML page title (as defined by the HTML document); account
+  manager windows use the actual account file name (that you can choose when you
+  save them).<br>
+  MDI tabs are basically document window switchers (like the Windows taskbar at
+  the bottom), and they are automatically managed by AmiBroker whenever you open
+  or close a window. <br>
+  <br>
+  And it works using the exact same idea as the Windows taskbar. Let us look at
+  this analogy more closely:<br>
+  <br>
+  When you use the Windows Taskbar:<br>
+  <br>
+  - you open an <b>application</b> - a new button in the taskbar appears<br>
+  - and you can switch between open <b>applications</b> using taskbar buttons.<br>
+  - you cannot rename the button because it represents the <b>application</b> name.<br>
+  - and you need to be careful with opening too many applications because
+  all open applications consume system resources<br>
+  <br>
+  Now, using AmiBroker MDI tabs:<br>
+  <br>
+  - you open a document (<b>window</b>) -&gt; a new button (tab) appears<br>
+  - you can switch between open <b>windows</b> using buttons (tabs)<br>
+  - you cannot rename the button because it represents the document/<b>window</b> name<br>
+  - and you need to be careful with opening too many documents/<b>windows</b>
+because all open documents consume system resources</p>
+<p>You can <b>turn off</b> MDI tabs by unchecking the &quot;Show MDI tabs&quot; checkbox in the
+  <b>Tools-&gt;Customize</b>, Appearance page, as shown below:</p>
+<p><img src="gifs/uimditabscustomize.gif"><br>
+  <br>
+  Historical note: In pre-4.90 versions, to switch documents, you would need
+      to use the Window menu. Now, in addition to that, you can use tabs. But this
+  is just a convenience
+      feature. More info at: <a href="http://en.wikipedia.org/wiki/Tabbed_Document_Interface" target="_blank">http://en.wikipedia.org/wiki/Tabbed_Document_Interface</a> (Note
+      that Wikipedia links describing TDI/MDI are somewhat outdated, and AmiBroker
+      actually combines the advantages of both TDI and MDI approaches (for example,
+      you can tile windows in
+    AB's TDI))<br>
+  <br>
+</p>
+<p>&nbsp;</p>
+<p>For more information see Houston conference presentation: <a href="http://www.amibroker.com/docs/Houston1.pdf" target="_blank">http://www.amibroker.com/docs/Houston1.pdf</a>  (PDF format), <a href="http://www.amibroker.com/docs/Houston1.html" target="_blank">http://www.amibroker.com/docs/Houston1.html</a>  (Flash format).</p>
+</body>
+</html>

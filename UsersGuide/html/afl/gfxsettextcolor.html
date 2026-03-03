@@ -1,0 +1,73 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXSETTEXTCOLOR</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxSetTextColor</b><br>
+        - set graphic text color</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxSetTextColor( color  ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sets the text color to the specified color. AmiBroker will use this text color when writing text to this window using GfxTextOut or GfxDrawText.
+<p>
+The background color for a character is specified by the GfxSetBkColor and GfxSetBkMode member functions.
+<p>
+Parameters:
+<ul>
+<li>color - Specifies the color of the text
+</ul>
+
+<p>
+NOTE: This is LOW-LEVEL graphic function. To learn more about low-level
+graphic functions please read <a href='../h_lowlevelgfx.html'>TUTORIAL: Using low-level graphics.</a>
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> GfxSetTextColor( colorRed );
+<br>
+GfxSetTextColor( ColorRGB( 100, 200, 100 ) ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="gfxtextout.html">GfxTextOut()</A> function , <A HREF="gfxdrawtext.html">GfxDrawText()</A> function , <A HREF="gfxselectfont.html">GfxSelectFont()</A> function , <A HREF="gfxsetbkcolor.html">GfxSetBkColor()</A> function , <A HREF="gfxsetbkmode.html">GfxSetBkMode()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxSetTextColor</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=GfxSetTextColor' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1347&hilite=GfxSetTextColor' target='_blank'>Basket Trading System T101</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=GfxSetTextColor' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1147&hilite=GfxSetTextColor' target='_blank'>BEANS-Summary of Holdings</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1444&hilite=GfxSetTextColor' target='_blank'>Bid Vs Ask Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1536&hilite=GfxSetTextColor' target='_blank'>Computing Cointegration and ADF Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=GfxSetTextColor' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GfxSetTextColor' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=GfxSetTextColor' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1515&hilite=GfxSetTextColor' target='_blank'>Get Moneycontrol News Snippets into Amiboker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=GfxSetTextColor' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=GfxSetTextColor' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=GfxSetTextColor' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=GfxSetTextColor' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=GfxSetTextColor' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=GfxSetTextColor' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=GfxSetTextColor' target='_blank'>Market Profile</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1218&hilite=GfxSetTextColor' target='_blank'>Multiple Ribbon Demo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=GfxSetTextColor' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=GfxSetTextColor' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1553&hilite=GfxSetTextColor' target='_blank'>pattenz</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1572&hilite=GfxSetTextColor' target='_blank'>Peter Cooper</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1191&hilite=GfxSetTextColor' target='_blank'>Point & figure Chart India Securities</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=GfxSetTextColor' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=GfxSetTextColor' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=GfxSetTextColor' target='_blank'>Stan Weinstein strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=GfxSetTextColor' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=GfxSetTextColor' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=GfxSetTextColor' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=GfxSetTextColor' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=GfxSetTextColor' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxSetTextColor">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

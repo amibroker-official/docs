@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>Metastock importer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3><a name="Metastock"></a>Metastock 
+  importer window</h3>
+<p><em>IMPORTANT NOTE: Metastock importer should be used ONLY if you want to import
+  MS data to native, local AmiBroker database once. If you want AmiBroker to
+  just read Metastock database <strong>DIRECTLY</strong> without the need to import
+  new data over and over, please set up your database <a href="h_extsources.html">WITH
+   THE METASTOCK PLUGIN, as described in the Tutorial.</a></em></p>
+<p><em>NOTE 2: If you set up your database with the <strong>MS plugin</strong>, you
+  should NOT use the Metastock importer, because there is no point in using it when
+  your data is already fed by the plugin.</em></p>
+<p><img src="gifs/metastock.gif"></p>
+<p>The Metastock importer opens AmiBroker to a very rich source of historical data. 
+  The importer supports both old Metastock 6.5 and new 7.x (XMASTER) formats.</p>
+<p>Basically, Metastock data consist of:</p>
+<ul>
+  <li>MASTER/EMASTER file, which holds general information about the tickers, stock 
+    names, etc.</li>
+  <li>F1.DAT....Fxx.DAT files, which hold actual quotation data</li>
+</ul>
+<p>The MASTER/EMASTER file is essential because it holds the references to Fxx.DAT 
+  files. Fxx.DAT files store only quotations in either 5-field (date/high/low/close/volume), 
+  6- or 7-field (date/open/high/low/close/volume/openinterest) format. As you can see, 
+  MASTER/EMASTER and Fxx.DAT files are closely connected, and you need them all 
+  to import the data.</p>
+<h4>Usage</h4>
+<p>To import Metastock data, you should do the following:</p>
+<ul>
+  <li>Choose <em>Metastock import</em> from the menu</li>
+  <li>Using the directory requester (<em><b>Browse</b>...</em>) select the location 
+    of data in Metastock format (the directory with MASTER/EMASTER and Fxx.DAT 
+    files)</li>
+  <li>After choosing the proper directory, AmiBroker will display the list of available 
+    symbols and date ranges. By default, all available symbols will be marked for 
+    importing (A checkmark appears at the beginning of the list). Now you can exclude some 
+    symbols from the import list by clicking the appropriate item in the list (the checkmark 
+    will toggle when you click).</li>
+  <li>You can decide to which group and watch list the new symbols are added using 
+    the <b>Group</b> and <b>Watch List</b> combos.</li>
+  <li>After making your selections, click the '<b>Import</b>' button to start the process 
+    of importation.</li>
+  <li>During the process, you can cancel the operation by clicking the '<b>Abort</b>' 
+    button in the progress window</li>
+</ul>
+</body>
+</html>

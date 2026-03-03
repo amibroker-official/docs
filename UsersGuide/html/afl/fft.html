@@ -1,0 +1,176 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - FFT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>FFT</b><br>
+        - performs Fast Fourier Transform</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Basic price pattern detection<br>
+        </b>(AmiBroker 4.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>FFT( array, len = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function performs FFT (Fast Fourier Transform) on last 'len' bars of the array, if len is set to zero, then FFT is performed on entire array. len parameter must be even.
+<p>
+Result:
+<p>
+function returns array which holds FFT bins for first 'len' bars. There are len/2 FFT complex bins returned,
+where bin is a pair of numbers (complex number): first is real part of the complex number and second number
+is the imaginary part of the complex number.
+<p>
+result = FFT( array, 256 );
+<p>
+where:
+<ul>
+<li>0th bin (result[0] and result[1]) represents DC component,
+<li>1st bin (result[1 ] and result[2]) represents real and imaginary parts of lowest frequency range
+and so on upto result[ len - 2 ] and result[ len - 1 ]
+</ul>
+remaining elements of the array are set to zero.
+<p>
+IMPORTANT note: input array for FFT must NOT contain any Null values. Use Nz() function to convert Nulls to zeros if you are not sure that input array is free from nulls.
+<p>
+FFT bins are complex numbers and do not represent real amplitude and phase. To obtain amplitude and
+phase from bins you need to convert inside the formula. The following code snipplet does that:
+<p>
+<CODE><FONT COLOR=#000000>ffc = </FONT><FONT COLOR=#0000ff>FFT</FONT><FONT COLOR=#000000>(data,Len); <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i &lt; Len - </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; i = i + </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ) <BR>
+{ <BR>
+&nbsp;&nbsp; 
+amp[ i ] = amp[ i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ]
+= </FONT><FONT COLOR=#0000ff>sqrt</FONT><FONT COLOR=#000000>(ffc[ i ]^ </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>&nbsp;&nbsp;+&nbsp;&nbsp;ffc[
+i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ]^</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>);&nbsp;&nbsp; <BR>
+&nbsp;&nbsp; 
+phase[ i ] = phase[ i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ]
+= </FONT><FONT COLOR=#0000ff>atan2</FONT><FONT COLOR=#000000>( ffc[ i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>],
+ffc[ i ] ); <BR>
+}</FONT></CODE>
+
+<p>
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetBarsRequired</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>100000</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>100000</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+Len = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"FFT
+Length"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1024</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>64</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10000</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+Len = </FONT><FONT COLOR=#0000ff>Min</FONT><FONT COLOR=#000000>( Len, </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+x = </FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>(); <BR>
+x1 = x - </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> +
+Len; <BR>
+<BR>
+<BR>
+input = </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>; <BR>
+a = </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>LinRegIntercept</FONT><FONT COLOR=#000000>(
+input, Len - </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ) ); <BR>
+b = </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>LinRegSlope</FONT><FONT COLOR=#000000>(
+input, Len - </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ) ); <BR>
+<BR>
+<BR>
+Lr = a + b * x1; <BR>
+<BR>
+data = input - Lr;</FONT><FONT COLOR=#008000>// de-trending </FONT><FONT COLOR=#000000> <BR>
+<BR>
+ffc = </FONT><FONT COLOR=#0000ff>FFT</FONT><FONT COLOR=#000000>(data,Len); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i &lt; Len - </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; i = i + </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ) <BR>
+{ <BR>
+&nbsp;&nbsp; 
+amp[ i ] = amp[ i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ]
+= </FONT><FONT COLOR=#0000ff>sqrt</FONT><FONT COLOR=#000000>(ffc[ i ]^ </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>&nbsp;&nbsp;+&nbsp;&nbsp;ffc[
+i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ]^</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>);&nbsp;&nbsp; <BR>
+&nbsp;&nbsp; 
+phase[ i ] = phase[ i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ]
+= </FONT><FONT COLOR=#0000ff>atan2</FONT><FONT COLOR=#000000>( ffc[ i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>],
+ffc[ i ] ); <BR>
+} <BR>
+<BR>
+auto = </FONT><FONT COLOR=#0000ff>ParamToggle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Auto
+dominant cycle"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"No|Yes"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+sbar = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Which
+FFT bin"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>50</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+skipbin1 = </FONT><FONT COLOR=#0000ff>ParamToggle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Skip
+1st FFT bin"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"No|Yes"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( auto ) <BR>
+{ <BR>
+&nbsp;&nbsp; 
+sbar = </FONT><FONT COLOR=#0000ff>int</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>ValueWhen</FONT><FONT COLOR=#000000>(
+amp == </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>Highest</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(
+skipbin1 </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> x &lt; </FONT><FONT COLOR=#800080>4</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ,
+amp ) )), x / </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> )) ); <BR>
+} <BR>
+<BR>
+fv = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"firstvisiblebar"</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+thisbar = </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>int</FONT><FONT COLOR=#000000>(x/</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>)
+== sbar, -fv); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>(amp,-fv), <BR>
+</FONT><FONT COLOR=#800080>"amplitude (bin "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>int</FONT><FONT COLOR=#000000>(x/</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>),
+-fv ) +</FONT><FONT COLOR=#800080>")"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(
+thisbar, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000> ),</FONT><FONT COLOR=#000000><B>styleArea</B></FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>() &lt; Len,
+data, </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000> ) , <BR>
+</FONT><FONT COLOR=#800080>"de-trended input ("</FONT><FONT COLOR=#000000>+Len+</FONT><FONT COLOR=#800080>" bars)"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorOrange</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleLeftAxisScale</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>cos</FONT><FONT COLOR=#000000>(
+phase[ sbar * </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ] + (sbar)
+* x1 * </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#800080>3.1415926</FONT><FONT COLOR=#000000> /
+Len ), <BR>
+</FONT><FONT COLOR=#800080>" dominant cycle "</FONT><FONT COLOR=#000000>+ Len/(sbar)
++ </FONT><FONT COLOR=#800080>"("</FONT><FONT COLOR=#000000> + sbar + </FONT><FONT COLOR=#800080>" bin)
+bars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleOwnScale</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>GraphZOrder</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#000000><B>GraphXSpace</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+<BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="atan2.html">atan2()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>FFT</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=FFT">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

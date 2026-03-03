@@ -1,0 +1,361 @@
+<html>
+
+<head>
+<title>How to add user-defined metrics to backtest/optimization report</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="/guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>How to add user-defined
+  metrics to backtest/optimization report
+</h2>
+<DIV>
+  <p><FONT size=2>One of the new additions in 4.67.x/4.68.x BETA
+      is <a href="a_custombacktest.html">portfolio backtester programming interface</a> providing full control of 2nd
+          phase of portfolio backtest.</FONT>    This allows a multitude of applications including, but not limited to:<br>
+  </p>
+</DIV>
+<ul>
+  <li>
+    <DIV> user-defined metrics (appear as an additional column in &quot;summary&quot; backtest
+          result list, in the optimization result and as a new row in backtest report &quot;statistics&quot; page,
+    as well as per-trade metrics)</DIV>
+  </li>
+  <li>
+    <DIV>access to portfolio-level equity when
+              backtest loop is run - allows, for example, complex position sizing
+      based on portfolio equity</DIV>
+  </li>
+  <li>
+    <DIV> read/write access to portfolio cash -
+      allows adding funds to portfolio</DIV>
+  </li>
+  <li>
+    <DIV> read/write access on bar-by-bar basis
+          to trading signals generated in 1st backtest phase, which allows reading ranking
+      array and modifying signal price (for example, custom slippage formulas),
+      position size, etc</DIV>
+  </li>
+  <li>
+    <DIV>access to a list of currently open positions, each position
+                          can be queried for various properties including profit,
+      MAE/MFE, bars in trade, etc</DIV>
+  </li>
+  <li> access to a list of closed trades, each closed trade
+                            can be queried for various properties including profit, MAE/MFE,
+  bars in trade, etc</li>
+  <li> three different levels of  programming:
+    <ul>
+      <li> high-level - using Backtest()
+        method and runs the default backtest procedure (as in old versions) -
+        great for adding custom metrics</li>
+      <li> mid-level -
+          using PreProcess()/ProcessTradeSignal()/PostProcess() methods - allows
+          modifying signals, querying open
+                                    positions (good for advanced position sizing)</li>
+      <li> low-level - using PreProcess()/EnterTrade()/ExitTrade()/ScaleTrade()/UpdateStats()/HandleStops()/PostProcess()
+                                      methods provide full control over backtest
+                                      process for hard-coded programmers</li>
+    </ul>
+  </li>
+</ul>
+<p>Technical reference of new interface is available <a href="a_custombacktest.html">here</a>,
+  in this chapter we will just focus on some practical examples.</p>
+<p><strong>Adding user-defined metrics</strong></p>
+<p><em>Example 1</em></p>
+<p>Let's start with the easiest application:
+  in the very first example I will show you how to add user-defined metric to
+portfolio report and optimization result list.</p>
+<p>In the first step we will add Expectancy to backtest and optimization report.
+  There is some discussion about how expectancy should be calculated but the
+  easiest formula for it is: </p>
+<p>Expectancy ($) = %Winners * AvgProfit - %Losers * AvgLoss</p>
+<p>or (the other way of calculating the same)</p>
+<p>Expectancy ($) = (TotalProfit - TotalLoss) / NumberOfTrades = NetProfit /
+  NumberOfTrades</p>
+<p>Let us start with this simple formulation. With this approach expectancy simply
+  tells us expected profit per trade in dollars. The custom backtest formula
+  that implements this user-defined metric looks as follows:</p>
+<p><CODE><FONT COLOR=#008000>/*
+      First we need to enable custom backtest procedure and <BR>
+  ** tell AmiBroker to use current formula <BR>
+  */</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>SetCustomBacktestProc</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>""</FONT><FONT COLOR=#000000>); <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>/* Now custom-backtest procedure follows */</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"action"</FONT><FONT COLOR=#000000>)
+  == actionPortfolio ) <BR>
+  { <BR>
+  &nbsp;&nbsp;&nbsp;
+  bo = </FONT><FONT COLOR=#0000ff>GetBacktesterObject</FONT><FONT COLOR=#000000>(); <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;
+  bo.Backtest(); </FONT><FONT COLOR=#008000>// run default backtest procedure </FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;
+  st = bo.GetPerformanceStats(</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+  get stats for all trades </FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000> // Expectancy calculation (the
+  easy way) </FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000> // %Win * AvgProfit - %Los *
+  AvgLos </FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp; </FONT><FONT COLOR=#008000>// note that because AvgLos is
+  already negative </FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000> // in AmiBroker so we are adding
+  values instead of subtracting them</FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000> // we could also use simpler formula
+  NetProfit/NumberOfTrades</FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp; </FONT><FONT COLOR=#008000>// but for the purpose of
+  illustration we are using more complex one :-)</FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;
+  expectancy = st.GetValue(</FONT><FONT COLOR=#ff00ff>"WinnersAvgProfit"</FONT><FONT COLOR=#000000>)*st.GetValue(</FONT><FONT COLOR=#ff00ff>"WinnersPercent"</FONT><FONT COLOR=#000000>)/</FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> + <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  st.GetValue(</FONT><FONT COLOR=#ff00ff>"LosersAvgLoss"</FONT><FONT COLOR=#000000>)*st.GetValue(</FONT><FONT COLOR=#ff00ff>"LosersPercent"</FONT><FONT COLOR=#000000>)/</FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>; <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp; </FONT><FONT COLOR=#008000>// Here we add custom metric to
+  backtest report</FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;
+  bo.AddCustomMetric( </FONT><FONT COLOR=#ff00ff>"Expectancy ($)"</FONT><FONT COLOR=#000000>,
+  expectancy ); <BR>
+  } <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>// your trading system here </FONT><FONT COLOR=#000000> <BR>
+  fast = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"fast"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><font color="#ff00ff">5</font><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  slow = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"slow"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000>, </FONT><font color="#ff00ff">10</font><FONT COLOR=#000000>, </FONT><font color="#ff00ff">25</font><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  <B>Buy</B>=</FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(fast,slow),</FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(fast,slow)); <BR>
+  <B>Sell</B>=</FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(fast,slow),</FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(fast,slow)); <BR>
+    </FONT></CODE></p>
+<p>First we need to tell AmiBroker to use custom backtest formula instead of built-in one. We are doing so by calling SetCustomBacktestProc. The first parameter defines the path to the custom backtest formula (which can be stored in some external file, independent from actual trading system). If we provide an empty string there, we are telling AmiBroker to use current formula (the same that is used for trading system).</p>
+<p>In the next line, we have an &quot;if&quot; statement that ensures the custom backtest formula is executed if the analysis engine is in the actionPortfolio (2nd phase of portfolio backtest) stage. This is important as the formula is executed in both scanning phase (when trading signals are generated) and in actual portfolio backtest phase. The &quot;if&quot; statement allows us to enter the custom backtest procedure part only when the analysis engine is in the actual backtesting phase.</p>
+<p>In the next line, we obtain access to the Backtester programming interface by calling the GetBacktesterObject function. This returns a Backtester object that is used to access all functionality of the new interface (for more details on available objects, see: <a href="http://www.amibroker.com/docs/ab401.html">http://www.amibroker.com/docs/ab401.html</a>)</p>
+<p>Later, we obtain access to built-in metrics by calling the GetPerformanceStats method of the Backtester object. This method returns a Statistics object that allows us to access any built-in metric by calling the GetValue method. </p>
+<p>As a next step, we calculate the expectancy value from built-in metrics retrieved using the GetValue method. For the list of metrics supported by the GetValue method, please check: <a href="http://www.amibroker.com/docs/ab401.html">http://www.amibroker.com/docs/ab401.html</a>  </p>
+<p>In the final step, we simply add our custom metric to the report by calling the AddCustomMetric function of the Backtester object. The first parameter is the name of the metric, the second is the value.</p>
+<p>After the &quot;if&quot;-statement implementing our custom backtest procedure, usual trading system rules follow.</p>
+<p>Now, when you run a backtest and click the Report button in the Automatic Analysis window, you will see your custom metric added at the bottom of the statistics page:</p>
+<p><img src="gifs/24report1.gif"></p>
+<p>The user-defined metric also appears in the Optimization result list:</p>
+<p><img src="gifs/24optimize1.gif"></p>
+<p>When you click the custom metric column, the optimization results will be sorted by your own metric, and you will be able to display a 3D chart of your user-defined metric plotted against optimization variables.</p>
+<p><img src="gifs/24optimize2.gif"></p>
+<p><img src="gifs/24optimize3.jpg"></p>
+<p>&nbsp;</p>
+<p><em>Example 2</em></p>
+<p>Some people point out that this simple method of calculating expectancy works
+  well only with constant position size. Otherwise, with variable position
+  sizing and/or compounding, larger trades weigh more than smaller trades and
+  this leads to misleading expectancy values. To calculate such a statistic,
+  one needs to iterate through trades, summing up profits per $100 unit, and
+  dividing this sum by the number of trades. Appropriate formula follows:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/* First we need to enable
+      custom backtest procedure and <BR>
+  ** tell AmiBroker to use current formula <BR>
+  */</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>SetCustomBacktestProc</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>""</FONT><FONT COLOR=#000000>); <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>/* Now custom-backtest procedure follows */</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"action"</FONT><FONT COLOR=#000000>)
+  == actionPortfolio ) <BR>
+  { <BR>
+  &nbsp;&nbsp;&nbsp;
+  bo = </FONT><FONT COLOR=#0000ff>GetBacktesterObject</FONT><FONT COLOR=#000000>(); <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;
+  bo.Backtest(); </FONT><FONT COLOR=#008000>// run default backtest procedure </FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  &nbsp;&nbsp;
+  SumProfitPer100Inv = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+  &nbsp;&nbsp;
+  NumTrades = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// iterate through closed trades
+  first</FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+  trade = bo.GetFirstTrade(); trade; trade = bo.GetNextTrade() ) <BR>
+  &nbsp;&nbsp;
+  { <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// here we sum
+  up profit per $100 invested </FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#000000>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  SumProfitPer100Inv = SumProfitPer100Inv + trade.GetPercentProfit(); <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  NumTrades++; <BR>
+  &nbsp;&nbsp;
+  } <BR>
+  <BR>
+  &nbsp;&nbsp;
+  </FONT><FONT COLOR=#008000>// iterate through eventually still open positions </FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+  trade = bo.GetFirstOpenPos(); trade; trade = bo.GetNextOpenPos() ) <BR>
+  &nbsp;&nbsp;
+  { <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  SumProfitPer100Inv = SumProfitPer100Inv + trade.GetPercentProfit(); <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  NumTrades++; <BR>
+  &nbsp;&nbsp;
+  } <BR>
+  <BR>
+  &nbsp;&nbsp;
+  expectancy2 = SumProfitPer100Inv / NumTrades; <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;
+  bo.AddCustomMetric( </FONT><FONT COLOR=#ff00ff>"Expectancy (per $100 inv.)"</FONT><FONT COLOR=#000000>,
+  expectancy2 ); <BR>
+  <BR>
+  } <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>// your trading system here </FONT><FONT COLOR=#000000> <BR>
+  fast = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"fast"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  slow = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"slow"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>25</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(fast,slow),</FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(fast,slow)); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(fast,slow),</FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(fast,slow)); </FONT></CODE></p>
+<p>The only difference between this and the previous formula is that we do not use
+  built-in metrics to calculate our own expectancy figure. Instead, we sum up
+  all percentage profits of each trade (which are equivalent to dollar profits
+  from a $100 unit investment) and, at the end, divide the sum by the number of trades.
+  Summing up is done inside the &quot;for&quot; loop. The GetFirstTrade/GetNextTrade
+  function pair of the Backtester object allows us to step through the list of
+  closed trades. We use two loops (second loop uses GetFirstOpenPos/GetNextOpenPos)
+  because there may be some open positions left at the end of the backtest. If
+  we wanted
+  to
+  include
+  only closed trades, then we could remove the second &quot;for&quot; loop. </p>
+<p>After running this code, we find out that expectancy calculated this way, even
+  adjusted to initial equity (by multiplying by the factor InitialEquity/$100), is
+  smaller than the expectancy calculated in the first example. This shows that the &quot;easy&quot;
+  method of expectancy calculation (from example 1) may lead to overly optimistic
+  results.</p>
+<p><em>Example 3</em></p>
+<p>Some Van Tharp followers prefer yet a slightly different &quot;twist&quot; on the expectancy
+  measure. They express expectancy in terms of expected profit per &quot;unit of risk&quot;.
+  The profit is then expressed in terms of R-multiples, where 1R is defined
+  as the amount risked per trade. The amount risked is the maximum amount of
+  money you can lose, and most often, it is set by the maximum loss stop (or trailing stop).
+  According to Tharp, the easiest way to calculate expectancy is simply to add up all your R-multiples,
+  net them out by subtracting
+  the
+  negative R-multiples from the positive ones, and then divide by the number of trades.
+This gives you your expectancy per trade. </p>
+<p>This is very similar to the approach presented in Example 2, but for the calculations,
+  we do not use the value of the trade, but rather the risk per trade. The risk depends
+  on the stop we use in our trading system. For simplicity, in this example, we have used a 10% max. loss stop.
+  In this example, we also add per-trade metrics for a better illustration of how R-multiples are calculated. Per-trade metrics
+  appear in each row of the trade list in the backtest results.</p>
+<p><img src="gifs/24backtest.gif"></p>
+<p>The formula that implements this kind of expectancy measure follows:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/*
+      First we need to enable custom backtest procedure and <BR>
+  ** tell AmiBroker to use current formula <BR>
+  */</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>SetCustomBacktestProc</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>""</FONT><FONT COLOR=#000000>); <BR>
+  <BR>
+  MaxLossPercentStop = </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+  10% max. loss stop</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>/* Now custom-backtest procedure follows */</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"action"</FONT><FONT COLOR=#000000>)
+  == actionPortfolio ) <BR>
+  { <BR>
+  &nbsp;&nbsp;&nbsp;
+  bo = </FONT><FONT COLOR=#0000ff>GetBacktesterObject</FONT><FONT COLOR=#000000>(); <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;
+  bo.Backtest(</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+  run default backtest procedure </FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  &nbsp;&nbsp;
+  SumProfitPerRisk = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+  &nbsp;&nbsp;
+  NumTrades = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// iterate through closed trades
+  first</FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+  trade = bo.GetFirstTrade(); trade; trade = bo.GetNextTrade() ) <BR>
+  &nbsp;&nbsp;
+  { <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// risk is calculated
+  as the maximum value we can loose per trade</FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// in this example
+  we are using&nbsp;&nbsp;max. loss stop</FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// it means
+  we can not lose more than (MaxLoss%) of invested amount</FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// hence ris</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Risk = ( MaxLossPercentStop / </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> )
+  * trade.GetEntryValue(); <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  RMultiple = trade.GetProfit()/Risk; <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  trade.AddCustomMetric(</FONT><FONT COLOR=#ff00ff>"Initial risk $"</FONT><FONT COLOR=#000000>,
+  Risk&nbsp;&nbsp;); <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  trade.AddCustomMetric(</FONT><FONT COLOR=#ff00ff>"R-Multiple"</FONT><FONT COLOR=#000000>,
+  RMultiple&nbsp;&nbsp;); <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  SumProfitPerRisk = SumProfitPerRisk + RMultiple; <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  NumTrades++; <BR>
+  &nbsp;&nbsp;
+  } <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;
+  expectancy3 = SumProfitPerRisk / NumTrades; <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;
+  bo.AddCustomMetric( </FONT><FONT COLOR=#ff00ff>"Expectancy (per risk)"</FONT><FONT COLOR=#000000>,
+  expectancy3 ); <BR>
+  <BR>
+  &nbsp;&nbsp;&nbsp;
+  bo.ListTrades(); <BR>
+  <BR>
+  } <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>// your trading system here </FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>ApplyStop</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>stopTypeLoss</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>stopModePercent</B></FONT><FONT COLOR=#000000>,
+  MaxLossPercentStop ); <BR>
+  <BR>
+  fast = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"fast"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  slow = </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"slow"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>25</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(fast,slow),</FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(fast,slow)); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(fast,slow),</FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(fast,slow)); </FONT></CODE></p>
+<p>The code is basically very similar to Example 2. There are only a few differences.
+  First is that we call the Backtest method with the NoTradeList parameter set to 1.
+  This way, we disable
+  default trade listing, so we can add custom per-trade metrics and list trades
+  later by calling the ListTrades method. Later, we iterate through trades and calculate
+  risk based on trade entry value and the amount of max. loss stop used. The RMultiple
+  is then calculated as trade profit divided by the amount risked per trade.
+  Both risk and R-multiple are then added as custom per-trade metrics (note that
+  we are calling the AddCustomMetric method of <strong>Trade</strong> object here).
+  Later on, we do the remaining calculations. At the end of the custom backtest procedure,
+  we are adding a custom backtest metric (this time calling the AddCustomMetric method
+  of the <strong>Backtester</strong> object), and after that, we trigger listing of
+  the trades using the ListTrades method. For simplicity, we ignore any open positions
+that may have been left at the end of the analysis period. The only change to the trading
+  system itself was the addition of a maximum loss stop (ApplyStop line).</p>
+<p><strong>Conclusion</strong></p>
+<p>A new portfolio backtester programming interface provides the ability
+  to add user-defined statistics of any kind, allowing the user to move
+  the analysis of backtesting results to a completely new level.</p>
+<DIV>
+  <p><BR>
+  </p>
+</DIV>
+</body>
+</html>

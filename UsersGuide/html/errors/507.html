@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Warning 507. Internet error ...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><a name="E1" id="E1"></a>Warning 507. Internet error ...</h4>
+<p>Your formula is using Internet functions and these internet function(s) caused
+  run-time error such as connectivity error, etc. Detailed information about
+  error is included in the warning text and it can be also retrieved in runtime
+  using GetLastOSError() function.</p>
+<p><CODE>ih = <font color='#0000ff'>InternetOpenURL</font>( <font color='#800080'>"http://nonexistinghost.net"</font> ); <font color='#008000'>//
+      would produce Warning 507. Internet error: The server name or address could
+      not be resolved <br>
+</font> <br>
+<font color='#800000'><b>if</b></font>( ih ) <br>
+{ <br>
+&nbsp;&nbsp;
+<font color='#0000ff'>InternetClose</font>( ih ); <br>
+} <br>
+<font color='#800000'><b>else</b></font> <br>
+{ <br>
+&nbsp;&nbsp;
+<font color='#0000ff'>printf</font>(<font color='#800080'>"Something went wrong,
+OS error: %s\n"</font>, <font color='#0000ff'>GetLastOSError</font>() ); <br>
+} </CODE></p>
+<p>&nbsp;</p>
+</body>
+</html>

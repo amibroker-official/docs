@@ -1,0 +1,267 @@
+<html>
+
+<head>
+<title>Component Object model support in AFL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="guide.css" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+<body bgcolor="#FFFFFF">
+<h2><b>AFL Error List</b></h2>
+<UL>
+<LI> 
+<A href="errors/1.html">Error 1. Operation not allowed. Operator/operand type mismatch.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/2.html">Error 2. Incorrect type of argument. Expecting number or array here.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/3.html">Error 3. Type mismatch, Unary minus operator requires a number or array</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/4.html">Error 4. Incorrect type of argument(s). Expecting number here.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/5.html">Error 5. Argument #1 has incorrect type (the function expects different argument type here)</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/6.html">Error 6. Condition in IF, WHILE, FOR statements has to be a numeric or Boolean type. You cannot use an array here</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/7.html">Error 7. Condition in IF, WHILE, FOR statements has to be a numeric or Boolean type. You cannot use a STRING here</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/8.html">Error 8. Type mismatch, the value assigned to the array
+element has to be a number. You cannot use an array...</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/9.html">Error 9. Array subscript has to be a number.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/10.html">Error 10. Subscript out of range. You must not access array elements outside the 0..(BarCount-1) range</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/11.html">Error 11. Subscript operator [] requires an array or number type. A string cannot be used here.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/12.html">Error 12. Subscript operator [] requires an array or number type.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/13.html">Error 13. Endless loop detected in WHILE loop</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/14.html">Error 14. Endless loop detected in DO-WHILE loop</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/15.html">Error 15. Endless loop detected in FOR loop</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/16.html">Error 16. Too many arguments</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/17.html">Error 17. Missing arguments</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/18.html">Error 18. COM object variable is not initialized or has invalid type (valid COM object handle required)</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/19.html">Error 19. COM method/function 'function name' call failed.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/20.html">Error 20. COM method/function '%s' does not exist.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/21.html">Error 21. Relative strength base symbol not found</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/22.html">Error 22. Bad 'format' argument type - format has to be a number (not an array)</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/23.html">Error 23. GetExtraData call failed</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/24.html">Error 24. This formula requires AmiBroker version '...' (or higher).</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/25.html">Error 25. SetVariable() called from plug-in was not successful. The identifier is already used in a different context.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/26.html">Error 26. File handle passed to the function is invalid (equal to zero).</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/27.html">Error 27. Invalid number of arguments passed to CallFunction (..) from plug-in DLL.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/28.html">Error 28. Out of memory</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/29.html">Error 29. Variable <name> used without having been initialized.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/30.html">Error 30. Syntax error</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/31.html">Error 31. Syntax error, expecting 'list of tokens'</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/32.html">Error 32. Syntax error, probably missing a semicolon at the end of the previous line</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/33.html">Error 33. The identifier is already in use. You attempted to assign a value to the identifier representing a function.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/34.html">Error 34. The identifier is already in use. You attempted to define a function that has the same identifier as a global variable.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/35.html">Error 35. Shift+BREAK pressed. Loop terminated.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/36.html">Error 36. N-th argument of the function call has no value set</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/37.html">Error 37. Unsupported field in SetOptions</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/38.html">Error 38. Unsupported field in GetOptions</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/39.html">Error 39. CategoryAddSymbol: Setting a sector is unsupported, set an industry instead</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/40.html">Error 40. CategoryRemoveSymbol: Removing from a sector is unsupported; remove from an industry instead</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/41.html">Error 41. Unsupported field in GetRTData</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/42.html">Error 42. #include failed because the file does not exist: 'filename' (current working directory is '...')</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/43.html">Error 43. Variable stops are not supported in Rotational Trading mode</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/44.html">Error 44. SectorID() is outside the 0..63 range.</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/45.html">Error 45. Failed to launch trading interface</A>
+<BR>
+<BR>
+<LI> 
+<A href="errors/46.html">Error 46. Missing comma</A>
+<br>
+<br>
+<LI><a href="errors/47.html">Error 47. Exception occurred during AFL formula execution</a>
+  <br>
+  <br>
+<LI><a href="errors/48.html">Error 48. N-volume bar compressed data is longer than
+  the base time frame. Use a higher compression factor.</a><br>
+  <br>
+<LI><a href="errors/49.html">Error 49. Optimization parameter name must not be empty.</a><br>
+  <br>
+<LI><a href="errors/50.html">Error 50. Optimization parameter minimum value must be less than or equal
+  to the maximum, and the step parameter needs to be greater than zero.</a>
+  <br>
+<li><a href="errors/51.html">Error 51. Array subscript has a Null
+  value. Subscript must be within the 0...BarCount-1 range.</a><br>
+</li>
+<li><a href="errors/52.html">Error 52. Invalid argument value
+  for the name() function. Argument 'paramname' must be positive (and not Null).</a><br>
+</li>
+<li>    <a href="errors/53.html">Error 53. You have N open file(s)
+        that you forgot to close. You must call fclose() function for every file opened. </a><br>
+</li>
+<li><a href="errors/54.html">
+Error 54. Incorrect escape sequence.
+  Supported sequences are \n, \r, \t, \'' and \\ (gives single backslash).</a><br>
+</li>
+<li>    <a href="errors/90.html">Error 90. Specified Optimizer Engine
+  not found</a><br>
+</li>
+<li>    <a href="errors/91.html">Error 91. OptimizerSetOption expects
+  a STRING value</a><br>
+</li>
+<li>    <a href="errors/92.html">Error 92. OptimizerSetOption expects
+  a NUMBER (scalar numeric) value</a> <br>
+</li>
+<li><a href="errors/93.html">Error 93. Specified option is not
+  supported or not available by the selected optimizer</a><br>
+</li>
+<li>    <a href="errors/94.html">Error 94. External Optimizer is not
+                  selected. You must call OptimizerSetEngine() prior to calling OptimizerSetOption().
+  </a><br>
+</li>
+<li><a href="errors/501.html">Warning 501. Assignment within conditional.
+  Did you mean == instead of = ?</a><br>
+</li>
+<li>    <a href="errors/502.html">Warning 502. You are calling the Plot()/PlotOHLC()
+                      function over 500 times; it is highly inefficient. Reduce the number. Warning 503. Using OLE or <br>
+    CreateObject
+  or CreateStaticObject is not multi-threading friendly.</a><br>
+</li>
+<li>    <a href="errors/701.html">Error 701. Missing buy/sell variable
+  assignments</a><br>
+</li>
+<li>    <a href="errors/702.html">Error 702. Missing short/cover variable
+  assignments</a><br>
+</li>
+<li>    <a href="errors/703.html">Error 703. Rotational trading requires
+    a PositionScore variable.</a><br>
+</li>
+<li>    <a href="errors/704.html">Error 704. In rotational trading,
+  you must not use buy/sell/short/cover signals.</a><br>
+</li>
+<li>    <a href="errors/705.html">Error 705. You cannot use HoldMinBars
+  together with Allow Same Bar exit.</a><br>
+</li>
+<li>    <a href="errors/706.html">Error 706. Show Arrows feature needs
+      a Trade list.</a><br>
+</li>
+</UL>
+
+</body>
+</html>

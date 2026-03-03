@@ -1,0 +1,860 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<title>Portfolio Backtester Interface Reference</title>
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+<h2>Portfolio Backtester Interface Reference Guide</h2>
+<p>(Updated February 20th, 2010 to cover enhancements and additions introduced
+  in <strong>AmiBroker 5.30.0</strong>)</p>
+<h4>Basics</h4>
+
+<p>AmiBroker version 4.67.0 exposes a new object-oriented interface to the portfolio
+    backtester, allowing control over the second phase of the backtest. This allows a multitude
+    of applications, including but not limited to:</p>
+<ul>
+  <li> position sizing based on portfolio-level equity</li>
+  <li> implementing advanced
+              rotational systems (you now have access to ranking arrays and can
+    decide what trades to take after knowing which symbols
+        score best on a bar-by-bar basis)</li>
+  <li> adding your custom metrics to backtest
+        and optimization statistics</li>
+  <li> implementing custom formulas for slippage
+        control</li>
+  <li> advanced scaling-in/-out based on portfolio equity and other
+        run-time stats</li>
+  <li> advanced trading systems that use portfolio-level statistics
+                        evaluated on a bar-by-bar basis to decide which trades
+    to take<br>
+  </li>
+</ul>
+<p>This document describes all objects, methods, and properties exposed by the portfolio
+  interface.</p>
+<h4>Requirements</h4>
+<p> To use the new interface, the user needs AmiBroker 4.67.0 or higher
+  and needs to have AFL coding skills, including understanding the terms: an
+object, method, and property.</p>
+<h4>Various approaches for various applications</h4>
+<p>The portfolio backtester interface supports various approaches to the customization
+of the backtest process that suit different applications.</p>
+<ul>
+  <li> <strong>high-level</strong> approach <strong>(the easiest)</strong> <br>
+    - using the Backtest() method, it runs the
+    default backtest
+    procedure (as in old versions) and allows simple implementation of custom metrics  </li>
+  <li><strong>mid-level</strong> approach<br>
+    - 
+    using PreProcess()/ProcessTradeSignal()/PostProcess()
+    methods, which allow modification of signals and querying of open positions (good for advanced
+  position sizing)</li>
+  <li><strong> low-level</strong> approach <strong>(the most complex)</strong><br>
+    - using PreProcess()/EnterTrade()/ExitTrade()/ScaleTrade()/UpdateStats()/HandleStops()/PostProcess()
+      methods, which provide full control over the entire backtest process for hard-coded
+      programmers only<br>
+</li>
+</ul>
+<h4>Getting access to the interface</h4>
+<p>To access the new portfolio backtester interface, you need to:</p>
+<ul>
+  <li>enable custom backtesting procedure by calling:<br>
+    <br>
+  <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"UseCustomBacktestProc"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> );<br>
+  </FONT></CODE><br>
+  or calling<br>
+  <br>
+  <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetCustomBacktestProc</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"C:\\MyPath\\MyCustomBacktest.afl"</FONT><FONT COLOR=#000000> );<br>
+  </FONT></CODE><br>
+    in your formula<br>
+    <br>
+    or by enabling it in the Automatic Analysis->Settings window, "Portfolio" tab,
+    and specifying an external custom procedure file.<br>
+    <br>
+  </li>
+  <li>get access to the backtester object by calling the GetBacktesterObject() method.
+    Note that the GetBacktesterObject() method should only be called when Status("action")
+    returns actionPortfolio:<br>
+    <br>
+    <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"action"</FONT><FONT COLOR=#000000>)==
+    actionPortfolio ) <BR>
+    { <BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// retrieve the interface
+    to portfolio backtester </FONT><FONT COLOR=#000000> <BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    bo = </FONT><FONT COLOR=#0000ff>GetBacktesterObject</FONT><FONT COLOR=#000000>(); <BR>
+    <BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    ...here is your custom backtest formula. <BR>
+    }</FONT></CODE><br>
+    <br>
+    When using an external custom procedure file, you don't need to check for actionPortfolio,
+    because external backtest procedures are called exclusively in actionPortfolio
+    mode.</li>
+</ul>
+<h4><font face="Arial, Helvetica, sans-serif">Typing Conventions</font></h4>
+<ul>
+  <li><em>bool</em> -  italic represents the type of parameter/variable/return
+    value (<em>Trade, Signal, Stats - </em>represent the type of object returned)</li>
+  <li><strong>AddSymbols</strong> - bold represents a function / method / property
+    name</li>
+  <li><u>SymbolList</u> - underline typeface represents a formal parameter</li>
+  <li><em>[optional] </em>- denotes an optional parameter (one that does not need to
+    be supplied)</li>
+  <li><em>variant</em> - represents a variable type that can be either a string
+    or a number</li>
+</ul>
+<p>Despite the fact that the interface handles integer data types such as long,
+  short, bool, and two different floating-point types: float and double, AFL itself converts all those data types to float because AFL treats all numbers
+  as floats (32-bit IEEE floating-point numbers).</p>
+<h4>Objects</h4>
+<p>The interface exposes the following objects:</p>
+<ul>
+  <li>Backtester object</li>
+  <li>Signal object</li>
+  <li>Trade object</li>
+  <li>Stats object</li>
+</ul>
+<p>The only object directly accessible from AFL is the Backtester object; all other
+  objects are accessible by calling Backtester object methods, as shown in the
+  picture below.</p>
+<p><img src="gifs/401_1.gif"><br>
+</p>
+<h5>Backtester object </h5>
+<p>The Backtester object allows control over the backtest process (processing signals, entering/exiting/scaling
+  trades) and provides access to the signal list, open position and trade list, and to the
+  performance statistics object.</p>
+<p>Methods:</p>
+<ul>
+  <li><em>bool </em><strong>AddCustomMetric</strong>(<em> string </em><u>Title</u><em>,
+      variant </em><u>Value</u><em>, [optional] variant </em><u>LongOnlyValue</u><em>,
+      [optional] variant </em><u>ShortOnlyValue</u> , <i>[optional] variant</i> <u>DecPlaces</u>    =
+      2, [optional] variant CombineMethod = 2  )<br>
+      <br>
+       This method adds a custom metric to the backtest report, backtest "summary,"
+       and optimization result list. Title is the name of the metric to be displayed
+       in the report; Value is the value of the metric. Optional arguments LongOnlyValue,
+       ShortOnlyValue allow for providing values for additional long/short-only
+       columns in the backtest report. The DecPlaces argument controls how many
+  decimal places should be used to display the value. The last CombineMethod
+  argument defines how custom metrics are combined for the walk-forward out-of-sample
+  summary report<br>
+  <br>
+  Supported CombineMethod values are:<br>
+1. First step value: the summary report will show the value of the custom metric from
+the very first out-of-sample step.<br>
+2. Last step value (default): the summary report will show the value of the custom metric
+from the last out-of-sample step.<br>
+3. Sum: the summary report will show the sum of the values of the custom metric from
+all out-of-sample steps.<br>
+4. Average: the summary report will show the average of the values of the custom metric
+from all out-of-sample steps.<br>
+5. Minimum: the summary report will show the smallest value of the custom metric from
+all out-of-sample steps.<br>
+6. Maximum: the summary report will show the largest value of the custom metric from
+all out-of-sample steps.
+<p>Note that certain metric calculation methods are complex; for example, averaging them would not lead to a mathematically correct representation of all out-of-sample tests.<br>
+  Summaries of all built-in metrics are mathematically correct out-of-the-box (i.e., they are *not* averages but properly calculated metrics using a method that is appropriate for a given value). This contrasts with custom metrics because they are user-definable, and it is up to the user to select a 'combining' method; it may still happen that none of the available methods is appropriate.<br>
+  For that reason, the report includes a note that explains what user-definable method was used to combine custom metrics.</p>
+  <br>
+       <br>
+  </li>
+  <li><em>bool </em><strong>Backtest</strong>(<em> [optional] bool </em><u>NoTradeList</u>    )<br>
+    <br>
+    This high-level method performs the default portfolio backtest procedure in a single
+    call. It should be used if you just need to obtain custom metrics and do not want
+    to change
+    the way
+    the backtest is performed. (Version 4.68.0 and above): If the optional parameter <u>NoTradeList</u> is
+    set to True, then a trade list is not generated automatically. This is useful
+    if
+    you
+    want to add some per-trade metrics. Once you add them, you can generate a trade
+    list with your metrics using the <strong>ListTrades</strong> method.<br>
+    <br>
+  </li>
+  <li><em>long</em> <strong>EnterTrade</strong>( <em>long</em> <u>Bar</u>, <em>string</em> <u>Symbol</u>, <em>bool</em> <u>bLong</u>, <em>float</em>    <u>Price</u>, <em>float</em> <u>PosSize</u>, <em>[optional]
+      variant</em> <u>PosScore</u>, <em>[optional]
+    variant</em> <u>RoundLotSize</u>, <em>[optional] variant</em> <u>MarginDeposit</u>,
+   <em>[optional] variant</em> <u>TickSize</u>, <em>[optional] variant</em> <u>PointValue </u>)<br>
+   <br>
+   A low-level method that enters a trade on any symbol. This allows trades to be taken
+   even on symbols that have no corresponding signals. If values for optional
+   parameters are not provided, then AmiBroker uses values defined in the Symbol->Information
+   window.<br>
+   <br>
+  </li>
+  <li><em>long</em> <strong>ExitTrade</strong>(<em> long</em> <u>Bar</u>, <em>string</em> <u>Symbol</u>, <em>float</em>    <u>Price</u>, <em>[optional]
+  variant</em> <u>ExitType </u>)<br>
+  <br>
+  A low-level method that exits a trade on any symbol. This method searches the open
+  trade list, and if there is no open trade on a given symbol, it does nothing. The optional
+  ExitType parameter specifies the reason for exit (1 - regular exit, 2 - max.
+  loss, 3 - profit, 4 - trail, 5 - N-bar, 6 - ruin).<br>
+  <br>
+  </li>
+  <li><em>Trade </em><strong>FindOpenPos</strong>( <em>string </em><u>Symbol</u> )<br>
+    <br>
+    This method looks for the <u>Symbol</u> in the open position list and returns
+  a matching trade object if it finds one, or returns a null object otherwise. <br>
+  <br>
+  </li>
+  <li><i>Signal</i> <b>FindSignal</b>( long <u>Bar</u>, string <u>Symbol</u>,
+  long <u>Type</u> ) - new in v5.10<br>
+  <br>
+  <br>
+    where bar is a bar number, and 
+    type represents the type of signal to find: 0 - both entries and exits, 1 - only
+    entries, 2 - only exits.
+    <p>The method searches for the first matching signal that has fPrice != -1 (different
+      from -1). If 0 is used as the type, and an entry and exit are on the same bar, then
+      the entry signal will be returned. Note: fPrice = -1 is a special marker meaning
+      that the given signal should be ignored.</p>
+  </li>
+  <li>
+    <p><i>long</i> <b>GetSignalQty</b>( long <u>Bar</u>,long <u>Type</u> ) -
+      new in v5.30<br>
+  <br>
+  <br>
+where bar is a bar number, symbol is the ticker symbol, and type represents the type of signal
+to find: 0 - both entries and exits, 1 - only entries, 2 - only exits. </p>
+    <p>The method retrieves the number of signals occurring on a given bar. Note
+      that AmiBroker, to conserve memory, keeps track of only 2 * MaxNumberOfPositions entry signals on any single bar; however, it keeps track of ALL exit signals
+      (because they consume much less space, and at the time of signal collection,
+      it is not known which positions are already open, so all exits must be
+    tracked to prevent missing an exit).</p>
+    <p><em>IMPORTANT NOTE: </em>GetSignalQty() counts each Scale In/Out signal
+      as 2 (not 1). Regular entries and regular exits are counted as 1. This
+      is for technical reasons, as scale in/out occupy two slots in the
+      highly compressed signal table. The proper and only way to find signals
+      is through iteration using the GetFirstSignal/GetNextSignal methods.</p>
+  </li>
+  <li><em>Trade</em> <strong>GetFirstOpenPos</strong>()<br>
+    <br>
+    This method returns the first <em>Trade</em> object from the open position list.<br>
+    <br>
+  </li>
+  <li><em>Signal</em> <strong>GetFirstSignal</strong>(<em> long</em> <u>Bar</u> )<br>
+    <br>
+    This method returns the first trading <em>Signal</em> object for a given <u>Bar</u>.<br>
+    <br>
+  </li>
+  <li><em>Trade</em> <strong>GetFirstTrade()<br>
+    <br>
+  </strong>This method returns the first <em>Trade</em> object from the closed trade
+  list.<br>
+  <br>
+  </li>
+  <li><em>Trade</em> <strong>GetNextOpenPos</strong>()<br>
+    <br>
+    This method returns the next <em>Trade<strong> </strong></em>object from the open
+    positions list. You should call GetFirstOpenPos() before calling this method
+    for the first time. Returns a null object when no more open positions are found.<br>
+    <br>
+  </li>
+  <li><em>Signal</em> <strong>GetNextSignal</strong>( <em>long</em> <u>Bar</u> )<br>
+    <br>
+    This method returns the next <em>Signal</em> object from the closed signal list of
+    a given <u>Bar</u>. You should call GetFirstSignal() before calling this method
+    for the first time.
+    Returns a null object
+    when no more signals are found.<strong><br>
+    <br>
+  </strong>  </li>
+  <li><em>Trade</em> <strong>GetNextTrade()<br>
+    <br>
+    </strong>This method returns the next <em>Trade </em>object from the closed trade
+    list. You should call GetFirstTrade() before calling this method
+    for the first time. Returns
+    a null object when no more trades are found.<br>
+    <br>
+    <br>
+  </li>
+  <li><i>long</i> <b>GetOpenPosQty</b>()
+    <p>This method returns the number of currently open positions.<strong><br>
+    </strong></p>
+  </li>
+  <li><em>Stats</em> <strong>GetPerformanceStats</strong>( <em>long</em> <u>Type</u> )<br>
+    <br>
+    Calculates built-in statistics and metrics and returns a <em>Stats</em> object.
+    The <u>Type</u> parameter specifies which trades should be counted. Type
+    = 0 means all trades, Type = 1 means long-only, Type = 2 means short-only.<br>
+    <br>
+  </li>
+  <li><strong> HandleStops</strong>(<em> long</em> <u>Bar </u>)<br>
+    <br>
+    This low-level method handles automatic stops (applystops). <strong>This
+    method MUST NOT be used in high-level and mid-level approaches</strong>. In low-level mode, you
+    should call this method once for each bar inside the trading loop.<br>
+    <br>
+  </li>
+  <li>    <strong>ListTrades</strong>()<br>
+    <br>
+    (Version 4.68.0 and above) This outputs trades to the result list of the Automatic
+    Analysis window. Usually, this function does NOT need to be called because the <strong>Backtest</strong>()
+    method by default lists trades already. This function should only be used
+    when you disabled trade listing in the Backtest() method to add some custom per-trade
+    metrics.<br>
+    <br>
+  </li>
+  <li><strong>PostProcess</strong>()<br>
+    <br>
+    This mid-level and low-level method performs the final processing required to
+    complete the backtest correctly. Among other things, it frees the price cache, closes
+    out any open trades, and outputs the trade list to the Automatic Analysis window.
+    It should
+    NOT be
+    used when you call the Backtest() method because Backtest() already performs
+    the necessary processing.<br>
+    <br>
+  </li>
+  <li><strong>PreProcess</strong>()<br>
+    <br>
+    This mid-level and low-level method performs the initial processing required
+    to perform the backtest correctly. Among other things, it initializes the price cache
+    and sets up initial variables. It should NOT be
+    used when you call the Backtest() method because Backtest() already performs
+    the necessary processing.<br>
+    <br>
+  </li>
+  <li><em>bool</em> <strong>ProcessTradeSignals</strong>( <em>long</em> <u>Bar </u>)<br>
+    <br>
+    This mid-level method processes all trading signals for a given bar. It should
+  be called once per every bar in your custom backtesting loop. <br>
+  <br>
+  </li>
+  <li><strong>RawTextOutput</strong>( <em>string</em> <u>Text</u> )<br>
+    <br>
+    (Version 4.68.0 and above) This method  outputs any string to the Automatic Analysis result list at
+    the time of the call. The user can output text formatted in multiple columns
+    using
+    the \t
+    (tab)
+    character.<br>
+    <br>
+  </li>
+  <li><em>long</em> <strong>ScaleTrade</strong>(<em>long</em> <u>Bar</u>, <em>string</em> <u>Symbol</u>, <em>bool</em> <u>bIncrease</u>,
+  <em>float</em> <u>Price</u>, <em>float</em> <u>PosSize</u>,  <em>[optional] variant</em>  <u>Deposit</u>)<br>
+  <br>
+  A low-level method that scales a trade on any symbol. This method searches the open
+  trade list, and if there is no open trade on a given symbol, it does nothing. The optional
+  <u>Deposit</u> parameter specifies the margin deposit for futures; if not given,
+  then the <u>Price</u> parameter
+  is used.<br>
+  <br>
+  </li>
+  <li><strong>UpdateStats</strong>( <em>long</em> <u>Bar</u>, <em>long</em> <u>TimeInsideBar</u> )<br>
+    <br>
+    A low-level method that updates equity, exposure, trade excursions (for MAE/MFE
+    calculations), and other internal variables required for the correct calculation
+    of statistics. <strong>You must NOT use
+    this function in high-level and mid-level approaches. </strong>The <u>TimeInsideBar</u> parameter
+    specifies the intraday time position. TimeInsideBar = 0 means the opening of the
+    bar, TimeInsideBar = 1 means the middle
+    of the bar, TimeInsideBar = 2 means the end of the bar. As certain internal calculations
+    depend on end-of-bar calculations, this method must be called once and only
+    once with the <u>TimeInsideBar</u> parameter
+    set to 2 at the end of processing every bar inside your custom backtesting
+    loop. May be called zero or more times for every bar inside the backtesting loop
+  with the <u>TimeInsideBar</u> parameter set to 0 (zero) or 1. <br>
+  </li>
+  <li><strong>GetMonteCarloSim</strong>()<br>
+    <br>
+    Gets the instance of the MonteCarloSim object to access MC distributions.<br>
+  </li>
+</ul>
+<p>Properties:</p>
+<ul>
+  <li><em>double </em><strong>Cash<br>
+    <br>
+    </strong>Available funds (cash) in your portfolio.<strong><br>
+    <br>
+  </strong></li>
+  <li><em>double</em><strong><em> </em>Equity </strong><br>
+  <br>
+  Current portfolio-level Equity (read-only property).<br>
+  </li>
+  <li><em>array</em> <strong>EquityArray</strong><br>
+    <br>
+  Portfolio-level Equity array (read-only property).<br>
+  <br>
+  Note: Since version 5.50, the backtester object now has an EquityArray property that
+  returns the entire equity array (not just the current value). 
+Please note that values are filled during the backtest, and only after the backtest is
+complete, are all values valid. If you call it in the middle, it will contain
+only "up to a given point" data. Avoid abusing this function, as it is
+costly in terms of RAM/CPU.
+You may use 
+bo.EquityArray instead of Foreign("~~~Equity", "C") 
+in custom backtester code.<br>
+  </li>
+  <li><em>double</em><strong><em> </em>InitialEquity<br>
+    <br>
+    </strong>Funds that are available at the beginning of the backtest.<strong><br>
+    <br>
+  </strong></li>
+  <li><em>double </em><strong>MarginLoan</strong><br>
+    <br>
+    Loan amount (only if you are using a margin account) 
+    (read-only property).    <br>
+    <br>
+  </li>
+</ul>
+<h5>Signal object
+</h5>
+<p>A Signal object represents a trading signal (buy/sell/short/cover) or a ranking
+  array element generated by AmiBroker during the first phase of backtest when your
+  formula is executed on every symbol under test. During this first phase scan, AmiBroker collects data from buy/sell/short/cover signal, price, position size,
+  and score arrays, performs sorting of signals, and puts top-ranked entry signals
+  and all scale and exit signals into the list. A separate list of trading
+  signals is maintained for every bar. The signal list is sorted so that first entry signals
+  appear
+  (top-ranked first), and after that, scaling and exit signals follow. To conserve
+  memory, AmiBroker stores only (2*MaxOpenPositions) top-ranked entry signals per
+  bar. It keeps, however, all exit and scaling signals. Once the first phase is completed
+  and the backtester enters the second phase (real backtest), it
+  iterates
+  through
+  bars and
+  through
+  all signals
+  within a given bar and executes trades based on these signals. </p>
+<p>To iterate through the signal list, you should use the GetFirstSignal() / GetNextSignal()
+  methods of the Backtester object, as shown below:</p>
+<blockquote>
+  <p><CODE><font color='#009300'>// retrieve the interface to portfolio backtester <br>
+    </font>bo = <font color='#0000ff'>GetBacktesterObject</font>(); <br>
+    <br>
+    <font color='#800000'><b>for</b></font>( i = <font color='#8b0000'>0</font>;
+    i &lt; <font color='#40e0d0'><b>BarCount</b></font>; i++ ) <br>
+    { <br>
+&nbsp;&nbsp;&nbsp;
+    <font color='#800000'><b>for</b></font>( sig = bo.GetFirstSignal( i ); sig; sig
+    = bo.GetNextSignal( i ) ) <br>
+&nbsp;&nbsp;&nbsp;
+    { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <font color='#800000'><b>if</b></font>( sig.IsEntry() ) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <font color='#009300'>// handle entry signal <br>
+    </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.... <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    }� <br>
+&nbsp;&nbsp;&nbsp;
+    } <br>
+&nbsp;&nbsp;&nbsp; 
+    <br>
+&nbsp;&nbsp;&nbsp;
+    bo.ProcessTradeSignals( i ); <br>
+    }</CODE></p>
+</blockquote>
+<p>Methods:</p>
+<ul>
+  <li><em>bool</em> <strong>IsEntry</strong>()<br>
+    <br>
+    True if this is an entry signal; False otherwise.<br>
+    <br>
+  </li>
+  <li><em>bool</em> <strong>IsExit</strong>()<br>
+    <br>
+    True if this is an exit signal; False otherwise.<br>
+    <br>
+  </li>
+  <li><em>bool</em> <strong>IsLong</strong>()<br>
+    <br>
+    True if this is a long entry (buy) or long exit (sell) or scale-in signal;
+     False otherwise.<br>
+     <br>
+  </li>
+  <li><em>bool</em> <strong>IsScale</strong>()<br>
+    <br>
+    True if this is a scale-in or scale-out signal; False otherwise.
+    <br>
+</li>
+</ul>
+<p>Properties:</p>
+<ul>
+  <li><em>float </em><strong>MarginDeposit<br>
+    <br>
+    </strong>Margin deposit (for futures).<strong><br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>PointValue<br>
+    <br>
+    </strong>Point value (for futures, currencies).<strong><br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>PosScore<br>
+      <br>
+      </strong>Position score.<strong>      <br>
+      <br>
+      </strong></li>
+  <li><em>float</em> <strong>PosSize<br>
+    <br>
+    </strong>Requested position size (positive numbers mean dollar value; negative values
+    mean percent of portfolio equity).<br>
+  <strong><br>  
+    </strong></li>
+  <li><em>float</em> <strong>Price<br>
+    <br>
+    </strong>Entry/exit/scale price.<strong><br>
+    <br>
+    </strong></li>
+  <li><em>short int</em> <strong>Reason<br>
+      <br>
+      </strong>This specifies the reason for exit (1 - regular exit, 2 - max.
+  loss, 3 - profit, 4 - trail, 5 - N-bar, 6 - ruin).<strong><br>
+  <br>
+  </strong></li>
+  <li><em>float</em> <strong>RoundLotSize<br>
+    <br>
+    </strong>Round lot size.<br>
+  </li>
+</ul>
+<ul>
+  <li><em>string</em> <strong>Symbol<br>
+    <br>
+    </strong>Symbol of security.<strong> <br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>TickSize<br>
+    <br>
+    </strong>Tick size (minimum price change).<strong><br>
+    <br>
+    </strong></li>
+  <li><em>short int </em><strong>Type<br>
+    <br>
+    </strong>This specifies the signal type (0 - rank (rotational systems only), 1
+  - buy, 2 - sell, 3 - short, 4 - cover, 5 - scale-in, 6 - scale-out).</li>
+</ul>
+<h5>&nbsp;</h5>
+<h5>Trade object</h5>
+<p>A Trade object represents either a currently open position (open trade) or a closed
+  trade. AmiBroker maintains two lists of trades: an open position list (accessible
+  using the GetFirstOpenPos()/GetNextOpenPos() methods of the Backtester object) and closed
+  trade lists (accessible using the GetFirstTrade()/GetNextTrade() methods of the Backtester
+  objects). Once an open position is closed by the backtester, it is automatically
+  moved from the open position list to the trade list. When the backtest is completed
+  (after a PostProcess() call), AmiBroker closes out all open positions, so the trade list includes
+  all trades. You can access both lists at any time during the backtest; you can also access the trade list after completion to generate trade-related statistics.</p>
+<p>To iterate through the open position list, you should use the GetFirstOpenPos()
+  / GetNextOpenPos()
+methods of the Backtester object, as shown below:</p>
+<p><CODE><FONT COLOR=#000000>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+      'bo' variable holds Backtester object retrieved earlier</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#800000><B><br>
+&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for</B></FONT><FONT COLOR=#000000>(
+  openpos = bo.GetFirstOpenPos(); openpos; openpos = bo.GetNextOpenPos() ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+  openpos variable now holds Trade object</FONT><FONT COLOR=#000000><BR>
+  <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; }</FONT></CODE></p>
+<p>To iterate through the closed trade list, you should use the GetFirstTrade()
+  / GetNextTrade()
+methods of the Backtester object, as shown below:</p>
+<p><CODE><FONT COLOR=#000000>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+      trade = bo.GetFirstTrade(); trade; trade = bo.GetNextTrade()
+      ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+trade variable now holds Trade object</FONT><FONT COLOR=#000000><BR>
+  <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; }</FONT></CODE></p>
+<p>Methods:</p>
+<ul>
+  <li><em>long </em><strong>AddCustomMetric</strong><em>( string </em><u>Title</u><em>,
+      variant </em><u>Value,</u><em> [optional] decplaces = 2)<br>
+      <br>
+      </em>(Version 4.68.0 BETA and above) This method adds a PER-TRADE custom
+      metric only to the trade list. Title is the name of the metric to be displayed
+      in
+      the
+      report;
+      Value
+      is the
+      value
+      of the metric<em>. </em>When using this function, you have to ensure that
+      you add the same metrics in the same order to every trade. Otherwise, the output
+      may be messed up. Note that, in contrast to the <strong>Backtester.AddCustomMetric</strong>() method
+      that is usually called after PostProcess(), the<strong> Trade.AddCustomMetric</strong>() method
+      should be called before the <strong>PostProcess</strong>() call because <strong>PostProcess</strong>() lists
+      trades. Using
+      <strong>Trade.AddCustomMetric</strong>() after <strong>PostProcess</strong>() gives
+      no result because trades are already listed.
+Also, if you are using the <strong>Backtester.Backtest()</strong> method,
+you should call it with the NoTradeList parameter set to True, add your per-trade
+metrics, and then call <strong>ListTrades</strong>()
+to allow your custom metrics to be included in the output.
+<p></p>
+  <em>          </em></li>
+  <li><em>    float</em> <strong>GetCommission</strong>( <em>[optional] bool</em> <u>InclExit</u> )<br>
+    <br>
+    Retrieves the commission paid for that trade (includes all scale-in/out commissions).
+  Depending on the InclExit parameter, the function returns commission including (True,
+    default) or excluding (False) exit commission.<br>
+    <br>
+  </li>
+  <li><em>double</em> <strong>GetEntryValue</strong>()<br>
+      <br>
+  Retrieves the dollar entry value of the trade.<br>
+  <br>
+  </li>
+  <li><em>float</em> <strong>GetMAE</strong>()<br>
+      <br>
+  Retrieves the trade's Maximum Adverse Excursion in percent.<br>
+  <br>
+  </li>
+  <li><em>float</em> <strong>GetMFE</strong>()<br>
+      <br>
+  Retrieves the trade's Maximum Favorable Excursion in percent. <br>
+  <br>
+  </li>
+  <li><em>double</em> <strong>GetPercentProfit</strong>()<br>
+    <br>
+Retrieves the current percent profit of the trade.<br>
+<br>
+  </li>
+  <li>  <em>double</em> <strong>GetPositionValue</strong>( )<br>
+    <br>
+Retrieves the current dollar value of the position. <br>
+<br>
+  </li>
+  <li><em>float</em> <strong>GetPrice</strong>( <em>long</em> <u>Bar</u>, <em>string</em> <u>Field</u> )<br>
+    <br>
+    (Version 4.68.0 BETA and above) Provides quick access to price arrays of
+    open positions. <u>Bar</u> parameter
+    represents the data bar to query price for; the <u>Field</u>
+parameter specifies which price field you want to get. Allowable values are:<br>
+<br>
+    "O" (Open)<br>
+    "H" (High)<br>
+    "L" (Low)<br>
+    "C" (Close)<br>
+    "F" (Fx currency rate)<br>
+    <br>
+    NOTES:<br>
+    1. The GetPrice() method is available  for OPEN POSITIONS only; when called on
+    a closed trade, it returns a Null value.<br>
+    2. The Open Interest field is NOT available via GetPrice().<br>
+    3. Bar must be between
+    0..BarCount-1; otherwise, an exception will occur.<br>
+    <br>
+    <br>
+</li>
+  <li><em>double</em> <strong>GetProfit</strong>()<br>
+    <br>
+    Retrieves the current dollar (point) profit of the trade.<br>
+    <br> 
+</li>
+</ul>
+<p>Properties:</p>
+<ul>
+  <li><em>long</em> <strong>BarsInTrade<br>
+    <br>
+    </strong>Bars spent in trade (counting starts from 0).<strong><br>
+    <br>
+    </strong>Note, however, that the value of zero is available only when a trade
+    is just opened in a "low-level" approach, so normally you would see numbers >=
+    1 (all other reporting in AB remains as it was, so "enter today and exit tomorrow"
+    counts as a 2-bar trade).
+    <strong><br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>EntryDateTime<br>
+    </strong><br>
+    Entry date/time in internal AmiBroker format (the same as used by the AFL function
+    DateTime()).<strong><br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>EntryFxRate<br>
+    </strong><br>
+    Entry foreign exchange currency rate; if any scaling-in occurred, this holds the
+    average entry FX rate.<strong><br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>EntryPrice<br>
+    <br>
+    </strong>Entry price; if any scaling-in occurred, this holds the average entry price.<strong><br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>ExitDateTime<br>
+    </strong><br>
+Exit date/time in internal AmiBroker format (the same as used by the AFL function
+DateTime()).<strong><br>
+<br>
+</strong></li>
+  <li><em>float</em> <strong>ExitFxRate<br>
+    <br>
+    </strong>
+Exit foreign exchange currency rate; if any scaling-out occurred, this holds the average
+exit FX rate.<strong><br>
+<br>
+  </strong></li>
+  <li><em>float</em> <strong>ExitPrice<br>
+    <br>
+    </strong>Exit price; if any scaling-out occurred, this holds the average exit
+    price.<strong><br>
+    </strong></li>
+  <li><i>double</i><strong><b> Handle</b><br>
+    </strong><br>
+    Internal handle value that allows for uniquely identifying and managing (for example, exit or scale-in/out) multiple trades open
+    on the same symbol at the same time. It can be passed to ExitTrade() / ScaleTrade()
+    instead of the symbol.<strong><br>
+    </strong></li>
+  <li><em>bool</em> <strong>IsLong<br>
+    <br>
+    </strong>True if the trade is long; False otherwise.<strong><br>
+    <br>
+    </strong></li>
+  <li><em>bool</em> <strong>IsOpen<br>
+    <br>
+    </strong>True if the trade is open; False otherwise.<strong><br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>MarginDeposit<br>
+    <br>
+    </strong>Initial margin deposit.<strong><br>
+    <br>
+    </strong></li>
+  <li><em>double</em> <strong>MarginLoan<br>
+    <br>
+    </strong>Loan amount used for this trade.<strong><br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>PointValue<br>
+    <br>
+    </strong>Point value (for futures/currencies).<strong><br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>RoundLotSize<br>
+    <br>
+    </strong>Round lot size.<br>
+  <strong><br>  
+    </strong></li>
+  <li><em>float</em> <strong>Score<br>
+      <br>
+      </strong>Entry score.
+      <strong><br>
+      <br>
+      </strong></li>
+  <li><em>float</em> <strong>Shares<br>
+    <br>
+    </strong>Number of shares/contracts.<strong><br>
+    <br>
+    </strong></li>
+  <li><em>string</em> <strong>Symbol<br>
+    <br>
+    </strong>Symbol of the security.<br>
+    <br>
+  </li>
+  <li><em>string</em><strong> <strong>FullName<br>
+        <br>
+    </strong></strong>Full name of the instrument<strong> </strong>(added in 5.69).<strong><br>
+    <br>
+    </strong></li>
+  <li><em>float</em> <strong>TickSize<br>
+    <br>
+    </strong>Tick size (minimum price change).</li>
+</ul>
+<h5>&nbsp;</h5>
+<h5><strong>Stats object</strong></h5>
+<p>A Stats object provides access to built-in backtester statistics and metrics.
+  Metrics are usually calculated once the backtest is completed, but it is also possible
+  to calculate metrics during the backtest. To calculate current metrics and get
+  access to them, simply call the GetPerformanceStats() method of the Backtester object.
+  Please note that if you calculate statistics in the middle of the backtest, they will include only closed trades. </p>
+<p>To calculate and access stats, use the following code:</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// 'bo' variable holds
+          Backtester object retrieved earlier</FONT><FONT COLOR=#000000> <BR>
+          <BR>
+    stats = bo.GetPerformanceStats( </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+</blockquote>
+<p>Methods:</p>
+<ul>
+  <li><em>double</em> <strong>GetValue</strong>( <em>string</em> <u>MetricName</u> )<br>
+    <br>
+    Retrieves the value of a metric. <u>MetricName</u> can be one of the following:<br>
+    <br>
+"InitialCapital" , <br>
+"EndingCapital" <br>
+"NetProfit" <br>
+"NetProfitPercent" <br>
+"ExposurePercent" <br>
+"NetRAR" <br>
+"CAR" <br>
+"RAR" <br>
+<br>
+"AllQty" <br>
+"AllPercent" <br>
+"AllAvgProfitLoss" <br>
+"AllAvgProfitLossPercent" <br>
+"AllAvgBarsHeld" <br>
+<br>
+"WinnersQty"<br>
+"WinnersPercent" <br>
+"WinnersTotalProfit" <br>
+"WinnersAvgProfit" <br>
+"WinnersAvgProfitPercent" <br>
+"WinnersAvgBarsHeld" <br>
+"WinnersMaxConsecutive" <br>
+"WinnersLargestWin" <br>
+"WinnersLargestWinBars" <br>
+<br>
+"LosersQty" <br>
+"LosersPercent" <br>
+"LosersTotalLoss" <br>
+"LosersAvgLoss" <br>
+"LosersAvgLossPercent" <br>
+"LosersAvgBarsHeld" , <br>
+"LosersMaxConsecutive" <br>
+"LosersLargestLoss" <br>
+"LosersLargestLossBars" <br>
+<br>
+"MaxTradeDrawdown" <br>
+"MaxTradeDrawdownPercent" <br>
+"MaxSystemDrawdown" <br>
+"MaxSystemDrawdownPercent" <br>
+"RecoveryFactor" <br>
+"CAR/MDD" <br>
+"RAR/MDD" <br>
+"ProfitFactor" <br>
+"PayoffRatio"<br>
+"StandardError"<br>
+"RRR"<br>
+"UlcerIndex" <br>
+"UlcerPerformanceIndex" <br>
+"SharpeRatio"<br>
+"KRatio" 
+<p></p>
+  </li>
+</ul>
+<p>Properties:</p>
+<p>-none-</p>
+<p><strong>MonteCarloSim object</strong></p>
+<p>The object allows access to Monte Carlo simulation results and has only one
+  method.</p>
+<p>Methods:</p>
+<ul>
+  <li>GetValue( <em>string</em> "field", <em>float</em> percentile
+    )<br>
+    <br>
+    Retrieves "field" value at the specified percentile level. Available fields: "FinalEquity", "CAR",
+  "LowestEquity", "MaxDrawdown", "MaxPercDrawdown"</li>
+</ul>
+<h4><font face="Arial, Helvetica, sans-serif">Further information</font></h4>
+<p><font size="2">Examples and more documentation
+can be found in <a href="http://www.amibroker.com/docs/Houston2.pdf" target="_blank">this
+Houston
+presentation covering the custom backtester interface (300 KB PDF format)</a> and</font> the
+Knowledge
+Base: <a href="http://www.amibroker.com/kb/category/afl/custom-backtest/" target="_blank">http://www.amibroker.com/kb/category/afl/custom-backtest/</a></p>
+<p>&nbsp;</p>
+</body>
+</html>

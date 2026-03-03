@@ -1,0 +1,83 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - CCI</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>CCI</b><br>
+        - commodity channel index </li></h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b></p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>CCI( <em>periods = 14</em> )<br>
+      CCIa( <i>array, periods = 14 </i>) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Calculates the Commodity Channel Index (using <em>periods</em> 
+      averaging range ).<br>
+      Second version (CCIa) accepts input array, so CCI can be applied to array 
+      different than close. (CCIa exists in AFL 2.2+ only (v.4.20+)) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> CCI( 14 )<br>
+      CCIa( High, 14 ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top"> &nbsp; </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2003-09-03 04:24:35</td><td valign="top">CCI uses internally 'Avg' built-in price array.<br />
+'Avg' is also known as typical price:<br />
+Avg = ( H + L + C ) /3<br />
+<br />
+So <br />
+CCI( period ) is equivalent to CCia( Avg, period ).<br />
+<br />
+Therefore if you want to calculate CCI from Foreign ticker you should overwrite Avg array,<br />
+instead of OHLC:<br />
+<br />
+Avg = ( Foreign(&quot;!VIX&quot;, &quot;H&quot;) + Foreign(&quot;!VIX&quot;, &quot;L&quot;) + Foreign(&quot;!VIX&quot;, &quot;C&quot;) ) / 3; <br />
+cc = CCI(period);<br />
+<br />
+Alternativelly use CCIa that takes array directly:<br />
+<br />
+cc = CCIa(  Foreign(&quot;!VIX&quot;, &quot;H&quot;) + Foreign(&quot;!VIX&quot;, &quot;L&quot;) + Foreign(&quot;!VIX&quot;, &quot;C&quot;) ) / 3, period);<br />
+<br />
+</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>CCI</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=144&hilite=CCI' target='_blank'>Adaptave Zones O/B  & O/S Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=CCI' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=CCI' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1012&hilite=CCI' target='_blank'>CCI 14 DrBobStyle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1000&hilite=CCI' target='_blank'>CCI 50 DrBob Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=405&hilite=CCI' target='_blank'>CCI Woodies Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=586&hilite=CCI' target='_blank'>CCI(20) Divergence Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=212&hilite=CCI' target='_blank'>CCI/DI+- COMBO indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=22&hilite=CCI' target='_blank'>Commodity Channel Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=CCI' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=406&hilite=CCI' target='_blank'>Price with Woodies Pivots</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=153&hilite=CCI' target='_blank'>RSIS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1500&hilite=CCI' target='_blank'>Spearman Rank Correlation Coefficient</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=211&hilite=CCI' target='_blank'>The Stochastic CCI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1047&hilite=CCI' target='_blank'>Woodie's CCI Panel Basic</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=CCI' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=393&hilite=CCI' target='_blank'>Woodies CCI</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=CCI">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,66 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STDEV</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StDev</b><br>
+        - standard deviation</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Statistical functions<br>
+        </b>(AmiBroker 3.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StDev( ARRAY, <i>periods</i>, <i>Population</i> = True ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Calculates moving standard deviation of the ARRAY over <i>periods</i> bars<p>
+AmiBroker 6.20 adds 3rd argument &quot;Population = True&quot;. When Population is True it calculates population based stdev, otherwise sample based
+<p>
+StDev( Array, range, False ) - works the same as Excel's STDEV
+<p>
+StDev( Array, range, True ) - works the same as Excel's STDEV.P </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> stdev( close, 10 ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="skewness.html">Skewness()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br><br>2006-04-04 16:26:27</td><td valign="top">Note that if you are trying to compare results of StDev function to Excel output you should use STDEVP function in Excel (not StDev).</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>StDev</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=140&hilite=StDev' target='_blank'>% B of Bollinger Bands With Adaptive Zones</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=356&hilite=StDev' target='_blank'>Adaptive Price Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=StDev' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=453&hilite=StDev' target='_blank'>BB squeeze</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=786&hilite=StDev' target='_blank'>Bollinger Band Width</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=4&hilite=StDev' target='_blank'>Bollinger oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=73&hilite=StDev' target='_blank'>CCT Bollinger Band Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=StDev' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1435&hilite=StDev' target='_blank'>correlerror</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1438&hilite=StDev' target='_blank'>CVR--severe filter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=738&hilite=StDev' target='_blank'>Cycle Highlighter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=753&hilite=StDev' target='_blank'>Cycle Highlighter (auto best-fit)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=531&hilite=StDev' target='_blank'>Dave Landry PullBack Scan</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=59&hilite=StDev' target='_blank'>DMI Spread Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=295&hilite=StDev' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=296&hilite=StDev' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=927&hilite=StDev' target='_blank'>Dynamtic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1277&hilite=StDev' target='_blank'>Effective Swing Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=StDev' target='_blank'>Elder Triple Screen Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=303&hilite=StDev' target='_blank'>Elder's SafeZone Stop</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=386&hilite=StDev' target='_blank'>Follow the Leader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=474&hilite=StDev' target='_blank'>Historical Volotility Scan -  6/100</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=470&hilite=StDev' target='_blank'>Historical Volotility Scan - 50 Day</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1434&hilite=StDev' target='_blank'>HLspread</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1374&hilite=StDev' target='_blank'>Inter-market Yield Linear Regression Divergence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1447&hilite=StDev' target='_blank'>Kelly criterion</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1457&hilite=StDev' target='_blank'>Kiss and Touch with the Modified True Range </A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=438&hilite=StDev' target='_blank'>Linear Regression Line w/ Std Deviation Channels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=StDev' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=266&hilite=StDev' target='_blank'>Moving Trend Bands (MTB)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=369&hilite=StDev' target='_blank'>MultiCycle 1.0</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=469&hilite=StDev' target='_blank'>nikhil</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=115&hilite=StDev' target='_blank'>NR4 Historical Volatility System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1096&hilite=StDev' target='_blank'>NRx Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=114&hilite=StDev' target='_blank'>Probability Calculator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=StDev' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1513&hilite=StDev' target='_blank'>Relative Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1260&hilite=StDev' target='_blank'>Trend Exploration: Count Number of New Highs</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=775&hilite=StDev' target='_blank'>Trigonometric Fit - TrigFit with AR for cos / sin</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1203&hilite=StDev' target='_blank'>Volatility</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1272&hilite=StDev' target='_blank'>Volume Occilator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1255&hilite=StDev' target='_blank'>Z-Score Indicator</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StDev">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

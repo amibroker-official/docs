@@ -1,0 +1,93 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - REMAP</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Remap</b><br>
+        - re-maps one range to another</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Math functions<br>
+        </b>(AmiBroker 6.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Remap( value, srcMin, srcMax, dstMin, dstMax ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function re-maps a value (number or array) from 'source' to 'destination' range. That is, a value of srcMin would get mapped to dstMin, a value of srcMax to dstMax, values in-between to values in-between, etc. Does not constrain values to within the range, because out-of-range values are sometimes intended and useful. <p>
+Parameters:
+<ul>
+<li>value - the value to be remapped
+<li>srcMin, srcMax - minimum and maximum value of source range
+<li>dstMin, dstMax - minimum and maximum value of destination range
+</ul>
+<p>Depending on input value type (number or array) the result will be also number or array.
+<p>Mathematically the function performs the following linear transformation:
+<p>
+<code>
+result = (value - srcMin) * (dstMax - dstMin) / (srcMax - srcMin) + dstMin;
+</code>
+<p>Typical usage of the function is to convert indicator from one range to another. Say you have an indicator that ranges from -1..1 and you want it to be bounded in 0..100 space. Then you can use Remap( value, -1, 1, 0, 100 );
+<p>
+Or you want to convert pixels to prices or bars or vice versa as shown in the example below
+
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE>height = <font color='#0000ff'>Status</font>(<font color='#800080'>&quot;pxheight&quot;</font>); <br>
+pxmin = <font color='#0000ff'>Status</font>(<font color='#800080'>&quot;pxchartleft&quot;</font>); <br>
+pxmax = <font color='#0000ff'>Status</font>(<font color='#800080'>&quot;pxchartright&quot;</font>); <br>
+barmin = <font color='#0000ff'>Status</font>(<font color='#800080'>&quot;firstvisiblebar&quot;</font>); <br>
+barmax = <font color='#0000ff'>Status</font>(<font color='#800080'>&quot;lastvisiblebar&quot;</font>)+<font color='#800080'>1</font>; <br>
+<br>
+<font color='#0000ff'>GfxSelectPen</font>( <b>colorRed</b> ); <br>
+<br>
+<font color='#800000'><b>for</b></font>( bar = barmin; bar < barmax; bar++
+) <br>
+{ <br>
+   <font color='#008000'>// re-map bar numbers to pixel co-ords <br>
+</font>   x = <font color='#0000ff'>Remap</font>( bar, barmin,
+barmax, pxmin, pxmax ); <br>
+   <font color='#008000'>// draw vertical lines where bars are <br>
+</font>   <font color='#0000ff'>GfxMoveTo</font>( x, <font color='#800080'>0</font> ); <br>
+   <font color='#0000ff'>GfxLineTo</font>( x, height ); <br>
+}</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="status.html">Status()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Remap</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Remap">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

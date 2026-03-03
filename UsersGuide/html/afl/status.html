@@ -1,0 +1,201 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STATUS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Status</b><br>
+        - get run-time AFL status information</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 3.650)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>status( <i>''statuscode''</i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Returns run-time status of the analysis engine. Supported status codes:
+<ul> 
+<li> &quot;stocknum&quot; - gives you the ordinal number of currently analysed symbol</li>
+<li> &quot;action&quot; - gives information in what context given formula is run: 
+1 - actionIndicator (INDICATOR), 2 - actionCommentary (COMMENTARY), 3 - actionScan (SCAN), 4 - actionExplore (EXPLORATION), 5 - actionBacktest (BACKTEST / OPTIMIZE), 6 - actionPortfolio (portfolio backtest).   The value of actionBacktest (5) (backtest) is used also in some other contexts (like code check and profile). Therefore you can use ActionEx to get more detailed/precise information</li>
+<li> &quot;ActionEx&quot; (new in 5.20) - more detailed information about action that triggered AFL execution. Note that 5 first codes are the same as Status(&quot;action&quot;) but scope is limited to 'core' meaning (see notes below).
+<br>Possible values
+<ol>
+<li> actionIndicator - when indicator is being repainted (NOTE: 5.32 - indicator can also give actionExInterpret when updating both chart and interpretation)
+<li> actionCommentary (NOTE: commentary only, not interpretaion nor tooltip)
+<li> actionScan - when AA Scan is performed
+<li> actionExplore - when AA exploration is performed
+<li> actionBacktest (NOTE backtest only, no optimization)
+<li> actionPortfolio (2nd phase of portfolio backtest (custom backtest)
+<li> reserved for future use
+<li> reserved for future use
+<li> reserved for future use
+<li>- actionExAAShowArrows - when AA &quot;Show arrows&quot; command is used 
+<li> actionExAAParameters - when AA &quot;Parameters&quot; dialog is displayed/updated
+<li> actionExEditVerifyFormula - when AFL editor verifies syntax 
+<li> actionExOptimizeSetup - when Optimize() parameters are read (to setup optimization engine)
+<li> actionExOptimizeBacktest - when Backtest is performed as a part of optimization process
+<li> actionExOptimizePortfolio - when portfolio-backtest phase (CUSTOM backtester) is performed as a part of optimization process
+<li> actionExTooltip - when tooltip for given chart is being displayed/updated
+<li> actionExInterpret - when the Interpretation window is being updated (can also mean indicator + interpretation in 5.32 above, see note below)
+<li> (not used, reserved for future) actionExAAInit - when AA needs to initialize QuickAFL bars required information and/or formula contains functions changing general AA options 
+</ol>
+<br>
+<br>NOTE: for backward compatiblity with all formulas you have written already, the codes for Status(&quot;action&quot;) did NOT change.<br><br>
+NOTE ABOUT 5.32.x CHANGE: Since introduction of multi-threading, there is only ONE pass/execution that updates both indicator and interpretation when current chart pane has focus. Status(&quot;action&quot;) will always return actionIndicator and Status(&quot;actionex&quot;) will either return actionExInterpret (when chart pane has focus and intepretation window is visible) or actionIndicator otherwise (when pane does not have focus or interpretation is NOT visible). Be careful NOT to disable Plot() depending on Status(&quot;actionex&quot;) code. If you really think you need to execute Plot() conditionally you should only check for Status(&quot;action&quot;)==actionIndicator.
+<li>&quot;rangefromdate&quot;, &quot;rangetodate&quot; - return current auto-analysis         From-To range as DateNums </li>
+<li>
+&quot;rangefromtime&quot;, &quot;rangetotime&quot; - return current auto-analysis From-To range as DateNums </li>
+<li>
+&quot;barinrange&quot; - returns 1 when current bar is within current  auto-analysis From-To range</li>
+<li>
+&quot;barvisible&quot; - (custom indicators only) returns 1 when current  bar is visible in current view</li>
+<li> 
+&quot;firstbarinrange&quot; and &quot;lastbarinrange&quot;. They return 1 (or True) on the first/last bar of analysis range. </li><li>
+&quot;buydelay&quot;, &quot;selldelay&quot;, &quot;shortdelay&quot;, &quot;coverdelay&quot; - return delays set in the Settings window</li><li>
+&quot;firstbarintest&quot; and &quot;lastbarintest&quot; - similar to  &quot;firstbarinrange&quot; and &quot;lastbarinrange&quot; but they return the settings of last BACKTEST/OPTIMIZATION and intermediate scans/explorations do not affect them</li>
+<li>&quot;firstvisiblebar&quot;, &quot;lastvisiblebar&quot;, &quot;firstvisiblebarindex&quot;, &quot;lastvisiblebarindex&quot; - return bar number or bar index of first/last visible bar. Available in indicator mode only. Visible bar may potentially include &quot;blank&quot; future bars (past the last bar in the array) as defined in preferences</li>
+<li>&quot;redrawaction&quot; - returns 0 (zero) for regular refreshes, and 1 for refreshes triggered via RequestTimedRefresh().
+<li>&quot;pxwidth&quot; - returns pixel width of chart window pane (indicators only, low-level gfx) (AmiBroker 4.94 or higher)
+<li>&quot;pxheight&quot; - returns pixel height of chart window pane (indicators only, low-level gfx) (AmiBroker 4.94 or higher)
+<li>&quot;axisminy&quot; - retrieves the minimum (bottom) value of Y axis (indicators only, low-level gfx)
+<li>&quot;axismaxy&quot; - retrieves the maximum (top) value of Y axis (indicators only, low-level gfx)
+<li>&quot;pxchartleft&quot; - returns x-coordinate of top-left corner of chart area
+<li>&quot;pxcharttop&quot; - returns y-coordinate of top-left corner of chart area
+<li>&quot;pxchartright&quot; - returns x-coordinate of bottom-right corner of chart area
+<li>&quot;pxchartbottom&quot; - returns y-coordinate of bottom-right corner of chart area
+<li>&quot;pxchartwidth&quot; - returns width chart area (right-left)
+<li>&quot;pxchartheight&quot; - returns width chart area (bottom-top)
+<li>&quot;quickaflfirstdatabar&quot;, &quot;quickafllastdatabar&quot; - This feature is for internal use only.
+These are bar indexes of actual underlying compressed quotation array that make up AFL's array[ 0 ] and array[ BarCount - 1] 
+<li>&quot;timeshift&quot; - returns database timeshift expressed in seconds (v5.60)
+<li>&quot;lastbarend&quot; - returns DateTime of the end of last bar. For example 5 -minute bar at 9:00 will have end time of 9:04:59 (works for time-based bars only) (v5.60)
+<li>&quot;lastbartimeleft&quot; - returns number of seconds to the completion of current last bar. Works for time-based bars only. Note that for proper operation this requires database timeshift to be set properly (so dates displayed on chart match your local computer time zone). (v5.60)
+<li>&quot;lastbartimeleftrt&quot; -  it works like &quot;lastbartimeleft&quot; but uses the most recent RT stream update time instead of Now(). Also added Status(&quot;lastrtupdate&quot;) - time of last RT stream update
+ Depends on RT plugin to deliver correct DateUpdate / TimeUpdate data. If plugin or date source sends incorrect datetimestamps or does not send DateUpdate/TimeUpdate correctly this function will not operate properly. Note that most data sources send weird (not current) datetime stamps on weekends. Also IQFeed plugin sends DateUpdate/TimeUpdate only inside regular trading hours. (v5.60)
+<li>&quot;lastrtupdate&quot; - returns date time of last update sent by RT plugin (see remarks above) (v5.60)
+<li>&quot;ThreadID&quot; - returns current thread ID under which formula is executed.
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> Example 1:
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;redrawaction&quot;</FONT><FONT COLOR=#000000>)
+==</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;nTIMED
+REFRESH&quot;</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>Now</FONT><FONT COLOR=#000000>()); <BR>
+} <BR>
+</FONT><FONT COLOR=#0000ff>RequestTimedRefresh</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>);</FONT></CODE>
+
+<p>
+Example 2 (low-level graphic overlay + pixel co-ordinate conversion):
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#969696>_SECTION_BEGIN</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;GfxOverlaySampleNew&quot;</FONT><FONT COLOR=#000000>); <BR>
+    <BR>
+    </FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> GetVisibleBarCount() <BR>
+    { <BR>
+ lvb = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;lastvisiblebar&quot;</FONT><FONT COLOR=#000000>); <BR>
+ fvb = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;firstvisiblebar&quot;</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B> return</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>Min</FONT><FONT COLOR=#000000>(
+Lvb - fvb, </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> -
+fvb ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> GfxConvertBarToPixelX(
+bar ) <BR>
+{ <BR>
+ lvb = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;lastvisiblebar&quot;</FONT><FONT COLOR=#000000>); <BR>
+ fvb = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;firstvisiblebar&quot;</FONT><FONT COLOR=#000000>); <BR>
+ pxchartleft = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;pxchartleft&quot;</FONT><FONT COLOR=#000000>); <BR>
+ pxchartwidth = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;pxchartwidth&quot;</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B> return</B></FONT><FONT COLOR=#000000> pxchartleft
++ bar  * pxchartwidth / ( Lvb - fvb + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> GfxConvertValueToPixelY(
+Value ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#800000><B> local</B></FONT><FONT COLOR=#000000> Miny, Maxy,
+pxchartbottom, pxchartheight; <BR>
+<BR>
+ Miny = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;axisminy&quot;</FONT><FONT COLOR=#000000>); <BR>
+ Maxy = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;axismaxy&quot;</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+ pxchartbottom = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;pxchartbottom&quot;</FONT><FONT COLOR=#000000>); <BR>
+ pxchartheight = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;pxchartheight&quot;</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B> return</B></FONT><FONT COLOR=#000000> pxchartbottom
+- </FONT><FONT COLOR=#0000ff>floor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>0.5</FONT><FONT COLOR=#000000> +
+( Value - Miny ) * pxchartheight/ ( Maxy - Miny ) ); <BR>
+} <BR>
+<BR>
+<BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;Price&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleHistogram</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>GfxSetOverlayMode</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+AllVisibleBars = GetVisibleBarCount(); <BR>
+fvb = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;firstvisiblebar&quot;</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i < AllVisibleBars ; i++ ) <BR>
+{ <BR>
+   
+x = GfxConvertBarToPixelX( i ); <BR>
+   
+y = GfxConvertValueToPixelY( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+i + fvb ] ); <BR>
+<BR>
+  </FONT><FONT COLOR=#0000ff>GfxRectangle</FONT><FONT COLOR=#000000>(
+x-</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>, y-</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>,
+x + </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>, y+</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#008000>//SetChartBkGradientFill( ColorRGB(200,200,200), ColorRGB(
+255,255,255) );</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#969696>_SECTION_END</FONT><FONT COLOR=#000000>();</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="requesttimedrefresh.html">RequestTimedRefresh()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Status</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1300&hilite=Status' target='_blank'> 	Pivots And Prices And Swing Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=Status' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1321&hilite=Status' target='_blank'>3TF Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1481&hilite=Status' target='_blank'>A simple AFL Revision Control System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=547&hilite=Status' target='_blank'>AFL Example - Enhanced</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=Status' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1410&hilite=Status' target='_blank'>Alternative ZIG function</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=Status' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=Status' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=Status' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=Status' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=Status' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=Status' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=Status' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1264&hilite=Status' target='_blank'>babaloo chapora</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1568&hilite=Status' target='_blank'>Backup Data of 1min Interval</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1347&hilite=Status' target='_blank'>Basket Trading System T101</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=Status' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1444&hilite=Status' target='_blank'>Bid Vs Ask Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=Status' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=709&hilite=Status' target='_blank'>Calculate composites for tickers in list files</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=Status' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=422&hilite=Status' target='_blank'>Candle Identification</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=423&hilite=Status' target='_blank'>Candle Stick Analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=421&hilite=Status' target='_blank'>Candle Stick Demo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=586&hilite=Status' target='_blank'>CCI(20) Divergence Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=Status' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=Status' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=314&hilite=Status' target='_blank'>Color Display.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=Status' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=722&hilite=Status' target='_blank'>Customised Avg. Profit %, Avg. Loss % etc</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1311&hilite=Status' target='_blank'>Detailed Equity Curve</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=776&hilite=Status' target='_blank'>DPO with shading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=708&hilite=Status' target='_blank'>Ed Seykota's TSP: EMA Crossover System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=735&hilite=Status' target='_blank'>Ed Seykota's TSP: Support and Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=Status' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=634&hilite=Status' target='_blank'>End Of Year Trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=794&hilite=Status' target='_blank'>Fast Refreshed KAGI Swing Charts (Price Swing)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1084&hilite=Status' target='_blank'>Fibonacci Internal and External Retracements</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=Status' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=Status' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=617&hilite=Status' target='_blank'>Gordon Rose</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1301&hilite=Status' target='_blank'>Graphical sector analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1302&hilite=Status' target='_blank'>Graphical sector stock amalysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=Status' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=Status' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1296&hilite=Status' target='_blank'>Herman</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=Status' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1431&hilite=Status' target='_blank'>ICHIMOKU SIGNAL TRADER</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1217&hilite=Status' target='_blank'>interactively test discretionary trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=Status' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1221&hilite=Status' target='_blank'>Inverted Plotted Volume Overlay Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=Status' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=622&hilite=Status' target='_blank'>MACD indicator display</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1180&hilite=Status' target='_blank'>Manual Bracket Order Trader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=Status' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=Status' target='_blank'>Market Profile</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=Status' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1218&hilite=Status' target='_blank'>Multiple Ribbon Demo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1074&hilite=Status' target='_blank'>Murrey Math Price Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=Status' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=Status' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1018&hilite=Status' target='_blank'>Ord Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1553&hilite=Status' target='_blank'>pattenz</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1348&hilite=Status' target='_blank'>Perceptron</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1478&hilite=Status' target='_blank'>Periodically ReBalance a BUY & HOLD Portfolio</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1572&hilite=Status' target='_blank'>Peter Cooper</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=359&hilite=Status' target='_blank'>Pivot Finder</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1294&hilite=Status' target='_blank'>Pivots And Prices</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=781&hilite=Status' target='_blank'>prakash</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=Status' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=Status' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=Status' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1409&hilite=Status' target='_blank'>Rebalancing Backtest avoiding leverage</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=335&hilite=Status' target='_blank'>Relative Strength Multichart of up to 10 tickers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1089&hilite=Status' target='_blank'>Rene Rijnaars</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=307&hilite=Status' target='_blank'>RUTVOL timing signal with BB Scoring routine</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1235&hilite=Status' target='_blank'>shailu lunia</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=425&hilite=Status' target='_blank'>Simple Candle Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=Status' target='_blank'>Stan Weinstein strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=Status' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1260&hilite=Status' target='_blank'>Trend Exploration: Count Number of New Highs</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1276&hilite=Status' target='_blank'>Trend Exploration: Slope Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1211&hilite=Status' target='_blank'>Trix Bars number</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=457&hilite=Status' target='_blank'>TWS auto-export Executions-file parser</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1228&hilite=Status' target='_blank'>TWS trade plotter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=613&hilite=Status' target='_blank'>Ultimate plus</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=466&hilite=Status' target='_blank'>Using From and To dates from Auto Analysis in Code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1216&hilite=Status' target='_blank'>Visible Min and Max Value Demo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1482&hilite=Status' target='_blank'>visual turtle trading system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1433&hilite=Status' target='_blank'>Volume Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=Status' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1338&hilite=Status' target='_blank'>Wolfe Wave Patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=Status' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1548&hilite=Status' target='_blank'>ZigZag - Days, Avg (Ord) Volume and Channels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1353&hilite=Status' target='_blank'>ZigZag Hi Lo Barcount</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Status">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

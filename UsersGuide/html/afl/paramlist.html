@@ -1,0 +1,61 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PARAMLIST</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>ParamList</b><br>
+        - creates the parameter that consist of the list of choices</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 4.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>ParamList( ''Name'', ''Values'', defaultval = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Creates the parameter that consist of the list of choices (specified in <i>&quot;values&quot;</i> parameter - | or comma separated). <i>defaultval</i> parameter defines ordinal position of the default string value specified in <i>&quot;values&quot;</i> parameter.
+Returned value is a STRING representing choosen item. 
+<p>IMPORTANT: Parameter names and values must NOT contain non-printable characters (ASCII codes < 32). </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000>OrderType = </FONT><FONT COLOR=#0000ff>ParamList</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>&quot;Order
+  Type&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>&quot;MKT|LMT|STP&quot;</FONT><FONT COLOR=#000000> );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="paramdate.html">ParamDate()</A> function , <A HREF="paramstr.html">PARAMSTR()</A> function , <A HREF="paramtime.html">ParamTime()</A> function , <A HREF="paramtrigger.html">ParamTrigger()</A> function , <A HREF="paramcolor.html">PARAMCOLOR()</A> function , <A HREF="param.html">PARAM()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>ParamList</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1539&hilite=ParamList' target='_blank'>3 ways to use RMI in one script</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=926&hilite=ParamList' target='_blank'>Advanced Trend Lines with S & R</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1088&hilite=ParamList' target='_blank'>Advisory NRx price chart display.</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=ParamList' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1410&hilite=ParamList' target='_blank'>Alternative ZIG function</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=ParamList' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=ParamList' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1571&hilite=ParamList' target='_blank'>Auto Fib Ext&Retracement</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=ParamList' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1405&hilite=ParamList' target='_blank'>Automatic Linear Trend Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1351&hilite=ParamList' target='_blank'>Automatic Linear Trend Channel 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1350&hilite=ParamList' target='_blank'>Automatic trend channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=ParamList' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=ParamList' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1065&hilite=ParamList' target='_blank'>Average Dollar Price Volatility Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=816&hilite=ParamList' target='_blank'>Average Price Crossover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1264&hilite=ParamList' target='_blank'>babaloo chapora</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1568&hilite=ParamList' target='_blank'>Backup Data of 1min Interval</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=887&hilite=ParamList' target='_blank'>Bad Tick Trim on 5 sec database</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=ParamList' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1066&hilite=ParamList' target='_blank'>Bottom Fisher Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=ParamList' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1337&hilite=ParamList' target='_blank'>candlestick chart for Volume/RSI/OBV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1336&hilite=ParamList' target='_blank'>Daily High Low in Advance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1555&hilite=ParamList' target='_blank'>Day Bar No</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=919&hilite=ParamList' target='_blank'>DEBAJ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=801&hilite=ParamList' target='_blank'>Demand Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=ParamList' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=ParamList' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1420&hilite=ParamList' target='_blank'>Gann Swing Charts in 3 modes with text</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1515&hilite=ParamList' target='_blank'>Get Moneycontrol News Snippets into Amiboker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1302&hilite=ParamList' target='_blank'>Graphical sector stock amalysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1408&hilite=ParamList' target='_blank'>Harmonic Patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=ParamList' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1296&hilite=ParamList' target='_blank'>Herman</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=ParamList' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=ParamList' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=741&hilite=ParamList' target='_blank'>Hurst "Like" DE</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=ParamList' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=ParamList' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1592&hilite=ParamList' target='_blank'>Linear Candle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=ParamList' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=ParamList' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=ParamList' target='_blank'>Market Profile</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=ParamList' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1218&hilite=ParamList' target='_blank'>Multiple Ribbon Demo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1074&hilite=ParamList' target='_blank'>Murrey Math Price Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=ParamList' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=ParamList' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1478&hilite=ParamList' target='_blank'>Periodically ReBalance a BUY & HOLD Portfolio</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1191&hilite=ParamList' target='_blank'>Point & figure Chart India Securities</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=ParamList' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1188&hilite=ParamList' target='_blank'>Robert Antony</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1106&hilite=ParamList' target='_blank'>Scan New High and New Low</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1500&hilite=ParamList' target='_blank'>Spearman Rank Correlation Coefficient</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=ParamList' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=758&hilite=ParamList' target='_blank'>SUPER PIVOT POINTS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1206&hilite=ParamList' target='_blank'>TD Channel-1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1207&hilite=ParamList' target='_blank'>TD Channel-2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=921&hilite=ParamList' target='_blank'>Three Day Balance Point</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1428&hilite=ParamList' target='_blank'>Trend Lines from 2 points</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=775&hilite=ParamList' target='_blank'>Trigonometric Fit - TrigFit with AR for cos / sin</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1589&hilite=ParamList' target='_blank'>TSV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1526&hilite=ParamList' target='_blank'>Volume Zone Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1104&hilite=ParamList' target='_blank'>William's Alligator System II</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=930&hilite=ParamList' target='_blank'>ZigZag Retracements</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=ParamList">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

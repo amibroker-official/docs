@@ -1,0 +1,67 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - VARGETTEXT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>VarGetText</b><br>
+        - gets the text value of dynamic variable</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>VarGetText( ''varname'' ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Gets the text (string) value of dynamic variable.<br>Similar to VarGet but always returns always string values 
+(if underlying variable has different type it is converted to string)
+
+Allows for example appending to text variable no matter if it is defined earlier or not as shown in the example below
+
+<p>
+<i>Dynamic variables</i> are variables that are named dynamically, typically by creating a variable name from a static part and a variable part. For example, the following example dynamically constructs the variable name from a variable prefix and a static suffix. Dynamic variables are always global. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>VarGetText</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Title"</FONT><FONT COLOR=#000000>)
++ </FONT><FONT COLOR=#ff00ff>"something"</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#008000>// above will work correctly regardless of whenever
+title was defined earlier or not</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="varget.html">VarGet()</A> function , <A HREF="varset.html">VarSet()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>VarGetText</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=VarGetText' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=VarGetText' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1405&hilite=VarGetText' target='_blank'>Automatic Linear Trend Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=VarGetText' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=VarGetText' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=VarGetText' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1147&hilite=VarGetText' target='_blank'>BEANS-Summary of Holdings</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=VarGetText' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=709&hilite=VarGetText' target='_blank'>Calculate composites for tickers in list files</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=VarGetText' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=VarGetText' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=415&hilite=VarGetText' target='_blank'>DateNum_DateStr</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=VarGetText' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=VarGetText' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=VarGetText' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1180&hilite=VarGetText' target='_blank'>Manual Bracket Order Trader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=VarGetText' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=VarGetText' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=457&hilite=VarGetText' target='_blank'>TWS auto-export Executions-file parser</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=VarGetText' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1537&hilite=VarGetText' target='_blank'>Volume Divided Histogram</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1538&hilite=VarGetText' target='_blank'>VolumeDivAvgV3_Study_BrS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=VarGetText' target='_blank'>Woodie's CCI Panel Full Stats</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=VarGetText">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

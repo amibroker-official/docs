@@ -1,0 +1,264 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+<title>Common Coding Mistakes</title>
+</head><body><!-- PAGE BREAK -->
+
+<body bgcolor="#FFFFFF" >
+<div class=Section1>
+  <p><b>Common Coding Mistakes.</b></p>
+  <p>This document presents the most common mistakes and problems that users encounter
+    when writing their custom formulas. Please read carefully to avoid making
+    similar errors.</p>
+</div>
+<div class=Section1><b>1. BarCount vs BarIndex()</b></div>
+<div class=Section1>
+  <p><b>THEORETICAL BACKGROUND:</b></p>
+  <p>There is a fundamental difference between BarCount and BarIndex(). BarCount
+      is a NUMERIC variable that holds just one NUMBER (the count of elements in
+    an array).</p>
+  <p>BarIndex() is a FUNCTION that returns an ARRAY representing a bar index.</p>
+  <p>BarCount is intended to be used in FOR loops. That's why it holds the actual
+    number of array elements so you can iterate as follows:</p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+          i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+  i++ )</FONT></CODE></p>
+  <p>BarIndex() on the other hand is a faster replacement of (Cum(1)-1).</p>
+  <p>LastValue( BarIndex()) does not give you the number of array elements. </p>
+  <p>There is the following relation between those two:</p>
+  <p><CODE><FONT COLOR=#000000>bi = </FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>(); <BR>
+        <BR>
+  </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> == </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>(bi)-bi[</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>];&nbsp;</FONT></CODE></p>
+  <p><strong>EXAMPLE 1:</strong></p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> (i=</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;i++) <BR>
+    { <BR>
+&nbsp;A1=</FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>[ </FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>()
+  ]; </FONT><FONT COLOR=#008000>// WRONG !!</FONT><FONT COLOR=#000000> <BR>
+  }</FONT></CODE></p>
+  <p>BarIndex() returns an ARRAY, while all that is needed is a NUMBER of the current
+      Close array element. Due to the fact that <b>i</b> increases by 1 in each
+    iteration, the correct formula should be: </p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> (i=</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;i++) <BR>
+    { <BR>
+&nbsp;A1=</FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>[ i ]; </FONT><FONT COLOR=#008000>//
+  CORRECT</FONT><FONT COLOR=#000000> <BR>
+  }</FONT></CODE></p>
+  <p><b>EXAMPLE 2:</b></p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> (i=</font><font color="#ff00ff">0</font><FONT COLOR=#000000>;
+        i&lt;=</FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>();i++
+        ) </FONT><FONT COLOR=#008000>// WRONG</FONT><FONT COLOR=#000000> <BR>
+    { <BR>
+    &nbsp;&nbsp;</FONT><FONT COLOR=#008000>//formula</FONT><FONT COLOR=#000000> <BR>
+  }</FONT></CODE></p>
+  <p>It&#8217;s not allowed to use an ARRAY inside a <b>for </b>loop, and BarIndex() returns
+    an ARRAY. That is why it&#8217;s necessary to change the formula above to:</p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> (i=</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+        i&lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> ;i++
+        )&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// CORRECT</FONT><FONT COLOR=#000000> <BR>
+    { <BR>
+  </FONT><FONT COLOR=#008000>&nbsp;&nbsp;//formula</FONT><FONT COLOR=#000000> <BR>
+  }</FONT></CODE></p>
+  <ol start=2 type=1>
+    <li><b>IIf vs if-else</b></li>
+  </ol>
+  <p><b>THEORETICAL BACKGROUND:</b></p>
+  <p>The IIf( ) function is used to create <strong>conditional assignments. </strong><strong>It
+      returns an ARRAY.</strong></p>
+  <p>variable= IIf( EXPRESSION, TRUE_PART, FALSE_PART
+      );</p>
+  <p>The above "IIf" statement means: For each bar EXPRESSION is true, assign TRUE_PART to the <i>variable</i>, otherwise (when EXPRESSION is false)
+    assign FALSE_PART.</p>
+  <p>The <b>if</b> keyword executes <i>statement1</i> if <i>expression</i> is
+      true (nonzero); if '<b>else</b>' is present and <i>expression</i> is false
+      (zero), it executes <i>statement2</i>. After executing <i>statement1</i> or <i>statement2</i>,
+      control passes to the next statement. E<i>xpression </i>must be boolean ( True/False) type (so it CANNOT be an ARRAY because there would be no way to decide whether to execute <i>statement1</i> or not, if for example, an array
+    was: [True,True,False,.....,False,True] )</p>
+  <p><b>if</b>( expression )<br>
+    &nbsp;&nbsp;&nbsp;statement1 <br>
+    <b>else</b> <br>
+    &nbsp;&nbsp;&nbsp;statement2</p>
+  <p><b>EXAMPLE 1:</b></p>
+  <p>IIf( condition, result = 7,
+      result = 9 ); WRONG</p>
+  <p>result = IIf( condition, 7, 9 ); CORRECT</p>
+  <p><b>EXAMPLE 2:</b></p>
+  <p>variable = IIf(Condition, "Text
+      1","Text 2" ); WRONG </p>
+  <p>IIf( ) function returns an array, NOT STRING, so it&#8217;s impossible to assign
+    text to a variable with the use of IIf. Use WriteIf( ) function instead:</p>
+  <p>variable = WriteIf( condition, "Text
+      1", "Text 2" ); CORRECT</p>
+  <p><b>EXAMPLE 3:</b></p>
+  <p><b>if</b>( <b>Close</b> &gt; <b>Open</b> )&nbsp;&nbsp; <b>—</b><b> WRONG</b><br>
+    &nbsp;&nbsp;Color = <b>colorGreen</b>; //statement 1<br>
+    <b>else</b> <br>
+    &nbsp;&nbsp;Color = <b>colorRed; </b>//statement 2</p>
+  <p>Plot(<b>Close</b>,"Colored Price",Color,<b>styleCandle</b>);</p>
+  <p>The above example is wrong, as both <b>Open</b> and <b>Close</b> are arrays
+      and an expression such as <b>Close</b> &gt; <b>Open </b>is also an ARRAY. The
+      solution depends on the statement. It's either possible to implement it on a
+    bar-by-bar basis, with the use of a FOR loop:</p>
+  <p><b>for</b>(i=0;i&lt;<b>BarCount</b>;i++)<br>
+    {<br>
+    &nbsp;&nbsp;&nbsp;<b>if</b>( <b>Close</b>[
+      i ] &gt; <b>Open</b>[ i ] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>—</b><b> CORRECT</b><br>
+    &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color[ i ] = <b>colorGreen</b>;<br>
+    &nbsp;&nbsp;&nbsp;<b>else</b> <br>
+    &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color[ i ] = <b>colorRed</b>;<br>
+    }<br>
+    <br>
+    Plot(<b>Close</b>,"Colored Price",Color,<b>styleCandle</b>);</p>
+  <p>It is also possible in this case to use IIf( ) function:</p>
+  <p>Color = IIf(<b>Close</b> &gt; <b>Open</b>, <b>colorGreen</b>, <b>colorRed</b>);&nbsp; <b>—</b><b> CORRECT</b><br>
+    Plot(<b>Close</b>,"Colored Price",Color,<b>styleCandle</b>);</p>
+  <ol start=3 type=1>
+    <li><b>‘=’ vs ‘==’</b></li>
+  </ol>
+  <p><b>THEORETICAL BACKGROUND:</b></p>
+  <p><b>‘=’</b> is a variable assignment operator</p>
+  <p><b>‘==’</b> is an equality check</p>
+  <p><b>EXAMPLE:</b></p>
+  <p>result=IIf(Variable=10,True_part,False_part); WRONG</p>
+  <p>If you want to check if variable is equal to 10, you MUST use "==" </p>
+  <p>result=IIf(Variable==10,True_part,False_part); CORRECT</p>
+  <ol start=4 type=1>
+    <li><b>TimeFrameSet(), TimeFrameRestore( ), TimeFrameExpand( )</b></li>
+  </ol>
+  <p><b>THEORETICAL BACKGROUND:</b></p>
+  <p>The <b>TimeFrameSet( )</b> replaces current price/volume arrays: open, high,
+      low, close, volume, openint, avg with time-compressed bars of a specified interval. Once you switch to a different time frame, all calculations and built-in
+      indicators operate on the selected time frame. To get back to the original interval, call <b>TimeFrameRestore( )</b> function. The <b>TimeFrameExpand( )</b> is
+      used to decompress array variables that were created in a different time frame.
+      Decompressing is required to properly display and use the array created in a
+    different time frame.</p>
+  <p><b>EXAMPLE 1:</b></p>
+  <p>TimeFrameSet(<b>inWeekly</b>);<br>
+    MA14_Weekly=MA(<b>Close</b>,14);<br>
+    TimeFrameRestore();<br>
+    <b>Buy</b>=Cross(<b>Close</b>,MA14_Weekly); <b>—</b><b> WRONG</b></p>
+  <p>The above formula is wrong, as the MA14_Weekly variable should be EXPANDED to
+    match the original timeframe. The correct code should be:</p>
+  <p>TimeFrameSet(<b>inWeekly</b>);<br>
+    MA14_Weekly=MA(<b>Close</b>,14);<br>
+    TimeFrameRestore();<br>
+    <b>Buy</b>=Cross(<b>Close</b>,TimeFrameExpand(MA14_Weekly,<b>inWeekly</b>)
+    ); <b>—</b><b> CORRECT</b></p>
+  <p><b>EXAMPLE 2:</b></p>
+  <p>&#8220;I would like to display weekly Close prices and I use the following formula,
+      but despite the fact I've set weekly timeframe, it seems to show daily dates.
+    Why?&#8221;</p>
+  <p>TimeFrameSet(<b>inWeekly</b>);<br>
+    <b>Filter</b>=1;<br>
+    AddColumn(<b>C</b>,"Close");</p>
+  <p>TimeFrameSet( ) function replaces the original Close array with weekly values,
+      but leaves the original timestamp. Time frame functions are generally necessary
+      when you want to use more than one timeframe within the formula and in the
+      above case are not necessary. It&#8217;s enough to set Periodicity to WEEKLY (Analysis
+    -&gt; Automatic Analysis -&gt; Settings -&gt; General tab ).</p>
+  <p><b>EXAMPLE 3:</b></p>
+  <p>TimeFrameSet(<b>inWeekly</b>);<br>
+    MA14_Weekly=MA(<b>Close</b>,14);<br>
+    TimeFrameRestore();<br>
+    <b>Buy</b>=Cross(<b>Close</b>,TimeFrameExpand(MA14_Weekly,<b>inDaily</b>)
+    ); <b>—</b><b> WRONG</b></p>
+  <p>It's always necessary to indicate in the TimeFrameExpand( ) function, which
+      timeframe was the variable calculated in. So if MA14_Weekly was calculated
+      out of weekly data, <b>inWeekly</b> should be the correct parameter of the TimeFrameExpand(
+    ) function.</p>
+  <p>TimeFrameSet(<b>inWeekly</b>);<br>
+    MA14_Weekly=MA(<b>Close</b>,14);<br>
+    TimeFrameRestore();<br>
+    <b>Buy</b>=Cross(<b>Close</b>,TimeFrameExpand(MA14_Weekly,<b>inWeekly</b>)
+    ); <b>—</b><b> CORRECT</b></p>
+  <p><b>EXAMPLE 4:</b></p>
+  <p>&#8220;I have a database with `base time interval` equal to 1_Minute. I set periodicity
+      to 15-Minutes and use the TimeFrameSet( ) function to get values for a 10-Minute
+      Moving Average. I want to check for the crossover of a 10-Min MA calculated
+      out of 1-Minute bars and a 10-period MA calculated from 15-Minute bars.
+    Why doesn't the formula below work properly? </p>
+  <p>TimeFrameSet(<b>in1Minute</b>);<br>
+    MA10_Min=MA(<b>Close</b>,10);<br>
+    TimeFrameRestore();<br>
+    <b>Buy</b>=Cross(TimeFrameExpand(MA10_Min,<b>in1Minute</b>),MA(<b>Close</b>,10)
+    );</p>
+  <p>You can only compress data from shorter interval to longer interval. So
+      when working with 1-minute data you can compress to 2, 3, 4, 5, 6, ....N-minute
+      data. But when working with 15 minute data you cannot get 1-minute data
+      bars. In a similar way if you have only EOD data you cannot access intraday
+    time frames.</p>
+  <p>The solution is to set periodicity to 1-Minute, and calculate the 10-period
+    MA calculated from 15-Minute bars with the use of the TimeFrameSet( ) function:</p>
+  <p>TimeFrameSet(<b>in15Minute</b>);<br>
+    MA10_15Min=MA(<b>Close</b>,10);<br>
+    TimeFrameRestore();<br>
+    <br>
+    <b>Buy</b>=Cross( MA(<b>Close</b>,5), TimeFrameExpand(MA10_15Min, <b>in15Minute</b>)
+    );</p>
+  <ol start=5 type=1>
+    <li><b>WriteIf( )</b></li>
+  </ol>
+  <p><b>THEORETICAL BACKGROUND:</b></p>
+  <p><strong>writeif( EXPRESSION, "TRUE TEXT", "FALSE TEXT" )</strong></p>
+  <p>If EXPRESSION evaluates to "true", then the TRUE TEXT string is
+      displayed within the commentary. If EXPRESSION evaluates to "false",
+    then the FALSE TEXT string is displayed.</p>
+  <p><b>EXAMPLE:</b></p>
+  <p><b>Filter</b>=1;<br>
+    AddTextColumn(WriteIf(<b>Close</b>&gt;Ref(<b>Close</b>,-1),"Advancing","Declining"),"Condition");</p>
+  <p>Question: Why doesn't the formula display adequate text for bars when the condition
+    is met?</p>
+  <p>Answer:&nbsp; WriteIf( ) function returns a STRING, not an array of strings, so only
+    the last value is displayed for all the bars.</p>
+  <ol start=6 type=1>
+    <li><b>SetBarsRequired( )</b></li>
+  </ol>
+  <p>Sets the number of previous and future bars needed for a formula to properly
+    execute.</p>
+  <p><b>EXAMPLE 1:</b></p>
+  <p>The below formula should plot a % change indicator for the last 10 bars, but it
+    behaves strangely:</p>
+  <p>LookbackPeriod = 10;<br>
+    StartBar = (<b>BarCount</b> -1) - LookbackPeriod;<br>
+    PrecChange =(<b>Close</b>/<b>Close</b>[StartBar]-1)*100;<br>
+    PercentChangeGraph = IIf(BarIndex() &gt;=
+      StartBar,PrecChange ,<b>Null</b>);<br>
+    <br>
+    Plot(PercentChangeGraph,"Close",<b>colorRed</b>,<b>styleLine</b>);</p>
+  <p><b>EXAMPLE 2:</b></p>
+  <p>The below formula should plot a DownArrow for the last bar, but it doesn&#8217;t.
+    Why:</p>
+  <p><b>Buy</b>= (<b>BarCount</b>-1)
+        == BarIndex();<br>
+    PlotShapes(<b>Buy</b>*<b>shapeDownArrow</b>,<b>colorRed</b>);</p>
+  <p>Due to plotting efficiency reasons, not all the bars are loaded into indicators.
+      Some (not all) formulas require all bars to be loaded (here: BarCount value depends
+      on the number of bars loaded). The solution for both these cases is to use the SetBarsRequired(
+      ) function with a relatively high number of bars to load &#8211; the following line
+      at the beginning of the formula will cause the necessary number of bars
+    to be loaded:</p>
+  <p>SetBarsRequired(999999,999999);</p>
+  <ol start=7 type=1>
+    <li><b>Using parentheses</b></li>
+  </ol>
+  <p>Parentheses can be used to control the operation precedence (the order in
+      which the operators are calculated). AmiBroker always performs operations within
+      the innermost parentheses first. To learn the precedence of operations
+    when parentheses are not used, visit: <a
+href="http://www.amibroker.com/guide/a_language.html">http://www.amibroker.com/guide/a_language.html</a></p>
+  <p><b>EXAMPLE:</b></p>
+  <p>&#8220;I would like to buy whenever either Close is higher than its 10-periods
+      Moving Average or Close is at least 10% higher than yesterday's close, but
+      the buy should only apply when Current Volume is higher than its 10-period Moving
+      Average. However, I get Buy signals for the days when Volume is lower than
+    MA(Volume,10). Why?&#8221;</p>
+  <p><b>Buy </b>= <b>Close</b> &gt; MA(<b>Close</b>,10) <b>OR</b> <b>Close</b> == 1.1*Ref(<b>Close</b>,-1) <b>AND </b>&nbsp;</p>
+  <p><b>Volume</b> &gt; MA(<b>Volume</b>,10);</p>
+  <p>The solution is to add parentheses, otherwise, the system buys whenever <b>Close</b> &gt; MA(<b>Close</b>,10) condition
+      is met (or <b>Close</b> == 1.1*Ref(<b>Close</b>,-1) <b>AND </b>&nbsp;<b>Volume</b> &gt; MA(<b>Volume</b>,10)
+    are both met).</p>
+  <p><b>Buy </b>= <b>(</b> <b>Close</b> &gt; MA(<b>Close</b>,10) <b>OR</b> <b>Close</b> == 1.1*Ref(<b>Close</b>,-1) <b>)</b> <b>AND </b>&nbsp;</p>
+  <p><b>Volume</b> &gt; MA(<b>Volume</b>,10);</p>
+</div>
+</body>
+</html>

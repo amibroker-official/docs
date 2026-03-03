@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>TRIN (Arms Index)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>TRIN - Arms Index</h3>
+<p>Trading Index, a technical measure of advances and declines within the market. 
+  TRIN takes into account the number and volume of issues that advanced in price, 
+  and the number and volume of issues that declined in price. This index measures 
+  the relative strength of volume associated with advancing stocks against the 
+  strength of volume associated with declining stocks. </p>
+<p>Exact AFL formula for TRIN is:</p>
+<p><code>ArmsIndex = ( AdvIssues() / DecIssues() ) / ( AdvVolume() / DecVolume 
+  ) );</code></p>
+<p> A TRIN value of 1 indicates that the ratio of up volume to down volume is 
+  equal to the ratio of advancing issues to the declining issues and the market 
+  is in a neutral condition. A neutral condition simply means that the up volume 
+  is equally distributed over the advancing issues and that the down volume is 
+  equally distributed over declining issues for the day. </p>
+<p>This indicator, although simple in its formulation, requires much study in 
+  its application. There are many variations applied to the TRIN. Many analysts 
+  use a 10-day moving average of TRIN as an indicator. AmiBroker plots two different 
+  averages for TRIN with the default averaging periods of 15 and 45. A reading 
+  of less than 1.0 usually indicates a bullish demand while a reading greater 
+  than 1 can signify a bearish market condition. It must be kept in mind that 
+  the indicator behavior and its reading and interpretation depends on whether 
+  the market is in a bullish or bearish phase. The actual time duration of this 
+  market phase must also be considered. Do not attempt to make buy or sell decisions based on movements of this indicator by itself. </p>
+<p>See also AFL Function reference: <a href="a_funref.html#TRIN">AFL Function: 
+  trin()</a></p>
+</body>
+</html>

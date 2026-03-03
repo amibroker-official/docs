@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 65. Internet handle passed to the Internet* function is invalid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4> Error 65. Internet handle passed to the Internet* function is invalid<br>
+</h4>
+<p>You attempted to pass invalid Internet handle as an argument to InternetClose,
+  InternetReadString functions. Internet* functions only operate on valid internet
+  handles that are returned by InternetOpenURL function or InternetPostRequest
+  function.</p>
+<p><CODE>fh = <font color='#0000ff'>fopen</font>(<font color='#800080'>"localfile.txt"</font>, <font color='#800080'>"w"</font> ); <br>
+    <br>
+    <font color='#800000'><b>if</b></font>( fh ) <br>
+    { <br>
+    &nbsp;&nbsp;&nbsp;
+    <font color='#0000ff'>InternetReadString</font>( fh ); <font color='#008000'>//
+    would generate error 65 as fh is NOT Internet handle </font><br>
+    <br>
+    &nbsp;&nbsp;&nbsp;
+    <font color='#0000ff'>InternetClose</font>( fh ); <font color='#008000'>//
+    would generate error 65 as fh is NOT Internet handle <br>
+    </font> <br>
+    &nbsp;&nbsp;&nbsp;
+    <font color='#0000ff'>fclose</font>( fh ); <font color='#008000'>// local
+    file handle should be closed by fclose <br>
+    </font>} <br>
+</CODE></p>
+</body>
+</html>

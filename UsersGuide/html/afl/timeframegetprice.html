@@ -1,0 +1,99 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - TIMEFRAMEGETPRICE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>TimeFrameGetPrice</b><br>
+        - retrieve O, H, L, C, V values from other time frame</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Time Frame functions<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>TimeFrameGetPrice( <i> pricefield, interval, shift = 0, mode = expandFirst </i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The <b>TimeFrameGetPrice</b> - retrieves OHLCV fields from other time frames. <u>This works immediatelly without need to call <b>TimeFrameSet</b> at all.</u> 
+<p>
+First parameter - <i>pricefield</i> - is one of the following: "O", "H", "L", "C", "V", "I" (open interest). 
+<p><i>Interval</i> is bar interval in seconds. You can use pre-defined interval constants: in1Minute, in5Minute, in15Minute, inHourly, inDaily, inWeekly, inMonthly. Or integer multiples like (3*in1Minute) for 3 minute bars<p>
+<i>shift</i> allows to reference past (negative values) and future (positive values) data in higher time frame. For example -1 gives previous bar's data (like in Ref function but this works in higher time frame).
+<p>
+<i>mode</i> - one of available modes:
+<ul>
+<li>expandLast - the compressed value is expanded starting from last bar within given period (so for example weekly close/high/low is available on Friday's bar)
+<li>expandFirst - the compressed value is expanded starting	from first bar within given period (so for example weekly open is available from Monday's bar)
+<li>expandPoint - the resulting array gets not empty values only for the last bar within given period (all remaining bars are Null (empty)).
+</ul>
+<p>
+Note these functions work like these 3 nested functions:<p>
+<code>
+TimeFrameExpand( Ref( TimeFrameCompress( array, interval, compress(depending on field used) ), shift ), interval, expandFirst )
+</code>
+<p>
+therefore, if shift = 0 compressed data may look into the future ( weekly high can be known on monday ). If you want to write a trading system using this function please make sure to reference PAST data by using negative shift value.
+<p>
+The only difference is that TimeFrameGetPrice is 2x faster than nested Expand/Compress.
+<p>
+For more information check <a href='../h_timeframe.html'>Tutorial: Multiple time frame support</a> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// Example 1. get previous
+week Open price</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"O"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ) <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// Example 2. get weekly Close price 3 weeks ago</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"C"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000> ) <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// Example 3. get weekly High price 2 weeks ago</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"H"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ) <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// Example 4. get this week Open price.</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"O"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ) <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// Example 5. get previous Day High when working on
+intraday data</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"H"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inDaily</B></FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ) </FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="timeframeset.html">TimeFrameSet()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>TimeFrameGetPrice</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1300&hilite=TimeFrameGetPrice' target='_blank'> 	Pivots And Prices And Swing Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=TimeFrameGetPrice' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=TimeFrameGetPrice' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=TimeFrameGetPrice' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=TimeFrameGetPrice' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=TimeFrameGetPrice' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=TimeFrameGetPrice' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=TimeFrameGetPrice' target='_blank'>Market Profile</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=TimeFrameGetPrice' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=440&hilite=TimeFrameGetPrice' target='_blank'>Pivots for Intraday Forex Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1075&hilite=TimeFrameGetPrice' target='_blank'>plot tomorrows pivots on an intraday database</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1476&hilite=TimeFrameGetPrice' target='_blank'>Prior Daily OHLC</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1188&hilite=TimeFrameGetPrice' target='_blank'>Robert Antony</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1170&hilite=TimeFrameGetPrice' target='_blank'>Vikram's Floor Pivot Intraday System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=TimeFrameGetPrice' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1023&hilite=TimeFrameGetPrice' target='_blank'>Woodie's Price Panel With Woodie's Pivots</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=TimeFrameGetPrice' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=TimeFrameGetPrice">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

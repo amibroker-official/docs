@@ -1,0 +1,76 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - POPUPWINDOW</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PopupWindow</b><br>
+        - display pop-up window</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PopupWindow( bodytext, captiontext, timeout = 5, left = -1, top = -1, width = -1, height = -1, captureFocus = True  ); </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function creates and displays pop-up window with specified bodytext, captiontext.
+<p>
+Parameters:
+<ul>
+<li>bodytext - the string containing the text of the window body
+<li>caption - the string containing the text of window caption
+<li>timeout - auto-close time in seconds (default 5 seconds)
+<li>left - top-left corner X co-ordinate (default = -1 -means auto-center)
+<li>top - top-left corner Y co-ordinate (default = -1 - means auto-center)
+<li>width = width in pixels, -1 - use default width
+<li>height = height in pixels, -1 - use default height
+<li>captureFocus - decides whenever popup window captures input focus or not
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>ParamTrigger</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Display
+Popup Window"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Press here"</FONT><FONT COLOR=#000000> )
+) <BR>
+{ <BR>
+    </FONT><FONT COLOR=#0000ff>PopupWindow</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Current
+time is: "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>Now</FONT><FONT COLOR=#000000>(),</FONT><FONT COLOR=#ff00ff>"Alert"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>640</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#0000ff>mtRandom</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#ff00ff>480</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#0000ff>mtRandom</FONT><FONT COLOR=#000000>()); <BR>
+}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="paramcolor.html">ParamColor()</A> function , <A HREF="paramdate.html">ParamDate()</A> function , <A HREF="paramfield.html">ParamField()</A> function , <A HREF="paramlist.html">ParamList()</A> function , <A HREF="paramstr.html">PARAMSTR()</A> function , <A HREF="paramstyle.html">ParamStyle()</A> function , <A HREF="paramtime.html">ParamTime()</A> function , <A HREF="paramtoggle.html">ParamToggle()</A> function , <A HREF="paramtrigger.html">ParamTrigger()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>PopupWindow</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1583&hilite=PopupWindow' target='_blank'>Add Nifty 50 IB Equity Symbol Automatically</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=PopupWindow' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=PopupWindow' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=PopupWindow' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=PopupWindow' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=PopupWindow' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=PopupWindow' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=PopupWindow' target='_blank'>MFE and MAE and plot trades as indicator</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PopupWindow">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

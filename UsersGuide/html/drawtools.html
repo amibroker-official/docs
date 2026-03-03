@@ -1,0 +1,322 @@
+<html>
+<head>
+<title>Study Drawing Tools</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Study Drawing Tools</h3>
+<p>AmiBroker's study drawing tools are accessible from <b>Draw</b> / <b>Fibonacci &amp; Gann </b>toolbars:</p>
+<table width="100%" border="0" cellspacing="0" cellpadding="4">
+  <tr>
+    <td valign="top"><img src="gifs/drawtool.gif"></td>
+    <td valign="top"> 
+      <p>The following tools are available:</p>
+      <ul>
+        <li>Trendline</li>
+        <li>Ray (new in 4.20)</li>
+        <li>Extended Line (new in 4.20)</li>
+        <li>Vertical Line</li>
+        <li>Horizontal Line</li>
+        <li>Parallel Lines (new in 4.20)</li>
+        <li>Regression Channels: Raff, Standard Deviation, Standard Error (all 
+          new in 4.20)</li>
+        <li>Fibonacci Retracement Study (enhanced in 4.20)</li>
+        <li>Fibonacci Time Zones Study</li>
+        <li>Fibonacci Extensions (new in 4.60)</li>
+        <li>Fibonacci Time Extensions (new in 4.60)</li>
+        <li>Fibonacci Fan </li>
+        <li>Fibonacci Arc</li>
+        <li>Gann Square (new in 4.20)</li>
+        <li>Gann Fan (new in 4.20)</li>
+        <li>Ellipse Tool</li>
+        <li>Triangle Tool (new in 4.30)</li>
+        <li>Andrews' Pitchfork (new in 4.30)</li>
+        <li>Cycles Tool (new in 4.60)</li>
+        <li>Arrow Tool (new in 4.70)</li>
+        <li>Zig-Zag Tool (new in 4.70)</li>
+        <li>Arc Tool</li>
+        <li>Rectangle</li>
+        <li>Text Box Tool</li>
+      </ul>
+      <p>The default <i>Select</i> tool (red arrow) is used to select drawing 
+        objects and quotations on the chart. If you want to draw a given study, just 
+        switch on the appropriate button and start drawing on the chart by pointing 
+        the mouse where you want to start the drawing and click and hold the left 
+        mouse button. Then move the mouse. A study tracking line will appear. Release 
+        the left mouse button when you want to finish drawing. You can also cancel 
+        study drawing by pressing the ESC (escape) key. For a beginner's guide to charting, 
+        check <a href="h_charting.html">Tutorial: Charting Guide </a></p>
+      <p>&nbsp;</p>
+    </td>
+  </tr>
+</table>
+<p><b>Trendline, Ray, Extended Line, Vertical Line, Horizontal Line</b></p>
+<p>These tools give different flavors of basic trendline. A Trendline gives a 
+  line segment, a Ray gives a right-extended trendline, an Extended Line gives a trendline 
+  that is extended automatically from both left and right sides. Vertical Line and 
+  Horizontal Line are self-explanatory.</p>
+<p><strong>Arrow Tool</strong></p>
+<p>Similar to a Trendline but ends with an arrow.</p>
+<p><strong>Zig-Zag Tool</strong></p>
+<p>Draws a series of connected trendlines. To end drawing, press the ESC key.</p>
+<p><b>Parallel Lines</b></p>
+<p>This tool allows you to draw a series of parallel trendline segments. First, you 
+  draw a trendline as usual; then, a second line parallel to the first is automatically 
+  created, and you can move them around with the mouse. Once you click on the chart, 
+  it is placed in the given position. Then another parallel line appears that can 
+  be placed somewhere else. And again, and again. To stop this, please either press 
+  the ESC key or choose &quot;Select&quot; tool.</p>
+<p><b>Regression Channels</b></p>
+<p>AmiBroker allows you to easily draw three kinds of Regression Channels:</p>
+<ul>
+  <li>Raff Regression Channel</li>
+  <li>Standard Error Channel</li>
+  <li>Standard Deviation Channel</li>
+</ul>
+<p>All these channels are based on a linear regression trendline. </p>
+<p>The Regression Channel is constructed by plotting two parallel, equidistant 
+  lines above and below a linear regression trendline. The distance between the 
+  channel lines to the regression line is the greatest distance that any one high 
+  or low price is from the regression line.</p>
+<p>Standard Error Channels are constructed by plotting two parallel lines above 
+  and below a linear regression trendline. The lines are plotted a specified number 
+  of standard errors away from the linear regression trendline.</p>
+<p>Standard Deviation Channels are constructed by plotting two parallel lines 
+  above and below a linear regression trendline. The lines are plotted a specified 
+  number of standard deviations away from the linear regression trendline.</p>
+<p>You can choose the type of channel by double-clicking on the channel study 
+  (or choosing <b>Properties</b> from the right mouse button menu)</p>
+<p><img src="gifs/regression.gif"></p>
+<p>If the <b>Use common color and style</b> box is marked, channel lines use the same 
+  style and color as the regression (middle) line. If it is not marked, you can set 
+  separate colors and styles for upper and lower channel lines. You can also completely 
+  switch off upper and lower channel lines by unticking <b>Show Upper line</b> 
+  and <b>Show Lower line</b> boxes.</p>
+<div>"<strong>Study ID</strong>" column defines&nbsp;a study identifier that can 
+  be used&nbsp;in&nbsp;your custom formulas to detect crossovers. You can change 
+  these IDs if required by simply editing these fields. For more information on 
+  Study IDs, check <a href="h_studies.html">Tutorial: Using Studies in AFL Formulas</a></div>
+<p>More information on Regression Channels is available from <a href="t_channels.html">Technical 
+  Analysis Guide</a>. </p>
+<p><b>Ellipse and Arc Drawing Tools</b></p>
+<p>These new drawing tools are connected to the date/price coordinates (like trendlines) 
+  rather than to the screen pixels, so they can change the visual shape when displayed at various zoom factors or screen sizes.</p>
+<p>To see the properties of these elements, you should double-click on the clock-like 
+  3, 6, 9, or 12 o'clock positions.</p>
+<p></p>
+<p><b>Fibonacci Arc</b></p>
+<p></p>
+<p>This new drawing tool generates standard Fibonacci arcs that are controlled 
+  by the trendline drawn with a dotted style. To see the properties of the arcs, 
+  click on the controlling trendline.</p>
+<p> Note that the arc radius and central point are relative to the controlling trendline. Because Fibonacci arcs must be circular regardless of screen size/resolution and zoom factor, the position of the arcs may move in the date/price domain.</p>
+<p><b>Fibonacci Retracement</b></p>
+<p>First, please note that the Fibonacci tool works differently depending on 
+  the direction of drawing and the &quot;show extensions&quot; flag. See the pictures 
+  below.</p>
+<table width="100%" border="0">
+  <tr> 
+    <td><img alt="" hspace=0 src="gifs/fib_ret_up.gif" 
+align=baseline border=0></td>
+    <td><img src="gifs/fib_ret_up2.gif"></td>
+  </tr>
+  <tr> 
+    <td><b>Upward drawing direction<br>
+      Show Extensions ON</b></td>
+    <td><b>Upward drawing direction<br>
+      Show Extensions OFF</b></td>
+  </tr>
+</table>
+<div> 
+  <p><br>
+    As you can see, it shows both retracement levels (38.2, 50, 61.8) and extension 
+    levels (127.2, 161.8). If the &quot;show extensions&quot; box is OFF, the tool 
+    shows ONLY retracement levels. It works in a similar way when the controlling trendline 
+    is drawn downwards.</p>
+</div>
+<table width="100%" border="0">
+  <tr> 
+    <td><img src="gifs/fib_ret_dn.gif"></td>
+    <td><img src="gifs/fib_ret_dn2.gif"></td>
+  </tr>
+  <tr> 
+    <td><b>Downward drawing direction<br>
+      Show Extensions ON</b></td>
+    <td><b>Downward drawing direction<br>
+      Show Extensions OFF</b></td>
+  </tr>
+</table>
+<div><br>
+</div>
+<div></div>
+<div>Now, more about the Fibonacci settings window:</div>
+<div><img src="gifs/fibonnacci.gif"></div>
+<div>&nbsp;</div>
+<div>The first column, "<strong>Show</strong>", switches a particular line ON/OFF.</div>
+<div>The second column, "<strong>Level (%)</strong>", defines the percentage level. 100 
+  and 0 represent the Y-coordinate</div>
+<div>of&nbsp;the begin and end&nbsp;points of the controlling trendline.&nbsp;</div>
+<div>The third column, "<strong>Color</strong>", defines the color of the line. The fourth column, 
+  "<strong>Style</strong>", allows</div>
+<div>to choose between regular, thick, and dotted styles.</div>
+<div>&nbsp;</div>
+<div>The fifth and sixth columns, "<strong>Left side</strong>" and "<strong>Right side</strong>",&nbsp;control&nbsp;the display of text </div>
+<div>that appears on the left and&nbsp;right side of the&nbsp;Fibonacci level line. 
+  "Empty" means no text,</div>
+<div>% means percentage level, $ means&nbsp;dollar (point) level.</div>
+<div>&nbsp;</div>
+<div>The seventh column, "<strong>Study ID</strong>", defines&nbsp;a study identifier 
+  that can be used&nbsp;in&nbsp;your custom formulas</div>
+<div>to detect crossovers. Each Fibonacci level has a separate ID by default, F0... F9.</div>
+<div>You can change these IDs if required by simply editing these fields.</div>
+<div>&nbsp;</div>
+<div>As described in the User's Guide: Tutorial: <b>Using Studies in AFL Formulas</b></div>
+<div>&nbsp;</div>
+<div>you can easily write the formula that checks for penetration of a particular Fibonacci level.</div>
+<div> In this example, we will detect if the closing price drops below the F2&nbsp;(38.2% 
+  retracement)&nbsp;level line. The formula&nbsp;is&nbsp;very simple: 
+  <blockquote> <code>sell = cross( study( "F2" ), close );</code></blockquote>
+  Note that the study() function accepts two arguments: the first is a StudyID two-letter 
+  code that corresponds to one given in the properties dialog; the second argument 
+  is chart ID. By default, it is 1 (when it is not given at all), and then it references 
+  the studies drawn in the main price pane. For checking studies drawn in other 
+  panes, you should use the codes given above (in the table describing the study() 
+  function).</div>
+<div>Please note that this formula is universal; it will use the appropriate level 
+  from any symbol that has Fibonacci lines drawn.</div>
+<div>This is so because AmiBroker keeps&nbsp;data of all studies drawn in&nbsp;its 
+  database.</div>
+<div>When&nbsp;you&nbsp;scan using the above code, AmiBroker&nbsp;checks if Fibonacci&nbsp;levels are drawn for&nbsp;the symbol being currently scanned;</div>
+<div>if it finds one, it looks at what F2 study is. It finds that this is a Fibonacci 
+  line 38.2% located&nbsp;(for example, for a particular symbol) at $29.06</div>
+<div>so&nbsp;AmiBroker internally substitutes study( "F2" ) with $29.06 (caveat: 
+  this is a simplification; in fact, it internally generates an array that represents 
+  a trendline) and checks for a cross.&nbsp;&nbsp;</div>
+<div>&nbsp;</div>
+<div>"<strong>Extension factor</strong>" decides how far lines are right-extended 
+  (in X-axis direction). If you enter 2, you will get lines extended twice as much 
+  as the default '1'. If you enter 0, Fibonacci level lines will end where the controlling&nbsp;trendline 
+  ends.&nbsp;</div>
+<div>&nbsp;</div>
+<div>"<strong>Use as default</strong>" - if you check this box and accept the 
+  settings by clicking <strong>OK</strong>, all Fibonacci drawings&nbsp;that 
+  you will draw later will use these settings. </div>
+<p>When using the Text Box Tool, just type the text in the box. When you want to finish, 
+  click outside the text box. You can also cancel editing by pressing the ESC key.</p>
+<p><strong>Fibonacci Extensions</strong></p>
+<p>The Fibonacci Extensions tool is similar to the Fibonacci Retracements tool.
+  The Fibonacci Extensions tool requires a third point. The extensions and
+  retracement levels are drawn from this third point, but based on the distance
+  between the first two points. A common use of this tool is to first connect
+  two points that represent the endpoints of a major trend (or wave). Then, choose
+  the third point to be the endpoint of a retracement of that trend. Extensions
+  are then drawn in the direction of the initial trend, from the third point,
+  using the distance between points one and two as a basis for the extension
+levels. </p>
+<p>The Fibonacci Extensions toolbar button and drawing tool work much like the
+  Andrews' Pitchfork drawing tool. First, click on the Fibonacci Extension button
+  on the toolbar. Then, click three times, once on each of the points that are
+  involved in the Fibonacci Extension. The first click should be on the starting
+  point of the initial trendline. The second click should be on the ending point
+  of the initial trendline. The third click should be on the ending bar of the
+  retracement period.</p>
+<p>As with Fibonacci Retracements, there is a great deal of flexibility via the Fibonacci
+  settings tab available after clicking on the study with a right mouse button and selecting
+  &quot;Properties&quot; from the context menu.</p>
+<p><strong>Fibonacci Time Extensions</strong></p>
+<p>The Fibonacci Time Extensions tool is used to specify vertical lines at date/time
+  levels which are determined to be probable values of changes in trend, based
+  on the
+market&#8217;s previous date/time range and a third extension point.</p>
+<p>The time extension tool should be used as follows. First, click on the Fibonacci
+  Time Extension button on the toolbar. Then, select the first range point (typically
+  a major top or bottom of a market) by clicking on the chart where you want
+  the range to begin; then, move the mouse pointer to select the second range
+  point by again clicking on the chart where you want the range to end. Extension
+  lines will now be drawn onto the future bars.</p>
+<p> As in
+    Fibonacci Price Retracement and Extensions tools, you have complete control
+    over which percentages are used in the Time Extensions tool,
+  and the colors of each of the extension values via the Properties dialog.</p>
+<p><b>Gann Square and Gann Fan</b></p>
+<p> Gann Squares indicate possible time and price movements from important highs 
+  and lows. To draw a Gann Square on a chart, move the cursor on the chart to the 
+  starting point. The starting point is generally an important high or low on 
+  the chart. Then drag the mouse to the right until a desired ending point is 
+  reached. The start and end points will be the corners of the square. The ending 
+  point is often to the right of the chart bars. Watch for trends to change directions 
+  at the Gann Square levels. As the Gann Square is drawn to the screen, the angle 
+  of the controlling trendline is shown in the status bar.</p>
+<p></p>
+<p> </p>
+<p><i>Properties Window</i></p>
+<p><img src="gifs/gann.gif"></p>
+<p>The properties window is used to change the square levels, color, style, thickness, 
+  and defaults. Click on any of the Gann Square <b>Show</b> entries to add or 
+  remove lines. Click in the square <b>Color</b> box to change the line color. 
+  Click on <b>Style</b> combo boxes to change the line style. Check the <b>Use 
+  as Default</b> box to save the settings as the default for all subsequent Gann 
+  Squares that are drawn. The "<strong>Left side</strong>" and "<strong>Right side</strong>"&nbsp;columns 
+  control&nbsp;the display of text that appears on the left and&nbsp;right side of 
+  the&nbsp;Gann lines. "Empty" means no text, % means percentage level, $ means&nbsp;dollar (point) level. "<strong>Study ID</strong>" column defines&nbsp;a study 
+  identifier that can be used&nbsp;in&nbsp;your custom formulas to detect crossovers. 
+  You can change these IDs if required by simply editing these fields. For more 
+  information on Study IDs, check <a href="h_studies.html">Tutorial: Using Studies 
+  in AFL Formulas</a></p>
+<p><strong>Triangle Tool</strong><br>
+  <br>
+  The Triangle Tool is self-explanatory. Drawing a triangle is easy: left-click
+  at the first point, hold down and drag to the second point,
+  then
+  release the mouse
+  button and drag to the third point and click once. The controlling triangle
+will become the pitchfork. </p>
+<p><strong>Andrews' Pitchfork</strong> </p>
+<p>Andrews' Pitchfork is a study using parallel trendlines. In constructing the
+  study, starting points are chosen. The first is a major peak or trough on the
+  left
+  side of the chart display.
+  The second and third starting points are chosen to be a major peak and a major
+  trough to the right of the first point. After
+  all starting points have been decided, AmiBroker draws a trendline from the
+  first
+  point
+  (the most
+  left)
+  so
+  that it passes directly between the rightmost points. This line is called
+  the handle
+  of the
+  pitchfork. The second and third trendlines are drawn by AmiBroker beginning
+  at the starting points and parallel to the handle. Dr. Andrews suggested that
+  prices
+  make it
+  to the median line (or handle) about 80% of the time while the price trend
+  is in place. This means that while the basic long-term price trend remains
+  intact, Dr. Andrews believed that the smaller trends in price would gravitate
+  toward the median line while the larger price trend remained intact. When
+  that does not occur, it may be evidence that a reversal in the larger price
+  trend may be in progress or provides evidence of a stronger bias at work in
+  the market. When price fails to make it to the median line from either side,
+  it is often an expression of the relative enthusiasm of buyers and sellers and
+  may predict the next major direction of prices. If prices fail to reach the
+  median line while above the median line, it is bullish, and failing to reach
+the median line from below is bearish.</p>
+<p>Operating Andrews' Pitchfork tool is similar to drawing a triangle. Left-click
+  at the first point, hold down and drag to the second point, then release the mouse
+  button and drag to the third point and click once. The controlling triangle
+  will become the pitchfork.</p>
+<p><strong>Cycles Tool</strong></p>
+<p>To use the Time Cycles Tool, click
+  on the cycles drawing tool button in the toolbar; then, click at the starting
+  point of the cycle and drag to the end of the cycle. These two control points
+  control
+  the interval between the cycle lines. When you release the mouse button,
+  you will get a series of<br>
+parallel lines with equal intervals between them.</p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,71 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - FLIP</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Flip</b><br>
+        - </h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 3.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong></b>    <b>flip</b>( ARRAY1, ARRAY2 )         <b> </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> </b>    ARRAY         <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> </b>
+     works as a flip/flop device or "latch" (electronic/electric engineers 
+      will know what I mean)<br>
+      returns 1 from the first occurence of "true" signal in Array1<br>
+      until a "true" occurs in Array2 which resets the state back to 
+      zero<br>
+      unil next "true" is detected in Array1...
+  
+   
+    <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> </b>
+     
+      buy = ExRem( buy, sell );<br>
+      buy = <b>Flip</b>( buy, sell ); // this essentially reverts the process 
+        of ExRem - multiple signals are back again </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Flip</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=Flip' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1405&hilite=Flip' target='_blank'>Automatic Linear Trend Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1351&hilite=Flip' target='_blank'>Automatic Linear Trend Channel 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1350&hilite=Flip' target='_blank'>Automatic trend channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=Flip' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=421&hilite=Flip' target='_blank'>Candle Stick Demo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=Flip' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1380&hilite=Flip' target='_blank'>Connors TPS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1562&hilite=Flip' target='_blank'>Darvas Wisestocktrader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1454&hilite=Flip' target='_blank'>Fre</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=Flip' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=Flip' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=Flip' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1218&hilite=Flip' target='_blank'>Multiple Ribbon Demo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=Flip' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=Flip' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1603&hilite=Flip' target='_blank'>Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=307&hilite=Flip' target='_blank'>RUTVOL timing signal with BB Scoring routine</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=136&hilite=Flip' target='_blank'>Stops Implementation in AFS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=Flip' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1465&hilite=Flip' target='_blank'>Updated Renko Chart</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Flip">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

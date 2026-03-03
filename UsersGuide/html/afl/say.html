@@ -1,0 +1,139 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SAY</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Say</b><br>
+        - speaks provided text</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Text-to-Speech functions<br>
+        </b>(AmiBroker 4.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Say(''text'', purge = True) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Say() function speaks user-specified text (Windows XP, on lower-end Windows you need to install Microsoft Speech API, voice settings are in Windows Control Panel) 
+<p>
+New in 5.20 - 'purge' parameter
+<p>
+when purge is set to True (the default) - any call to Say() purges all previous speak requests (queued or in-progress) and speaks
+specified text immediatelly.
+<p>
+when purge is set to False - speak request is queued and will be spoken right after previous requests are done.
+<p>
+Also now Say() function returns the NUMERIC value that indicates how many speak requests are pending
+<br>0 - ERROR - speech engine not installed or not working properly
+<br>1 - currently requested text is spoken now (queue was empty)
+<br>2 or more - queue was not empty and previous request(s) will be completed prior to speaking currently specified text
+
+<p>
+<i>
+CAVEAT: Creative SoundBlaster X-Fi cards have a driver problems on Windows 7 and Windows Vista causing memory leak in audiodg.exe process (Windows Audio) when using audio output (esp. Say command). To workaround this X-Fi driver problem, do the following:
+<ol>
+<li>right click the speaker icon in your taskbar
+<li>select 'Playback Devices'
+<li>right click the Speakers output
+<li>select 'Properties'
+<li>click on the 'Sound Blaster' tab
+<li>check 'Disable Sound Blaster Enhancements' box
+<ol></i>
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// simple example </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>Say</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>&quot;Testing
+text to speech engine&quot;</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+<BR>
+</FONT><FONT COLOR=#008000>// helpful helper functions</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> SayOnce(
+text ) <BR>
+{ <BR>
+   
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>StaticVarGetText</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>&quot;lastsaidtext&quot;</FONT><FONT COLOR=#000000>)
+!= text ) <BR>
+   
+{ <BR>
+      </FONT><FONT COLOR=#0000ff>Say</FONT><FONT COLOR=#000000>(
+text ); <BR>
+      </FONT><FONT COLOR=#0000ff>StaticVarSetText</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>&quot;lastsaidtext&quot;</FONT><FONT COLOR=#000000>,
+text ); <BR>
+   
+} <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> SayNotTooOften(
+text, Minperiod ) <BR>
+{ <BR>
+  
+elapsed=</FONT><FONT COLOR=#0000ff>GetPerformanceCounter</FONT><FONT COLOR=#000000>()/</FONT><FONT COLOR=#ff00ff>1000</FONT><FONT COLOR=#000000>; <BR>
+  
+Lastelapsed = </FONT><FONT COLOR=#0000ff>Nz</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>StaticVarGet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>&quot;lastsaytime&quot;</FONT><FONT COLOR=#000000>)
+); <BR>
+<BR>
+  </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+elapsed - Lastelapsed > Minperiod ) <BR>
+  
+{ <BR>
+     
+</FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>&quot;lastsaytime&quot;</FONT><FONT COLOR=#000000>,
+elapsed ); <BR>
+     
+<BR>
+     
+</FONT><FONT COLOR=#0000ff>Say</FONT><FONT COLOR=#000000>( text ); <BR>
+  
+} <BR>
+  </FONT> <BR>
+} <BR>
+<BR>
+<BR>
+<BR>
+SayOnce(</FONT><FONT COLOR=#ff00ff>&quot;Testing &quot;</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>Name</FONT><FONT COLOR=#000000>()
+); <BR>
+SayNotTooOften( </FONT><FONT COLOR=#ff00ff>&quot;Say not more often than every 60
+seconds&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>60</FONT><FONT COLOR=#000000> );   <BR>
+<BR>
+  </FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Say</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1583&hilite=Say' target='_blank'>Add Nifty 50 IB Equity Symbol Automatically</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=Say' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=Say' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=Say' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=Say' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=Say' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=Say' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=Say' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1554&hilite=Say' target='_blank'>Say Notes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=Say' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Say">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

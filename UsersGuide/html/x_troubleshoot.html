@@ -1,0 +1,302 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Troubleshooting</title>
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>Troubleshooting guide</h2>
+<p>Quick jump: <a href="#AMIQUOTE">AmiQuote</a>, <a href="#PLUGINS">data plugins (eSignal, myTrack,
+  IQFeed, QuoteTracker, Quotes Plus, TC2000)</a></p>
+<p><strong>CATEGORY: CRASH OR HANG-UP</strong></p>
+<div align="left">
+  <table border="1" cellspacing="0" cellpadding="3" bordercolor="#E3E3E3" bgcolor="#FFFFCC">
+    <tr>
+      <th width="11%" class="smalltable">Where, when</th>
+      <th width="11%" class="smalltable">Problem</th>
+      <th width="14%" class="smalltable">Reason</th>
+      <th width="64%" class="smalltable">Solution</th>
+    </tr>
+    <tr bgcolor="#EEEEEE">
+      <td width="11%" class="smalltable"><p><strong>AmiBroker,</strong></p>
+      <p><strong>Just after installation</strong></p></td>
+      <td width="11%" class="smalltable">AmiBroker hangs at startup or frequent
+        errors occur</td>
+      <td width="14%" class="smalltable">Old/incompatible system components</td>
+      <td width="64%" class="smalltable">
+        <p>Download and install the latest FULL version of AmiBroker from <a href="http://www.amibroker.com/download.html">http://www.amibroker.com/download.html</a></p>
+        <p>&nbsp;</p>
+      </td>
+    </tr>
+    <tr bgcolor="#DDDDDD">
+      <td class="smalltable"><p><strong>AmiBroker,</strong></p>
+        <p><strong>At startup <br>
+            <br>
+      (it was working fine before)</strong></p></td>
+      <td class="smalltable">AmiBroker crashes or hangs</td>
+      <td class="smalltable">Corruption of some data file</td>
+      <td class="smalltable"><p>Please try the following:</p>
+        <ul>
+          <li> rename default database directory and try to run AmiBroker, if
+            it works, it means that some files inside this database are corrupted.
+            You
+          may send us DEFAULT.AWL file from &quot;Layouts&quot; subfolder for checking.<br>
+          </li>
+          <li> delete or rename all DEFAULT.AWL files that you can find on your
+              disk and try to run AmiBroker. (.AWL files are created inside &quot;Layouts&quot;
+            subfolder
+          of main AmiBroker database
+        and &quot;Layout&quot; subfolders of each database directory.<br>
+          </li>
+          <li>        rename broker.charts
+              and broker.bcharts files (in AmiBroker directory) and try to run
+            AmiBroker<br>
+          </li>
+          <li>rename default.layout file (in AmiBroker directory) and
+              try to run AmiBroker</li>
+      </ul>        <p>&nbsp;</p></td>
+    </tr>
+    <tr bgcolor="#CCCCCC">
+      <td class="smalltable"><p><strong>AmiBroker,</strong></p>
+      <p><strong>When running some AFL code</strong></p></td>
+      <td class="smalltable">AmiBroker crashes or hangs</td>
+      <td class="smalltable">Bug in AFL formula or in AmiBroker</td>
+      <td class="smalltable">Send offending code to AmiBroker support (bugs@amibroker.com)
+        and delete / modify / comment it out to continue to work until we find
+        the reason for the problem and a solution.</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+</div>
+<p><strong>CATEGORY: OTHER</strong></p>
+<div align="left"></div>
+<div align="left"></div>
+<div align="left"></div>
+<div align="left"></div>
+<div align="left"></div>
+<div align="left">
+  <table border="1" cellspacing="0" cellpadding="3" bordercolor="#E3E3E3" bgcolor="#FFFFCC">
+    <tr valign="top">
+      <th width="14%" class="smalltable">Where, when</th>
+      <th width="16%" class="smalltable">Problem</th>
+      <th width="18%" class="smalltable">Reason</th>
+      <th width="52%" class="smalltable">Solution</th>
+    </tr>
+    <tr valign="top" bgcolor="#EEEEEE">
+      <td width="14%" rowspan="2" class="smalltable"><p><strong>AmiBroker,</strong></p>
+        <p><strong>Just after
+          installation</strong></p></td>
+      <td width="16%" class="smalltable">Help (User's guide) is not accessible </td>
+      <td width="18%" class="smalltable">HTMLHelp system not installed</td>
+      <td width="52%" class="smalltable">
+        <p>Install the update to the HTML Help system available from Microsoft <a href="http://go.microsoft.com/fwlink/?LinkId=14498" target="_blank">here</a>.</p>
+      </td>
+    </tr>
+    <tr>
+      <td width="16%" bgcolor="#EEEEEE" class="smalltable">Scripts do not work</td>
+      <td width="18%" bgcolor="#EEEEEE" class="smalltable">Windows Scripting
+        Host not installed</td>
+      <td width="52%" bgcolor="#EEEEEE" class="smalltable">
+        <p>Check if your antivirus does not block scripting<a href="http://msdn.microsoft.com/scripting/"></a></p>
+      </td>
+    </tr>
+    <tr valign="top" bgcolor="#E8E8E8">
+      <td class="smalltable"><p><strong>AmiBroker,</strong></p>
+        <p><strong>At startup <br>
+        (it was working fine before)</strong></p></td>
+      <td class="smalltable">Some feature does not work</td>
+      <td class="smalltable">Missing component of AmiBroker</td>
+      <td class="smalltable">Please check if you have not deleted any vital AmiBroker
+        files. <br>
+        If you are unsure, you may run the setup again over the old installation
+        (please do NOT uninstall if you want to have your settings preserved).</td>
+    </tr>
+    <tr valign="top">
+      <td rowspan="5" bgcolor="#DDDDDD" class="smalltable"><p><strong><a name="AMIQUOTE"></a>AmiQuote -</strong></p>
+      <p><strong>Downloading quotes</strong></p></td>
+      <td bgcolor="#DDDDDD" class="smalltable"><p>Download from Quote.com fails<br>
+with 'the connection with the server is reset'</p>
+      </td>
+      <td bgcolor="#DDDDDD" class="smalltable">Livecharts password incorrect or not entered properly
+      as described <a href="http://www.amibroker.com/members/livecharts.html">here</a></td>
+      <td bgcolor="#DDDDDD" class="smalltable"><p>Please
+        go to the AmiQuote SETTINGS page, UNCHECK &quot;Use livecharts account&quot; and
+        select &quot;SERVER #1&quot; or follow exactly the instructions <a href="http://www.amibroker.com/members/livecharts.html">here</a></p></td>
+    </tr>
+    <tr>
+      <td bgcolor="#DDDDDD" class="smalltable"><p>Download from Yahoo starts fine
+        but then stops </p>
+        <p>(especially on DSL, ADSL, cable modem connections)</p></td>
+      <td bgcolor="#DDDDDD" class="smalltable">Yahoo is blocking you. After an infamous
+        Internet worm attack, Yahoo considers quick, repeated multiple downloads
+        as a &quot;denial
+      of service&quot; attack.</td>
+      <td bgcolor="#DDDDDD" class="smalltable"><p>If possible reconnect with different IP. (Otherwise, you would need
+          to wait half an hour or more until Yahoo unblocks you) </p>
+        <p>go to the AmiQuote &quot;Settings&quot; and set &quot;Initial delay
+          between requests&quot; to
+  1000 and &quot;maximum number of simultaneous downloads&quot; to 1. </p></td>
+    </tr>
+    <tr>
+      <td valign="top" bgcolor="#DDDDDD" class="smalltable">Download from Yahoo fails</td>
+      <td valign="top" bgcolor="#DDDDDD" class="smalltable"><p>It may be too soon to get historical
+      data from Yahoo or</p>
+      <p>a temporary Yahoo problem.</p></td>
+      <td bgcolor="#DDDDDD" class="smalltable"><p> First check Yahoo historical
+          page:</p>
+        <p><a href="http://table.finance.yahoo.com/k?s=utx&g=d">http://table.finance.yahoo.com/k?s=utx&amp;g=d</a></p>
+        <p>replace utx by the symbol in question.<br>
+          ===========================</p>
+        <p>If the page shows old quotes, it is a problem with Yahoo, not with
+          AmiQuote.</p>
+        <p>In fact AmiQuote uses<br>
+&quot;
+          Download spreadsheet format&quot; link on previously mentioned page:<br>
+          <a href="http://table.finance.yahoo.com/k?s=utx&g=d">http://table.finance.yahoo.com/k?s=utx&amp;g=d</a><br>
+        </p>
+        <p>If historical data are not available, you can always use &quot;Current&quot; mode
+        of AmiQuote to get today's data (even during trading hours).</p>
+        <p> If you do not know the ticker symbol for an index, stock, or mutual
+          fund, please<br>
+          use symbol lookup feature:<br>
+          a) at Yahoo (for historical and current modes):<br>
+          <a href="http://finance.yahoo.com/l">http://finance.yahoo.com/l</a></p>
+        <p>b) at Lycos (for Intraday mode):<br>
+          <a href="http://finance.lycos.com/home/misc/symbol_search.asp">http://finance.lycos.com/home/misc/symbol_search.asp</a><br>
+        </p>
+        <p><br>
+      </p></td>
+    </tr>
+    <tr>
+      <td valign="top" bgcolor="#DDDDDD" class="smalltable">Download works but there are no quotes added</td>
+      <td valign="top" bgcolor="#DDDDDD" class="smalltable">Local configuration problem</td>
+      <td bgcolor="#DDDDDD" class="smalltable"><p>Follow these steps to troubleshoot the problem </p>
+        <ul>
+          <li>Go to C:\Program Files\AmiBroker\AmiQuote\Download and check if
+            .AQH files are there. <br>
+          </li>
+          <li>Open them with Notepad and see if data are there <br>
+          </li>
+          <li>Check if you have aqh.format file in the Formats subdirectory of
+            AmiBroker <br>
+          </li>
+          <li>Check its contents and eventually send it to us for checking.<br>
+          </li>
+          <li>Try to import manually as per instructions given in the user's
+            guide <br>
+          </li>
+          <li>If you ever restored data directory from CD-ROM, check the &quot;read-only&quot; flag
+            of data files in AmiBroker database. They must not be read-only.
+            If they are, you have to mark all files in the data directory and
+            all subfolders and uncheck the read-only flag.</li>
+      </ul></td>
+    </tr>
+    <tr>
+      <td bgcolor="#DDDDDD" class="smalltable">Download from any source fails</td>
+      <td bgcolor="#DDDDDD" class="smalltable">Connection problem</td>
+      <td bgcolor="#DDDDDD" class="smalltable">Please check your Internet connection. If you are
+        using a firewall, make sure to allow AmiQuote (QUOTE.EXE) to access the
+        Internet on ports 80 and 443.</td>
+    </tr>
+    <tr valign="top">
+      <td class="smalltable"><strong><a name="PLUGINS"></a>AmiBroker<br>
+      /eSignal plugin</strong></td>
+      <td class="smalltable">RT data spikes, bad ticks, other
+      data problems. </td>
+      <td class="smalltable">Connection problem or other reason</td>
+      <td class="smalltable">Click with RIGHT mouse button over plug-in status
+        area (green &quot;OK&quot; field) and choose &quot;Fixup data for symbol&quot; and wait a
+        while. This
+        will
+        cause
+        the entire intraday history for the given symbol to be re-downloaded.</td>
+    </tr>
+    <tr valign="top">
+      <td class="smalltable"><strong>AmiBroker <br>
+        /myTrack <br>
+        /IQFeed <br>
+        /QuoteTracker
+          plugin</strong></td>
+      <td class="smalltable">RT data spikes, bad ticks, other data problems.</td>
+      <td class="smalltable">Connection problem or other reason</td>
+      <td class="smalltable">Click with RIGHT mouse button over green &quot;OK&quot; field
+        and choose &quot;Force backfill&quot; and wait a while. This will
+      cause the entire intraday history for the given symbol to be re-downloaded.</td>
+    </tr>
+    <tr valign="top">
+      <td class="smalltable"><strong>AmiBroker<br>
+      /QuoteTracker plugin</strong></td>
+      <td class="smalltable">Data does not update</td>
+      <td class="smalltable">Not enough 'ad-clicks' in QuoteTracker</td>
+      <td class="smalltable"><p>You have to click on advertisements in QuoteTracker
+        or register it. For more details see:</p>
+        <p><a href="http://www.amibroker.com/qthelp.html">http://www.amibroker.com/qthelp.html</a></p>
+      </td>
+    </tr>
+    <tr valign="top">
+      <td class="smalltable"><strong>AmiBroker<br>
+      /any RT plugin</strong></td>
+      <td class="smalltable">Disconnection</td>
+      <td class="smalltable">Connection problem</td>
+      <td class="smalltable">Click with RIGHT mouse button over plug-in
+          status area (will show red &quot;WAIT&quot; or &quot;SHUT&quot;) and
+          choose &quot;Disconnect&quot; and then &quot;Connect&quot;. If this does not help,
+          restart AmiBroker.</td>
+    </tr>
+    <tr valign="top">
+      <td class="smalltable"><strong>AmiBroker<br>
+      /QuotesPlus plugin</strong></td>
+      <td class="smalltable">Error message &quot;Cannot initialize C-TREE&quot;</td>
+      <td class="smalltable">Quotes Plus database problem</td>
+      <td class="smalltable">Check if Quotes Plus own chart program works. If
+        not, it means that this is a problem in the QP2 database module, and you need
+        to contact Quotes Plus technical support for help</td>
+    </tr>
+    <tr valign="top">
+      <td class="smalltable"><strong>AmiBroker <br>
+      /TC2000 <br>
+      /TCNet plugin, sometimes</strong></td>
+      <td class="smalltable">Error message &quot;Variable or object not set&quot;</td>
+      <td class="smalltable">Timing problem inside TC2000 own components.</td>
+      <td class="smalltable">The only partial workaround to this problem is to
+        move all data from TC2000 CD-ROM to your hard disk (by using Hard Disk Lists).</td>
+    </tr>
+  </table>
+</div>
+<p>&nbsp;</p>
+<p><strong>Miscellaneous questions</strong></p>
+<table border="1" cellspacing="0" cellpadding="3" bordercolor="#E3E3E3" bgcolor="#CCFFCC">
+  <tr>
+    <th width="18%" class="smalltable">
+      <p>Question</p>
+    </th>
+    <th width="82%" class="smalltable">Answer</th>
+  </tr>
+  <tr>
+    <td width="18%" class="smalltable">Must I use Internet Explorer? Can I use
+      Netscape Navigator, Opera, (other browser) instead?</td>
+    <td width="82%" class="smalltable">
+      <div align="left"><b>You can use any browser</b>. In certain server versions
+        of Windows, it must be selected to be installed. Internet Explorer is
+        now just a part of the operating system, and AmiBroker extensively uses
+        those
+        parts. But  you don't need to use Internet
+        Explorer.</div>
+    </td>
+  </tr>
+  <tr>
+    <td width="18%" class="smalltable">Where is the help file (manual)?</td>
+    <td width="82%" class="smalltable">
+      <p>User's guide is available from Help-&gt;Help topics menu in AmiBroker<a href="http://www.amibroker.com/bin/HHUPD.EXE"></a> (accessible
+        also by F1 key)</p>
+    </td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

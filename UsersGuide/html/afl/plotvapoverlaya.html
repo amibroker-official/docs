@@ -1,0 +1,116 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PLOTVAPOVERLAYA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PlotVAPOverlayA</b><br>
+        - plot multiple-segment Volume-At-Price chart</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 5.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PlotVAPOverlayA( segments, lines = 300, width = 80, color = colorLightGrey, vapstyle = 4); </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Plots multiple Volume At Price charts at user-defined points.
+<p>
+Parameters:
+<p>
+segments - is an array which holds 0 and 1 (False/True) values, where 1 indicates starting/ending point of each VAP segment
+<p>
+AmiBroker will draw as many segments as there are '1' in the array. Note that minimum segment length is 2, so if entire array is filled with 1-s only, 
+it won't draw anything. In other words, there must be zeros (at least one) between 1's.
+<p>
+lines - number of vertical lines (resolution)
+<p>
+width - percentage width of the VAP overlay relatative to segment length (0..100)
+<p>
+color - the color of VAP chart
+<p>
+vapstyle
+<ul>
+<li>vapstyle = 0 - left side, area fill, on top of all plots
+<li>vapstyle = 1 - right side, area fill, on top of all plots
+<li>vapstyle = 2 - left side, lines only, on top of all plots
+<li>vapstyle = 3 - right side, lines only, on top of all plots
+<li>vapstyle = 4 - left side, area fill, behind all plots
+<li>vapstyle = 5 - right side, area fill, behind all plots
+<li>vapstyle = 6 - left side, lines only, behind all plots
+<li>vapstyle = 7 - right side, lines only, behind all plots 
+</ul>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <p>Simplest example:</p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Close"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> ); <BR>
+    segments = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Interval</FONT><FONT COLOR=#000000>() &lt; </FONT><FONT COLOR=#000000><B>inDaily</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>Day</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Month</FONT><FONT COLOR=#000000>()
+    ); </FONT><FONT COLOR=#008000>// draw daily or monthly VAP segments depending
+    on display interval</FONT><FONT COLOR=#000000> <BR>
+    segments = segments != </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>(
+    segments , -</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+    <BR>
+    <font color="#0000FF">PlotVAPOverlayA</font>( segments );</FONT></CODE></p>
+  <p><br>
+    More complex example:<br>
+    <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#969696>_SECTION_BEGIN</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Price"</FONT><FONT COLOR=#000000>); <BR>
+    </FONT><FONT COLOR=#0000ff>SetChartOptions</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#000000><B>chartShowArrows</B></FONT><FONT COLOR=#000000>|</FONT><FONT COLOR=#000000><B>chartShowDates</B></FONT><FONT COLOR=#000000>); <BR>
+    </FONT><FONT COLOR=#0000ff>_N</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"{{NAME}}
+    - {{INTERVAL}} {{DATE}} Open %g, Hi %g, Lo %g, Close %g (%.1f%%) {{VALUES}}"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>O</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>SelectedValue</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>ROC</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+    ) )); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Close"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Color"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>styleNoTitle</B></FONT><FONT COLOR=#000000> | </FONT><FONT COLOR=#0000ff>ParamStyle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Style"</FONT><FONT COLOR=#000000>)
+    | </FONT><FONT COLOR=#0000ff>GetPriceStyle</FONT><FONT COLOR=#000000>() ); <BR>
+    </FONT><FONT COLOR=#969696>_SECTION_END</FONT><FONT COLOR=#000000>(); <BR>
+    <BR>
+    </FONT><FONT COLOR=#969696>_SECTION_BEGIN</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"VAP"</FONT><FONT COLOR=#000000>); <BR>
+    segments = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Interval</FONT><FONT COLOR=#000000>() &lt; </FONT><FONT COLOR=#000000><B>inDaily</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>Day</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Month</FONT><FONT COLOR=#000000>()
+    ); <BR>
+    segments = segments != </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>(
+    segments , -</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+    <BR>
+    <font color="#0000FF">PlotVAPOverlayA</font>( segments , </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Lines"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>300</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1000</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Width"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>80</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Color"</FONT><FONT COLOR=#000000>, <B>colorGold</B> ), </FONT><FONT COLOR=#0000ff>ParamToggle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Side"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Left|Right"</FONT><FONT COLOR=#000000> )
+    | </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#0000ff>ParamToggle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Style"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Fill|Lines"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>)
+    | </FONT><FONT COLOR=#800080>4</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#0000ff>ParamToggle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Z-order"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"On
+    top|Behind"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+    ); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(segments, </FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000>, <B>colorLightGrey</B>, <B>styleHistogram</B> | <B>styleOwnScale</B> ); <BR>
+    </FONT><FONT COLOR=#969696>_SECTION_END</FONT><FONT COLOR=#000000>();</FONT></CODE></p> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="plotvapoverlay.html">PLOTVAPOVERLAY()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>PlotVAPOverlayA</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PlotVAPOverlayA">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

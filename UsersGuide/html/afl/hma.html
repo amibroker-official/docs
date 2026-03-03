@@ -1,0 +1,72 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - HMA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>HMA</b><br>
+        - Hull Moving Average</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Moving averages, summation<br>
+        </b>(AmiBroker 5.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>HMA( array, range ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Implements Hull Moving Average. It is functionally equivalent to the following code:
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000>HMA_AFL</FONT><FONT COLOR=#000000>(
+array, period ) <BR>
+{ <BR>
+ fast = </FONT><FONT COLOR=#0000ff>WMA</FONT><FONT COLOR=#000000>( array, period
+/ </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ); <BR>
+ slow = </FONT><FONT COLOR=#0000ff>WMA</FONT><FONT COLOR=#000000>( array, period
+); <BR>
+   
+<BR>
+</FONT><FONT COLOR=#800000><B> return</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>WMA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> *
+fast - slow, </FONT><FONT COLOR=#0000ff>sqrt</FONT><FONT COLOR=#000000>( period
+) ); <BR>
+} </FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="ma.html">MA()</A> function , <A HREF="wma.html">WMA()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>HMA</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1501&hilite=HMA' target='_blank'>MAVG</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=HMA">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

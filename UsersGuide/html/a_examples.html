@@ -1,0 +1,156 @@
+<html>
+<head>
+<title>Example Formulas</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2>Example Formulas</h2>
+<p><b>A sample low-level implementation of Profit target stop in AFL<br>
+  </b></p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>()
+              ); <BR>
+      <BR>
+      priceatbuy=</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+      <BR>
+      </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i
+              = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+              i++ ) <BR>
+              { <BR>
+              </FONT><FONT COLOR=#800000><B> &nbsp;if</B></FONT><FONT COLOR=#000000>( priceatbuy
+              == </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> && </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>[
+              i ] ) <BR>
+&nbsp;priceatbuy = </FONT><FONT COLOR=#000000><B>BuyPrice</B></FONT><FONT COLOR=#000000>[
+    i ]; <BR>
+  <BR>
+  </FONT><FONT COLOR=#800000><B>&nbsp;if</B></FONT><FONT COLOR=#000000>( priceatbuy &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> && </FONT><FONT COLOR=#000000><B>SellPrice</B></FONT><FONT COLOR=#000000>[
+    i ] &gt; </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000> * priceatbuy
+    ) <BR>
+&nbsp;{ <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>[
+    i ] = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>SellPrice</B></FONT><FONT COLOR=#000000>[
+    i ] = </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000> * priceatbuy; <BR>
+&nbsp;&nbsp;
+    priceatbuy = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;} <BR>
+    </FONT><FONT COLOR=#800000><B>&nbsp;else</B></FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>[
+    i ] = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+    }</FONT></CODE></p>
+<p>&nbsp;</p>
+<p><b>Rebalancing positions in rotational trading</b></p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>EnableRotationalTrading</FONT><FONT COLOR=#000000>(); <BR>
+      <BR>
+      EachPosPercent = </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>; <BR>
+      <BR>
+      </FONT><FONT COLOR=#000000><B>PositionScore</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>ROC</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+      </FONT><FONT COLOR=#000000><B>PositionSize</B></FONT><FONT COLOR=#000000> =
+      -EachPosPercent; <BR>
+      <BR>
+      </FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"WorstRankHeld"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>40</FONT><FONT COLOR=#000000> ); <BR>
+      </FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"MaxOpenPositions"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+      </FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"UseCustomBacktestProc"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+      </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"action"</FONT><FONT COLOR=#000000>)
+      == </FONT><FONT COLOR=#000000><B>actionPortfolio</B></FONT><FONT COLOR=#000000> ) <BR>
+      { <BR>
+      &nbsp;&nbsp; 
+      bo = </FONT><FONT COLOR=#0000ff>GetBacktesterObject</FONT><FONT COLOR=#000000>(); <BR>
+      <BR>
+      &nbsp;&nbsp; 
+      bo.PreProcess(); </FONT><FONT COLOR=#008000>// Initialize backtester </FONT><FONT COLOR=#000000> <BR>
+      <BR>
+      &nbsp;&nbsp; 
+      </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(bar=</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+      bar&lt;</FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+      bar++) <BR>
+      &nbsp;&nbsp; 
+      { <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      bo.ProcessTradeSignals( bar ); <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      CurEquity = bo.Equity; <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// rebalance
+      to 5% each </FONT><FONT COLOR=#000000> <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      bo.RawTextOutput(</FONT><FONT COLOR=#ff00ff>"Portfolio Equity\tValue = "</FONT><FONT COLOR=#000000> +
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      CurEquity + </FONT><FONT COLOR=#ff00ff>",&nbsp;&nbsp;"</FONT><FONT COLOR=#000000> +
+      EachPosPercent + </FONT><FONT COLOR=#ff00ff>"% = "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#ff00ff>0.01</FONT><FONT COLOR=#000000> *
+      EachPosPercent * CurEquity ); <BR>
+      <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+      pos = bo.GetFirstOpenPos(); pos; pos = bo.GetNextOpenPos() ) <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      { <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      posval = pos.GetPositionValue(); <BR>
+      &nbsp;&nbsp;&nbsp; 
+      <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      diff = posval - </FONT><FONT COLOR=#ff00ff>0.01</FONT><FONT COLOR=#000000> *
+      EachPosPercent * CurEquity; <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      price = pos.GetPrice( bar, </FONT><FONT COLOR=#ff00ff>"O"</FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+      rebalance only if difference between desired and</FONT><FONT COLOR=#000000> <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+      current position value is greater than 0.5% of equity</FONT><FONT COLOR=#000000> <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+      and greater than price of single share</FONT><FONT COLOR=#000000> <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+      diff != </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>abs</FONT><FONT COLOR=#000000>(
+      diff ) &gt; </FONT><FONT COLOR=#ff00ff>0.005</FONT><FONT COLOR=#000000> *
+      CurEquity </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>abs</FONT><FONT COLOR=#000000>(
+      diff ) &gt; price ) <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      { <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      bo.RawTextOutput(</FONT><FONT COLOR=#ff00ff>"Attempt to scale"</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>WriteIf</FONT><FONT COLOR=#000000>(
+      diff &lt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>" IN"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>" OUT"</FONT><FONT COLOR=#000000> )
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ </FONT><FONT COLOR=#ff00ff>"\t"</FONT><FONT COLOR=#000000> + pos.Symbol
+      + </FONT><FONT COLOR=#ff00ff>" Pos. value = "</FONT><FONT COLOR=#000000> +
+      posval <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ </FONT><FONT COLOR=#ff00ff>" diff vs. ideal = "</FONT><FONT COLOR=#000000> +
+      (-diff) + </FONT><FONT COLOR=#ff00ff>"("</FONT><FONT COLOR=#000000> + (-diff)/price
+      + </FONT><FONT COLOR=#ff00ff>" shares)"</FONT><FONT COLOR=#000000> ); <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      bo.ScaleTrade( bar, pos.Symbol, diff &lt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,
+      price, </FONT><FONT COLOR=#0000ff>abs</FONT><FONT COLOR=#000000>( diff
+      ) ); <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      } <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      { <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      bo.RawTextOutput(</FONT><FONT COLOR=#ff00ff>"&nbsp;&nbsp;--"</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#ff00ff>"\t"</FONT><FONT COLOR=#000000> +
+pos.Symbol + </FONT><FONT COLOR=#ff00ff>" Pos. value = "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></CODE><CODE><FONT COLOR=#000000>+
+        posval + </FONT><FONT COLOR=#ff00ff>" diff vs. ideal = "</FONT><FONT COLOR=#000000> +
+        (-diff) + </FONT><FONT COLOR=#ff00ff>"("</FONT><FONT COLOR=#000000> <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        + </FONT><FONT COLOR=#0000ff>WriteVal</FONT><FONT COLOR=#000000>((-</FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>*diff/CurEquity),</FONT><FONT COLOR=#ff00ff>1.2</FONT><FONT COLOR=#000000>)
+        + </FONT><FONT COLOR=#ff00ff>"% of Equity, "</FONT><FONT COLOR=#000000>+
+        (-diff)/price + </FONT><FONT COLOR=#ff00ff>" shares)"</FONT><FONT COLOR=#000000> ); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <BR>
+        <BR>
+&nbsp;&nbsp; } <BR>
+&nbsp;&nbsp; bo.PostProcess(); </FONT><FONT COLOR=#008000>// Finalize backtester </FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp; 
+  <BR>
+}</FONT></CODE></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

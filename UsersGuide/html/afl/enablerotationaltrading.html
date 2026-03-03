@@ -1,0 +1,128 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ENABLEROTATIONALTRADING</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>EnableRotationalTrading</b><br>
+        - Turns on rotational-trading mode of the backtester</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>EnableRotationalTrading() </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> When placed on the top of system formula it turns on
+rotational-trading (aka. fund-switching) mode of the backtester.
+
+<p>Note: this function is now marked as obsolete. Use SetBacktestMode( backtestRotational ) in new formulas.
+
+<p><u>IMPORTANT NOTE: Unless you specifically want to implement fund-switching/rotational
+  trading system you should NOT use this mode.</u></p>
+<p>Rotational trading is popular method for trading mutual funds.
+  It is also known as fund-switching or scoring&ranking. Its basic permise
+  is to <strong>rotate
+  symbols all the time</strong> so only top N issues ranked according to some
+  user-definable score are traded. The number of positions open depend on "Max.
+  open positions" setting and available funds
+  / position size. Once position is entered in remains in place until security's
+  rank drops below WorstRankHeld
+  (settable via SetOption("WorstRankHeld", 5 ) ). <b>Regular buy/sell/short/cover signals are not used at
+  all.</b>
+<p>The rotational mode uses only score variable (PositionScore) to rank and rotate securities. This idea has been implemented earlier in PortfolioTrader AFL formula written by Fred Tonetti with
+  GUI
+  written by Dale Wingo. <p>
+<p>To enter this mode you have to call <strong>EnableRotationalTrading()</strong> function
+  at the very beginning of your formula. From then on
+  using of buy/sell/short/cover
+  variables
+  is not allowed. Only PositionScore variable will be used to rank securities
+and trade top N securities.. </p>
+<p>A simple rotational trading formula (stocks with high RSI are best candidates
+  for shorting while stocks with low RSI are best candidates for long positions):</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>EnableRotationalTrading</FONT><FONT COLOR=#000000>(); <BR>
+</FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"WorstRankHeld"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>PositionSize</B></FONT><FONT COLOR=#000000> = -</FONT><FONT COLOR=#ff00ff>25</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+invest 25% of equity in single security</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#000000><B>PositionScore</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+PositionScore has the same meaning as rScore in PT</FONT><FONT COLOR=#000000><BR></FONT></CODE>
+<p>The score (PositionScore) for all securities is calculated first. Then all
+  scores are <strong>sorted according to absolute value of PositionScore</strong>.
+  Then top N are choosen to
+  be traded.
+  N depends on available funds and "max. open positions" setting. Backtester
+  successively enters the trades starting from
+  highest
+  ranked security until the number of positions open reaches "<strong>max.
+  open positions</strong>"
+  or there are no more funds available. The score has the following meaning:
+<ul>
+<li>higher positive score means better candidate for entering long trade
+<li>lower negative score means better candidate for entering short trade
+<li>the score of zero means no trade (exit the trade if there is already open position on given symbol)
+<li>the score equal to <b>scoreNoRotate</b> constant means that already open trades should be kept and no new trades entered
+<li>the score equal to <b>scoreExitAll</b> constant causes rotational mode backtester to exit all positions regardless of HoldMinBars.
+Note that this is global flag and it is enough to set it for just any single symbol to exit all currently open positions, no matter on which symbol you use scoreExitAll (it may be even on symbol that is not currently held). By setting PositionScore to scoreExitAll you exit all positions immediatelly regardless of HoldMinBars setting
+</ul>
+ </p>
+<p><strong>Exits are generated automatically when
+    security's rank drops below "worst rank held"</strong>. There is no real control over
+    when exits happen except of setting low score to force exits. You can also
+    set the score on any (at least one) security to  value of scoreNoRotate to
+    prevent rotation (so already open positions are kept). But this is global
+  and does not give you individual control.</p>
+<p>
+<b>
+Important:<br>
+The rotational trading mode uses "buy price" and "buy delay" from the Settings | Trade page as trade price and delay for both entries and exits (long and short)
+</b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>EnableRotationalTrading</FONT><FONT COLOR=#000000>(); <BR>
+</FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"WorstRankHeld"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>PositionSize</B></FONT><FONT COLOR=#000000> = -</FONT><FONT COLOR=#ff00ff>25</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+invest 25% of equity in single security</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#000000><B>PositionScore</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+PositionScore has the same meaning as rScore in PT</FONT><FONT COLOR=#000000><BR></FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="setbacktestmode.html">SetBacktestMode()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>EnableRotationalTrading</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=323&hilite=EnableRotationalTrading' target='_blank'>Relative Strength</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=EnableRotationalTrading">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - LASTVISIBLEVALUE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>LastVisibleValue</b><br>
+        - get last visible value of array</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 5.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>LastVisibleValue( array ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> When used in charts / indicators /interpretation the function returns the values of array at the last visible bar.<p>
+In other (non-indicator) modes the function returns array element with subscripts of BarCount-1.
+<p>
+Note that these functions do not affect QuickAFL, so LastVisibleValue may be used instead of LastValue
+These functions are intended to complement functionality already available via HighestVisibleValue and LowestVisibleValue. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000>x = </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( x, </FONT><FONT COLOR=#800080>"x"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>FirstVisibleValue</FONT><FONT COLOR=#000000>(
+x ), </FONT><FONT COLOR=#800080>"fvv"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>LastVisibleValue</FONT><FONT COLOR=#000000>(
+x ), </FONT><FONT COLOR=#800080>"lvv"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="firstvisiblevalue.html">FirstVisibleValue()</A> function , <A HREF="highestvisiblevalue.html">HighestVisibleValue()</A> function , <A HREF="lowestvisiblevalue.html">LowestVisibleValue()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>LastVisibleValue</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=LastVisibleValue' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=LastVisibleValue' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=LastVisibleValue' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=LastVisibleValue' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=LastVisibleValue' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=LastVisibleValue' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=LastVisibleValue' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1475&hilite=LastVisibleValue' target='_blank'>Multi-color Volume At Price (VAP)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1603&hilite=LastVisibleValue' target='_blank'>Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=LastVisibleValue' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1465&hilite=LastVisibleValue' target='_blank'>Updated Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=LastVisibleValue' target='_blank'>White Theme</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=LastVisibleValue">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

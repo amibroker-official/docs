@@ -1,0 +1,75 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETCHARTBKCOLOR</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetChartBkColor</b><br>
+        - get the RGB color value of chart background</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 5.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetChartBkColor() </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Returns color value of chart background.
+Color value in AmiBroker is either one of predefined color constants
+(colorWhite, colorBlack), or RGB value with offset of 56 (number of predefined colors).
+So to get actual RGB value you need to subtract 56 from the result of that function. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetChartBkColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Color"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>ColorRGB</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> )
+) ); <BR>
+<BR>
+rgb = </FONT><FONT COLOR=#0000ff>GetChartBkColor</FONT><FONT COLOR=#000000>() - 56; <BR>
+<BR>
+red = ( rgb & </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> ); <BR>
+green = </FONT><FONT COLOR=#0000ff>floor</FONT><FONT COLOR=#000000>( (rgb/</FONT><FONT COLOR=#800080>256</FONT><FONT COLOR=#000000>) & </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> ); <BR>
+blue = </FONT><FONT COLOR=#0000ff>floor</FONT><FONT COLOR=#000000>( rgb/(</FONT><FONT COLOR=#800080>256</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#800080>256</FONT><FONT COLOR=#000000>)
+); <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#800080>"R="</FONT><FONT COLOR=#000000>+
+red + </FONT><FONT COLOR=#800080>" G="</FONT><FONT COLOR=#000000> + green + </FONT><FONT COLOR=#800080>" B="</FONT><FONT COLOR=#000000> +
+blue; <BR>
+<BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="setchartbkcolor.html">SetChartBkColor()</A> function , <A HREF="setchartbkgradientfill.html">SetChartBkGradientFill()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetChartBkColor</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1520&hilite=GetChartBkColor' target='_blank'>B-Xtrender</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=GetChartBkColor' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=GetChartBkColor' target='_blank'>Stress with SuperSmoother</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=GetChartBkColor' target='_blank'>White Theme</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetChartBkColor">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

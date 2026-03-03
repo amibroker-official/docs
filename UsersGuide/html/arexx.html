@@ -1,0 +1,345 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>ARexx Interface</title>
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<table border="0" cellpadding="4" cellspacing="0" width="100%"
+bgcolor="#c00000">
+    <tr>
+        <td align="center">
+      <h1 align="left" class="caption">ARexx Interface</h1>
+        </td>
+    </tr>
+</table>
+
+<p class="note"><u><strong><font size="3">NOTE: ARexx interface is supported only in Amiga version of 
+  AmiBroker. The Win32 version provides the same functionality via OLE Automation 
+  interface.</font></strong></u></p>
+<h4>Accessing ARexx port <br>
+  Writing custom ARexx scripts <br>
+  Commands Reference </h4>
+<h2><a name="AIAccessingPort"></a>Accessing ARexx port </h2>
+<p>AmiBroker has a built-in ARexx port with a powerful command set that enables you 
+  to write custom scripts for performing different tasks. A sample ARexx script 
+  is included. </p>
+<p>AmiBroker ARexx port is accessible by the name &quot;AMIBROKER.x&quot;, where x 
+  is 1, 2, 3, ... </p>
+<p>Actual port name can be found in the &#145;About&#146; requester, but in most cases 
+  you can assume that the port name is &quot;AMIBROKER.1&quot;. </p>
+<h2><a name="AIWritingScripts"></a>Writing custom ARexx scripts </h2>
+<p>When using any of the AmiBroker&#146;s internal commands (described below), please keep in mind that ARexx commands are parsed twice: first by the ARexx server while interpreting the script, second by AmiBroker using the </p>
+<p>dos.library/ReadArgs(). Then, please, put the commands into single quotes and 
+  double-quote those parameters that include spaces to prevent them from being regarded 
+  as string delimiters. </p>
+<p>Example: </p>
+<p>&#145;REQUEST BODY=&quot;This is an example&quot; TITLE=&quot;Title with spaces&quot; 
+  BUTTONS=&quot;Yes|Oh no&quot; &#145; </p>
+<p>AmiBroker passes command results to your script using a special ARexx variable, RESULT. The error code is passed in the RC variable. Possible values for the error code are: 
+</p>
+<p>0 - success <br>
+  5 - warning <br>
+  10 - error <br>
+  20 - fatal error</p>
+<p align="left">&nbsp;</p>
+<h2 align="left"><a name="AICommandsReference"></a>Commands Reference </h2>
+<hr>
+<h4 align="left">ADDQUOTATION</h4>
+<p>ADDQUOTATION STOCK/A,DATE/A,PRICE=CLOSE/A,OPEN/K,HIGH/K,LOW/K,VOLUME/K </p>
+<p>Adds a quotation to the database. If the selected quotation already exists, this 
+  function modifies existing price/volume data. </p>
+<p>STOCK - (STRING) specifies the stock name (case sensitive) <br>
+  DATE - (STRING) YY-MM-DD, quotation date <br>
+  CLOSE - (FLOAT) gets the closing price <br>
+  PRICE - synonym for CLOSE <br>
+  OPEN - (FLOAT) gets the opening price <br>
+  HIGH - (FLOAT) gets the day&#146;s high <br>
+  LOW - (FLOAT) gets the day&#146;s low <br>
+  VOLUME - (INT) gets the volume of trade </p>
+<p>This function will fail if there&#146;s no stock with the specified name - use 
+  ADDSTOCK to add a new stock name to the database. This function does NOT refresh 
+  the charts. Use REFRESH or ARRANGE to do that. <br>
+  The parameter template for this command has changed in 1.7. Pre-1.7 scripts using 
+  keywords will work OK, but others will not. </p>
+<hr>
+<h4 align="left">ADDSTOCK</h4>
+<p>ADDSTOCK NAME=STOCK/A, CONT/S </p>
+<p>Adds a new stock to the database </p>
+<p align="left">STOCK - (STRING) defines the stock name (case sensitive) <br>
+  NAME - synonym for STOCK <br>
+  CONT - switches continuous trading mode on. </p>
+<hr>
+<h4 align="left">ARRANGE</h4>
+<p>ARRANGE </p>
+<p>Arranges and refreshes all open chart windows </p>
+<hr>
+<h4 align="left">ASK</h4>
+<p>ASK STOCK/K,DATE=QUOTATION/K </p>
+<p>Asks whether the given stock/quotation exists in the database </p>
+<p>STOCK - stock name to search for <br>
+  DATE - date of quotation to search for </p>
+<p>You can check only if a given stock exists using this command without the DATE parameter. 
+  Returns 0 if the given stock/quotation doesn&#146;t exist in the database or 1 if it 
+  exists. </p>
+<hr>
+<h4 align="left">DATABASE</h4>
+<p>DATABASE CHANGE/S,NOCHANGE/S,SAVE/S,STATUS/S, OPEN/K </p>
+<p>Database control </p>
+<p>CHANGE - switches database status to changed <br>
+  NOCHANGE - switches database status to not changed <br>
+  SAVE - saves database to disk (if changed) <br>
+  STATUS - queries database status, returns: <br>
+  1 - if the database has been changed <br>
+  0 - if the database has not been changed <br>
+  OPEN - (NEW) OPEN=work:data/nyse - path to the database</p>
+<p>Note: To force saving, use: &#145;DATABASE CHANGE SAVE&#146; </p>
+<p>After the OPEN keyword, you should specify the path to the database directory (without 
+  trailing slash).<br>
+  With _single_ DATABASE command you can now force saving the previous database and opening 
+  a new one. Example:<br>
+  DATABASE CHANGE SAVE OPEN=your_path</p>
+<hr>
+<h4>DEBUG</h4>
+<p>DEBUG ON/S,OFF/S </p>
+<p align="left">Switches ARexx debug messages. </p>
+<p align="left">If ON, error/warning messages will be displayed in the appropriate requester. </p>
+<hr>
+<h4 align="left">GETFINANCE</h4>
+<p align="left">GETFINANCE NAME=STOCK/A,QUARTER/N/A,YEAR/S,INCOME/S,EBT/S,EAT/S</p>
+<p align="left">This command retrieves financial data.</p>
+<p align="left">NAME=STOCK - short stock name (ticker) for which information is 
+  requested<br>
+  QUARTER - quarter number (1-4)<br>
+  Optional parameters:<br>
+  YEAR - gets the year number<br>
+  INCOME - gets the sales income<br>
+  EBT - gets the earnings before tax<br>
+  EAT - gets the earnings after tax<br>
+  <br>
+  Command output is stored in the ARexx result string.</p>
+<hr>
+<h4 align="left">GETQUOTATION</h4>
+<p>GETQUOTATION STOCK/A,DATE/A,PRICE=CLOSE/S,OPEN/S,HIGH/S,LOW/S,VOLUME/S,INFO/S 
+</p>
+<p>Gets quotation data. </p>
+<p>STOCK - (STRING) specifies the stock name (case sensitive); <br>
+  DATE - (STRING) YY-MM-DD, quotation date; <br>
+  CLOSE - gets the closing price; <br>
+  PRICE - synonym for CLOSE; <br>
+  OPEN - gets the opening price; <br>
+  HIGH - gets the day&#146;s high; <br>
+  LOW - gets the day&#146;s low; <br>
+  VOLUME - gets the volume of trade <br>
+  INFO - gets WSE-specific info (version 2.5 and up)<br>
+</p>
+<p>Result: A string containing selected data in this order:<br>
+  &lt;close&gt; &lt;open&gt; &lt;high&gt; &lt;low&gt; &lt;volume&gt; <br>
+  with a single space between actual numbers </p>
+<p>Examples: </p>
+<p>GETQUOTATION STOCK=APPLE DATE=96-01-03 CLOSE </p>
+<p>This will return only the closing price. </p>
+<p>GETQUOTATION STOCK=APPLE DATE=96-01-03 CLOSE VOLUME </p>
+<p>This will return the closing price and volume number. </p>
+<hr>
+<h4>GETSELECTED</h4>
+<p>GETSELECTED STOCK/S,DATE/S </p>
+<p>Gets the selected stock name or quotation date. </p>
+<p align="left">STOCK - gets the selected stock name <br>
+  DATE - gets the selected quotation date </p>
+<hr>
+<h4>GETSTOCKINFO</h4>
+<p>GETSTOCKINFO NAME=STOCK/A, FULL/S, CODE/S, ADDRESS/S, ISSUE/S, NOMINAL/S, BOOKVALUE=BV/S, 
+  MARKET/S, GROUP/S, CONT/S, FAVOURITE/S, INDEX/S</p>
+<p>This command retrieves stock information:</p>
+<p>NAME=STOCK - short stock name (ticker) for which information is requested<br>
+  Optional parameters:<br>
+  FULL - gets the company's full name<br>
+  CODE - gets the Polish stock code (INT)<br>
+  ADDRESS - gets the company's address<br>
+  ISSUE - gets the stock issue (INT)<br>
+  NOMINAL - gets the nominal value (FLOAT)<br>
+  BOOKVALUE - gets the book value (in thousands)<br>
+  MARKET - gets the market ID<br>
+  GROUP - gets the group ID<br>
+  CONT - continuous quotation flag ( 0 = price fixing, 1 - continuous quotation 
+  enabled)<br>
+  FAVOURITE - gets the favourite flag<br>
+  INDEX - gets the index flag</p>
+<p>Command output is stored in the ARexx result string. This command can retrieve 
+  one or more of the listed items. When retrieving multiple items, the result string will 
+  contain all selected item values, concatenated with a single space between them. Keep 
+  in mind that FULL and ADDRESS data can contain strings with spaces, so it will 
+  be difficult to separate them from other data! If you want to retrieve FULL 
+  or ADDRESS data, please use the following format:</p>
+<p>GETSTOCKINFO &lt;your_stock_name&gt; FULL<br>
+  or<br>
+  GETSTOCKINFO &lt;your_stock_name&gt; ADDRESS</p>
+<p>In this way you will get the information you need in the result string, with no 
+  further parsing necessary.</p>
+<hr>
+<h4>GUI</h4>
+<p>GUI LOCK/S,UNLOCK/S</p>
+<p>Function: Locks/unlocks user interface<br>
+</p>
+<p>You can nest several GUI LOCK commands, but you have to call GUI UNLOCK exactly 
+  the same number of times to actually unlock the user interface.</p>
+<p>Please use it with extreme care! If you fail to unlock it properly, the GUI user 
+  will not be able to exit the program!</p>
+<hr>
+<h4 align="left">IMPORT</h4>
+<p>IMPORT ASCII/S,TELETEXT/S,KING/S,FILE/K </p>
+<p>Imports quotation data from a specified file. </p>
+<p align="left">ASCII - selects ASCII import mode <br>
+  TELETEXT - selects TELETEXT mode (Warsaw Stock Exchange) <br>
+  KING - selects KING mode (WSE) <br>
+  FILE - (STRING) specifies file name. If none is specified, brings up a file requester. 
+</p>
+<hr>
+<p align="left">QUIT</p>
+<p>QUIT FORCE/S </p>
+<p>Quits the program. </p>
+<p align="left">FORCE/S - suppresses the requester asking for confirmation. </p>
+<hr>
+<h4 align="left">REFRESH</h4>
+<p>REFRESH </p>
+<p align="left">Redraws all open charts </p>
+<hr>
+<h4 align="left">REMQUOTATION</h4>
+<p>REMQUOTATION STOCK/A,DATE/A </p>
+<p>Removes the specified quotation of a stock. </p>
+<p>STOCK - (STRING) the stock name (case sensitive) <br>
+  DATE - (STRING) the quotation date (yy-mm-dd) </p>
+<p>This function does NOT refresh the charts. Use REFRESH or ARRANGE to do that. 
+</p>
+<hr>
+<h4>REMSTOCK</h4>
+<p>REMSTOCK NAME=STOCK/A </p>
+<p>Removes the specified stock from the list. </p>
+<p>STOCK - (STRING) the stock name (case sensitive) <br>
+  NAME - the same as STOCK (a synonym) </p>
+<p align="left">This function can NOT be undone. It removes all stock data from 
+  memory AND from the disk! Make sure you know what you are doing! </p>
+<hr>
+<h4 align="left">REQUEST</h4>
+<p>REQUEST BODY/K,TITLE/K,BUTTONS/K,FILE/S,PATH/K,PATTERN/K,SAVE/S,STRING/S </p>
+<p>Shows the &#145;easy&#146; requester. </p>
+<p align="left">BODY/K - (STRING) defines the requester body text. Multiple lines 
+  are allowed; use &#145;|&#146; as a new-line symbol. <br>
+  TITLE/K - (STRING) the requester title <br>
+  BUTTONS/K - (STRING) the requester buttons. Multiple buttons are allowed; use &#145;|&#146; 
+  to separate individual button texts. </p>
+<p>New parameters (available since 2.6) are:</p>
+<p>FILE - displays a file-requester (BOOL)<br>
+  PATH - specifies the initial path for the file-requester (STRING)<br>
+  PATTERN - specifies the file matching pattern (STRING)<br>
+  SAVE - puts the file-requester into save mode<br>
+  STRING - displays a string-requester (BOOL)</p>
+<p>NOTE:</p>
+<p>The BODY parameter is now defined with /K (it was /A in 2.5 and earlier versions). So, you have to specify the BODY keyword, since this parameter is now optional (and not used in the file-requester). Thanks to the extended syntax of the REQUEST 
+  command, it now handles 3 types of requesters:</p>
+<ul>
+  <li>
+    <p>'easy' requester - a simple message box with multiple answer buttons.<br>
+      Example:<br>
+      REQUEST BODY=&quot;Do you want to continue?&quot; TITLE=&quot;Please confirm&quot; 
+      BUTTONS=&quot;Yes|No&quot;<br>
+      Returns: the number of the selected button, in order 0, 1, 2, ... (from left 
+      to right)</p>
+  </li>
+  <li>
+    <p>File requester - asks for a file name.<br>
+      Example:<br>
+      REQUEST FILE PATH=RAM: PATTERN=#?.h SAVE TITLE=&quot;Enter file name to 
+      save&quot; BUTTONS=Save<br>
+      Returns: the selected file name</p>
+  </li>
+  <li>
+    <p>String requester - asks for a string.<br>
+      Example:<br>
+      REQUEST STRING BODY=&quot;Enter some text&quot; TITLE=&quot;Just an example&quot; 
+      BUTTONS=&quot;Ok|No&quot;<br>
+      Returns: the entered string<br>
+    </p>
+  </li>
+</ul>
+<hr>
+<h4 align="left">SCREEN</h4>
+<p>SCREEN FRONT/S,BACK/S </p>
+<p align="left">Brings the AmiBroker screen to FRONT or puts it to BACK </p>
+<hr>
+<h4 align="left">SELECT</h4>
+<p>SELECT STOCK/K,DATE/K </p>
+<p>Selects a stock and/or quotation (and marks it with a hairline on the chart). 
+</p>
+<p align="left">STOCK - (STRING) the stock name (case sensitive) <br>
+  DATE - (STRING) the quotation date (yy-mm-dd) if the specified one doesn&#146;t exist, 
+  the nearest next will be selected. </p>
+<p>From version 2.5 you can also use special names @NEXT and @PREV to go to the 
+  next/previous stock in the list. </p>
+<p>Example: SELECT STOCK=APPLE /* selects 'APPLE' */<br>
+  SELECT STOCK=@NEXT /* selects the next stock in the stock list */</p>
+<p>From version 2.6 SELECT can switch to the first/last/next/previous stock or 
+  quotation thanks to the new special codes @FIRST, @LAST, @NEXT, @PREV that can 
+  be used in place of the short stock name (ticker) or quotation date. </p>
+<p>Examples:</p>
+<p>SELECT STOCK=@FIRST<br>
+  SELECT STOCK=@LAST<br>
+  SELECT STOCK=@NEXT</p>
+<p>SELECT DATE=@LAST<br>
+  SELECT DATE=@PREV<br>
+  SELECT DATE=@FIRST</p>
+<p>NOTE:</p>
+<p>SELECT DATE=@FIRST will select the first VISIBLE quotation on the chart. To 
+  make sure that the truly first quotation is selected, use the following sequence:<br>
+  ZOOM ALL<br>
+  SELECT DATE=@FIRST</p>
+<hr>
+<p>SETFINANCE</p>
+<p>SETFINANCE NAME=STOCK/A,QUARTER/N/A,YEAR/N,INCOME/N,EBT/N,EAT/N</p>
+<p>Function: Sets financial data.</p>
+<p>NAME=STOCK is the ticker<br>
+  QUARTER - is the quarter number (1-4)<br>
+  YEAR - is the year to set<br>
+  INCOME - is the sales income for the selected quarter (in thousands)<br>
+  EBT - are earnings before taxes for the selected quarter (in thousands)<br>
+  EAT - are earnings after taxes for the selected quarter (in thousands)</p>
+<hr>
+<h4>SETSTOCKINFO</h4>
+<p>SETSTOCKINFO NAME=STOCK/A, FULL/K, CODE/N, ADDRESS/K, ISSUE/N, NOMINAL/K, BOOKVALUE=BV/N, 
+  MARKET/N, GROUP/N, CONT/S, FIXED=NOCONT/S, FAVOURITE/S, NOFAVOURITE/S, INDEX/S, 
+  NOINDEX/S</p>
+<p>Function: Sets stock information.</p>
+<p>NAME=STOCK is the stock short name (ticker)<br>
+  FULL - is the full name of the stock<br>
+  CODE - is the 4-digit code (Polish)<br>
+  ADDRESS - is the company's address<br>
+  ISSUE - is the number of shares issued<br>
+  NOMINAL - is the nominal stock value<br>
+  BOOKVALUE - is the book value of the company (in thousands $)<br>
+  MARKET - is the zero-based market identifier (number)<br>
+  GROUP - is the zero-based group identifier<br>
+  FIXED - switches on price fixing (and line charts)<br>
+  CONT - switches on continuous quotations (and candlestick charts)<br>
+  FAVOURITE - switches on the favourite flag<br>
+  NOFAVOURITE - switches off the favourite flag.<br>
+  INDEX - switches on the index flag<br>
+  NOINDEX - switches off the index flag.</p>
+<hr>
+<h4 align="left">VERSION</h4>
+<p>VERSION</p>
+<p>Returns the program version tag (STRING). </p>
+<hr>
+<h4 align="left">ZOOM</h4>
+<p align="left">ZOOM SIZE/N,ALL/S</p>
+<p align="left">Function: Zooms the chart.</p>
+<p align="left">SIZE - specifies the number of quotations to show in the chart<br>
+  ALL - switches the chart to show all available quotations</p>
+</body>
+</html>

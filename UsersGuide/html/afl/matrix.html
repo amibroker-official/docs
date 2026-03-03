@@ -1,0 +1,83 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MATRIX</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Matrix</b><br>
+        - create a new matrix</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Matrix functions<br>
+        </b>(AmiBroker 60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Matrix( rows, cols, initvalue, increment = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> Matrix </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function creates a new matrix of user specified dimensions with all elements filled with initvalue.
+An optional parameter 'increment' that allows to create a matrix with monotonically increasing elements.
+
+<p>
+To create a matrix use
+<p>my_var_name = Matrix( rows, cols, initvalue)
+<p>
+To access matrix elements, use:
+<p> my_var_name[ row ][ col ]
+<p>
+where
+<br>row is a row index (0... number of rows-1)
+<br> and 
+<br> col is a column index (0... number of columns-1)
+<p>
+Matrices and their elements support all scalar (element-wise) arithmetic and logical operations
+<p>
+So you can for example add, subtract, multiply, divide two matrices if they have same dimensions with one call.
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE> <br>
+x = <font color='#0000ff'>Matrix</font>( <font color='#800080'>5</font>, <font color='#800080'>6</font>, <font color='#800080'>9</font> ); <font color='#008000'>//
+matrix 5 rows 6 columns, initial value 9 <br>
+</font>y = <font color='#0000ff'>Matrix</font>( <font color='#800080'>5</font>, <font color='#800080'>6</font>, <font color='#800080'>10</font> ); <font color='#008000'>//
+matrix 5 rows 6 columns, initial value 10 <br>
+</font> <br>
+z = y - z; <font color='#008000'>// will give you matrix 5 rows and 6 columns
+filled with elements holding value 1 (difference between 10 and 9).</font></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Matrix</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=Matrix' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=Matrix' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=Matrix' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=Matrix' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=Matrix' target='_blank'>Polyfit Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1500&hilite=Matrix' target='_blank'>Spearman Rank Correlation Coefficient</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Matrix">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

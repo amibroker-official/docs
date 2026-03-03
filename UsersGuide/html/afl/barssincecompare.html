@@ -1,0 +1,81 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - BARSSINCECOMPARE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>BarsSinceCompare</b><br>
+        - bars since comparision between past and present array values was true</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 6.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>BarsSinceCompare( past, comparison, current )  </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> For every bar in <i>current</i> array, go back in time and compare <i>past</i> array values with <i>current</i> bar value and get number of bars since <i>comparison</i> was true.
+<p>
+Parameters:
+<ul>
+<li><i>past</i> - the array holding &quot;past&quot; values to compare to
+<li><i>comparison</i> - string that defines comparison operator, available choices are &quot;>&quot;, &quot;<&quot;, &quot;>=&quot;, &quot;<=&quot; 
+<li><i>current</i> - the array holding &quot;current&quot; values to compare to 
+</ul>
+<p>
+For more discussion about that function see: <a href='https://forum.amibroker.com/t/duplicate-bars-since-price-was-this-high-low/28355/14'>https://forum.amibroker.com/t/duplicate-bars-since-price-was-this-high-low/28355/14</a>
+
+
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#009300'>// get bars since close was last time higher than current close
+<br></font>BarsSinceCompare( <font color='#40e0d0'><b>Close</b></font>, <font color='#ff0000'>&quot;>&quot;</font>, <font color='#40e0d0'><b>Close</b></font> ); 
+<br>
+<br><font color='#009300'>// get bars since low was last time higher than current close
+<br></font>BarsSinceCompare( <font color='#40e0d0'><b>Low</b></font>, <font color='#ff0000'>&quot;>&quot;</font>, <font color='#40e0d0'><b>Close</b></font> ); 
+<br>
+<br><font color='#009300'>// get bars since low was last time higher than or equal than current close
+<br></font>BarsSinceCompare( <font color='#40e0d0'><b>Low</b></font>, <font color='#ff0000'>&quot;>=&quot;</font>, <font color='#40e0d0'><b>Close</b></font> ); 
+<br>
+<br><font color='#009300'>// get bars since high was lower than or equal than current low
+<br></font>BarsSinceCompare( <font color='#40e0d0'><b>High</b></font>, <font color='#ff0000'>&quot;<=&quot;</font>, <font color='#40e0d0'><b>Low</b></font> ); </CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="barssince.html">BarsSince()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>BarsSinceCompare</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=BarsSinceCompare">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

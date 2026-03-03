@@ -1,0 +1,100 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STATICVARGETRANKEDSYMBOLS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StaticVarGetRankedSymbols</b><br>
+        - retrieve a list of ranked symbols from static variables</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 5.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StaticVarGetRankedSymbols( &quot;outputprefix&quot;, &quot;inputprefix&quot;, datetime ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Retrieves the comma-separated list of symbols from static variables generated using StaticVarGenerateRanks.
+For more information see <a href='StaticVarGenerateRanks.html'>StaticVarGenerateRanks</a> documentation. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000>symlist = </FONT><FONT COLOR=#800080>&quot;C,CAT,DD,GE,IBM,INTC,MSFT&quot;</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// delete static variables</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarRemove</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;ValuesToSort*&quot;</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// fill input static arrays</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+( sym = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( symlist,
+i ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; i++ ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>SetForeign</FONT><FONT COLOR=#000000>(sym ); <BR>
+Value = </FONT><FONT COLOR=#0000ff>ROC</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>RestorePriceArrays</FONT><FONT COLOR=#000000>(); <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000> +
+sym, Value ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// perform ranking</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarGenerateRanks</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;rank&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1224</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+normal rank mode</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarGenerateRanks</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;top&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1224</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+top-N mode</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarGenerateRanks</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;bot&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1224</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+bottom-N mode</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// read ranking</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+( sym = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( symlist,
+i ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; i++ ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>StaticVarGet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;RankValuesToSort&quot;</FONT><FONT COLOR=#000000> +
+sym ), sym, </FONT><FONT COLOR=#000000><B>colorCustom10</B></FONT><FONT COLOR=#000000> +
+i ); <BR>
+} <BR>
+<BR>
+sdt = </FONT><FONT COLOR=#0000ff>SelectedValue</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>DateTime</FONT><FONT COLOR=#000000>()
+); <BR>
+</FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>&quot;{{NAME}}
+-{{DATE}} - {{VALUES}} TOP: &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StaticVarGetRankedSymbols</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;top&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>,
+sdt ) + <BR>
+</FONT><FONT COLOR=#800080>&quot; BOT: &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StaticVarGetRankedSymbols</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;bot&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;ValuesToSort&quot;</FONT><FONT COLOR=#000000>,
+sdt ) ;</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="staticvargenerateranks.html">StaticVarGenerateRanks()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StaticVarGetRankedSymbols</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StaticVarGetRankedSymbols">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

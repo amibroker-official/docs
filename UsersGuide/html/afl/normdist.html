@@ -1,0 +1,77 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - NORMDIST</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>NormDist</b><br>
+        - normal distribution function</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Statistical functions<br>
+        </b>(AmiBroker 6.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>NormDist( x, mean = 0, sigma = 1, cumulative = True ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function calculates Normal distribution<p>
+The function uses hi-precision algorithm that gives accurate results even for extreme left and right tails (<-5 and >+5)<p>
+The results are compatible with Excel 2003 and later which introduced higher precision NORMDIST than previous versions (Excel 2002 and earlier).
+<p>
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE>x = <font color='#800080'>19</font>; <br>
+m = <font color='#800080'>2</font>; <br>
+s = <font color='#800080'>9</font>; <br>
+<br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;PDF %g CDF %g&quot;</font>, <font color='#0000ff'>NormDist</font>(
+x, m, s, <b>False</b> ), <font color='#0000ff'>NormDist</font>( x, m, s, <b>True</b> )
+); <br>
+<br>
+x = -<font color='#800080'>7</font>; <br>
+m = <font color='#800080'>0</font>; <br>
+s = <font color='#800080'>1</font>; <br>
+<br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;PDF %g CDF %g&quot;</font>, <font color='#0000ff'>NormDist</font>(
+x, m, s, <b>False</b> ), <font color='#0000ff'>NormDist</font>( x, m, s, <b>True</b> )
+);</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>NormDist</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=NormDist">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

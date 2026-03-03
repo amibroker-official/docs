@@ -1,0 +1,80 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXPOLYLINE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxPolyline</b><br>
+        - draw a polyline</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxPolyline( x1, y1, x2, y2, ...  ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Draws a set of line segments connecting the points specified by arguments (x1,y1), (x2,y2), ... The lines are drawn from the first point through subsequent points using the current pen. Unlike the GfxLineTo function, the GfxPolyline function neither uses nor updates the current position.
+
+<p>
+This function takes variable number of arguments and accepts up to 12 points (24 arguments = 12 co-ordinate pairs). The number of arguments must be even as each pair represents (x,y) co-ordinates of the point.
+
+<p>
+Parameters:
+<ul>
+<li>x1 - x co-ordinate of first point
+<li>y1 - y co-ordinate of first point
+<li>x2 - x co-ordinate of second point
+<li>y2 - y co-ordinate of second point
+<li>...
+<li>x12 - x co-ordinate of 12th point
+<li>y12 - y co-ordinate of 12th point
+</ul>
+<p>
+NOTE: This is LOW-LEVEL graphic function. To learn more about low-level
+graphic functions please read <a href='../h_lowlevelgfx.html'>TUTORIAL: Using low-level graphics.</a>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( <B>colorGreen</B>, </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000>
+</FONT><FONT COLOR=#0000ff>GfxPolyline</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>250</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>250</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#800080>50</FONT><FONT COLOR=#000000>); <BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="gfxpolygon.html">GfxPolygon()</A> function , <A HREF="gfxselectpen.html">GfxSelectPen()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxPolyline</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=GfxPolyline' target='_blank'>Market Profile</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxPolyline">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

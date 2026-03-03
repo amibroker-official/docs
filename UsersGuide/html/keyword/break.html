@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>break Keyword</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><font size="4"><a name="for"></a>break Keyword</font>
+</h4>
+<div>
+  <p>The break keyword is a part of <a href="switch.html">switch</a> statement
+    and an optional part of looping <a href="for.html">for</a> ,
+    <a href="do.html">do-while</a> and <a href="while.html">while</a> statements.</p>
+  <p>The break keyword terminates the smallest enclosing do, for, switch, or
+  while statement in which it appears.<br>
+  <br>
+  <b>break;</b></p>
+  <p>The break statement is used to exit an iteration or switch statement. It
+    transfers control to the statement immediately following the iteration substatement
+  or switch statement.</p>
+  <p>The break statement terminates only the most tightly enclosing loop or switch
+    statement. In loops, break is used to terminate before the termination criteria
+    evaluate to 0. In the switch statement, break is used to terminate sections
+    of code &#8212; normally before a case label. The following example illustrates
+    the use of the break statement in a for loop:</p>
+  <p><CODE><FONT COLOR=#000000>i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+  </FONT><FONT COLOR=#800000><B>while</B></FONT><FONT COLOR=#000000> ( i &lt; </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ) <BR>
+  { <BR>
+  &nbsp;&nbsp;i++; <BR>
+  &nbsp;&nbsp;</FONT><FONT COLOR=#008000>// break at step 5 </FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+  i == </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000> ) <BR>
+  &nbsp;&nbsp;{ <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>break</B></FONT><FONT COLOR=#000000>; <BR>
+  &nbsp;&nbsp;} <BR>
+  &nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Step "</FONT><FONT COLOR=#000000> +
+  i ); <BR>
+  }<BR>
+  </FONT></CODE> </p>
+  <p>For an example of using the break statement within the body of a switch
+    statement, see <a href="switch.html">The switch Statement</a>.<br>
+  </p>
+</div>
+</body>
+</html>

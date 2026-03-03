@@ -1,0 +1,111 @@
+<html>
+
+<head>
+<title>Reading backtest report</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>Reading backtest report</h2>
+<p>To view the report of the last backtest, simply click the <strong>Report</strong> button
+  in the automatic analysis window. To view results of all past backtests, click
+  the drop-down arrow on the <strong>Report </strong>button and choose the <strong>Report
+  Explorer</strong> option. This will display the Report Explorer window that
+  will show the list of all backtests performed. If you double-click on a line, a detailed report will be shown.</p>
+<p>The new report is hugely enhanced compared to the old one. It includes separate statistics
+  for all, long and short sides, as well as a large number of new metrics. You can
+  get short help for a given figure by hovering your mouse over a given field name.
+  You will see the description in the tooltip. Short explanations are also provided
+below:</p>
+<p><strong>Exposure %</strong> - Market
+  exposure of the trading system calculated on a bar-by-bar basis. The sum of bar exposures
+  divided by the number of bars. Single-bar exposure is the value of open positions
+  divided by portfolio equity.</p>
+<p><strong>Net Risk Adjusted Return %</strong> - Net Profit % divided by Exposure
+  %</p>
+<p><strong>Annual Return % </strong>- Compounded Annual Return (CAR) </p>
+<p><strong>Risk Adjusted Return % </strong>- Annual Return % divided by Exposure
+  %</p>
+<p><strong>Avg. Profit/Loss</strong>, also known as <strong>Expectancy ($) </strong>-
+  (Profit of winners + Loss of losers) / (number of trades), represents the expected
+dollar gain/loss per trade.</p>
+<p><strong>Avg. Profit/Loss %</strong>, also known as <strong>Expectancy (%) </strong> -
+  (% Profit of winners + % Loss of losers) / (number of trades), represents the expected
+  percent gain/loss per trade.</p>
+<p><strong>Avg. Bars Held</strong> - Sum of bars in trades / number of trades.</p>
+<p> <strong>Max. trade drawdown </strong>- The largest peak-to-valley decline
+  experienced in any single trade. The lower, the better.</p>
+<p><strong>Max. trade % drawdown </strong>- The largest peak-to-valley percentage
+  decline experienced in any single trade. The lower, the better.</p>
+<p><strong>Max. system drawdown</strong> - The largest peak-to-valley decline
+  experienced in portfolio equity. The lower, the better.</p>
+<p><strong>Max. system % drawdown</strong> - The largest peak-to-valley percentage
+  decline experienced in portfolio equity. The lower, the better.<br>
+              <br>
+              <strong>Recovery Factor</strong> - Net Profit divided by Max. System
+              Drawdown.<br>
+              <br>
+              <strong>CAR/MaxDD </strong>- Compounded Annual Return divided by
+              Max. System % Drawdown. Good if greater than 2.</p>
+<p><strong>RAR/MaxDD</strong> - Risk-Adjusted Return divided by Max. System %
+  Drawdown. Good if greater than 2.</p>
+<p><strong>Profit Factor </strong>- Profit of winners divided by Loss of losers.</p>
+<p><strong>Payoff Ratio</strong> - Ratio of average win / average loss.<br>
+    <br>
+    <strong>Standard Error </strong>- Standard error measures choppiness of the equity
+    line. The lower, the better.</p>
+<p><strong>Risk-Reward Ratio</strong> - Measure of the relation between the risk
+  inherent in a trading system compared to its potential gain. Higher is better. Calculated as the slope of the equity line (expected annual return) divided
+  by its standard error.</p>
+<p><strong>Ulcer Index</strong> - Square root of the sum of squared drawdowns divided
+  by the number of bars.</p>
+<p><strong>Ulcer Performance Index</strong> - (Annual Profit - Treasury notes profit) / Ulcer Index. Currently, Treasury notes profit
+  is hard-coded at 5.4. In a future version, there will be a user-setting for this.</p>
+<p><strong>Sharpe Ratio of trades</strong> - Measure of risk-adjusted return
+  of investment. Above 1.0 is good; more than 2.0 is very good. More information <a href="http://www.stanford.edu/%7Ewfsharpe/art/sr/sr.htm">http://www.stanford.edu/~wfsharpe/art/sr/sr.htm</a>.
+  Calculation: First, average percentage return and standard deviation of returns
+  are calculated. Then these two figures are annualized by multiplying them by
+  the ratio (NumberOfBarsPerYear) / (AvgNumberOfBarsPerTrade). Then the risk-free rate
+  of return is subtracted (currently hard-coded at 5) from the annualized average return
+  and then divided by the annualized standard deviation of returns.<br>
+    <br>
+    <strong>K-Ratio</strong> - Detects inconsistency in returns. Should be 1.0
+    or more. The higher the K-Ratio, the more consistent the return you may expect
+    from the system. Linear regression slope of the equity line multiplied by the square
+    root of the sum of squared deviations of the bar number, divided by the standard error
+    of the equity line, multiplied by the square root of the number of bars. More information:
+    Stocks &amp; Commodities V14:3 (115-118): Measuring System Performance by
+    Lars N. Kestner</p>
+<p><strong><a name="COLORCODE"></a>Color-coding in the backtest report (new in 5.60)</strong></p>
+<p>Version 5.60 brings an enhanced backtest report: color-coding 'good' and 'bad'
+  values in the backtest report.
+Some of the metrics in the backtest report are color-coded.
+Blue means &quot;neutral&quot;, Green means &quot;good&quot;, Red means &quot;bad&quot;.
+
+Metrics that are not colorized are always black.<br>
+This color coding is, of course, arbitrary and should be used as guidance only.
+Treat 'red' as a warning flag and advice to check the value in detail. </p>
+<p>As of now, the following metrics are colorized:<br>
+  Net Profit, Net Profit % - bad &lt; 0, good &gt; 0<br>
+  Annual Profit %, bad &lt; 0, neutral between 0 and 10, good &gt; 10<br>
+  RAR % bad &lt; 0, good &gt; (10 / Exposure)<br>
+  Avg. Profit/Loss all trades (Expectancy $) - bad &lt; 0, good &gt; 0<br>
+  Avg. Profit/Loss % all trades (Expectancy %) - bad &lt; 0, good &gt; 0<br>
+  Max. system % drawdown - bad: dd worse than -30%, neutral: dd between -30 and
+  -10%, good: -10% to 0%<br>
+  CAR/MaxDD, RAR/MaxDD - bad &lt; 1, neutral between 1 and 2, good &gt; 2<br>
+  Recovery Factor - bad &lt; 1, neutral between 1 and 2, good &gt; 2<br>
+  Payoff Ratio - bad &lt; 1, neutral between 1 and 2, good &gt; 2</p>
+<p><b>See Also:</b></p>
+<p><a href="w_report.html#old">Old backtest report </a></p>
+<p><a href="h_backtest.html">Backtesting your trading ideas</a> article.</p>
+<p><a href="h_portfolio.html">Portfolio Backtesting</a> article.</p>
+<p><a href="h_futbacktest.html">Backtesting systems for futures contracts</a> 
+  article.<br>
+  <br>
+  <a href="w_afledit.html">Using AFL editor</a> section of the guide.</p>
+<p><a href="http://www.amibroker.com/newsletter/01-2002.html" target="_blank">Insider guide to backtester (newsletter 1/2002)</a></p>
+</body>
+</html>

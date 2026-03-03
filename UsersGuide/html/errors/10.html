@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 10. Subscript out of range. You must not access array elements outside 0..(BarCount-1) range</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4>Error 10. Subscript out
+of range. You must not access array elements outside 0..(BarCount-1) range</h4>
+<p>Occurs when you attempt to access array elements with subscripts below 0 (zero)
+  or above BarCount-1.</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// incorrect</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( bar = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+bar &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+bar++ ) <BR>
+{ <BR>
+&nbsp;&nbsp;&nbsp;a[ bar ] = </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+bar
+- </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>]; </FONT><FONT COLOR=#008000>//
+when i == 0 we are accessing C[-1] which is wrong</FONT><FONT COLOR=#000000> <BR>
+} <BR>
+<BR>
+<BR>
+</FONT><FONT COLOR=#008000>// correct</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( bar = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+bar &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+bar++ ) <BR>
+{ <BR>
+&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+bar &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+a[ bar ] = </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[ bar
+- </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ];&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+only access C[ i - 1 ] when i is greater than zero</FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+a[ bar ] = </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[ </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ]; <BR>
+} <BR>
+</FONT></CODE></p>
+<p>One of most common mistakes is using hard coded upper limit of for loop and
+  assuming that all symbols have enough quotes.</p>
+<p>For example:</p>
+<p><CODE><FONT COLOR=#000000>MyPeriod = </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>; <BR>
+      <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+i &lt; MyPeriod; i++ ) </FONT><FONT COLOR=#008000>// WRONG ! this assumes that
+you always have at least 10 quotes !</FONT><FONT COLOR=#000000> <BR>
+{ <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// ... do something</FONT><FONT COLOR=#000000> <BR>
+}</FONT></CODE></p>
+<p>This will always fail on symbols that have less quotes than 10 and it may
+  also fail if you zoom your chart in so less than 10 quotes are actually displayed
+  on the chart. </p>
+<p>To ensure error-free operation you must always check for upper index being
+  LESS than BarCount, like shown in the code below:</p>
+<p><CODE><FONT COLOR=#000000>MyPeriod = </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>; <BR>
+      <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+i &lt; MyPeriod </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+i++ ) </FONT><FONT COLOR=#008000>// CORRECT - added check for upper bound</FONT><FONT COLOR=#000000> <BR>
+{ <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// ... do something</FONT><FONT COLOR=#000000> <BR>
+}</FONT></CODE></p>
+<p>Alternativelly you can enter the loop only when there are enough bars, like
+  shown in this code:</p>
+<p><CODE><FONT COLOR=#000000>MyPeriod = </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>; <BR>
+      <BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( MyPeriod &lt;= <B>BarCount</B> ) </FONT><FONT COLOR=#008000>//
+CORRECT - check if there are enough bars to run the loop</FONT><FONT COLOR=#000000> <BR>
+{ <BR>
+</FONT><FONT COLOR=#800000><B>&nbsp;for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+i &lt; MyPeriod; i++ ) <BR>
+&nbsp;{ <BR>
+&nbsp;&nbsp; 
+</FONT><FONT COLOR=#008000>// ... do something</FONT><FONT COLOR=#000000> <BR>
+&nbsp;} <BR>
+}</FONT></CODE></p>
+<p>&nbsp;</p>
+
+</body>
+</html>

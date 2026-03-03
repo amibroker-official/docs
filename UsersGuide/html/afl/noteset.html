@@ -1,0 +1,63 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - NOTESET</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>NoteSet</b><br>
+        - sets text of the note</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>NoteSet( ''Symbol'', ''Text..'' ); </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sets text of the note linked to "symbol".<br>
+If symbol is "" (empty string) then current symbol is used. 
+<p>
+If you overwrite note from AFL level that is opened at the same time in Notepad editor the editor will ask you (when you switch the focus to it) if it should reload new text or allow to save your manually entered text. <p>
+Returns True (1) on success, 0 on failure. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>NoteSet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"AMD"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Jun
+15, 2004: AMD will deliver its first multi-core processors next year"</FONT><FONT COLOR=#000000>);</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="noteget.html">NoteGet()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>NoteSet</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=NoteSet">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

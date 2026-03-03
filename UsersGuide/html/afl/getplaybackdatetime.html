@@ -1,0 +1,73 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETPLAYBACKDATETIME</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetPlaybackDateTime</b><br>
+        - get bar replay position date/time</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetPlaybackDateTime() </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function returns bar replay playback position in datetime format, or zero if bar replay is NOT active  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000>pt = </FONT><FONT COLOR=#0000ff>GetPlaybackDateTime</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+new function to retrieve playback position date/time, </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>//returns zero if bar replay is NOT active </FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( pt ) <BR>
+{ <BR>
+  </FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#ff00ff>"Playback
+time: "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>DateTimeToStr</FONT><FONT COLOR=#000000>(
+pt ); <BR>
+} <BR>
+</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+{ <BR>
+  </FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#ff00ff>"Bar
+Replay not active"</FONT><FONT COLOR=#000000>; <BR>
+}</FONT><FONT COLOR=#000000><BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="datetime.html">DateTime()</A> function , <A HREF="datetimeconvert.html">DateTimeConvert()</A> function , <A HREF="datetimetostr.html">DateTimeToStr()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetPlaybackDateTime</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetPlaybackDateTime">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

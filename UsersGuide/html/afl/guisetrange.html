@@ -1,0 +1,76 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GUISETRANGE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GuiSetRange</b><br>
+        - set slider control range</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>GUI functions<br>
+        </b>(AmiBroker 6.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GuiSetRange( id, min, max, step, ticfreq ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The functions sets min-max range of slider control and it's tick frequency.<p>
+Parameters:
+<ul>
+<li>id - control ID
+<li>min, max - minimum and maximum value of slider position
+<li>step - the smallest possible change of value (increment) of slider control
+<li>ticfreq - set the frequency with which tick marks are displayed in a slider. For example, if the frequency is set to 2, a tick mark is displayed for every other increment in the slider&#8217;s range. The value of 1 means that every increment in the range is associated with a tick mark.
+</ul>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#800000'><b>if</b></font>( <font color='#0000ff'>GuiSlider</font>( <font color='#800080'>1</font>, <font color='#800080'>10</font>, <font color='#800080'>30</font>, <font color='#800080'>200</font>, <font color='#800080'>30</font>, <b>notifyEditChange</b> )
+== guiNew ) <br>
+{ <br>
+&nbsp;&nbsp;
+<font color='#008000'>// init values on control creation <br>
+</font>&nbsp;&nbsp;<font color='#0000ff'>GuiSetValue</font>( <font color='#800080'>1</font>, <font color='#800080'>5</font> ); <br>
+&nbsp;&nbsp;
+<font color='#0000ff'>GuiSetRange</font>( <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>100</font>, <font color='#800080'>0.1</font>, <font color='#800080'>100</font> ); <br>
+} <br>
+<br>
+<b>Title</b> = <font color='#800080'>&quot;Value = &quot;</font> + <font color='#0000ff'>GuiGetValue</font>( <font color='#800080'>1</font> );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="guislider.html">GuiSlider()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GuiSetRange</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GuiSetRange">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

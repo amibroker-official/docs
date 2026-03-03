@@ -1,0 +1,92 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - TIMEFRAMERESTORE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>TimeFrameRestore</b><br>
+        - restores price arrays to original time frame</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Time Frame functions<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>TimeFrameRestore( tradeprices = False ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The <b>TimeFrameRestore</b> function restores price arrays replaced by <b>TimeFrameSet</b>. <p>Note that only OHLC, V, OI and Avg built-in variables are restored to original time frame when you call <b>TimeFrameRestore()</b>.<p>All other variables created when being in different time frame remain compressed.<p>To de-compress them to original interval you have to use <b>TimeFrameExpand</b>.
+<p>Tradeprice argument should be set to false. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>in5Minute</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  switch to 5 minute frame</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>/* MA now operates on 5 minute data, ma5_13 holds
+  time-compressed 13 bar MA of 5min bars */</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  ma5_13 = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>13</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+      <p><CODE><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+            restore time frame to original</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000> <BR>
+        <BR>
+        </FONT><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>inHourly</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+    switch now to hourly</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    mah_9 = </FONT><FONT COLOR=#0000ff>EMA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+    9 bar moving average from hourly data</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+    restore time frame to original</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorWhite</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> ); <BR>
+    <BR>
+    </FONT><FONT COLOR=#008000>// plot expanded average</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+    ma5_13, </FONT><FONT COLOR=#000000><B>in5Minute</B></FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#ff00ff>"13
+    bar moving average from 5 min bars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+    mah_9, </FONT><FONT COLOR=#000000><B>inHourly</B></FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#ff00ff>"9
+    bar moving average from hourly bars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="timeframeset.html">TimeFrameSet()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2004-07-10 06:19:47</td><td valign="top">TimeFrameRestore and RestorePriceArrays<br />
+is essentially the same function. So please note that calling TimeFrameRestore also resets the ticker set by eventual previous call to SetForeign()</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>TimeFrameRestore</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=TimeFrameRestore' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1321&hilite=TimeFrameRestore' target='_blank'>3TF Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=TimeFrameRestore' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=TimeFrameRestore' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=TimeFrameRestore' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=TimeFrameRestore' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1336&hilite=TimeFrameRestore' target='_blank'>Daily High Low in Advance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=659&hilite=TimeFrameRestore' target='_blank'>EKEKO SAR-MF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=570&hilite=TimeFrameRestore' target='_blank'>Elder Impulse Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=585&hilite=TimeFrameRestore' target='_blank'>Elder Impulse Indicator V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=TimeFrameRestore' target='_blank'>Elder Triple Screen Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=TimeFrameRestore' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1143&hilite=TimeFrameRestore' target='_blank'>Hull Multiple Moving Averages</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=375&hilite=TimeFrameRestore' target='_blank'>IFT of RSI - Multiple TimeFrames</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=TimeFrameRestore' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=625&hilite=TimeFrameRestore' target='_blank'>Lagging MA-Xover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=TimeFrameRestore' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=399&hilite=TimeFrameRestore' target='_blank'>Pivot Point with S/R Trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=406&hilite=TimeFrameRestore' target='_blank'>Price with Woodies Pivots</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=564&hilite=TimeFrameRestore' target='_blank'>Rea Time Daily Price Levels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=758&hilite=TimeFrameRestore' target='_blank'>SUPER PIVOT POINTS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1132&hilite=TimeFrameRestore' target='_blank'>Twiggs money flow weekly</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=TimeFrameRestore">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,74 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PLOTFOREIGN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PlotForeign</b><br>
+        - plot foreign security data</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Referencing other symbol data<br>
+        </b>(AmiBroker 4.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PlotForeign( <i>tickersymbol</i>, <i>name</i>, <i>color/barcolor</i>, <i>style = styleCandle | styleOwnScale</i>, <i>minvalue</i> = {empty}, <i>maxvalue</i>       = {empty}, XShift = 0, ZOrder = 0, width = 1 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Plots the foreign-symbol price chart (symbol is defined by <i>tickersymbol</i> 
+        parameter). Second argument <i>name </i>defines graph name used for displaying 
+        values in a title bar. Graph color could be static (if third argument 
+        is a number) or dynamic (when third argument is an array). Color indexes 
+        are related to the current palette (see Preferences/Color)<br>
+        <i>style</i> defines chart plot style (see Plot() function for possible 
+        values)<br>
+      
+      <i>minvalue</i> and <i>maxvalue - </i> (used by styleOwnScale plots ONLY) 
+        define plot minimum and maximum values (lower and upper boundary for Y 
+        axis)<br>
+<i>XShift</i> - allows to visually shift the chart into future (blank) bars.
+<br><i>ZOrder</i> - this parameter takes precedence over the order of calling Plot() functions, so if z-order is set, it determines plotting order.  See <a href='http://www.amibroker.com/gifs/zorder.gif'>http://www.amibroker.com/gifs/zorder.gif</a> 
+<br> If multiple plots use the same z-order parameter they are plotted in reverse call order (ones that appear last in the code are plotted first). This rule can be changed by already existing switch graphzorder = 1 which, when specified, reverses this behaviour (so plots are drawn in call order). 
+<p>Please note the above applies to each zorder "layer" separately (so within same zorder "layer" reverse call rule applies). This may sound complicated but is required for backward compatibility.
+<p><i>width</i> - defines pixel or percent width of given plot.  The default is 1 pixel. Positive values specify PIXEL width, negative values specify width in percent of current bar width. So for example -20 will give you dynamic width that is 20% of bar width. Example: Plot( C, "Close", colorBlack, styleBar, Null, Null, 0, 1, -20 /* line width as percent of bar */ );  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> PlotForeign( "^DJI", "Dow Jones", colorRed 
+      ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>PlotForeign</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=531&hilite=PlotForeign' target='_blank'>Dave Landry PullBack Scan</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=PlotForeign' target='_blank'>Elder Triple Screen Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=PlotForeign' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1572&hilite=PlotForeign' target='_blank'>Peter Cooper</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=905&hilite=PlotForeign' target='_blank'>qp2 industry charts as a panel in the stocks chart</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PlotForeign">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

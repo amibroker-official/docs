@@ -1,0 +1,89 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXSETTEXTALIGN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxSetTextAlign</b><br>
+        - set text alignment</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxSetTextAlign( align  ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sets the text-alignment flags. 
+<p>
+The GfxTextOut function uses these flags when positioning a string of text on a display or device. The flags specify the relationship between a specific point and a rectangle that bounds the text. The coordinates of this point are passed as parameters to the TextOut member function. The rectangle that bounds the text is formed by the adjacent character cells in the text string.
+<p>
+Parameters:
+<ul>
+<li><b>align</b> - combination (binary-OR) of one or more the following flags:
+<br>X-direction alignment:
+<ul>
+<li>TA_CENTER = 6 - Aligns the point with the horizontal center of the bounding rectangle.
+<li>TA_LEFT = 0 - Aligns the point with the left side of the bounding rectangle. This is the default setting.
+<li>TA_RIGHT = 2 - Aligns the point with the right side of the bounding rectangle.
+</ul>
+Y-direction alignment
+<ul>
+<li>TA_BASELINE = 24 - Aligns the point with the base line of the chosen font.
+<li>TA_BOTTOM = 8 - Aligns the point with the bottom of the bounding rectangle.
+<li>TA_TOP = 0 - Aligns the point with the top of the bounding rectangle. This is the default setting.
+</ul>
+flags that determine whether the current position is updated when text is written:
+<ul>
+<li>TA_NOUPDATECP = 0 - Does not update the current position after each call to a text-output function. This is the default setting.
+<li>TA_UPDATECP = 1 - Updates the current x-position after each call to a text-output function. The new position is at the right side of the bounding rectangle for the text. When this flag is set, the coordinates specified in calls to the GfxTextOut member function are ignored
+</ul>
+</ul>
+
+Note: TA_ constants come from Windows API, they are given for reference only they are not predefined in AmiBroker, so you need to use numerical values.
+
+<p>
+NOTE: This is LOW-LEVEL graphic function. To learn more about low-level
+graphic functions please read <a href='../h_lowlevelgfx.html'>TUTORIAL: Using low-level graphics.</a>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> GfxSetTextAlign( 6 | 24 ); // center and baseline alignment </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top"> <A HREF="gfxsettextcolor.html">GfxSetTextColor()</A> function , <A HREF="gfxtextout.html">GfxTextOut()</A> function , <A HREF="gfxsetbkcolor.html">GfxSetBkColor()</A> function , <A HREF="gfxsetbkmode.html">GfxSetBkMode()</A> function , <A HREF="gfxselectfont.html">GfxSelectFont()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxSetTextAlign</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GfxSetTextAlign' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=GfxSetTextAlign' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=GfxSetTextAlign' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=GfxSetTextAlign' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=GfxSetTextAlign' target='_blank'>Market Profile</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=GfxSetTextAlign' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1553&hilite=GfxSetTextAlign' target='_blank'>pattenz</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1572&hilite=GfxSetTextAlign' target='_blank'>Peter Cooper</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=GfxSetTextAlign' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=GfxSetTextAlign' target='_blank'>Stan Weinstein strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=GfxSetTextAlign' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=GfxSetTextAlign' target='_blank'>Woodie's CCI Panel Full Stats</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxSetTextAlign">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

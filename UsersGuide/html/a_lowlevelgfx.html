@@ -1,0 +1,381 @@
+<html>
+
+<head>
+<title>Using low-level graphics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2><b>Using low-level graphics functions</b></h2>
+<p>Completely new low-level graphic AFL interface closely mimics Windows GDI API, with the same names for most functions, for easier use by GDI-experienced programmers. The only differences are:<br>
+1. Compared to Windows GDI, all functions are prefixed with 'Gfx'<br>
+2. Pen/brush/font creation/selection is simplified to make it easier to use and
+you don't need to care about the deletion of GDI objects <br>
+3. Three overlay modes are available so you can mix low-level graphics with regular
+Plot() statements:<br>
+(mode = 0 (default) - overlay low-level graphics on top of charts, mode = 1 -
+overlay charts on top of low-level graphics, mode = 2 - draw only low-level graphics
+(no regular charts/grid/titles/etc))</p>
+<p>All functions use pixels as coordinates (when used on screen). For printouts and metafiles, pixels are mapped to logical units to match the higher resolution of printers. Use Status(&quot;pxwidth&quot;) and Status(&quot;pxheight&quot;) to find the pixel dimensions
+  of drawing surface.</p>
+<p><br>
+  Available low-level graphics functions (click on the links for a detailed explanation):</p>
+<p> <b><a href="afl/gfxmoveto.html">GfxMoveTo</a></b>( x, y ) <br>
+    <b><a href="afl/gfxlineto.html">GfxLineTo</a></b>( x, y ) <br>
+    <b><a href="afl/gfxsetpixel.html">GfxSetPixel</a></b>( x, y, color ) <br>
+    <b><a href="afl/gfxtextout.html">GfxTextOut</a></b>( &quot;text&quot;, x, y ) <br>
+    <b><a href="afl/gfxselectpen.html">GfxSelectPen</a></b>( color, width = 1, penstyle = penSolid )<br>
+    <b><a href="afl/gfxselectsolidbrush.html">GfxSelectSolidBrush</a></b>( color ) <br>
+    <b><a href="afl/gfxselectfont.html">GfxSelectFont</a></b>( &quot;facename&quot;, pointsize, weight = fontNormal,
+    italic = False, underline = False, orientation = 0 ) <br>
+      <b><a href="afl/gfxrectangle.html">GfxRectangle</a></b>( x1, y1, x2, y2 )<br>
+      <b><a href="afl/gfxroundrect.html">GfxRoundRect</a></b>( x1, y1, x2, y2, x3, y3 ) <br>
+      <b><a href="afl/gfxpie.html">GfxPie</a></b>( x1, y1, x2, y2, x3, y3, x4, y4 ) <br>
+      <b><a href="afl/gfxellipse.html">GfxEllipse</a></b>( x1, y1, x2, y2 ) <br>
+      <b><a href="afl/gfxcircle.html">GfxCircle</a></b>( x, y, radius ) <br>
+      <b><a href="afl/gfxchord.html">GfxChord</a></b>( x1, y1, x2, y2, x3, y3, x4, y4 ) <br>
+      <b><a href="afl/gfxarc.html">GfxArc</a></b>( x1, y1, x2, y2, x3, y3, x4, y4 ) <br>
+      <b><a href="afl/gfxpolygon.html">GfxPolygon</a></b>( x1, y1, x2, y2, ... ) <br>
+      <b><a href="afl/gfxpolyline.html">GfxPolyline</a></b>( x1, y1, x2, y2, ... ) <br>
+      <b><a href="afl/gfxsettextcolor.html">GfxSetTextColor</a></b>( color ) <br>
+      <b><a href="afl/gfxsettextalign.html">GfxSetTextAlign</a></b>( align ) <br>
+      <b><a href="afl/gfxsetbkcolor.html">GfxSetBkColor</a></b>( color ) <br>
+      <b><a href="afl/gfxsetbkmode.html">GfxSetBkMode</a></b>( bkmode ) <br>
+      <b><a href="afl/gfxgradientrect.html">GfxGradientRect</a></b>( x1, y1, x2, y2, fromcolor, tocolor ) <br>
+      <b><a href="afl/gfxdrawtext.html">GfxDrawText</a></b>( &quot;text&quot;, left, top, right, bottom, format
+      = 0 ) <br>
+<b><a href="afl/gfxsetoverlaymode.html">GfxSetOverlayMode</a></b>( mode = 0 ) </p>
+<p>NEW FUNCTIONS IN 5.80</p>
+<p><a href="afl/gfxsetcoordsmode.html"><strong>GfxSetCoordsMode</strong></a>(
+  mode ) - allows you to choose between pixel and bar/price modes.<br>
+  <a href="afl/gfxsetzorder.html"><strong>GfxSetZOrder</strong></a>( layer ) -
+  allows you to place Gfx graphics on user-specified Z-axis (depth) layer.<br>
+  <a href="afl/gfxgettextwidth.html"><strong>GfxGetTextWidth</strong></a>( &quot;text&quot;
+) - returns the pixel width of specified string. NOTE: It is slow because it has
+  to create a temporary DC and font to measure the text. It takes 40us (microseconds),
+which is about 40 times more than other Gfx functions.</p>
+<p><strong>COORDINATE MODES</strong></p>
+<p>Starting with version 5.80 AmiBroker supports using two different coordinate
+  modes in low-level graphics: pixel mode and bar/price mode.</p>
+<p>The GfxSetCoords mode function allows you to switch coordinate system for low-level graphics functions from screen pixel (mode = 0), the default, to<br>
+  bar/price mode (mode = 1) where X is expressed as a bar index and Y as price.<br>
+  This new mode allows for much easier overlays on top of existing charts without the need to convert between bar/price and pixels<br>
+  and without any extra refresh normally required in old versions when the Y scale changes.
+  </p>
+</p>
+<p>The function can be called to switch back and forth from pixel -&gt; bar/price
+      mode and vice versa a number of times,<br>
+      allowing you to mix different modes in the same chart.</p>
+    <p>When coordinate mode 1 is selected (bar/price), coordinates can be fractional.
+      For example, if x is 2.5, it means halfway between bar 2 and 3.</p>
+    <p>Example:<br>
+      <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// The sample shows
+      how using GfxSetCoordsMode( 1 ) </FONT><FONT COLOR=#000000> <BR>
+      </FONT><FONT COLOR=#008000>// results in</FONT><FONT COLOR=#000000> <BR>
+      </FONT><FONT COLOR=#008000>// a) easier coding of overlay charts that plot
+      on top of built-in charts (no need to convert from bar/price to pixels)</FONT><FONT COLOR=#000000> <BR>
+      </FONT><FONT COLOR=#008000>// b) perfect matching between built-in Plot()
+      and Gfx positioning </FONT><FONT COLOR=#000000> <BR>
+      </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorDefault</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000> ); <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSetOverlayMode</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSetCoordsMode</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+      bar/price mode (instead of pixel)</FONT><FONT COLOR=#000000> <BR>
+      <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+      boxheight = </FONT><FONT COLOR=#800080>0.01</FONT><FONT COLOR=#000000> *
+      ( </FONT><FONT COLOR=#0000ff>HighestVisibleValue</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000> )
+      - </FONT><FONT COLOR=#0000ff>LowestVisibleValue</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000> )
+      ); <BR>
+      <BR>
+      bi = </FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>(); <BR>
+      <BR>
+      start = </FONT><FONT COLOR=#0000ff>FirstVisibleValue</FONT><FONT COLOR=#000000>(
+      bi ); <BR>
+      end = </FONT><FONT COLOR=#0000ff>LastVisibleValue</FONT><FONT COLOR=#000000>(
+      bi ); <BR>
+      <BR>
+      </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> ( i =
+      start; i &lt;= end; i++ ) <BR>
+      { <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;Cl = </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>[
+      i ]; <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;Op = </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>[
+      i ]; <BR>
+      <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;Color = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( Cl &gt; Op, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>(
+      Color ); <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>(
+      Color ); <BR>
+      <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;bodyup = </FONT><FONT COLOR=#0000ff>Max</FONT><FONT COLOR=#000000>( Op,
+      Cl ); <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;bodydn = </FONT><FONT COLOR=#0000ff>Min</FONT><FONT COLOR=#000000>( Op,
+      Cl ); <BR>
+      <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxEllipse</FONT><FONT COLOR=#000000>(
+      i - </FONT><FONT COLOR=#800080>0.4</FONT><FONT COLOR=#000000>, bodyup,
+      i + </FONT><FONT COLOR=#800080>0.4</FONT><FONT COLOR=#000000>, bodydn ); <BR>
+      <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>(
+      i, </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>[ i ]
+      ); <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>(
+      i, bodyup ); <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>(
+      i, bodydn ); <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>(
+      i, </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>[ i ]
+      ); <BR>
+}</FONT></CODE>    
+    <p>&nbsp;    
+    <p><strong>Z-order SUPPORT</strong>
+    <p>Starting from version 5.80 AmiBroker supports placing low-level graphics
+      in different Z-order layers. A new GfxSetZOrder function is provided to
+      allow this, as shown in the example:
+    <p>
+      <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorDefault</B></FONT><FONT COLOR=#000000> ); <BR>
+      </FONT><FONT COLOR=#000000><B>GraphGridZOrder</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+      <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSetZOrder</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>); <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> ); <BR>
+      </FONT><FONT COLOR=#0000ff>GfxCircle</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSetZOrder</FONT><FONT COLOR=#000000>(-</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>); <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+      </FONT><FONT COLOR=#0000ff>GfxCircle</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>150</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>150</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSetZOrder</FONT><FONT COLOR=#000000>(-</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>); <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> ); <BR>
+      </FONT><FONT COLOR=#0000ff>GfxCircle</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>180</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>180</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> );</FONT></CODE><br>
+            <h3>Usage examples:</h3>
+<p>Example 1. Pie chart showing percentage holdings of various kinds of shareholders.</p>
+<p>Here is how it looks:</p>
+<p><img src="gifs/gfxpiechart.gif"></p>
+<p>Here is the formula:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// OverlayMode = 2 means
+      that nothing except</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// low-level gfx should be drawn</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// there will be no grid, no title line, no plots</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// and nothing except what we code using Gfx* calls</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>GfxSetOverlayMode</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+HInsiders = </FONT><FONT COLOR=#0000ff>GetFnData</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"InsiderHoldPercent"</FONT><FONT COLOR=#000000>); <BR>
+HInst = </FONT><FONT COLOR=#0000ff>GetFnData</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"InstitutionHoldPercent"</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> DrawPiePercent(
+x, y, radius, startpct, endpct ) <BR>
+{ <BR>
+PI = </FONT><FONT COLOR=#ff00ff>3.1415926</FONT><FONT COLOR=#000000>; <BR>
+sa = </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> * PI * startpct
+/ </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>; <BR>
+ea = </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> * PI * endpct / </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>; <BR>
+xsa = x + radius * </FONT><FONT COLOR=#0000ff>sin</FONT><FONT COLOR=#000000>(
+sa ); <BR>
+ysa = y + radius * </FONT><FONT COLOR=#0000ff>cos</FONT><FONT COLOR=#000000>(
+sa ); <BR>
+xea = x + radius * </FONT><FONT COLOR=#0000ff>sin</FONT><FONT COLOR=#000000>(
+ea ); <BR>
+yea = y + radius * </FONT><FONT COLOR=#0000ff>cos</FONT><FONT COLOR=#000000>(
+ea ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>GfxPie</FONT><FONT COLOR=#000000>( x - radius, y -
+radius, x + radius, y + radius, xsa, ysa, xea, yea ); <BR>
+} <BR>
+<BR>
+radius = </FONT><FONT COLOR=#ff00ff>0.45</FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"pxheight"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+get pixel height of the chart and use 45% for pie chart radius</FONT><FONT COLOR=#000000> <BR>
+textoffset = </FONT><FONT COLOR=#ff00ff>2.4</FONT><FONT COLOR=#000000> * radius; <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+DrawPiePercent( </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000>*radius, </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000>*radius,
+radius, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, HInsiders ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxRectangle</FONT><FONT COLOR=#000000>( textoffset
+, </FONT><FONT COLOR=#ff00ff>42</FONT><FONT COLOR=#000000>, textoffset +</FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>57</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> ); <BR>
+DrawPiePercent( </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000>*radius, </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000>*radius,
+radius, HInsiders, HInst + HInsiders ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxRectangle</FONT><FONT COLOR=#000000>( textoffset
+, </FONT><FONT COLOR=#ff00ff>62</FONT><FONT COLOR=#000000>, textoffset +</FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>77</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> ); <BR>
+DrawPiePercent( </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000>*radius, </FONT><FONT COLOR=#ff00ff>1.1</FONT><FONT COLOR=#000000>*radius,
+radius, HInst + HInsiders, </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxRectangle</FONT><FONT COLOR=#000000>( textoffset
+, </FONT><FONT COLOR=#ff00ff>82</FONT><FONT COLOR=#000000>, textoffset +</FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>97</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectFont</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Times
+New Roman"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>16</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>700</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxTextOut</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Percent
+of shares held by:"</FONT><FONT COLOR=#000000>, textoffset , </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectFont</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Tahoma"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSetTextColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxTextOut</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Insiders
+= "</FONT><FONT COLOR=#000000> + HInsiders + </FONT><FONT COLOR=#ff00ff>"%"</FONT><FONT COLOR=#000000>,
+textoffset + </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>40</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSetTextColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxTextOut</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Institutions
+= "</FONT><FONT COLOR=#000000> + HInst + </FONT><FONT COLOR=#ff00ff>"%"</FONT><FONT COLOR=#000000>,
+textoffset + </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>60</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSetTextColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxTextOut</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Others
+= "</FONT><FONT COLOR=#000000> + ( </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> -
+(HInst+HInsiders) ) + </FONT><FONT COLOR=#ff00ff>"%"</FONT><FONT COLOR=#000000>,
+textoffset + </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>80</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectFont</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Tahoma"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>8</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Example 2. Formatted (table-like) output sample using low-level graphics functions</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// formatted text output
+      sample via low-level gfx functions</FONT><FONT COLOR=#000000> <BR>
+      <BR>
+      <BR>
+      CellHeight = </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>; <BR>
+      CellWidth = </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>; <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSelectFont</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Tahoma"</FONT><FONT COLOR=#000000>,
+      CellHeight/</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+      </FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> PrintInCell(
+      string, row, Col ) <BR>
+      { <BR>
+      </FONT><FONT COLOR=#0000ff>GfxDrawText</FONT><FONT COLOR=#000000>( string,
+      Col * CellWidth, row * CellHeight, (Col + </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> )
+      * CellWidth, (row + </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> )
+      * CellHeight, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ); <BR>
+      } <BR>
+      <BR>
+      PrintInCell( </FONT><FONT COLOR=#ff00ff>"Open"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ); <BR>
+      PrintInCell( </FONT><FONT COLOR=#ff00ff>"High"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+      PrintInCell( </FONT><FONT COLOR=#ff00ff>"Low"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ); <BR>
+      PrintInCell( </FONT><FONT COLOR=#ff00ff>"Close"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000> ); <BR>
+      PrintInCell( </FONT><FONT COLOR=#ff00ff>"Volume"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>4</FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+      </FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> ); <BR>
+      </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>;
+      i &lt; </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> && i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+      i++ ) <BR>
+      { <BR>
+PrintInCell( </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"%g"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>O</B></FONT><FONT COLOR=#000000>[
+i ] ), i, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"%g"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>[
+i ] ), i, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"%g"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>[
+i ] ), i, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"%g"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+i ] ), i, </FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"%g"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>V</B></FONT><FONT COLOR=#000000>[
+i ] ), i, </FONT><FONT COLOR=#ff00ff>4</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,
+i * CellHeight ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000> *
+CellWidth, i * CellHeight ); <BR>
+} <BR>
+</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,
+i * CellHeight ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000> *
+CellWidth, i * CellHeight ); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( Col = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>;
+Col &lt; </FONT><FONT COLOR=#ff00ff>6</FONT><FONT COLOR=#000000>; Col++ ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>( Col * CellWidth, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>( Col * CellWidth, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> *
+CellHeight ); <BR>
+} <BR>
+<BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#ff00ff>""</FONT><FONT COLOR=#000000>; <BR>
+</FONT></CODE><br>
+</p>
+<p>Example 3. Low-level graphics demo featuring pie section, a polygon, color wheel, animated text, and chart overlay.</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// overlay mode = 1 means
+      that</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// Low-level gfx stuff should come in background</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>GfxSetOverlayMode</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Close"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+PI = </FONT><FONT COLOR=#ff00ff>3.1415926</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+k = (</FONT><FONT COLOR=#0000ff>GetPerformanceCounter</FONT><FONT COLOR=#000000>()/</FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>)%</FONT><FONT COLOR=#ff00ff>256</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+i &lt; </FONT><FONT COLOR=#ff00ff>256</FONT><FONT COLOR=#000000>; i++ ) <BR>
+{ <BR>
+&nbsp;&nbsp;
+x = </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> * PI * i / </FONT><FONT COLOR=#ff00ff>256</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp; 
+<BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>+k, </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> ); <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>ColorHSB</FONT><FONT COLOR=#000000>(
+( i + k ) % </FONT><FONT COLOR=#ff00ff>256</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>255</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#ff00ff>4</FONT><FONT COLOR=#000000> ); <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> +k+ </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#0000ff>sin</FONT><FONT COLOR=#000000>(
+x&nbsp;&nbsp;), </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#0000ff>cos</FONT><FONT COLOR=#000000>(
+x&nbsp;&nbsp;) ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectFont</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Tahoma"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>700</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSetBkMode</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSetTextColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>colorBrown</B></FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>GfxTextOut</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Testing
+graphic capabilites"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>128</FONT><FONT COLOR=#000000>-k/</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxChord</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>150</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>//GfxPie(100,0,200,100,150,0,200,50);</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorYellow</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxPolygon</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>250</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>250</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>RequestTimedRefresh</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>); <BR>
+</FONT></CODE></p>
+<p>Example 4. Low-level graphic positioning - shows how to align built-in plots()
+  with the low-level graphics. Note that if the scale changes (pxheight changes) due to new data or different zoom level, it needs additional refresh to read the new scale and adjust the positions properly.</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+</FONT><FONT COLOR=#0000ff>GfxSetOverlayMode</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+Miny = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"axisminy"</FONT><FONT COLOR=#000000>); <BR>
+Maxy = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"axismaxy"</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+lvb = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"lastvisiblebar"</FONT><FONT COLOR=#000000>); <BR>
+fvb = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"firstvisiblebar"</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+pxwidth = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"pxwidth"</FONT><FONT COLOR=#000000>); <BR>
+pxheight = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"pxheight"</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+TotalBars = Lvb - fvb; <BR>
+<BR>
+axisarea = </FONT><FONT COLOR=#800080>56</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+may need adjustment if you are using non-default font for axis</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i &lt; TotalBars </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> i &lt; ( </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> -
+fvb ); i++ ) <BR>
+{ <BR>
+&nbsp;&nbsp;
+x = </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000> + i * (pxwidth -
+axisarea - </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000>) / ( TotalBars
++ </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+&nbsp;&nbsp;
+y = </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000> + ( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+i + fvb ] - Miny ) * ( pxheight - </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> )/
+( Maxy - Miny ); <BR>
+<BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>GfxRectangle</FONT><FONT COLOR=#000000>(
+x - </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>, pxheight - y - </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>,
+x + </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>, pxheight - y + </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>);<br>
+}
+</FONT></CODE><CODE><FONT COLOR=#000000><BR>
+</FONT></CODE></p>
+</body>
+</html>

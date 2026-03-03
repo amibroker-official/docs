@@ -1,0 +1,89 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PRICEVOLDISTRIBUTION</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PriceVolDistribution</b><br>
+        - general-purpose distribution function</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Matrix functions<br>
+        </b>(AmiBroker 6.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PriceVolDistribution( priceH, priceL, vol, bins, absolute = False, startbar = 0, endbar = -1 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> MATRIX </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function is general purpose frequency distribution function. It is typically used to create distribution of volume versus price but this is only one of many possible uses.
+The function takes priceH, priceL and vol arrays and outputs distribution MATRIX with price levels in first column and relative volume at that level in second column. The bins parameter decides how many price 'bins' the distribution will have. The absolute parameter decides whenever returned volumes are absolute sum or relative (0...1) values. The startbar and endbar decides which bars from input array should be used. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#008000'>// a demo showing <br>
+// re-implementation of VAP overlay using <br>
+// PriceVolDistribution and low-level graphics <br>
+</font>bi = <font color='#0000ff'>BarIndex</font>(); <br>
+fvb = <font color='#0000ff'>FirstVisibleValue</font>( bi ); <br>
+lvb = <font color='#0000ff'>LastVisibleValue</font>( bi ); <br>
+<br>
+mx = <font color='#0000ff'>PriceVolDistribution</font>( <b>H</b>, <b>L</b>, <b>V</b>, <font color='#800080'>100</font>, <b>False</b>,
+fvb, lvb ); <br>
+<br>
+<font color='#0000ff'>GfxSetCoordsMode</font>( <font color='#800080'>1</font> ); <br>
+<br>
+<font color='#0000ff'>GfxSelectPen</font>( <b>colorRed</b> ); <br>
+<br>
+bins = <font color='#0000ff'>MxGetSize</font>( mx, <font color='#800080'>0</font> ); <br>
+<font color='#800000'><b>for</b></font>( i = <font color='#800080'>0</font>;
+i &lt; bins; i++ ) <br>
+{ <br>
+price = mx[ i ][ <font color='#800080'>0</font> ]; <font color='#008000'>// price
+level <br>
+</font>relvolume = mx[ i ][ <font color='#800080'>1</font> ]; <font color='#008000'>//
+relative volume 0..1 <br>
+</font>relbar = relvolume * (lvb-fvb+<font color='#800080'>1</font>); <br>
+<font color='#0000ff'>GfxMoveTo</font>( fvb, price ); <br>
+<font color='#0000ff'>GfxLineTo</font>( fvb + relbar, price ); <br>
+} <br>
+<br>
+<font color='#0000ff'>Plot</font>( <b>C</b>, <font color='#800080'>&quot;Price&quot;</font>, <b>colorDefault</b>, <b>styleBar</b> ); <br>
+<br>
+<font color='#800000'><b>if</b></font>( <font color='#0000ff'>ParamToggle</font>(<font color='#800080'>&quot;BuildinVAP&quot;</font>, <font color='#800080'>&quot;No|Yes&quot;</font>)
+) <font color='#0000ff'>PlotVAPOverlay</font>( <font color='#800080'>100</font>, <font color='#800080'>100</font>, <b>colorGreen</b>, <font color='#800080'>2</font> );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>PriceVolDistribution</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1475&hilite=PriceVolDistribution' target='_blank'>Multi-color Volume At Price (VAP)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1545&hilite=PriceVolDistribution' target='_blank'>Volume based support resistance price finder</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PriceVolDistribution">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

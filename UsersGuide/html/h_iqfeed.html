@@ -1,0 +1,51 @@
+<html>
+
+<head>
+<title>How to use AmiBroker with IQFeed</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>How to set up AmiBroker with IQFeed (RT version only)</h2>
+<p><em>Note: the most recent version of this document can be found at: <a href="http://www.amibroker.com/iqfeed.html" target="_blank">http://www.amibroker.com/iqfeed.html</a>.
+Please check this page for updates.</em></p>
+<p>Requirements</p>
+<p><strong>If you don't have IQFeed Connection Manager already installed, you
+    have to install it first. You can download the<a href="http://www.iqfeed.net/dev/api/iqfeed_client_4_2_0_7.exe"> IQFeed
+    client setup from here (version 4.2.0.7)</a>.</strong></p>
+<P><font size="+1"><strong><a href="http://www.amibroker.com/video/IQFeed.html">http://www.amibroker.com/video/IQFeed.html</a></strong></font></P>
+<P><font size="-1">To use AmiBroker with&nbsp;IQFeed, you will need to perform
+    a one-time setup described below:</font></P>
+<UL>
+  <LI><font size="-1">Run AmiBroker</font>
+  <LI><font size="-1">Choose <B>File-&gt;New database</B></font>
+  <LI><font size="-1">Type a new folder name (for example: C:\Program Files\AmiBroker\IQFeed) and click <B>Create</B> as shown in the picture below:<BR>
+&nbsp;<img src="gifs/iqfeeddbset.gif"><BR>
+    <BR>
+    <BR>
+    </font>
+  <LI><font size="-1">Choose&nbsp;<STRONG>DTN IQFeed Data Plug-in</STRONG> from
+      Data source combo and "<B>Enable</B>" from <B>Local data storage</B></font>
+  <LI><font size="-1">Now choose the Base time interval. Select 1-minute</font>
+  <LI><font size="-1">Enter the appropriate<strong> number of bars to load:<br>
+    100000 for a 1-minute database to get maximum history (8 months) available from
+          IQFeed</strong></font>
+  <LI><strong><font size="-1">Click on &quot;Intraday Settings&quot;. Check &quot;Allow
+        mixed EOD/Intraday data&quot; box. Click OK.</font></strong><font size="-1"><strong><br>
+        </strong> </font>
+  <LI><font size="-1">Click OK.<BR>
+  </font></LI>
+</UL>
+<P><font size="-1">From now on, your AmiBroker reads quotes directly from the
+    IQFeed.</font></P>
+<p></p>
+<p>To learn how to use AmiBroker in real-time mode, read <a href="h_rtsource.html">this
+tutorial article</a>.</p>
+<P>&nbsp;</P>
+<p>&nbsp;</p>
+<p></p>
+<p>&nbsp;</p>
+</body>
+</html>

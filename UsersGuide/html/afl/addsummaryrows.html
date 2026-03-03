@@ -1,0 +1,95 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ADDSUMMARYROWS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>AddSummaryRows</b><br>
+        - add summary row(s) to the exploration output</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 5.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>AddSummaryRows( flags, format = 0, onlycols = 0, ...) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> AddSummaryRows automatically adds &quot;summary&quot; row(s) to the exploration output.
+<br>
+Parameters:
+<p>
+The flags parameter can be combination of the following:
+<ul>
+<li>1 - add TOTAL row
+<li>2 - add AVERAGE row
+<li>4 - add MIN row
+<li>8 - add MAX row
+<li>16 - add COUNT row
+<li>32 - add STANDARD DEVIATION row (new in 5.70)
+</ul>
+<p>
+format - defines the numeric formating in WriteVal style so 1.2 for example means 2 decimal digits.
+<br>If default value of zero is used (or parameter not specified) the default formatting of &quot;maximum precision&quot;
+is used - upto 15 digits are printed
+<p>
+onlycols - defines for which columns you want to display summary row values.
+Note that if you do not specify any columns - ALL will be printed.
+<p>
+If you are using onlycols, you can define upto 10 columns, columns, like
+in SetSortColumns are numbered starting from 1. For example:
+<p>
+AddSummaryRows( 1, 1.2, 3, 5, 7, 9 ); 
+<p>
+Display sum for columns: 3, 5, 7, and 9.
+<p>
+Generally you should call this funciton only once, using combination of flags desired.
+But it is possible to call AddSummaryRows multiple times and the result will be &quot;accumulation&quot; (i.e. bitwise OR)
+in case of &quot;flag&quot; parameter. format and onlycols are always overwritten by last call.
+<p>
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>V</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;Volume&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddSummaryRows</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>31</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1.2</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#008000>// add Total, Average, Min, Max, and Count rows (1+2+4+8+16)=31
+- with two decimal places summary rows are added at the top of the list</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="addcolumn.html">AddColumn()</A> function , <A HREF="addtextcolumn.html">AddTextColumn()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>AddSummaryRows</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=AddSummaryRows">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

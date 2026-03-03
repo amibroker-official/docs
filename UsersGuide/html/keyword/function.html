@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>function Keyword</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<div><font face=Arial size=2></font>
+    <div>
+      <h4><font size="4"><a name="do"></a>function Keyword</font></h4>
+    </div>
+    <p>The <b>function</b> keyword begins definition of the user-function.</p>
+    <p>User-definable functions allow to encapsulate user code into easy-to-use
+      modules that can be user in many places without need to copy the same code
+      over and over
+again.</p>
+    <p>Functions must have a definition. The function definition includes the
+      function body &#8212; the code that executes when the function is called. </p>
+    <p>A function definition establishes the name, and attributes (or parameters)
+      of a function. A function definition must precede the call to the function.
+      The definition starts with <b>function</b> keyword then follows function
+      name, opening parenthesis then optional list of arguments and closing parenthesis.
+      Later comes function body enclosed in curly braces.</p>
+    <p>A function call passes execution control from the calling function to
+      the called function. The arguments, if any, are passed by value to the
+      called function. Execution of a return statement in the called function
+      returns control and possibly a value to the calling function. </p>
+    <p>If the function does not consist of any return statement (does not return
+      anything) then we call it a procedure.</p>
+    <p>Following is an example of function definition:<br>
+    </p>
+    <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#008000>//
+          the following function is 2nd order smoother</FONT><FONT COLOR=#000000> <BR>
+        <BR>
+        </FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> IIR2(
+        input, f0, f1, f2 ) <BR>
+  { <BR>
+&nbsp;&nbsp;&nbsp; result[ </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ]
+= input[ </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ]; <BR>
+&nbsp;&nbsp;&nbsp; result[ </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ]
+= input[ </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ]; <BR>
+  <BR>
+&nbsp;&nbsp;&nbsp; </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+i = </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>; i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+i++ ) <BR>
+&nbsp;&nbsp;&nbsp; { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result[ i ] = f0 * input[ i ] + <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;f1
+* result[ i - </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ] + <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;f2
+* result[ i - </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ]; <BR>
+&nbsp;&nbsp;&nbsp; } <BR>
+  <BR>
+&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>return</B></FONT><FONT COLOR=#000000> result; <BR>
+  } <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( IIR2( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0.2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1.4</FONT><FONT COLOR=#000000>,
+  -</FONT><FONT COLOR=#ff00ff>0.6</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#ff00ff>"function
+  example"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); </FONT></CODE></p>
+    <p><br>
+  In this code <b>IIR2</b> is a user-defined function. <b>input, f0, f1, f2</b> are
+  formal parameters of the functions.<br>
+  At the time of function call the values of arguments are passed in these variables.
+  Formal parameters behave like local variables.<br>
+  Later we have <b>result</b> and <b>i</b> which are local variables. Local variables
+  are visible inside function only. If any other function uses the same variable
+  name they won't interfere between each other.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PARAMDATE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>ParamDate</b><br>
+        - add user user-definable date parameter</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 4.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>ParamDate( ''Name'', ''Default date'', format = 0 ); </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Adds a new user-definable date parameter, which will be accessible via Parameters dialog :<br>
+right click over chart pane and select &quot;Parameters&quot; or press Ctrl+R allows to change chart parameters - changes are reflected immediatelly.
+<p>
+<ul>
+<li>&quot;name&quot; - defines parameter name that will be displayed in the parameters dialog
+<li>&quot;default date&quot; - is a string holding date in any any format:
+YYYY-MM-DD, MM/DD/YY, DD-MM-YY, etc, etc.
+<li>format - defines return value format, allowable values are:
+<br>
+0 - return value is a NUMBER and holds DateNum. Ie: 990503 for May 3, 1999,
+<br>
+1 - return value is a STRING formatted holding date according to your windows regional settings
+<br>
+2 - return value is a NUMBER and holds DateTime. (new in 6.20)
+</ul>
+
+<p>
+
+<p>
+<b>WARNING:</b> default parameter has to be CONSTANT. This is because these values
+are cached and are not re-read during subsequent formula evaluations.
+<p>IMPORTANT: Parameter names and values must NOT contain non-printable characters (ASCII codes < 32).
+  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <code>
+start = ParamDate( &quot;Start Date&quot;, &quot;2003-05-03&quot; );<br>
+</code> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="param.html">PARAM()</A> function , <A HREF="paramcolor.html">PARAMCOLOR()</A> function , <A HREF="paramstr.html">PARAMSTR()</A> function , <A HREF="paramtime.html">ParamTime()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>ParamDate</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=ParamDate' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=ParamDate' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=ParamDate' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1441&hilite=ParamDate' target='_blank'>Plot the Equity Curve without Backtesting?</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=ParamDate">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

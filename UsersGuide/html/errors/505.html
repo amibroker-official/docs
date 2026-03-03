@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Warning 505. Division by zero</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><a name="E1" id="E1"></a>Warning 505. Division by zero</h4>
+<p>Your formula is doing division and the divisor (denominator) is zero<a href="/h_multithreading.html"></a>.
+  The result of such expression is either infinity or Nan (not a number). If
+  denominator is an array, this warning message means that one of denominator
+  array elements
+  is
+  zero. </p>
+<p><br>
+There are many ways to prevent this, namely:</p>
+<p>1. Checking denominator for zero prior to division and avoid division in such
+  cases (works for scalars, not arrays):</p>
+<p><CODE><font color='#800000'><b>for</b></font>( i = <font color='#800080'>0</font>;
+    i &lt; <b>BarCount</b>; i++ ) <br>
+  { <br>
+  &nbsp;&nbsp; 
+  denom = <b>High</b>[ i ] - <b>Low</b>[ i ]; <br>
+  &nbsp;&nbsp; 
+  <br>
+  &nbsp;&nbsp; 
+  <font color='#800000'><b>if</b></font>( denom != <font color='#800080'>0</font> )
+  result[ i ] = <b>Close</b>[ i ] / denom; <font color='#008000'>// only divide
+  when denominator is not zero <br>
+</font>}</CODE></p>
+<p>2. Adding small value to denominator (works for both scalars and arrays)</p>
+<p><CODE>result = <b>Close</b> / ( <b>High</b> - <b>Low</b> + <font color='#800080'>1e-9</font> ); <br>
+</CODE></p>
+<p>3. Using <a href="../afl/nz.html">Nz() function</a> to convert non-a-numbers
+  and infinites to resonable value (by default zero). Note that this won't supress
+  the warning but will make the result finite:</p>
+<p><CODE>result = <b>Nz( Close</b> / ( <b>High</b> - <b>Low</b>  ) ); <br>
+</CODE></p>
+<p>4. Changing zero values in denominator array prior to division using IIF()
+  function</p>
+<p><CODE>denom = <b>High</b> - <b>Low</b>; <br>
+  result = <b>Close</b> / <font color='#0000ff'>IIf</font>( denom != <font color='#800080'>0</font>,
+  denom, <font color='#800080'>0.001</font> ); <br>
+</CODE></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - EXREMSPAN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>ExRemSpan</b><br>
+        - remove excessive signals spanning given number of bars</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong></b>    <b>exremspan</b>( ARRAY1, <i>numbars</i> )         <b> </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> </b>    ARRAY         <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> </b>
+    Removes excessive signals that span <i>numbars</i> bars since 
+      initial signal.<br>
+      (In other words first non-zero bar passes through, then all subsequent non-zero 
+      bars are ignored (zero is returned) until <i>numbars</i> bars have passed 
+      since initial signal. From then on a new signal may pass through)<br>
+      <br>
+      This function is marked as obsolete.
+<p><b>To implement N-bar stop you should use ApplyStop function instead.</b>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="applystop.html">ApplyStop()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>ExRemSpan</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=598&hilite=ExRemSpan' target='_blank'>ekeko price chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=187&hilite=ExRemSpan' target='_blank'>SectorRSI</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=ExRemSpan">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

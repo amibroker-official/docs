@@ -1,0 +1,78 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - INTERNETSETOPTION</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>InternetSetOption</b><br>
+        - set HTTP option for internet session</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>File Input/Output functions<br>
+        </b>(AmiBroker 6.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>InternetSetOption( option, value ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Set the option for Internet session. Available Internet options are listed in Windows SDK docs:
+<a href='https://docs.microsoft.com/en-us/windows/win32/wininet/option-flags'>https://docs.microsoft.com/en-us/windows/win32/wininet/option-flags</a> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#009300'>// how to request and handle GZIP compressed HTTP 
+<br></font>
+<br>INTERNET_OPTION_HTTP_DECODING = <font color='#8b0000'>65</font>;
+<br>
+<br><font color='#0000ff'>InternetSetOption</font>( INTERNET_OPTION_HTTP_DECODING, <font color='#8b0000'>1</font> );
+<br>
+<br><font color='#0000ff'>InternetSetHeaders</font>(<font color='#ff0000'>&quot;Accept-Encoding: gzip, deflate&quot;</font>);
+<br>
+<br>ih = <font color='#0000ff'>InternetOpenURL</font>(<font color='#ff0000'>&quot;http://www.amibroker.com/news.html&quot;</font> );
+<br>
+<br><font color='#800000'><b>if</b></font>( ih )
+<br>{
+<br>&nbsp;&nbsp;&nbsp;<font color='#800000'><b>while</b></font>( ( text = <font color='#0000ff'>InternetReadString</font>( ih ) ) != <font color='#ff0000'>&quot;&quot;</font> )
+<br>&nbsp;&nbsp;&nbsp;{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='#0000ff'>printf</font>( <font color='#ff0000'>&quot;%s&quot;</font>, text );
+<br>&nbsp;&nbsp;&nbsp;}
+<br>
+<br>&nbsp;&nbsp;&nbsp;<font color='#0000ff'>InternetClose</font>(ih);
+<br>}
+<br></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="internetopenurl.html">InternetOpenURL()</A> function , <A HREF="internetpostrequest.html">InternetPostRequest()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>InternetSetOption</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=InternetSetOption">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

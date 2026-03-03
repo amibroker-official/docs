@@ -1,0 +1,126 @@
+<html>
+
+<head>
+<title>Short guide to AmiBroker with QuoteTracker feed</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<div align="center">
+  <h2 align="left">How to use AmiBroker with external data source (QuoteTracker)</h2>
+  <p align="left">IMPORTANT: You need QuoteTracker 2.4.9C or above (3.1.0 recommended).
+    It can operate on the standard edition, but AmiBroker RT is recommended.</p>
+  <p align="left"><strong>VERY IMPORTANT: QuoteTracker has to be configured so that its internal
+      server is running. <a href="qthelp.html">Click here for the explanation.</a></strong></p>
+  <p align="left"><strong>CAVEAT: </strong>QuoteTracker should be considered a poor man's
+    real-time substitute. Its performance cannot be compared to true real-time
+    feeds like eSignal or myTrack that offer very reliable, long backfills and
+    true tick-by-tick updates. </p>
+  <p align="left"><font size=2><strong><em>QuoteTracker plugin currently works in two modes:</em></strong></font></p>
+</div>
+<div align="left">
+  <p><font size=2><b>daily mode </b>- the plugin adds and updates the last (today's)
+          bar with the most recent quotes in nearly real time. It means that you
+  have to use it in conjunction with an already existing end-of-day database.</font></p>
+  <p><b>intraday mode </b>- the plugin provides one day of intraday historical data.
+      More days can be accumulated if AmiBroker with QT is launched every day
+      so AmiBroker can save history to its local database.
+  </p>
+</div>
+<h4 align="left">One-time setup</h4>
+<p align="left"><font size=2>Make sure that your QuoteTracker has the QT HTTP server enabled: <strong>Options-&gt;Edit
+        Preferences : Misc tab: HTTP Server Settings<br>
+        If you are using an unregistered version of QuoteTracker, make sure you click
+        on ads often enough.</strong></font></p>
+<p align="left">To use an external data source with AmiBroker, you will need to perform a
+    one-time setup described below:</p>
+<div align="left">Run AmiBroker.
+  Choose <b>File-&gt;New database</b>.
+  Type a new folder name (for example: C:\Program Files\AmiBroker\NewData
+        ) and click <b>Create</b> as shown in the picture below:<br>
+                <img src="gifs/qtdbsettings.gif"> <br>
+                <br>
+                <br>
+  Choose the appropriate entry from the Data source combo:
+  
+  <ul>
+        <li>
+          <b><font color=#0000ff>QuoteTracker users</font></b> select "<b>QuoteTracker
+                        plug-in</b>" as a <b>Data Source</b> and "<strong>Enable</strong>" from <b>Local
+                        data storage</b>&nbsp;
+    </li>
+</ul>
+    Click the <b>Configure</b> button to show the plugin configuration dialog
+        as shown below<br>
+&nbsp;<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <span 
+  style="FONT-SIZE: 12pt; FONT-FAMILY: 'Times New Roman'; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: PL; mso-fareast-language: PL; mso-bidi-language: AR-SA"><img src="gifs/qtconfig.gif" 
+  v:shapes="_x0000_i1025"></span><br>
+&nbsp;<br>
+  
+</div>
+<p align="left">You may also click the <b>Retrieve</b> button to pre-fill the AmiBroker database
+      with symbols already present in QuoteTracker. From now on, your AmiBroker
+    reads quotes from QuoteTracker in nearly real time.</p>
+<p align="left">To learn how to use AmiBroker in real-time mode, read <a href="h_rtsource.html">this
+tutorial article</a>.</p>
+<p align="left"><b>Description of QuoteTracker plugin configuration options</b></p>
+  <p align="left">QT plugin configuration dialog looks as follows:</p>
+  <p align="left"><img src="gifs/qtconfig.gif"><br>
+</p>
+  <p align="left">Here is a description of the settings:</p>
+  <div align="left"><b>QuoteTracker server port</b>: defines the port on which the QT HTTP internal
+      server is visible. 16239 is the default value used by QuoteTracker, and you
+      should not change this in most cases. If in doubt, please check<font size=2> QuoteTracker
+      HTTP server settings: <strong>Options-&gt;Edit Preferences : Misc tab:
+      HTTP Server Settings<br>
+                  <br>
+                </strong></font><b>Refresh interval</b> - defines how often AmiBroker will ask QT for
+      quotes. 5 seconds is the default. You may consider changing it to 10 or 15 seconds
+      in case you have lots of symbols and a slow machine<br>
+              <br>
+              <b>Auto-add symbols from AmiBroker</b> - if this option is turned ON
+      (by default, it is), if you switch in AmiBroker to a symbol that is not
+      present in any QT portfolios, it will be automatically added to the default
+      QT portfolio. It also applies to any other kind of access (for example,
+      if you try to import symbols to AmiBroker and they do not exist in QT,
+      they will be added if this option is turned on). Switching it OFF disables
+      the auto-add feature.<br>
+              <b><br>
+    </b><b>Max. number of added symbols</b> - defines the maximum number of symbols
+      that get added using the auto-add feature described above. This protects QuoteTracker
+      from becoming overloaded (AmiBroker can handle tens of thousands of symbols
+      with ease, but QuoteTracker cannot)<br>
+              <br>
+              <b>Use optimized routine for intraday data retrieval</b> -
+  turning this on (default, recommended) significantly speeds up data retrieval
+  in intraday modes. If this option is enabled and AmiBroker already has partial intraday
+        data for today, AmiBroker asks QT just for a few last time and sales records
+        that occurred since the last update up to the current time. If this option is
+  disabled, AmiBroker always asks QT for time&amp;sales records from the entire day.<br>
+  <strong>Time difference relative to US Eastern time </strong>- the time
+      difference (in hours) between your local time and US Eastern time (EST).
+      This field is needed because QuoteTracker's server reports all times in
+      the EST time zone. This means that if you live in Australia, QuoteTracker will
+      report ASX quotes with the EST time zone, and they will be 15 hours off your
+      local time. While AmiBroker has the setting for shifting intraday
+      charts, and this is not a problem when running intraday mode, it becomes
+      a problem when using daily (EOD) mode because quotes reported by QuoteTracker
+      are one day off. This setting solves this as AmiBroker adds the number
+      of hours entered here to the time reported by QuoteTracker to get the valid
+      date of the quote in daily mode. This field is filled in with the difference
+      calculated using your Windows Time settings. <br>
+              <br>
+              <b>Retrieve symbols from QuoteTracker</b> - pressing the &quot;Retrieve&quot; button
+      adds all symbols present in QuoteTracker to the AmiBroker symbol list. </div>
+<p align="left">&nbsp;</p>
+  <p align="left">&nbsp;  </p>
+  <p>&nbsp;</p>
+</body>
+</html>

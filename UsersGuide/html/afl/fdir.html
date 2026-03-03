@@ -1,0 +1,115 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - FDIR</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>fdir</b><br>
+        - list directory content</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>File Input/Output functions<br>
+        </b>(AmiBroker 5.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>fdir( &quot;wildcard&quot;, flags = 1 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function returns comma separated directory list (like &quot;DIR&quot; command)<p>
+&quot;wildcard&quot; is a path with a wildcard pattern to match.<p>
+ For example &quot;C:\*.*&quot; will give you all files in C: drive, but &quot;C:\*.txt&quot; will give you only files with .txt extension.<p>
+ flags - controls what is returned the default is 1 - only files, 2 - only directories, 3 - both files and directories 
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;Only
+files:
+&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>_N</FONT><FONT COLOR=#000000>( list = </FONT><FONT COLOR=#0000ff>fdir</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;c:\*.*&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> ( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+( filename = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>(
+List, i ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; i++
+) <BR>
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(
+filename + </FONT><FONT COLOR=#800080>&quot;
+&quot;</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;
+
+Only
+directories:
+&quot;</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>_N</FONT><FONT COLOR=#000000>( list = </FONT><FONT COLOR=#0000ff>fdir</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;c:\*.*&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> )
+); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> ( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+( filename = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>(
+List, i ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; i++
+) <BR>
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(
+filename + </FONT><FONT COLOR=#800080>&quot;
+&quot;</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;
+
+Both
+files and directories:
+&quot;</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>_N</FONT><FONT COLOR=#000000>( list = </FONT><FONT COLOR=#0000ff>fdir</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;c:\*.*&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000> )
+); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> ( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+( filename = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>(
+List, i ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; i++
+) <BR>
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(
+filename + </FONT><FONT COLOR=#800080>&quot;
+&quot;</FONT><FONT COLOR=#000000> ); <BR>
+}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>fdir</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1568&hilite=fdir' target='_blank'>Backup Data of 1min Interval</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=fdir">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

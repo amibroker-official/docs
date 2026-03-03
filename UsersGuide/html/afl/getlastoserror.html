@@ -1,0 +1,79 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETLASTOSERROR</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetLastOSError</b><br>
+        - get text of last operating system (Windows) error</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 6.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetLastOSError() </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function retrieves text of last OS (Windows) error message. It is useful for providing meaningful error reporting in case when you interact with OS (for example opening files or remote Internet sites). See examples. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#008000'>// Example 1: <br>
+</font> <br>
+fh = <font color='#0000ff'>fopen</font>(<font color='#800080'>&quot;non_existing_file.txt&quot;</font>, <font color='#800080'>&quot;r&quot;</font> ); <br>
+<br>
+<font color='#800000'><b>if</b></font>( ! fh ) <br>
+{ <br>
+&nbsp;&nbsp; 
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;File can not be open
+because: %s&quot;</font>, <font color='#0000ff'>GetLastOSError</font>() ); <br>
+} <br>
+<br>
+<font color='#008000'>// Example 2: <br>
+</font> <br>
+ih = <font color='#0000ff'>InternetOpenUrl</font>(<font color='#800080'>&quot;http://non_existing_host.com&quot;</font> ); <br>
+<br>
+<font color='#800000'><b>if</b></font>( ! ih ) <br>
+{ <br>
+&nbsp;&nbsp; 
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;Internet connection
+can not be open because: %s&quot;</font>, <font color='#0000ff'>GetLastOSError</font>()
+); <br>
+}</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="fopen.html">fopen()</A> function , <A HREF="fmkdir.html">fmkdir()</A> function , <A HREF="frmdir.html">frmdir()</A> function , <A HREF="fdelete.html">fdelete()</A> function , <A HREF="internetopenurl.html">InternetOpenURL()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetLastOSError</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetLastOSError">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

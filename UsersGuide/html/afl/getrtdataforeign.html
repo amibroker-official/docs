@@ -1,0 +1,107 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETRTDATAFOREIGN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetRTDataForeign</b><br>
+        - retrieves the real-time data fields (for specified symbol)</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetRTDataForeign( ''fieldname'' , ''symbol'' ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function is similar to GetRTData but allows to specify symbol OTHER than currently selected and it is much faster than SetForeign/GetRTData combo.<p>
+
+The function retrieves the LAST (the most recent) value of the following fields
+reported by streaming real time data source for specified symbol:<p>
+<ul>
+<li>"Ask" - current best ask price 
+<li>"AskSize " - current ask size
+<li>"Bid" - current best bid price 
+<li>"BidSize " - current bid size
+<li>"52WeekHigh" - 52 week high value
+<li>"52WeekHighDate" - 52 week high date (in datenum format)
+<li>"52WeekLow" - 52 week low value
+<li>"52WeekLowDate" - 52 week low date (in datenum format)
+<li>"Change" - change since yesterdays close
+<li>"Dividend" - last dividend value
+<li>"DivYield" - dividend yield
+<li>"EPS" - earnings per share
+<li>"High" - current day's high price
+<li>"Low" - current day's low price
+<li>"Open" - current day's open price
+<li>"Last" - last trade price
+<li>"OpenInt" - current open interest
+<li>"Prev" - previous day close
+<li>"TotalVolume" - total today's volume
+<li>"TradeVolume" - last trade volume
+<li>"ChangeDate" - datenum (YYYMMDD) of last data change
+<li>"ChangeTime" - timenum (HHMMSS) of last data change
+<li>"UpdateDate" - datenum (YYYMMDD) of last data update
+<li>"UpdateTime" - timenum (HHMMSS) of last data update
+<li>"Shares" - total number of shares 
+</ul>
+<p>
+Note 1: this function is available ONLY in PROFESSIONAL edition,
+calling it using Standard edition will give you NULL values for all fields
+<p>
+Note 2: works only if data source uses real time data source (plugin) 
+<p>
+Note 3: availablity of data depends on underlying data source
+- check the real-time quote window to see if given field is available 
+<p>Note 4: function result represents the current value at the time of the call
+/formula execution/, and they will be refreshed depending on chart or commentary refresh interval
+/settable in preferences/. Built-in real time quote window is refreshed
+way more often (at least 10 times per second)  
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#ff00ff>"Bid = "</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>GetRTDataForeign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Bid"</FONT><FONT COLOR=#000000>);
+<BR></FONT><FONT COLOR=#ff00ff>"Ask = "</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>GetRTData</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Ask"</FONT><FONT COLOR=#000000>);
+<BR></FONT><FONT COLOR=#ff00ff>"Last = "</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>GetRTData</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Last"</FONT><FONT COLOR=#000000>);
+<BR></FONT><FONT COLOR=#ff00ff>"Vol = "</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>GetRTData</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"TradeVolume"</FONT><FONT COLOR=#000000>);
+<BR>
+<BR></FONT><FONT COLOR=#ff00ff>"EPS = "</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>GetRTDataForeign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"EPS", "AAPL"</FONT><FONT COLOR=#000000>);
+<BR></FONT><FONT COLOR=#ff00ff>"52week high = "</FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#0000ff>GetRTDataForeign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"52weekhigh", "MSFT"</FONT><FONT COLOR=#000000>);</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="getrtdata.html">GetRTData()</A> function , <A HREF="setforeign.html">SetForeign()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetRTDataForeign</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=GetRTDataForeign' target='_blank'>Heatmap V1</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetRTDataForeign">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

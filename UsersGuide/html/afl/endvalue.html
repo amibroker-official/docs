@@ -1,0 +1,73 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ENDVALUE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>EndValue</b><br>
+        - value of the array at the end of the selected range</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b>(AmiBroker 4.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>EndValue( ARRAY ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function gives the single value (number) of the ARRAY at the end of the selected range. If no range is marked then the value at the last bar is returned. <p>
+To select the range you have to double click in the chart at the beginning of the range
+and then double click in the chart at the end of the range.
+Then > < markers will appear above date axis. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> 1. Simple commentary:<p>
+<code>
+WriteVal( BeginValue( DateTime() ), formatDateTime );<br>
+WriteVal( EndValue( DateTime() ), formatDateTime );<br>
+"Precentage change of close is " + <br>
+WriteVal( 100 * (EndValue( Close ) - BeginValue( Close ))/BeginValue( Close ) ) + "%";<br>
+</code>
+<p>
+2. Get the number of bars in the range and calculate some stats for that range:<p>
+<code>
+Period = EndValue( BarIndex() ) - BeginValue( BarIndex() );<br>
+StandardDeviationInTheRange = EndValue( StDev( Close, Period ) );<br>
+</code> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="beginvalue.html">BEGINVALUE()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>EndValue</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=356&hilite=EndValue' target='_blank'>Adaptive Price Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=584&hilite=EndValue' target='_blank'>Another FIb Level</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=306&hilite=EndValue' target='_blank'>CAMSLIM Cup and Handle Pattern AFL</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=EndValue' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=463&hilite=EndValue' target='_blank'>Futures - Dollar Move Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1475&hilite=EndValue' target='_blank'>Multi-color Volume At Price (VAP)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=731&hilite=EndValue' target='_blank'>nth ( 1 - 8 ) Order Polynomial Fit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=335&hilite=EndValue' target='_blank'>Relative Strength Multichart of up to 10 tickers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1428&hilite=EndValue' target='_blank'>Trend Lines from 2 points</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=EndValue">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

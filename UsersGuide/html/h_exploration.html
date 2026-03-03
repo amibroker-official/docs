@@ -1,0 +1,201 @@
+<html>
+
+<head>
+<title>How to create your own exploration</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>How to create your own exploration</b></h2>
+<p>One of the most useful features of the Analysis window is called &quot;Exploration&quot;.
+   Basically, an exploration works in a similar way to Scan, but instead of looking
+  
+  for and reporting just buy/sell signals, it allows you to generate a customizable
+   screening (or exploration) report that can give you much more information
+  than 
+  a simple Scan.</p>
+<p>The idea behind an exploration is simple - one variable, called <b>filter</b>, 
+  controls which symbols/quotes are accepted. If &quot;true&quot; (or 1) is assigned 
+  to that variable for a given symbol/quote, it will be displayed in the report.</p>
+<p>So, for example, the following formula will accept all symbols with closing 
+  prices greater than 50 :</p>
+<blockquote>
+  <p><code>filter = close &gt; 50;</code></p>
+</blockquote>
+<p><em>(NOTE: To create a new formula, please open <a href="w_afledit.html">Formula
+        Editor</a> using <strong>Analysis-&gt;Formula
+        Editor</strong> menu, type the formula and choose <strong>Tools-&gt;Send
+    to  Analysis</strong> menu in **the** Formula editor)</em></p>
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+  <tr> 
+    <td valign="top"> 
+      <p>Note that exploration uses all range and filter settings that are also
+         used by back-tester and scanning modes, so you can get multiple signals
+        
+        (report lines) if you select &quot;All quotations&quot; range. To check
+        just the most recent quote, you should choose &quot;<b>1 recent bar(s)</b>&quot;</p>
+      <p>Now, what about customizable reports?</p>
+      <p>Yes, exploration mode allows you to create and then export a report with 
+        completely customizable columns, and it is quite simple to do.</p>
+      <p>All you have to do is to tell AmiBroker what columns you want. This
+        can be done by calling <a href="afl/addcolumn.html">the AddColumn</a> function in your exploration formula:</p>
+      <blockquote> 
+        <p><code>AddColumn( Close, &quot;Close&quot; );</code></p>
+      </blockquote>
+    </td>
+  </tr>
+</table>
+<p>The first argument of **the** AddColumn function is the data **array** you want to display;
+  the second argument defines the column caption</p>
+<p>If you now press &quot;<b>Explore</b>&quot; button in the Analysis window,
+   you will get the result similar to this:</p>
+<p><img src="gifs/18expl1.gif" width="740" height="448"></p>
+<p>Note that there are actually 3 columns: predefined Ticker and Date/Time column
+  and  one custom column holding close price. Note that only tickers with a closing
+  price 
+  greater than 50 are reported.</p>
+<p>Now you can click &quot;<b>Export</b>&quot; and your exploration will be saved 
+  to a CSV (comma separated values) file that could be easily loaded **into** any other 
+  program, including Excel, for further analysis.</p>
+<p>Actually, **the** AddColumn function accepts more arguments to allow you to customize
+  the output even more. The full syntax is:</p>
+<p><strong>AddColumn( array, name, format = 1.2, textColor = colorDefault, bkgndColor
+= colorDefault ) </strong></p>
+<p>The <b>format </b>parameter allows 
+  you to define the formatting applied to numbers. By default, all variables are
+   displayed with 2 decimal digits, but you can change this by assigning a different
+  
+  value to this variable: 1.5 gives 5 decimal digits, 1.0 gives no decimal digits.
+  
+So, in our example, typing:</p>
+<blockquote> 
+  <p><code>AddColumn( Close, &quot;Close&quot;, 1.4 );</code></p>
+</blockquote>
+<p>will give closing prices displayed with 4 decimal digits. <br>
+  <font size="1"> (Note for advanced users: the integer part of this number can 
+  be used to pad a formatted number with spaces - 6.0 will give no decimal digits 
+but a number space-padded up to 6 characters.)</font></p>
+<p>There are also special format **predefined** constants that allow you to display
+  date/time and single character codes:</p>
+<ul>
+  <li>formatDateTime - produces date/time formatted according to your system settings<br>
+      <code> AddColumn( DateTime(), "Date / Time", formatDateTime ); </code><br>
+      <br>
+  <li> formatChar - allows outputting single ASCII character codes: <br>
+    Example (produces a signal file accepted by various other programs): <br>
+    <code> Buy=Cross(MACD(),Signal());<br>
+    Sell=Cross(Signal(), MACD());<br>
+    Filter=Buy OR Sell;<br>
+    SetOption("NoDefaultColumns", True );<br>
+    AddColumn( DateTime(), "Date", formatDateTime );<br>
+    AddColumn( IIf( Buy, 66, 83 ), "Signal", formatChar );</code>
+</ul>
+<p><b>textColor</b> and <b>bkgndColor</b> arguments allow you to produce colorful reports. By default, **the** result list is displayed using system colors, but you can override this behavior by providing your own colors.</p>
+<p>For example, the code that displays **the** close price in green color when the 1-day rate of change is positive, and otherwise uses red color:</p>
+<p><code>	AddColumn( Close, &quot;Close&quot;, 1.4, IIF( ROC(C, 1 ) &gt; 0, colorGreen,
+    colorRed ) );</code><br>
+</p>
+<p><b><i>Examples</i></b></p>
+<p>The exploration mode is **extremely** flexible: you can, for example, export the 
+  whole database to a CSV file using the following formula:</p>
+<blockquote> 
+  <p><code>filter = 1; /* all symbols and quotes accepted */</code></p>
+  <p><code>AddColumn(Open,&quot;Open&quot;,1.4);<br>
+AddColumn(High,&quot;High&quot;,1.4);<br>
+AddColumn(Low,&quot;Low&quot;,1.4);<br>
+AddColumn(Close,&quot;Close&quot;,1.4);<br>
+AddColumn(Volume,&quot;Volume&quot;,1.0);<br>
+    </code></p>
+</blockquote>
+<p>This one will show you only heavily traded securities:</p>
+<blockquote> 
+  <p><code>filter = volume &gt; 5000000; /* adjust this threshold for your own 
+    needs */<br>
+    AddColumn(Close,&quot;Close&quot;,1.4);<br>
+AddColumn(Volume,&quot;Volume&quot;,1.0);<br>
+  </code></p>
+</blockquote>
+<p>Or... just show securities with volume 30% above their 40-day exponential
+  average</p>
+<blockquote> 
+  <p><code>filter = volume &gt; 1.3 * ema( volume, 40 );<br>
+    AddColumn(Close,&quot;Close&quot;,1.4);<br>
+AddColumn(Volume,&quot;Volume&quot;,1.0);<br>
+  </code></p>
+</blockquote>
+<p>With this one, you can export multiple indicator values for further analysis:</p>
+<blockquote> 
+  <p><code>filter = close &gt; ma( close, 20 ); /* only stocks trading above its 
+    20 day MA*/<br>
+    AddColumn( macd(), &quot;MACD&quot;, 1.4 );<br>
+    AddColumn( signal(), &quot;Signal&quot;, 1.4 );<br>
+    AddColumn( adx(), &quot;ADX&quot;, 1.4 );<br>
+    AddColumn( rsi(), &quot;RSI&quot;, 1.4 );<br>
+    AddColumn( roc( close, 15 ), &quot;ROC(15)&quot;, 1.4 );<br>
+    AddColumn( mfi(), &quot;MFI&quot;, 1.4 );<br>
+    AddColumn( obv(), &quot;OBV&quot;, 1.4 );<br>
+    AddColumn( cci(), &quot;CCI&quot;, 1.4 );<br>
+    AddColumn( ultimate(), &quot;Ultimate&quot;, 1.4 );  </code><code><br>
+    </code></p>
+</blockquote>
+<p>One more example of color output:</p>
+<blockquote>
+  <p><code>Filter =1;</code></p>
+  <p><code> AddColumn( Close, &quot;Close&quot;, 1.2 );<br>
+    AddColumn( MACD(), &quot;MACD&quot;, 1.4 , IIf( MACD() &gt; 0, colorGreen,
+      colorRed ) );<br>
+    AddTextColumn( FullName(), &quot;Full name&quot;, 77 , colorDefault, IIf( Close &lt; 10,
+      colorLightBlue, colorDefault ) );</code></p>
+</blockquote>
+<p><i><b><a name="XYCHART"></a>Scatter (X-Y) charts in Exploration</b></i></p>
+<p>Version 5.60 brings a new feature to exploration - scatter X/Y charts. Scatter charts are useful to display relationships between many symbols, such as correlation, risk, etc. They can be seen as a replacement and upgrade for &quot;Risk/Yield&quot; map that was hard-coded to just one function. Now you can code your own X-Y charts that are not limited to just Risk/Yield maps. </p>
+<p>All you need to do to display your own scatter plot is to add <a href="afl/xychartaddpoint.html">XYChartAddPoint</a> to
+  your formula for each X-Y point you want to have on your chart.</p>
+<p>For example, you can get a scatter plot of MFE/Profit and MAE/Profit relationships
+  as shown in the description of <a href="afl/xychartaddpoint.html">XYChartAddPoint</a> AFL
+function.</p>
+<p>To display Risk/Yield scatter chart
+  using new functions, follow the steps below. </p>
+<p>1. Click <strong>File</strong>-&gt;<strong>New</strong>-&gt;<strong>Analysis</strong></p>
+<p>2. Pick  &quot;Formulas\Exploration\RiskYield.afl&quot; file (listed below)</p>
+<p>3. Click on the <strong>Explore</strong> button in the new Analysis window</p>
+<p>4. In the bottom row of tabs, you will see a new &quot;Risk/Yield&quot; tab. Click on it, and you will see the XY chart generated during exploration:</p>
+<p><img src="gifs/xycharts.gif" width="774" height="463"></p>
+<p>You can hover the mouse over the X-Y chart to read the values. You can also click and drag to mark a rectangle
+to zoom in. Clicking without marking a rectangle restores full view.</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// XY scatter chart example<br>
+// 
+</FONT></CODE><CODE><FONT COLOR=#008000>This is AFL equivalent of Risk-Yield
+map</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// Note that this exploration should be run on</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// WEEKLY data</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// it calculates average weekly gain (yield)</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// and standard deviation of gains (risk)</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"lastbarinrange"</FONT><FONT COLOR=#000000>); <BR>
+  Length = </FONT><FONT COLOR=#0000ff>SelectedValue</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>()
+  ); <BR>
+  Chg = </FONT><FONT COLOR=#0000ff>ROC</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//one
+  bar yield</FONT><FONT COLOR=#000000> <BR>
+  yield = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( Chg, Length
+  - </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>); <BR>
+  risk =&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>StDev</FONT><FONT COLOR=#000000>(
+  Chg, Length - </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>); <BR>
+  </FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>(yield,</FONT><FONT COLOR=#800080>"yield"</FONT><FONT COLOR=#000000>); <BR>
+  </FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>(risk,</FONT><FONT COLOR=#800080>"risk"</FONT><FONT COLOR=#000000>); <BR>
+  <BR>
+  Clr = </FONT><FONT COLOR=#0000ff>ColorHSB</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"stocknum"</FONT><FONT COLOR=#000000>)
+  % </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>XYChartAddPoint</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Risk/Yield"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>Name</FONT><FONT COLOR=#000000>(),
+  risk[ Length ], yield[ Length ] , Clr ); <BR>
+  </FONT><FONT COLOR=#0000ff>XYChartSetAxis</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Risk/Yield"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Risk[%]"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Yield[%]"</FONT><FONT COLOR=#000000>); </FONT></CODE></p>
+<p><i><b>Final tip</b></i></p>
+<p> Please don't forget that you can sort the results of the exploration by any 
+  column by simply clicking on its header.</p>
+</body>
+</html>

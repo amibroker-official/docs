@@ -1,0 +1,135 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - CATEGORYGETSYMBOLS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>CategoryGetSymbols</b><br>
+        - retrieves comma-separated list of symbols belonging to given category</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Information / Categories<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>CategoryGetSymbols( category, index, mode = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Retrieves comma-separated list of symbols belonging to given category
+
+Supported categories:
+<ul>
+<li>categoryMarket 
+<li>categoryGroup 
+<li>categorySector 
+<li>categoryIndustry 
+<li>categoryWatchlist
+<li>categoryFavorite 
+<li>categoryIndex 
+<li>categoryGICS
+<li>categoryICB
+<li>categoryAll (new in 5.50) - means all symbols in the database (
+</ul>
+index is a market/group/industry/sector/watchlist number:<br>
+0..255 for categoryMarket, categoryGroup, categoryIndustry<br>
+0..63 for categorySector<br>
+no limit for categoryWatchlist.<br>
+ignored for categoryFavorite, categoryIndex
+<p>
+mode - (new in 5.50) mode parameter decides what field is retrieved:
+<ul>
+<li>0 (default value) - ticker symbol
+<li>1 - full name
+</ul>
+<p>
+The meaning of index parameter is different for GICS and ICB categories - the index for categoryGICS and categoryICB is actually GICS/ICB code. Such as 10 for energy sector or 351010 for "Health Care Equipment & supplies" industry. 
+The codes are fixed even if new classifications are added at some point in the future. This means that you won't need to change AFL codes even if new classifications are added. But it is important to understand that these codes work in hierarchical way. So<p>
+GetCategorySymbols( categoryGICS, 10 ) <p>will return all symbols belonging to energy sector, including those in 10101010 - Oil & Gas Drilling sector as well as 10102050 - Coal & Consumable Fuels; for example. 
+See
+<a href='http://en.wikipedia.org/wiki/Global_Industry_Classification_Standard' target='_blank'>http://en.wikipedia.org/wiki/Global_Industry_Classification_Standard</a>
+for more details on GICS system<br>
+<a href='http://en.wikipedia.org/wiki/Industry_Classification_Benchmark' target='_blank'>http://en.wikipedia.org/wiki/Industry_Classification_Benchmark</a> for more details on ICB system
+<p>
+Use <b>StrExtract</b> function to extract individual symbols from the list.
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/* note: if given watch
+list contains lots of symbols <BR>
+** performance may be poor <BR>
+** AVOID SUCH CODES IN REAL-TIME MODE ! <BR>
+*/</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> CreateAverageForWatchList(
+listnum ) <BR>
+{ <BR>
+   </FONT><FONT COLOR=#008000>// retrive comma-separated list
+of symbols in watch list</FONT><FONT COLOR=#000000> <BR>
+   list = </FONT><FONT COLOR=#0000ff>CategoryGetSymbols</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>categoryWatchlist</B></FONT><FONT COLOR=#000000>,
+listnum ); <BR>
+<BR>
+   Average = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+just in case there are no watch list members</FONT><FONT COLOR=#000000> <BR>
+<BR>
+   </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; ( sym = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>(
+list, i ) ) != </FONT><FONT COLOR=#ff00ff>""</FONT><FONT COLOR=#000000>; i++
+) <BR>
+   { <BR>
+      f = </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>( sym, </FONT><FONT COLOR=#ff00ff>"C"</FONT><FONT COLOR=#000000> ); <BR>
+      </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+i == </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ) Average = f; <BR>
+      </FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> Average
+= Average + f; <BR>
+   } <BR>
+   </FONT><FONT COLOR=#800000><B>return</B></FONT><FONT COLOR=#000000> Average
+/ i; </FONT><FONT COLOR=#008000>// divide by number of components</FONT><FONT COLOR=#000000> <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( CreateAverageForWatchList( </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#ff00ff>"Avg
+of WL 1"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT></CODE>
+
+<P>Example 2, retrieving all symbols tickers and full names
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#008000>//
+to get all ticker symbols</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>CategoryGetSymbols</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>categoryAll</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#008000>//to get full names of all symbols use:</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>CategoryGetSymbols</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>categoryAll</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="getcategorysymbols.html">GETCATEGORYSYMBOLS()</A> function , <A HREF="strextract.html">StrExtract()</A> function , <A HREF="inwatchlist.html">INWATCHLIST()</A> function , <A HREF="categorygetname.html">CategoryGetName()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>CategoryGetSymbols</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1165&hilite=CategoryGetSymbols' target='_blank'>AFL_Glossary_1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1347&hilite=CategoryGetSymbols' target='_blank'>Basket Trading System T101</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=709&hilite=CategoryGetSymbols' target='_blank'>Calculate composites for tickers in list files</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1302&hilite=CategoryGetSymbols' target='_blank'>Graphical sector stock amalysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=CategoryGetSymbols' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1136&hilite=CategoryGetSymbols' target='_blank'>IB Backfiller</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1421&hilite=CategoryGetSymbols' target='_blank'>IBD relative strength database ranker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1357&hilite=CategoryGetSymbols' target='_blank'>Optimal Weights</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1572&hilite=CategoryGetSymbols' target='_blank'>Peter Cooper</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=323&hilite=CategoryGetSymbols' target='_blank'>Relative Strength</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=CategoryGetSymbols">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

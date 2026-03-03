@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 68. The `symbol` argument is invalid. It must not be an empty string. Also it must not include commas, new line, tabs.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4> Error 68. The `symbol` argument is invalid. It must not be an empty string.
+Also it must not include commas, new line, tabs.</h4>
+<p>You passed incorrect symbol to AddToComposite function (or other function
+  that require symbol). Symbol must NOT be empty and must NOT contain illegal
+  characters for symbols such as commas, new lines, tabs.</p>
+<p><br>
+  <CODE><font color='#0000ff'>AddToComposite</font>( <b>Close</b>, <font color='#800080'>""</font>, <font color='#800080'>"C"</font> ); <font color='#008000'>//
+  WRONG symbol argument is empty <br>
+  </font><font color='#0000ff'>AddToComposite</font>( <b>Close</b>, <font color='#800080'>"test\nforbidden,characters"</font>, <font color='#800080'>"C"</font> ); <font color='#008000'>//
+WRONG forbidden characters in symbol</font></CODE></p>
+<p>&nbsp; </p>
+<p>&nbsp;</p>
+</body>
+</html>

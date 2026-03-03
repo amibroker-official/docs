@@ -1,0 +1,73 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - COLORRGB</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>ColorRGB</b><br>
+        - specify color using Red-Green-Blue components</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>ColorRGB( red, green, blue ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function allows to specify color out of 16 million color (24 bit) palette using Red, Green, Blue components.
+<p>
+The return value is a number that can be used in Plot, PlotOHLC, PlotForeign, AddColumn, AddTextColumn functions to specify chart or column color.
+<p>
+Parameters:<br>
+red, green, blue - represent color component values in range 0..255 each
+<p>
+For more information about RGB color model please read:
+<a href='http://en.wikipedia.org/wiki/RGB_color_model'>
+http://en.wikipedia.org/wiki/RGB_color_model</a>
+
+
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> Plot( MA(C,10), "Light Red", ColorRGB( 255, 128, 128 ) ); 
+Plot( MA(C,20), "Light Green", ColorRGB( 128, 255, 128 ) ); 
+Plot( MA(C,30), "Light Blue", ColorRGB( 128, 128, 255 ) );  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top"> <A HREF="colorhsb.html">ColorHSB()</A> function , <A HREF="plot.html">PLOT()</A> function , <A HREF="addcolumn.html">AddColumn()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>ColorRGB</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=923&hilite=ColorRGB' target='_blank'>ALJEHANI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1410&hilite=ColorRGB' target='_blank'>Alternative ZIG function</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1405&hilite=ColorRGB' target='_blank'>Automatic Linear Trend Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1351&hilite=ColorRGB' target='_blank'>Automatic Linear Trend Channel 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1350&hilite=ColorRGB' target='_blank'>Automatic trend channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=ColorRGB' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=ColorRGB' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=ColorRGB' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=ColorRGB' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=ColorRGB' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1574&hilite=ColorRGB' target='_blank'>Color Combination</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=ColorRGB' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1389&hilite=ColorRGB' target='_blank'>Cycle Period</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1555&hilite=ColorRGB' target='_blank'>Day Bar No</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1412&hilite=ColorRGB' target='_blank'>Fib Fan Based on ZZ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=ColorRGB' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1515&hilite=ColorRGB' target='_blank'>Get Moneycontrol News Snippets into Amiboker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=ColorRGB' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=ColorRGB' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=ColorRGB' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=ColorRGB' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=ColorRGB' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=741&hilite=ColorRGB' target='_blank'>Hurst "Like" DE</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1263&hilite=ColorRGB' target='_blank'>Intraday Range and Periods Framer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=ColorRGB' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1592&hilite=ColorRGB' target='_blank'>Linear Candle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=ColorRGB' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=797&hilite=ColorRGB' target='_blank'>Meu Sistema de Trading - vers&atilde;o 1.0</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1605&hilite=ColorRGB' target='_blank'>Momentum Volume Price (MVP) Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1218&hilite=ColorRGB' target='_blank'>Multiple Ribbon Demo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=ColorRGB' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=ColorRGB' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1348&hilite=ColorRGB' target='_blank'>Perceptron</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=ColorRGB' target='_blank'>Polyfit Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=ColorRGB' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1409&hilite=ColorRGB' target='_blank'>Rebalancing Backtest avoiding leverage</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1603&hilite=ColorRGB' target='_blank'>Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=ColorRGB' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=ColorRGB' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1589&hilite=ColorRGB' target='_blank'>TSV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1465&hilite=ColorRGB' target='_blank'>Updated Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1537&hilite=ColorRGB' target='_blank'>Volume Divided Histogram</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1602&hilite=ColorRGB' target='_blank'>Volume Spread for VSA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1309&hilite=ColorRGB' target='_blank'>VSTOP (2)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1310&hilite=ColorRGB' target='_blank'>VSTOP (3)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1295&hilite=ColorRGB' target='_blank'>VWAP versus Average Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=ColorRGB' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1097&hilite=ColorRGB' target='_blank'>WILSON RELATIVE PRICE CHANNEL</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1548&hilite=ColorRGB' target='_blank'>ZigZag - Days, Avg (Ord) Volume and Channels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=ColorRGB' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=ColorRGB">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

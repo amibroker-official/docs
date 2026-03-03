@@ -1,0 +1,99 @@
+<html>
+<head>
+<title>global Keyword</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<div><font face=Arial size=2></font>
+    <div>
+      <h4><font size="4"><a name="do"></a>global Keyword</font></h4>
+    </div>
+    <p>The <b>global</b> keyword declares global variable inside user-defined
+      function. Global variable is the variable that is visible/accessible 
+      inside the function AND outside the function (at global formula level).</p>
+    <p>Due to the fact that AFL by default does not require to declare variables
+      the decision whenever given variable is treated as local or global is taken
+      depends
+      on where it is FIRST USED.</p>
+    <p>You can however force AFL engine to require all variables to be declared
+      using local or global keywords on formula-by-formula basis by placing SetOption(&quot;RequireDeclarations&quot;,
+    True ); at the top of the formula.</p>
+    <p>If given identifier appears first INSIDE function definition - then it
+      is treated as LOCAL variable.<br>
+  If given identifier appears first OUTSIDE function definition - then it is
+  treated as GLOBAL variable.</p>
+    <p>This default behaviour can be however overriden using <b>global</b> and <b>local</b> keywords
+      (introduced in 4.36) - see example 2.</p>
+    <p><i>Example (commentary):</i></p>
+    <p><CODE><FONT COLOR=#000000>k = </FONT><FONT COLOR=#ff00ff>4</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+          this is GLOBAL variable</FONT><FONT COLOR=#000000> <BR>
+        <BR>
+        </FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> f(
+        x ) <BR>
+  { <BR>
+&nbsp;&nbsp;&nbsp;z = </FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+this is LOCAL variable</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#800000><B>&nbsp;&nbsp;&nbsp;return</B></FONT><FONT COLOR=#000000> z
+  * x * k; </FONT><FONT COLOR=#008000>// 'k' here references global variable
+  k (first used above outside function)</FONT><FONT COLOR=#000000> <BR>
+  } <BR>
+  <BR>
+  z = </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+  this is GLOBAL variable with the same name as local variable in function f</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#ff00ff>"The value of z before function call :"</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>WriteVal</FONT><FONT COLOR=#000000>(
+  z ); <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>// Now even if we call function </FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// the value of our global variable z </FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// is not affected by function call because</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// global variable z and local variable z are separate
+  and </FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// arguments are passed by value (not by reference)</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#ff00ff>"The result of f( z ) = "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>WriteVal</FONT><FONT COLOR=#000000>(
+  f( z ) ); <BR>
+  <BR>
+  </FONT><FONT COLOR=#ff00ff>"The value of z after function call is unchanged
+  : "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>WriteVal</FONT><FONT COLOR=#000000>(
+  z );</FONT></CODE></p>
+    <p></p>
+    <p><i>Example 2: Using local and global keywords to override default visibility
+        rules:</i></p>
+    <p><CODE><FONT COLOR=#000000>VariableA = </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+          implict global variable</FONT><FONT COLOR=#000000> <BR>
+        <BR>
+        </FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> Test() <BR>
+  { <BR>
+        </FONT><FONT COLOR=#800000><B>&nbsp;&nbsp;&nbsp;local</B></FONT><FONT COLOR=#000000> VariableA; </FONT><FONT COLOR=#008000>&nbsp;//
+        explicit local variable with the same identifier as global </FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#800000><B>&nbsp;&nbsp;&nbsp;global</B></FONT><FONT COLOR=#000000> VariableB; </FONT><FONT COLOR=#008000>//
+  explicit global variable not defined earlier</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//
+  may be used to return more than one value from the function</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+&nbsp;&nbsp;&nbsp;VariableA = </FONT><FONT COLOR=#ff00ff>99</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;VariableB = </FONT><FONT COLOR=#ff00ff>333</FONT><FONT COLOR=#000000>; <BR>
+  } <BR>
+  <BR>
+  VariableB = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+  global variable</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#ff00ff>"Before function call"</FONT><FONT COLOR=#000000>; <BR>
+  </FONT><FONT COLOR=#ff00ff>"VariableA = "</FONT><FONT COLOR=#000000> + VariableA; <BR>
+  </FONT><FONT COLOR=#ff00ff>"VariableB = "</FONT><FONT COLOR=#000000> + VariableB; <BR>
+  <BR>
+  Test(); <BR>
+  <BR>
+  </FONT><FONT COLOR=#ff00ff>"After function call"</FONT><FONT COLOR=#000000>; <BR>
+  </FONT><FONT COLOR=#ff00ff>"VariableA = "</FONT><FONT COLOR=#000000> + VariableA
+  + </FONT><FONT COLOR=#ff00ff>" (not affected by function call )"</FONT><FONT COLOR=#000000>; <BR>
+  </FONT><FONT COLOR=#ff00ff>"VariableB = "</FONT><FONT COLOR=#000000> + VariableB
+  + </FONT><FONT COLOR=#ff00ff>" (affected by the function call )"</FONT></CODE></p>
+    <p>&nbsp;</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MXSETBLOCK</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>MxSetBlock</b><br>
+        - sets values in the rectangular block of matrix cells</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Matrix functions<br>
+        </b>(AmiBroker 6.10)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>MxSetBlock( matrix, startrow, endrow, startcol, endcol, values = 0 )  </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> Matrix </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sets values in the rectangular block of cells (rows in the range startrow..endrow and columns in the range startcol..endcol inclusive).<p>
+This allows to fill entire or partial rows, columns and all other kind of rectangular areas in the matrix with user specified data. Row and column numbers are zero based.
+<p>If values parameter is scalar, all cells in specified block are filled with that value. If values parameter is an array, cells in the block are filled from left to right and from top to bottom with consecutive values taken from that array. If there are more cells in the block than values in the array, the array item counter wraps around to zero and starts taking values from the beginning
+<p>
+Note: the function creates new matrix as a result (so source matrix is unaffected unless you do the assignment of the result back to the original variable) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#008000'>// Example 1: <br>
+// Create a matrix 6x6 <br>
+// and fill 4x4 interior (except edges with consecutively increasing numbers) <br>
+</font> <br>
+y = <font color='#0000ff'>Matrix</font>( <font color='#800080'>6</font>, <font color='#800080'>6</font>, <font color='#800080'>0</font> ); <br>
+y = <font color='#0000ff'>MxSetBlock</font>( y, <font color='#800080'>1</font>, <font color='#800080'>4</font>, <font color='#800080'>1</font>, <font color='#800080'>4</font>, <font color='#0000ff'>Cum</font>(<font color='#800080'>1</font>)); <br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;Matrix y
+&quot;</font>); <br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+y ) ); <br>
+<br>
+<font color='#008000'>// Example 2: <br>
+// Create a matrix 2 rows x 20 columns and fill rows 0, 1 with first 20 values
+of Close and RSI(5) arrays respectively <br>
+</font> <br>
+z = <font color='#0000ff'>Matrix</font>( <font color='#800080'>2</font>, <font color='#800080'>20</font>, <font color='#800080'>0</font> ); <br>
+<font color='#008000'>// first row <br>
+</font>z = <font color='#0000ff'>MxSetBlock</font>( z, <font color='#800080'>0</font>, <font color='#800080'>0</font>, <font color='#800080'>0</font>, <font color='#800080'>19</font>, <b>Close</b> ); <br>
+<font color='#008000'>// second row <br>
+</font>z = <font color='#0000ff'>MxSetBlock</font>( z, <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>0</font>, <font color='#800080'>19</font>, <font color='#0000ff'>RSI</font>( <font color='#800080'>5</font> )
+); <br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;Matrix z
+&quot;</font>); <br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+z ) );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="matrix.html">Matrix()</A> function , <A HREF="mxgetsize.html">MxGetSize()</A> function , <A HREF="mxtostring.html">MxToString()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>MxSetBlock</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=MxSetBlock' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=MxSetBlock' target='_blank'>Polyfit Lines</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=MxSetBlock">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

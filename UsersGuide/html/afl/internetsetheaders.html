@@ -1,0 +1,66 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - INTERNETSETHEADERS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>InternetSetHeaders</b><br>
+        - set custom HTTP headers for subsequent web requests</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>File Input/Output functions<br>
+        </b>(AmiBroker 6.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>InternetSetHeaders( &quot;headers&quot; ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Set custom HTTP headers for subsequent web requests (via subsequent InternetOpenURL or InternetPostRequest calls)
+<p>
+
+Note that InternetPostRequest will automatically add &quot;Content-Type: application/x-www-form-urlencoded&quot; header unless user specifies their own Content-Type in the InternetSetHeaders call </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#009300'>// For example to enable GZIP compression you need to use:
+<br></font>
+<br>INTERNET_OPTION_HTTP_DECODING = <font color='#8b0000'>65</font>;
+<br><font color='#0000ff'>InternetSetOption</font>( INTERNET_OPTION_HTTP_DECODING, <font color='#8b0000'>1</font> );
+<br>
+<br><font color='#0000ff'>InternetSetHeaders</font>(<font color='#ff0000'>&quot;Accept-Encoding: gzip, deflate&quot;</font>);</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="internetopenurl.html">InternetOpenURL()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>InternetSetHeaders</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=InternetSetHeaders">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

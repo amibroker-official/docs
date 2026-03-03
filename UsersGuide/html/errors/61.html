@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 61. The number of format specifier(s) (%) does not match the number of arguments passed</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4>Error 61. The number of format specifier(s) (%) does not match the number
+of arguments passed.</h4>
+<p>This error means that you have incorrect formatting sequence in <a href="../afl/printf.html">printf</a>/<a href="../afl/strformat.html">StrFormat</a>  call and/or the number of arguments passed to the function does not match the
+  number of % specifiers in the formatting string.</p>
+<p>When you call <a href="../afl/printf.html">printf</a>/<a href="../afl/strformat.html">StrFormat</a> the very first
+  string is a formatting string that tells how subsequent arguments are formatted
+  for output. It is important
+  for the list of subsequent arguments to match the number of % specifiers in
+  the formatting string. In cases, where there is no match - AmiBroker will display
+  Error 61.</p>
+<p>&nbsp;</p>
+<p><img src="../gifs/error61.png" width="492" height="100"></p>
+<p>The most common source of problem is forgetting the fact that actual percent
+  sign must be typed as %% (double percent signs) because single percent sign
+  is a start of formatting sequence, not actual percent sign.</p>
+<p><CODE><font color='#0000ff'>printf</font>(<font color='#800080'>"Actual percent
+      sign is not %."</font> ); <font color='#008000'>// WRONG use % instead
+      of %% <br>
+</font><font color='#0000ff'>printf</font>(<font color='#800080'>"Actual percent
+sign is %%."</font> ); <font color='#008000'>// correct use of %%</font></CODE></p>
+</body>
+</html>

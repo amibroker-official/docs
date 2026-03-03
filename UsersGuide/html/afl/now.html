@@ -1,0 +1,72 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - NOW</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Now</b><br>
+        - gets current system date/time</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b>(AmiBroker 4.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Now( format = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING or NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Returns current date / time in numerous of formats:
+<ul>
+<li>format = 0 - returns string containing current date/time formatted according to system settings
+<li>format = 1 - returns string containing current date only formatted according to system settings
+<li>format = 2 - returns string containing current time only formatted according to system settings
+<li>format = 3 - returns DATENUM number with current date
+<li>format = 4 - returns TIMENUM number with current time
+<li>format = 5 - returns DATETIME number with current date/time
+<li>format = 6 - returns current DAY (1..31) 
+<li>format = 7 - returns current MONTH (1..12)
+<li>format = 8 - returns current YEAR (four digit) 
+<li>format = 9 - returns current DAY OF WEEK (1..7, where 1=Sunday, 2=Monday, and so on)
+<li>format = 10 - returns current DAY OF YEAR (1..366)
+</ul>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> AddTextColumn( Now(), "Current time"); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="datenum.html">DATENUM()</A> function , <A HREF="datetime.html">DATETIME()</A> function , <A HREF="date.html">DATE()</A> function , <A HREF="timenum.html">TIMENUM()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Now</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1300&hilite=Now' target='_blank'> 	Pivots And Prices And Swing Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1481&hilite=Now' target='_blank'>A simple AFL Revision Control System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=431&hilite=Now' target='_blank'>AFL Timing functions</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1165&hilite=Now' target='_blank'>AFL_Glossary_1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=Now' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=Now' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=Now' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=Now' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1012&hilite=Now' target='_blank'>CCI 14 DrBobStyle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1000&hilite=Now' target='_blank'>CCI 50 DrBob Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=586&hilite=Now' target='_blank'>CCI(20) Divergence Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=Now' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1484&hilite=Now' target='_blank'>Create a list of functions in your program</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1498&hilite=Now' target='_blank'>Extract specific lines of code from your program</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=794&hilite=Now' target='_blank'>Fast Refreshed KAGI Swing Charts (Price Swing)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=Now' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=Now' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=Now' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1296&hilite=Now' target='_blank'>Herman</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=Now' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=Now' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1318&hilite=Now' target='_blank'>Next Date Format</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=560&hilite=Now' target='_blank'>Time Left in Bar</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=818&hilite=Now' target='_blank'>Time Left to Current Bar</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=457&hilite=Now' target='_blank'>TWS auto-export Executions-file parser</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1047&hilite=Now' target='_blank'>Woodie's CCI Panel Basic</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=Now' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=Now' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Now">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

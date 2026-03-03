@@ -1,0 +1,65 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXGETTEXTWIDTH</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxGetTextWidth</b><br>
+        - get pixel width of text</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxGetTextWidth(''text'') </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function returns pixel width of specified string. NOTE: it is slow because it has to create temporary DC and font to measure the text. It takes 40us (microseconds), that is about 40 times more than other Gfx functions. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#0000ff'>GfxSetZOrder</font>(<font color='#a52a00'>5</font> ); <br>
+<font color='#0000ff'>GfxSelectFont</font>(<font color='#666666'>&quot;Tahoma&quot;</font>, <font color='#a52a00'>30</font> ); <br>
+<font color='#0000ff'>GfxSetTextColor</font>( <b>colorWhite</b> ); <br>
+text = <font color='#666666'>&quot;This is a test&quot;</font>; <br>
+<font color='#0000ff'>GfxTextOut</font>(text, <font color='#a52a00'>0</font>, <font color='#a52a00'>50</font>); <br>
+<font color='#0000ff'>GfxSetTextColor</font>( <b>colorRed</b> ); <br>
+<font color='#0000ff'>GfxTextOut</font>(<font color='#666666'>&quot;second part in
+red&quot;</font>, <font color='#0000ff'>GfxGetTextWidth</font>(text), <font color='#a52a00'>50</font> );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="gfxtextout.html">GfxTextOut()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxGetTextWidth</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=GfxGetTextWidth' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=GfxGetTextWidth' target='_blank'>TAPE READING</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxGetTextWidth">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

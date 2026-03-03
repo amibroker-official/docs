@@ -1,0 +1,65 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PEAK</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Peak</b><br>
+        - peak</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Basic price pattern detection<br>
+        </b>(AmiBroker 3.10)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Peak(ARRAY, <em>change</em>, <em>n =</em> 1) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Gives the value of ARRAY <em>n</em>-th peak(s) ago. This uses 
+      the Zig Zag function (see Zig Zag) to determine the peaks. <em>n</em> =1 
+      would return the value of the most recent peak. <em>n</em> =2 would return 
+      the value of the 2nd most recent peak. <b>Caveat:</b> this function is based 
+      on Zig-Zag indicator and may look into the future. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> peak(close,5,1) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2003-02-13 04:02:04</td><td valign="top">Zig/Peak/Trough functions work correctly for ARRAYS containing data greater than zero.</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>Peak</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=926&hilite=Peak' target='_blank'>Advanced Trend Lines with S & R</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=540&hilite=Peak' target='_blank'>Andrews Pitchfork</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=706&hilite=Peak' target='_blank'>Andrews PitchforkV3.3</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=19&hilite=Peak' target='_blank'>Double top detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=598&hilite=Peak' target='_blank'>ekeko price chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=125&hilite=Peak' target='_blank'>Fund Screener</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=347&hilite=Peak' target='_blank'>Gartley 222 Pattern Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=Peak' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=Peak' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=Peak' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=21&hilite=Peak' target='_blank'>MACD commentary</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=399&hilite=Peak' target='_blank'>Pivot Point with S/R Trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=707&hilite=Peak' target='_blank'>Schiff Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=282&hilite=Peak' target='_blank'>Support Resistance levels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=597&hilite=Peak' target='_blank'>Tom DeMark Trend Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1338&hilite=Peak' target='_blank'>Wolfe Wave Patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=Peak' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1548&hilite=Peak' target='_blank'>ZigZag - Days, Avg (Ord) Volume and Channels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=930&hilite=Peak' target='_blank'>ZigZag Retracements</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Peak">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

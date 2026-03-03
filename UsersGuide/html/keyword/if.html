@@ -1,0 +1,123 @@
+<html>
+<head>
+<title>if-else Statement</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<div></div>
+<div>
+  <h4><font size=4>if Keyword</font> </h4>
+  <p>The <b>if </b> keyword is an required part of if-else statement.</p>
+  <h4><font size=4><a name="if"></a><a name="else"></a>if, else Statement</font></h4>
+  <p><b>if(</b> <i>expression </i><b>)</b><br>
+      <i>statement1</i> <br>
+    [<b>else</b> <br>
+    <i>statement2</i>]</p>
+  <p>The <b>if</b> keyword executes <i>statement1</i> if <i>expression</i> is
+    true (nonzero); if <b>else</b> is present and <i>expression</i> is false
+    (zero), it executes <i>statement2</i>. After executing <i>statement1</i> or <i>statement2</i>,
+    control passes to the next statement.</p>
+  <p><b>Example 1</b></p>
+  <pre><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000> ( i &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> )
+&nbsp;&nbsp;&nbsp;&nbsp;y = x / i;
+</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> 
+{
+&nbsp;&nbsp;&nbsp;&nbsp;x = i;
+&nbsp;&nbsp;&nbsp;&nbsp;y = </FONT><FONT COLOR=#0000ff>abs</FONT><FONT COLOR=#000000>( x );
+}</FONT></CODE></pre>
+  <p>In this example, the statement <code>y = x/i;</code> is executed if <code>i</code> is
+    greater than 0. If <code>i</code> is less than or equal to 0, <code>i</code> is
+    assigned to <code>x</code> and <font 
+face="Courier New">abs</font><code>( x )</code> is assigned to <code>y</code>.
+    Note that the statement forming the <b>if</b> clause ends with a semicolon.</p>
+  <p>When nesting <b>if</b> statements and <b>else</b> clauses, use braces to
+    group the statements and clauses into compound statements that clarify your
+    intent. If no braces are present, the compiler resolves ambiguities by associating
+    each <b>else</b> with the closest <b>if</b> that lacks an <b>else</b>. </p>
+  <p class=label><b>Example 2</b></p>
+  <pre><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000> ( i &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </FONT><FONT COLOR=#008000>/* Without braces */</FONT><FONT COLOR=#000000>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000> ( j &gt; i )
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = j;
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = i;</FONT></CODE></pre>
+  <p>The <b>else</b> clause is associated with the inner <b>if</b> statement
+    in this example. If <code>i</code> is less than or equal to 0, no value is
+    assigned to <code>x</code>.</p>
+  <p class=label><b>Example 3</b></p>
+  <pre><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000> ( i &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ) 
+{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>/* With braces */</FONT><FONT COLOR=#000000>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000> ( j &gt; i )
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = j;
+}
+</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000>
+&nbsp;&nbsp;&nbsp;&nbsp;x = i;</FONT></CODE></pre>
+  <p>The braces surrounding the inner <b>if</b> statement in this example make
+    the <b>else</b> clause part of the outer <b>if</b> statement. If <code>i</code> is
+    less than or equal to 0, <code>i</code> is assigned to <code>x</code>. </p>
+  <h4>Common misunderstandings</h4>
+  <p><em>&quot;New if-else problem&quot;</em></p>
+  <p><em>Question: </em></p>
+  <p><em>Why I get the syntax error when I write: if( H &gt; Ref(H,-1) ) </em></p>
+  <p> Answer: </p>
+  <p>if-else statement changes flow of execution (opposite to IIF function that
+    evaluates all arguments and works on arrays) and you can not really write<br>
+    <br>
+    <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000> ( </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000> &gt;</FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>,-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>)
+    )</FONT></CODE><br>
+    <br>
+  because it has no meaning. It would translate to &quot; If high array is higher
+  than high array shifted one bar&quot; (see tutorial below). Flow control statement
+  (such as if-else) has to get SINGLE boolean value to make decision which execution
+  path should be taken. If you write H (or High) it means ARRAY (entire array).<br>
+  if you write H[ i ] - it means i-th element of the array. The subscript operator
+  [ ] allows you to access individual array elements.<br>
+    <br>
+  Instead you should write:<br>
+  <br>
+  <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+  i = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+  i++ ) <BR>
+  { <BR>
+&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000> ( </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>[
+i ] &gt; </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>[ i
+- </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ] ) <BR>
+&nbsp;&nbsp;&nbsp;{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x[ i ] = </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>[
+i ]; <BR>
+&nbsp;&nbsp;&nbsp;} <BR>
+&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x[ i ] = </FONT><FONT COLOR=#000000><B>Low</B></FONT><FONT COLOR=#000000>[
+i ]; <BR>
+&nbsp;&nbsp;&nbsp;} <BR>
+  }</FONT></CODE><br>
+  <br>
+  <br>
+  this will translate to correct one &quot;for EVERY BAR 'i' assign i-th element
+  of high array to the i-th element of x array if i-th element of high array
+  is higher than the previous element, otherwise assign i-th of low array to
+  the i-th element of x array&quot;. The rule is: new <em>if-else</em> and <em>while</em> statements
+  need single boolean value (not array) to decide which execution path should
+  be taken. If you want to use them with arrays you have to iterate through bars
+  using <em>for</em> loop (as shown above).</p>
+  <p>On the other hand this can be implemented in single line using old-style
+    array operations and IIF function:</p>
+  <p><CODE><FONT COLOR=#000000>x = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>,
+        -</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Low</B></FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+  <p>This works because IIF operates on ARRAYS as described in the <a href="../h_understandafl.html">tutorial</a>.<br>
+      <br>
+  As you can see in many cases old-style AFL provides much more compact form.
+  I always tried to explain this advantage of AFL but only a few realised that.
+  New control statements should be used where it is better to use them. As I
+  tried to explain during last years in 80% of cases 'old-style' AFL provides
+  the shortest formula. Only remaining 20% of cases needed <a href="../a_script.html">script</a>.
+  Those 'script-only' cases now can be coded in native AFL thanks to new for/while/if-else
+  statements. And this is correct usage of them - to replace script parts.<br>
+  </p>
+  <p>&nbsp;</p>
+</div>
+</body>
+</html>

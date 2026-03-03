@@ -1,0 +1,229 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SETPOSITIONSIZE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SetPositionSize</b><br>
+        - set trade size</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 4.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SetPositionSize( size, method ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function allows to control trade (position) size in four different ways, depending on 'method' parameter.
+<p>
+Parameters:
+<p>
+<i>size</i> (ARRAY) defines desired trade size
+<p>
+<i>method</i> (ARRAY) defines how 'size' is interpreted
+
+<ul>
+<li>spsValue (=1) - dollar value of size (as in previous versions)
+<li>spsPercentOfEquity (=2) - size expressed as percent of portfolio-level equity (size must be from ..100 (for regular accounts) or .1000 for margin accounts)
+<li>spsShares (=4) - size expressed in shares/contracts (size must be > 0 )
+<li>spsPercentOfPosition (=3) - size expressed as percent of currently open position (for SCALING IN and SCALING OUT ONLY)
+<li>spsNoChange (=0) - don't change previously set size for given bar
+</ul>
+<p>
+
+New SetPositionSize function automatically encodes new methods of expressing position size into old "positionsize" variable as follows:
+<ul>
+<li>values below -2000 encode share count,
+<li>values between -2000 and -1000 encode % of current position
+<li>values between -1000 and 0 encode % of portfolio equity
+<li>values above 0 encode dollar value
+</ul>
+<p>
+Although it is possible to assign these values directly to old-style PositionSize variable, new code should use SetPositionSize function for clarity. </p>
+
+
+
+
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> For example to liquidate 50% of position simply use
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetPositionSize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>spsPercentOfPosition</B></FONT><FONT COLOR=#000000> *
+( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> == </FONT><FONT COLOR=#000000><B>sigScaleOut</B></FONT><FONT COLOR=#000000> )
+);</FONT></CODE>
+<p>
+Special value spsNoChange (=0) means don't change previously set size for given bar (allows to write constructs like that):
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetPositionSize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>spsShares</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+100 shares by default</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetPositionSize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> == </FONT><FONT COLOR=#000000><B>sigScaleOut</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>spsPercentOfPosition</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>spsNoChange</B></FONT><FONT COLOR=#000000> )
+); </FONT><FONT COLOR=#008000>// for scale-out use 50% of current position size</FONT><FONT COLOR=#000000> <BR>
+</FONT></CODE>
+<p>
+Example of code that exits 50% on first profit target, 50% on next profit target and everything at trailing stop:
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>50</FONT><FONT COLOR=#000000> )
+); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// the system will exit </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// 50% of position if FIRST PROFIT TARGET stop is
+hit </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// 50% of position is SECOND PROFIT TARGET stop is
+hit </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// 100% of position if TRAILING STOP is hit </FONT><FONT COLOR=#000000> <BR>
+<BR>
+FirstProfitTarget = </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+profit </FONT><FONT COLOR=#000000> <BR>
+SecondProfitTarget = </FONT><FONT COLOR=#800080>20</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+in percent </FONT><FONT COLOR=#000000> <BR>
+TrailingStop = </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+also in percent </FONT><FONT COLOR=#000000> <BR>
+<BR>
+priceatbuy=</FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; <BR>
+highsincebuy = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+exit = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+i++ ) <BR>
+{ <BR>
+&nbsp;&nbsp; 
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( priceatbuy == </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>[
+i ] ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+priceatbuy = </FONT><FONT COLOR=#000000><B>BuyPrice</B></FONT><FONT COLOR=#000000>[
+i ]; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;
+} <BR>
+<BR>
+&nbsp;&nbsp; 
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( priceatbuy &gt; </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+highsincebuy = </FONT><FONT COLOR=#0000ff>Max</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>[
+i ], highsincebuy ); <BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+exit == </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>[
+i ] &gt;= ( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> + FirstProfitTarget
+* </FONT><FONT COLOR=#800080>0.01</FONT><FONT COLOR=#000000> ) * priceatbuy ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#008000>// first profit target hit - scale-out </FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+exit = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>[ i ] = </FONT><FONT COLOR=#000000><B>sigScaleOut</B></FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+} <BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+exit == </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>[
+i ] &gt;= ( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> + SecondProfitTarget
+* </FONT><FONT COLOR=#800080>0.01</FONT><FONT COLOR=#000000> ) * priceatbuy ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#008000>// second profit target hit - exit </FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+exit = </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#000000><B>SellPrice</B></FONT><FONT COLOR=#000000>[ i ] = </FONT><FONT COLOR=#0000ff>Max</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>[
+i ], ( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> + SecondProfitTarget
+* </FONT><FONT COLOR=#800080>0.01</FONT><FONT COLOR=#000000> ) * priceatbuy ); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+} <BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Low</B></FONT><FONT COLOR=#000000>[
+i ] &lt;= ( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> - TrailingStop
+* </FONT><FONT COLOR=#800080>0.01</FONT><FONT COLOR=#000000> ) * highsincebuy
+) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#008000>// trailing stop hit - exit </FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+exit = </FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000>;&nbsp;&nbsp;&nbsp;&nbsp; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#000000><B>SellPrice</B></FONT><FONT COLOR=#000000>[ i ] = </FONT><FONT COLOR=#0000ff>Min</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>[
+i ], ( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> - TrailingStop
+* </FONT><FONT COLOR=#800080>0.01</FONT><FONT COLOR=#000000> ) * highsincebuy
+); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+} <BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+exit &gt;= </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>[ i ] = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>[ i ] = exit
++ </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+mark appropriate exit code </FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+exit = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+priceatbuy = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+reset price </FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+highsincebuy = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+} <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;
+} <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>SetPositionSize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>spsPercentOfEquity</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>SetPositionSize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>spsPercentOfPosition</B></FONT><FONT COLOR=#000000> *
+( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> == </FONT><FONT COLOR=#000000><B>sigScaleOut</B></FONT><FONT COLOR=#000000> )
+); </FONT><FONT COLOR=#008000>// scale out 50% of position </FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SetPositionSize</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1380&hilite=SetPositionSize' target='_blank'>Connors TPS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=722&hilite=SetPositionSize' target='_blank'>Customised Avg. Profit %, Avg. Loss % etc</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=708&hilite=SetPositionSize' target='_blank'>Ed Seykota's TSP: EMA Crossover System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=SetPositionSize' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=SetPositionSize' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1449&hilite=SetPositionSize' target='_blank'>Last Five Trades Result Dashboard &#8211; AFL code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=SetPositionSize' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1441&hilite=SetPositionSize' target='_blank'>Plot the Equity Curve without Backtesting?</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=SetPositionSize' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1204&hilite=SetPositionSize' target='_blank'>Scale Out: Futures</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=SetPositionSize' target='_blank'>Stan Weinstein strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1227&hilite=SetPositionSize' target='_blank'>testing multiple system simulataneously</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1275&hilite=SetPositionSize' target='_blank'>Trend Following System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=SetPositionSize' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SetPositionSize">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Time &amp; Sales window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h5>Time &amp; Sales window</h5>
+<p><em>NOTE: Standard Edition is limited to 1 Time &amp; Sales window; Professional Edition
+  allows an UNLIMITED number of Time &amp; Sales windows open simultaneously.</em></p>
+<p>A Time &amp; Sales window provides
+  information about every bid, ask, and trade streaming from the market. Each
+  row displayed represents either a new trade, a new bid, or a new ask that is sent
+  by the
+streaming data source.</p>
+<p><img src="gifs/w_timesales.gif" width="374" height="300"></p>
+<p>Each line in a Time &amp; Sales window is marked with a color to make it easier
+to distinguish between various conditions.</p>
+<p>Coloring rules are:</p>
+<ul>
+  <li>light green background means NEW ASK</li>
+  <li>light red background means NEW BID</li>
+  <li>normal (white) background means NEW TRADE<br>
+  </li>
+  <li>Red text for bid/ask price/size means that the value is LESS
+    than the previous value of the same category <br>
+    (for example, bid price written in red letters means that the new BID is
+      lower than the previous bid price. A green volume field means that the volume of the last trade or ask/bid size
+  is greater than the last trade volume or ask/bid size)<br>
+  </li>
+  <li>Red last trade price
+      means trade occurring on or below the current bid<br>
+  </li>
+  <li>Green text for bid/ask price/size means that the value is GREATER than
+    the previous value. <br>
+  </li>
+  <li>Green last trade price means trade occurring on or above the current
+        ask.<br>
+  </li>
+  <li>Black text for bid/ask price/size/volume means that the value is the same<br>
+  </li>
+  <li>Black last trade price means trade occurring inside the current bid-ask range
+    (greater than the bid and less than the ask)<br>
+  </li>
+</ul>
+<p>Time &amp; Sales window in version 5.30 shows some &quot;recent statistics&quot; regarding
+  trading, namely:</p>
+<ul>
+  <li>number of trades and average # of trades per second</li>
+  <li>number of trades and
+      shares traded at the ask or above</li>
+  <li>number of trades and shares traded at the bid
+      or below</li>
+  <li>ask minus bid difference expressed in the number of trades and shares </li>
+  <li>ask
+      minus bid difference expressed as a percentage ratio to total trades/total
+      volume traded <br>
+  </li>
+</ul>
+<p>A little background:<br>
+  Ask minus bid: the positive numbers represent more transactions occurring
+              on the ASK side than on the BID side. This in theory may mean more buying
+              than selling, but in practice things are largely dependent on the security
+              traded.
+              Especially, dark
+              liquidity pools do not show in order books and may report trades
+              to the tape several seconds later, thus invalidating the relationship
+              between
+              bid/ask
+              and
+              actual
+              trade prices.</p>
+<p>IMPORTANT: <br>
+  These are temporary, short-term stats - they cover ONLY trades displayed in
+    the T&amp;S window since the opening of the window or<br>
+  resetting stats.</p>
+<p>You can reset statistics using the right-click menu: &quot;Reset Stats&quot;<br>
+</p>
+<p>&nbsp;  </p>
+</body>
+</html>

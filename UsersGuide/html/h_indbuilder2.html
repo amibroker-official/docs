@@ -1,0 +1,669 @@
+<html>
+
+<head>
+<title>Using graph styles, colors and titles in Indicator Builder</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>Using graph styles, colors, titles and parameters in Indicators</b></h2>
+<p>AmiBroker provides customizable styles and colors of graphs in custom indicators. 
+  These features allow more flexibility in designing your indicators. This article 
+  will explain how to use styles and colors. It will also explain how to define 
+  the chart title that appears at the top of the chart.</p>
+<p><b>Plot() function</b></p>
+<p>Plot is the function used to plot a chart. It takes 9 parameters, of
+  which the first 3 are required.</p>
+<p>  Plot( <em>array</em>, <em>name</em>, <em>color</em>, <em>style</em> = styleLine, <em>minvalue</em> =
+  Null,
+  <em>maxvalue</em> = Null, <em>XShift</em> = 0, <em>ZOrder</em> = 0, <em>width</em> = 1 ) </p>
+<ul>
+  <li><em>array </em> parameter represents data  to be plotted, <br>
+  </li>
+  <li><em>name<strong> </strong></em>parameter
+      defines the name of the graph (used in title string to show the values
+    of the indicator), <br>
+  </li>
+  <li><em>color</em> parameter defines the plot color,<br>
+  </li>
+  <li><em>style</em> defines &quot;the look&quot; of the chart (i.e. line/histogram/candlestick/bar,
+    etc). The default style is line.<br>
+  </li>
+  <li><em>minvalue</em> and <em>maxvalue</em>  are rarely used parameters
+    that  define hard-coded minimum and maximum values used when the graph uses &quot;independent&quot;
+    scaling, i.e. styleOwnScale is specified in <em>style</em> parameter. Usually,
+    you don't need to specify them at all.<br>
+  </li>
+  <li><i>XShift </i>allows shifting the chart past the last bar (for example displaced
+    moving averages or projections into the future)<br>
+  </li>
+  <li><em>ZOrder</em> - defines the Z-axis position of a given plot. The default is zero.
+    ZOrder = 0 is also where the &quot;grid&quot; is located. So if you want
+    to plot BEHIND the grid you need to specify a negative ZOrder parameter. Plots
+    are drawn in the following order: <br>
+    ZOrder parameter takes precedence over the order of calling Plot() functions,
+    so if Z-Order is set, it determines the plotting order. See<a href="gifs/zorder.gif"> this
+    picture</a>. 
+If multiple plots use the same Z-Order parameter, they are plotted in reverse
+call order (the ones that appear last in the code are plotted first). This rule can
+be changed by the already existing switch `graphzorder = 1` which, when specified,
+reverses this behavior (so plots are drawn in call order).
+Please note that the above applies to each ZOrder &quot;layer&quot; separately (so
+within the same ZOrder &quot;layer,&quot; the reverse call rule applies)<br>
+  </li>
+  <li><em>width - </em>(new in 5.60) defines pixel or percent width of a given
+    plot. The default is 1 pixel. Positive values specify PIXEL width, negative
+    values
+    specify
+    width
+      as a percentage of current bar width. For example, -20 will give you a dynamic
+    width that is 20% of the bar width. </li>
+</ul>
+<p>  An example, the following single function call plots an RSI indicator with
+  a red color line:</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#ff00ff>"My
+    RSI"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+</blockquote>
+<p>As you can see, we have provided only the first three (required) parameters. The first
+  parameter is the array we need to plot. In our example, it is the RSI(14) indicator.
+  The second parameter is just the name. It can be any name you want. It will be
+  displayed in the title line along with the indicator value as shown in the picture
+  below:</p>
+<p><img src="gifs/tutibrsi.gif"></p>
+<p>The third parameter is the color. To specify the plot color, you can use one of the
+  following pre-defined constants:</p>
+<table width="100%" border="1" cellspacing="0" cellpadding="3" bordercolorlight="#990000" bordercolordark="#990000">
+  <tr bgcolor="#990000">
+    <td valign="top"><font color="#FFFFFF"><strong>Color constants</strong></font></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <p>Custom colors refer to the user-defined color palette editable using Tools-&gt;Preferences-&gt;Colors;
+        the numerical values that appear after = (equals) mark are for reference
+        only, and you don't need to use them. Just use the name such as colorDarkGreen.</p>
+      <p>colorCustom1 = 0 <br>
+        colorCustom2 = 1 <br>
+        colorCustom3 = 2 <br>
+        colorCustom4 = 3 <br>
+        colorCustom5 = 4 <br>
+        colorCustom6 = 5 <br>
+        colorCustom7 = 6 <br>
+        colorCustom8 = 7 <br>
+        colorCustom9 = 8 <br>
+        colorCustom10 = 9 <br>
+        colorCustom11 = 10 <br>
+        colorCustom12 = 11 <br>
+        colorCustom13 = 12 <br>
+        colorCustom14 = 13 <br>
+        colorCustom15 = 14 <br>
+        colorCustom16 = 15 </p>
+      <p> colorBlack = 16 <br>
+        colorBrown = 17 <br>
+        colorDarkOliveGreen = 18 <br>
+        colorDarkGreen = 19 <br>
+        colorDarkTeal = 20 <br>
+        colorDarkBlue = 21 <br>
+        colorIndigo = 22 <br>
+        colorDarkGrey = 23 </p>
+      <p> colorDarkRed = 24 <br>
+        colorOrange = 25 <br>
+        colorDarkYellow = 26 <br>
+        colorGreen = 27 <br>
+        colorTeal = 28 <br>
+        colorBlue = 29 <br>
+        colorBlueGrey = 30 <br>
+        colorGrey40 = 31 </p>
+      <p> colorRed = 32 <br>
+        colorLightOrange = 33 <br>
+        colorLime = 34 <br>
+        colorSeaGreen = 35 <br>
+        colorAqua = 36<br>
+        colorLightBlue = 37 <br>
+        colorViolet = 38 <br>
+        colorGrey50 = 39 </p>
+      <p> colorPink = 40 <br>
+        colorGold = 41 <br>
+        colorYellow = 42 <br>
+        colorBrightGreen = 43 <br>
+        colorTurquoise = 44 <br>
+        colorSkyblue = 45 <br>
+        colorPlum = 46 <br>
+        colorLightGrey = 47 </p>
+      <p> colorRose = 48 <br>
+        colorTan = 49 <br>
+        colorLightYellow = 50 <br>
+        colorPaleGreen = 51 <br>
+        colorPaleTurquoise = 52 <br>
+        colorPaleBlue = 53 <br>
+        colorLavender = 54 <br>
+        colorWhite = 55 </p>
+      <p>You can also use the new 24-bit (full color palette) functions <a href="afl/colorrgb.html">ColorRGB</a>        and <a href="afl/colorhsb.html">ColorHSB</a></p>
+    </td>
+  </tr>
+</table>
+<p>You can easily plot multi-colored charts using both Plot functions. All you
+need to do is to define an array of color indexes. <br>
+In the following example, MACD is plotted with green when it is above zero
+and with red when it is below zero.</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000>dynamic_color = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>() &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#ff00ff>"My
+  MACD"</FONT><FONT COLOR=#000000>, dynamic_color&nbsp;&nbsp;);</FONT></CODE></p>
+</blockquote>
+<p>In addition to defining the color, we can supply the 4th parameter that defines
+  the style of the plot. For example, we can change the previous MACD plot to a thick histogram
+  instead of a line:</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000>dynamic_color = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>() &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#ff00ff>"My
+    MACD"</FONT><FONT COLOR=#000000>, dynamic_color, </FONT><FONT COLOR=#000000><B>styleHistogram</B></FONT><FONT COLOR=#000000> | </FONT><FONT COLOR=#000000><B>styleThick</B></FONT><FONT COLOR=#000000>&nbsp;&nbsp;);</FONT></CODE></p>
+</blockquote>
+<p>As you can see, multiple styles can be combined together using | (binary OR)
+  operator. (Note: the | character can be typed by pressing the backslash key '\'
+  while holding down the SHIFT key). The resulting chart looks like this:</p>
+<p><img src="gifs/tutibmacd.gif"></p>
+<p>To plot a candlestick chart, we use the styleCandle constant, as in this example:</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleCandle </B></FONT><FONT COLOR=#000000>);</FONT></CODE></p>
+</blockquote>
+<p>To plot traditional bars with color (green up bars and red down bars),
+  we just specify the color depending on the relationship between open and close prices
+  and styleBar in <em>style </em> argument:</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>styleBar</B></FONT><FONT COLOR=#000000> | </FONT><FONT COLOR=#000000><B>styleThick</B></FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+</blockquote>
+<p>All available style constants are summarized in the table below.</p>
+<table width="100%" border="1" cellspacing="0" cellpadding="3" bordercolorlight="#990000" bordercolordark="#990000">
+  <tr bgcolor="#990000">
+    <td valign="top"><font color="#FFFFFF"><strong>Style constants</strong></font></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <p>Style is defined as a combination (using either addition (+) or binary OR
+        (|) operator) of one or more of the following flags (you can use predefined
+        style__ constants instead
+        of
+        numbers)</p>
+      <p> styleLine = 1 - normal (line) chart (default)<br>
+        styleHistogram = 2 - histogram chart<br>
+        styleThick =4 - fat (thick)<br>
+        styleDots = 8 - include dots<br>
+        styleNoLine = 16 - no line<br>
+        styleDashed = 32 - dashed line style<br>
+        styleCandle = 64 - candlestick chart<br>
+        styleBar = 128 - traditional bar chart<br>
+        styleNoDraw = 256 - no draw (perform axis scaling only)<br>
+        styleStaircase = 512 - staircase (square) chart <br>
+        styleSwingDots = 1024 - middle dots for staircase chart <br>
+        styleNoRescale = 2048 - no rescale<br>
+        styleNoLabel = 4096 - no value label<br>
+        stylePointAndFigure = 8192 - point and figure<br>
+        styleArea = 16384 - area chart (extra wide histogram)<br>
+        styleOwnScale = 32768 - plot is using independent scaling<br>
+        styleLeftAxisScale = 65536 - plot is using left axis scale (independent
+      from right axis)<br>
+      styleNoTitle = 131072 - do not include this plot value in title string<br>
+      styleCloud = 262144 - paint a &quot;cloud&quot; (filled area) chart (see examples
+      below)<br>
+      styleClipMinMax = 524288 - clip area between Min and Max levels defined
+      in Plot statement. (Note: this style is not compatible with most printers)<br>
+      styleGradient - (new in 5.60) - gradient area chart. The upper gradient color
+      is specified by the color parameter in Plot() function; the bottom gradient color
+      is either the background color or can be defined using SetGradientFill function.
+      `styleGradient` can be combined with `styleLine`. </p>
+      <p> Not all flag combinations make sense; for example, (64+1) (candlestick
+        + line) will result in a candlestick chart (style=64)<br>
+                <br>
+        Note on candlestick/bar charts: If these styles are applied to the Plot()
+        function, then they indirectly use O, H, L arrays.<br>
+        If you want to specify your own OHL values, you need to use <a href="afl/plotohlc.html">PlotOHLC()</a> function.</p>
+    </td>
+  </tr>
+</table>
+<p>The new `styleCloud` and `styleClipMinMax` styles bring new, interesting possibilities
+  shown in the sample image below:</p>
+<p><img src="gifs/plot_cloud.gif"></p>
+<p>The formula for the chart in the middle pane (rainbow 24-bit multiple moving averages)
+  looks as follows:</p>
+<p><CODE><FONT COLOR=#000000>side = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; <BR>
+  increment = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Increment"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>;
+  i &lt; </FONT><FONT COLOR=#ff00ff>80</FONT><FONT COLOR=#000000>; i = i + increment
+  ) <BR>
+  { <BR>
+&nbsp;up = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,
+i ); <BR>
+&nbsp;down = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,
+i + increment ); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>&nbsp;if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>ParamToggle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"3D
+effect?"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"No|Yes"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> )
+) <BR>
+&nbsp;&nbsp; 
+side =&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(up&lt;=down </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>(
+up&lt;=down, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0.6</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>&nbsp;PlotOHLC</FONT><FONT COLOR=#000000>( up,up,down,down, </FONT><FONT COLOR=#ff00ff>"MA"</FONT><FONT COLOR=#000000>+i, </FONT><FONT COLOR=#0000ff>ColorHSB</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000>*(i
+- </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#0000ff><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Saturation"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>128</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>255</FONT><FONT COLOR=#000000> ),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></CODE><CODE><FONT COLOR=#000000>side * </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Brightness"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>255</FONT><FONT COLOR=#000000> )
+  ), </FONT><FONT COLOR=#000000><B>styleCloud</B></FONT><FONT COLOR=#000000> | </FONT><FONT COLOR=#000000><B>styleNoLabel</B></FONT><FONT COLOR=#000000> ); <BR>
+  } <BR>
+</FONT></CODE></p>
+<p>The formula for the chart in the lower pane (slow stochastic %K with colored
+  tops and bottoms) looks as follows. It uses `styleClipMinMax` to achieve clipping
+  of the cloud region between minimum and maximum levels specified in the plot statement.
+  Without this style, the area between min/max would be filled. Please note that due
+  to Windows GDI limitation, clipping region (`styleClipMinMax`) is supported only
+  on raster (bitmap) devices, so it is not compatible with printers or WMF (Windows
+  Metafile) output.</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetChartOptions</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,ChartGrid30
+      | ChartGrid70 ); <BR>
+  r = </FONT><FONT COLOR=#0000ff>StochK</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000>); <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( r, </FONT><FONT COLOR=#ff00ff>"StochK"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#000000>
+  </FONT><FONT COLOR=#0000ff>PlotOHLC</FONT><FONT COLOR=#000000>( r,r,</FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>,r, </FONT><FONT COLOR=#ff00ff>""</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(
+  r &gt; </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>styleCloud</B></FONT><FONT COLOR=#000000> |
+  styleClipMinMax, </FONT><FONT COLOR=#ff00ff>30</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>70</FONT><FONT COLOR=#000000> ); <BR>
+</FONT></CODE></p>
+<p><b>X-shift feature</b></p>
+<p>The XShift parameter allows to displace (shift) the plot in the horizontal direction
+  by a specified number of bars. This allows for plotting displaced moving averages
+  and projections into the future. See the following sample code for a displaced
+  moving average:</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000>Periods = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Periods"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>30</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> ); <BR>
+  Displacement = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Displacement"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>,
+    -</FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000> ); <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( <B>C</B>,
+    Periods ), </FONT><FONT COLOR=#969696>_DEFAULT_NAME</FONT><FONT COLOR=#000000>(),
+    ColorCycle, <B>styleLine</B>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,
+  Displacement );</FONT></CODE></p>
+</blockquote>
+<p><b>PlotForeign() function</b></p>
+<p>It is now easy to overlay price plots of multiple symbols using the `PlotForeign`
+  function:</p>
+<p>PlotForeign( <i>tickersymbol</i>, <i>name</i>, <i>color/barcolor</i>, <i>style
+    = styleCandle | styleOwnScale</i>, <i>minvalue</i> = {empty}, <i>maxvalue</i> =
+    {empty}, <i>xshift</i> = 0)</p>
+<p>Plots the foreign-symbol price chart (the symbol is defined by the <i>tickersymbol</i> parameter).
+  The second argument, <i>name, </i>defines the graph name used for displaying values in
+  a title bar. Graph color could be static (if the third argument is a number) or
+  dynamic (when the third argument is an array). Color indexes are related to the
+  current palette (see Preferences -> Colors)<br>
+    <i>style</i> defines the chart plot style (see Plot() function for possible values)</p>
+<blockquote>
+  <p><code>PlotForeign( &quot;^DJI&quot;, &quot;Dow Jones&quot;, colorRed );<br>
+    PlotForeign( &quot;^NDX&quot;, &quot;Nasdaq 100&quot;, colorBlue );<br>
+    PlotForeign( &quot;^IXIC&quot;, &quot;Nasdaq Composite&quot;, colorGreen
+    );</code></p>
+</blockquote>
+<p><b>Multiple plots using different scaling</b></p>
+<p>Two new styles can be used to plot multiple graphs using different Y-scales:
+  `styleOwnScale` and `styleLeftAxisScale`.</p>
+<p>It also makes it easy to plot two or more &quot;own scale&quot; plots with the
+  same scaling:</p>
+<blockquote>
+  <p> <code>minimum = LastValue( Lowest( Volume ) );<br>
+    maximum = LastValue( Highest( Volume ) );</code></p>
+  <p><code> Plot( Close, &quot;Price&quot;, colorBlue, styleCandle );</code></p>
+  <p><code> /* two plots below use OwnScale but the scale is common because we
+      set min and max values of Y axis */<br>
+    Plot( Volume, &quot;Volume&quot;, colorGreen, styleHistogram | styleThick
+    | styleOwnScale, minimum, maximum );<br>
+    Plot( MA( Volume, 15 ), &quot;MA volume&quot;, colorRed, styleLine | styleOwnScale,
+    minimum, maximum );</code></p>
+</blockquote>
+<p>The new style `styleLeftAxisScale = 65536` - allows to plot more than one graph
+  using common scaling but different from the regular (right-axis) scale.<br>
+  Example: price plot plus volume and moving average plots: </p>
+<blockquote>
+  <p> <code>// Plot price plot and its moving average<br>
+    Plot( Close, &quot;Price&quot;, colorWhite, styleCandle );<br>
+    Plot( MA( Close, 20 ), &quot;MAC&quot;, colorRed );</code></p>
+  <p><code> // Now plot volume and its moving average using left-hand axis scaling<br>
+    Plot( Volume , &quot;Volume&quot;, colorBlue, styleLeftAxisScale | styleHistogram
+    | styleThick );<br>
+    Plot( MA( Volume,15), &quot;MAV&quot;, colorLightBlue, styleLeftAxisScale
+    );</code></p>
+</blockquote>
+<p>New parameters also make it easy to plot ribbons, for example: </p>
+<blockquote>
+  <p> <code>Plot( Close, &quot;Price&quot;, colorBlue, styleCandle );<br>
+    Plot( 2, /* defines the height of the ribbon in percent of pane width */<br>
+&quot;Ribbon&quot;,<br>
+    IIf( up, colorGreen, IIf( down, colorRed, 0 )), /* choose color */<br>
+    styleOwnScale|styleArea|styleNoLabel, -0.5, 100 );</code></p>
+</blockquote>
+<p><b><code><font face="Arial, Helvetica, sans-serif">Using custom-defined parameters</font></code></b></p>
+<p>AmiBroker allows for the creation of user-defined parameters. Such parameters are then
+  available via the <a href="w_param.html">Parameters</a> dialog for quick and fast adjustment of indicators.</p>
+<p>The most often used parameter functions are (click on the links to get a more detailed
+  description):</p>
+<ul>
+  <li><a href="afl/param.html">Param</a>( &quot;name&quot;, default, min, max, steps, incr = 0 )</li>
+  <li><a href="afl/paramstr.html">ParamStr</a>( &quot;name&quot;, &quot;default&quot; );</li>
+  <li><a href="afl/paramcolor.html">ParamColor</a>( &quot;name&quot;, defaultcolor );</li>
+  <li><a href="afl/paramstyle.html">ParamStyle</a>(''name'', defaultval = styleLine,
+    mask = maskDefault ) <br>
+  </li>
+</ul>
+<p> These functions make it possible to define your own parameters in your indicators. Once
+  `Param` functions are included in the formula, you can right-click over the chart pane and
+  select &quot;Parameters&quot; or
+  press Ctrl+R, and change them via the<a href="w_param.html"> Parameters dialog</a> to
+  get an immediate response. </p>
+<p>The simplest case looks like this:</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000>period = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"RSI
+        period"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(
+  period ), </FONT><FONT COLOR=#ff00ff>"RSI( "</FONT><FONT COLOR=#000000> + period
+  + </FONT><FONT COLOR=#ff00ff>") "</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+</blockquote>
+<p>  Right-click over the chart and choose &quot;Parameters&quot; and move the
+  slider and you will see RSI plotted with different periods immediately as
+  you move the slider.</p>
+<p>Sample code below shows how to use <a href="afl/paramstr.html">ParamStr</a> to get the ticker symbol and <a href="afl/paramcolor.html">ParamColor</a>  to get colors.</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000>ticker = </FONT><FONT COLOR=#0000ff>ParamStr</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Ticker"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"MSFT"</FONT><FONT COLOR=#000000> ); <BR>
+    sp = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"MA
+    Period"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>PlotForeign</FONT><FONT COLOR=#000000>( ticker, </FONT><FONT COLOR=#ff00ff>"Chart
+    of "</FONT><FONT COLOR=#000000>+ticker, </FONT><FONT COLOR=#0000ff><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ParamColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Price
+    Color"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>(
+    ticker, </FONT><FONT COLOR=#ff00ff>"C"</FONT><FONT COLOR=#000000> ), sp ), </FONT><FONT COLOR=#ff00ff>"MA"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"MA
+    Color"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> )
+  );</FONT></CODE></p>
+</blockquote>
+<p>The following sample formula (from the AmiBroker mailing list) that allows you to visually align price peaks/troughs with a sine curve on the chart:</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000>Cycle = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Cycle
+        Months"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff> 12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> )*</FONT><FONT COLOR=#ff00ff>22</FONT><FONT COLOR=#000000>;</FONT><FONT COLOR=#008000>//264==12mth,22==1mth</FONT><FONT COLOR=#000000> <BR>
+    xfactor = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Stretch"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0.1</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0.1</FONT><FONT COLOR=#000000>);</FONT><FONT COLOR=#008000>//1==1yr,2==2yr</FONT><FONT COLOR=#000000> <BR>
+    xshift = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"slide"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,-</FONT><FONT COLOR=#ff00ff>22</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>22</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>)/</FONT><FONT COLOR=#ff00ff>3.1416</FONT><FONT COLOR=#000000>^</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>;</FONT><FONT COLOR=#008000>//slide
+    curve 1==5days</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    x = </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#ff00ff>3.1416</FONT><FONT COLOR=#000000>/Cycle/xfactor; <BR>
+    y = </FONT><FONT COLOR=#0000ff>sin</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>Cum</FONT><FONT COLOR=#000000>(x)-xshift); <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(<B>C</B>,</FONT><FONT COLOR=#ff00ff>"Daily
+    Chart"</FONT><FONT COLOR=#000000>, <B>colorBlack</B>, <B>styleCandle</B> | <B>styleNoLabel</B>); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(y,<br>
+    </FONT><FONT COLOR=#ff00ff>&nbsp;"cycle
+    =" </FONT><FONT COLOR=#000000>+ </FONT><FONT COLOR=#0000ff>WriteVal</FONT><FONT COLOR=#000000>(Cycle*xfactor/</FONT><FONT COLOR=#ff00ff>22</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>1.0</FONT><FONT COLOR=#000000>)+</FONT><FONT COLOR=#ff00ff>"months"</FONT><FONT COLOR=#000000>,<br>
+    <B>&nbsp;colorBlue</B>,<B>styleLine</B>|<B>styleNoLabel</B>|<B>styleOwnScale</B>);</FONT></CODE><br>
+  </p>
+</blockquote>
+<p>Right-click over the chart and choose &quot;Parameters&quot; and move the
+  sliders and you will see the chart immediately reflecting your changes.</p>
+<p>For more information on user-definable parameters, please also check <a href="h_dragdrop.html">Tutorial:
+    Using drag-and-drop interface</a></p>
+<p><b>Plotting texts at arbitrary positions on the chart</b></p>
+<p>AmiBroker now allows for annotation of the chart with text placed at any x, y
+  position specified on the formula level using the new <a href="afl/plottext.html">PlotText</a> function.</p>
+<p>PlotText( &quot;text&quot;, x, y, color, bkcolor = colorDefault )</p>
+<p>where <br>
+  x - the x-coordinate in bars (like in LineArray)<br>
+y - the y-coordinate in dollars</p>
+<p>Color is the text color; bkcolor is the background color. If bkcolor is NOT specified (or is equal to `colorDefault`), text is written with a TRANSPARENT background; any other value causes a solid background with the specified background color</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>),</FONT><FONT COLOR=#ff00ff>"MA20"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000> )
+); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>= </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+dist = </FONT><FONT COLOR=#ff00ff>1.5</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#0000ff>ATR</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+i++ ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>[i]
+) </FONT><FONT COLOR=#0000ff>PlotText</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Buy\n@"</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+i ], i, </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>[ i ]-dist[i], </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>[i]
+) </FONT><FONT COLOR=#0000ff>PlotText</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Sell\n@"</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+i ], i, </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>[ i ]+dist[i], </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorYellow</B></FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>PlotShapes</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#000000><B>shapeUpArrow</B></FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#000000><B>shapeDownArrow</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> )
+);</FONT></CODE><br>
+</p>
+<p><b>Gradient fill of the background</b></p>
+<p>AmiBroker 4.90 allows filling the indicator background with a gradually changing
+  color. To achieve this, you need to use the new function `SetChartBkGradientFill`( topcolor, bottomcolor, titlebkcolor = default )</p>
+<p>  The function enables background gradient color fill in indicators. <br>
+  Please note that this is independent of the chart background color (background
+    color fills the entire pane; gradient fill is only for the actual chart interior,
+    so the axes area is not affected by gradient fill). Parameters are as follows:</p>
+<p>topcolor - specifies the top color of the gradient fill <br>
+  bottomcolor - specifies the bottom color of the gradient fill <br>
+  titlebkcolor - (optional) the background color of the title text. If not specified,
+  then the top color is 
+  automatically used for the title background. <br>
+  <br>
+Example:</p>
+<p> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetChartBkGradientFill</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"BgTop"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorWhite</B></FONT><FONT COLOR=#000000>),</FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"BgBottom"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorLightYellow</B></FONT><FONT COLOR=#000000>)); </FONT></CODE><br>
+</p>
+<p><strong><a name="GRADIENT"></a>Gradient fill area charts</strong></p>
+<p>Version 5.60 brings native gradient area charts. To display a simple gradient
+  chart, it is enough to use styleGradient in the <a href="afl/plot.html">Plot</a>()
+  function call. By default, the upper gradient color is specified by the color parameter
+  in Plot() function; the bottom gradient color is either the background color. `styleGradient` can be combined with `styleLine`.</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"C"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorDefault</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleGradient</B></FONT><FONT COLOR=#000000> | </FONT><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+<p>For detailed control over gradient colors and baseline, there
+    is an extra
+    function <a href="afl/setgradientfill.html">SetGradientFill</a>( topcolor,
+    bottomcolor, baseline, baselinecolor ) that should be called before <a href="afl/plot.html">Plot</a>(). </p>
+<p>When you use  <a href="afl/setgradientfill.html">SetGradientFill</a> function,
+  the upper
+  gradient color is specified by the topcolor argument; the bottom gradient color is
+  specified by bottomcolor. Optional parameters (baseline/baselinecolor)
+  allow for a reverse
+  gradient chart (such as underwater equity) and three-color gradients top-&gt;baseline-&gt;bottom.
+  See code for Underwater Equity for example usage of reverse gradient chart
+  (with baseline at the top). The Baseline parameter specifies the Y-axis position
+  of the chart baseline. The baselinecolor parameter specifies the color of the gradient
+  that is to be used at that level. If baselinecolor is not specified, then only
+2-color gradient is plotted (topcolor-&gt;bottomcolor). </p>
+<p>For example,
+      to display a three-color gradient Rate of Change that will use green as
+  the &quot;top&quot; color for positive values, the background color as the &quot;baseline&quot; color and red
+  as
+  the &quot;bottom&quot; color for negative values, it is enough to write:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetGradientFill</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#008000>/*top*/</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#008000>/*bottom*/</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#008000>/*baseline
+      level*/</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>GetChartBkColor</FONT><FONT COLOR=#000000>() </FONT><FONT COLOR=#008000>/*baseline
+      color */</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>ROC</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>14</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#800080>"ROC"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorLightOrange</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000> | </FONT><FONT COLOR=#000000><B>styleGradient</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>&nbsp;&nbsp;);</FONT></CODE></p>
+<p>The resulting chart will look as follows (using Basic <a href="h_themes.html">chart
+ theme</a>):</p>
+<p><img src="gifs/gradientwhite.gif" width="619" height="157"></p>
+<p>&nbsp;</p>
+or this way (using Black <a href="h_themes.html">chart theme</a>):
+<p><CODE><FONT COLOR=#000000><BR>
+  <img src="gifs/gradient.gif" width="619" height="157"></FONT></CODE></p>
+<p>&nbsp;</p>
+<p><strong><a name="THICK"></a>Super thick charts</strong></p>
+<p>Version 5.60 allows defining the line width beyond `styleThick` 
+that was the only option before.</p>
+<p>Now, the 9th parameter of Plot() defines pixel or percent width of a given plot.
+  The default is 1 pixel. Positive values
+  specify
+  pixel
+  width,
+  negative
+  values
+  specify
+  width
+  as a percentage
+  of current
+  bar width. For example, -20 will give you a dynamic width that is 20% of the bar
+width. Example: </p>
+<p><CODE><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( <B>C</B>, </FONT><FONT COLOR=#800080>"Close"</FONT><FONT COLOR=#000000>, <B>colorDefault</B>, <B>styleBar</B>, <B>Null</B>, <B>Null</B>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>,
+      -</FONT><FONT COLOR=#800080>20</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#008000>/*
+line width as percent of bar */</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+<p>As you zoom in, the bars will become thicker and thicker.</p>
+<p>Now you can get super-thick lines as shown in the example below (10-pixel
+  thick line chart):</p>
+<p><CODE><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( <B>C</B>, </FONT><FONT COLOR=#800080>"Close"</FONT><FONT COLOR=#000000>, <B>colorRed</B>, <B>styleLine</B>, <B>Null</B>, <B>Null</B>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> <font color="#009900">/*
+      10 pixel wide */</font> );</FONT></CODE></p>
+<p><b><code><font face="Arial, Helvetica, sans-serif">Miscellaneous</font></code></b></p>
+<p>As you already know, each plot has its own name that is used to create a title
+  string which displays names and values of indicators. AmiBroker, however, allows
+  you to override this automatic mechanism and define your own title string from
+  scratch. The <strong>Title</strong> reserved variable is used for that.
+  You just assign a string to it, and it will be displayed in the chart instead
+  of the automatically generated one.</p>
+<p>Also, there are two more reserved variables (GraphXSpace and GraphZOrder) that
+  allow for fine-tuning the indicator's look.</p>
+<p>They are all described in the table below.</p>
+<table width="100%" border="1" cellspacing="0" cellpadding="3" bordercolorlight="#990000" bordercolordark="#990000">
+  <tr bgcolor="#990000"> 
+    <td valign="top"><font color="#FFFFFF">Variable </font></td>
+    <td valign="top"><font color="#FFFFFF">Usage</font></td>
+    <td valign="top"><font color="#FFFFFF">Applies to</font></td>
+  </tr>
+  <tr> 
+    <td valign="top"><strong>Title</strong></td>
+    <td valign="top"> 
+      <p>Defines title text<br>
+        <br>
+        If you use the `Title` variable, you can specify colors in the string.<br>
+        <br>
+        It is advised to use the AFL `EncodeColor` function, which makes it easier than
+      coding escape sequences. </p>
+      <p>`EncodeColor( colornumber )`.<br>
+        You can write the above example like this:<br>
+        <br>
+        Title = &quot;This is written in &quot; + EncodeColor( colorViolet ) + 
+        &quot;violet color &quot; + EncodeColor( colorGreen ) + &quot;and this 
+        in green&quot;; <br>
+        <br>
+        Multi-line captions are possible by simply embedding a line break `\n`, for
+        example:<br>
+    Title = &quot;This is 1st line\nThis is second line&quot;;</p>
+      <p><em>For the sake of completeness: colors can
+        also be specified using escape sequences but it is NOT recommended because
+          it is hard to write and hard to read. A `\\cXX` sequence where `XX` is a two-digit
+          number specifying color index. `\\c38` defines violet;
+          there
+          is
+          a special
+          sequence
+          `\\c-1`
+          that resets
+        to the default axis color. <br>
+    For example: <br>
+    <br>
+    Title = &quot;This is written in \\c38violet color \\c27and this in green&quot;;</em></p>
+    </td>
+    <td valign="top">Indicators </td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>Tooltip</strong></td>
+    <td valign="top"><p><strong>Obsolete in 5.40</strong>. Use the Data window instead,
+        or use `Plot()` with `styleHidden` if you want to add your custom values
+        to the data tooltip.</p>
+      <p>For example:<br> 
+        Plot( my_value, &quot;MyValueForTooltip&quot;, colorBlack, styleHidden
+        );</p></td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>GraphXSpace</strong></td>
+    <td valign="top"><p>Defines how much extra space should be added above and below
+        the graph line (in percent).<br>
+        For example:<br>
+        <br>
+      GraphXSpace = 5;</p>
+      <p>Adds 5% extra space above and below the graph line. When `GraphXSpace`
+        is not defined in the formula, then the default 2% is used.</p>
+    </td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>GraphLabelDecimals</strong></td>
+    <td valign="top"> (new in 5.90) Controls the number of decimals in chart value labels (for example, adding `GraphLabelDecimals = 2;` to the formula would give
+      you
+      value labels
+      with two decimal places)<br>
+        <strong></strong></td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr> 
+    <td valign="top"><strong>GraphZOrder</strong></td>
+    <td valign="top">The `GraphZOrder` variable allows changing the order of plotting 
+      indicator lines. When `GraphZOrder` is not defined or is zero (false), the old 
+      ordering (last to first) is used; when `GraphZOrder` is 1 (true), reverse 
+      ordering is applied. </td>
+    <td valign="top">Indicators </td>
+  </tr>
+</table>
+<p><strong>Obsolete graph variables</strong></p>
+<p>This table shows obsolete reserved variables. They are still functional for
+  backward-compatibility, but new code should use `Plot()` functions only. What's more,
+  when using new `Plot()` functions, <u>you should NOT use obsolete variables</u>  below.</p>
+<table width="100%" border="1" cellspacing="0" cellpadding="3" bordercolorlight="#990000" bordercolordark="#990000">
+  <tr bgcolor="#990000">
+    <td valign="top"><font color="#FFFFFF">Variable </font></td>
+    <td valign="top"><font color="#FFFFFF">Usage</font></td>
+    <td valign="top"><font color="#FFFFFF">Applies to</font></td>
+  </tr>
+  <tr>
+    <td valign="top">maxgraph</td>
+    <td valign="top">Specifies the maximum number of graphs to be drawn in a custom
+      indicator window (default=3)</td>
+    <td valign="top">Indicators </td>
+  </tr>
+  <tr>
+    <td valign="top">graph<i>N</i></td>
+    <td valign="top">Defines the formula for the graph number <i>N</i> (where <i>N</i> is
+      a number 0,1,2,..., maxgraph-1)</td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <p>graph<i>N</i>open,<br>
+        graph<i>N</i>high,<br>
+        graph<i>N</i>low,</p>
+    </td>
+    <td valign="top">Define additional O, H, L price arrays for candlestick and
+      traditional bar charts</td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top">graph<i>N</i>color</td>
+    <td valign="top">
+      <p>Defines the color index of <i>N</i>th graph line. Color indexes are
+        related to the current palette (see Preferences -> Colors).</p>
+      <p>&nbsp;      </p>      </td>
+    <td valign="top">Indicators </td>
+  </tr>
+  <tr>
+    <td valign="top">graph<i>N</i>barcolor</td>
+    <td valign="top">Defines the array that holds palette indexes for each bar
+      drawn </td>
+    <td valign="top">Indicators </td>
+  </tr>
+  <tr>
+    <td valign="top">graph<i>N</i>style</td>
+    <td valign="top">
+      <p>Defines the style of <i>N</i>th graph. Style is defined as a combination
+        (sum) of one or more of the following flags (you can use predefined style__
+        constants instead of numbers)</p>
+    </td>
+    <td valign="top">Indicators </td>
+  </tr>
+</table>
+<p>&nbsp;  </p>
+</body>
+</html>

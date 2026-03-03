@@ -1,0 +1,78 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - FEOF</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>feof</b><br>
+        - test for end-of-file</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>File Input/Output functions<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>feof( <i>filehandle</i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The feof function returns a nonzero value after the first read operation that attempts to read past the end of the file. It returns 0 if the current position is not end of file. There is no error return value.<p>
+<i>filehandle</i> is a file handle returned by <b>fopen</b> function. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>//</FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#008000>// The following code (commentary) reads</FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#008000>// all lines from the external file and</FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#008000>// displays it in commentary window</FONT><FONT COLOR=#000000>
+<BR>
+<BR>fh = </FONT><FONT COLOR=#0000ff>fopen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"quotes.csv"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"r"</FONT><FONT COLOR=#000000>);
+<BR></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( fh )
+<BR>{
+<BR>   </FONT><FONT COLOR=#800000><B>while</B></FONT><FONT COLOR=#000000>( ! </FONT><FONT COLOR=#0000ff>feof</FONT><FONT COLOR=#000000>( fh ) )
+<BR>   {
+<BR>      </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>fgets</FONT><FONT COLOR=#000000>( fh ) );   
+<BR>   }
+<BR>}
+<BR></FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000>
+<BR>{
+<BR>   </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"ERROR: file can not be found (does not exist)"</FONT><FONT COLOR=#000000>);
+<BR>}
+<BR>
+<BR>
+<BR></FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="fopen.html">fopen()</A> function , <A HREF="fclose.html">fclose()</A> function , <A HREF="fgets.html">fgets()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>feof</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1481&hilite=feof' target='_blank'>A simple AFL Revision Control System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=feof' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=709&hilite=feof' target='_blank'>Calculate composites for tickers in list files</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1484&hilite=feof' target='_blank'>Create a list of functions in your program</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1498&hilite=feof' target='_blank'>Extract specific lines of code from your program</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1296&hilite=feof' target='_blank'>Herman</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1422&hilite=feof' target='_blank'>IBD relative strength database Viewer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=feof' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1554&hilite=feof' target='_blank'>Say Notes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=457&hilite=feof' target='_blank'>TWS auto-export Executions-file parser</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1228&hilite=feof' target='_blank'>TWS trade plotter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=710&hilite=feof' target='_blank'>WLBuildProcess</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=feof">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

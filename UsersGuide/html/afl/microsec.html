@@ -1,0 +1,61 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MICROSEC</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>MicroSec</b><br>
+        - get bar's microsecond part of the timestamp</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b></p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>MicroSec() </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> get bar's microsecond part of the timestamp (0..999)
+<p>The function will return zero if data source does not support sub-second resolution </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Timestamp
+is = %02.0f:%02.0f:%02.0f.%03.0f%03.0f"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>Hour</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Minute</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Second</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>MilliSec</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>MicroSec</FONT><FONT COLOR=#000000>()
+);</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="hour.html">HOUR()</A> function , <A HREF="minute.html">MINUTE()</A> function , <A HREF="second.html">SECOND()</A> function , <A HREF="millisec.html">MilliSec()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>MicroSec</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=MicroSec">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,83 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - RANDOM</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Random</b><br>
+        - random number</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Statistical functions<br>
+        </b>(AmiBroker 3.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Random( <i>seed = Null</i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Returns an array of random values in 0..1 range (to get single 
+      random value use LastValue( Random() ) ) <br>
+
+Seed is defined it initializes the seed of random number generator this allows to produce repetitive series of pseudo-random series. If seed is not specified - random number generator continues generation.
+To reinitialize the generator, use 1 as the seed argument. Any other value for seed sets the generator to a random starting point. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> Example 1:<p>
+<code>
+Graph0 = Random(); // generates different sequence with each refresh
+</code>
+<p>
+Example 2:<p>
+<code>
+Graph0 = Random(1); // generates the same sequence with each refresh
+</code> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">   <A HREF="mtrandom.html">mtRandom()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2007-02-27 09:42:14</td><td valign="top">Internally Random() function uses Microsoft C runtime library rand() function scaled to cover 0..1 range:<br />
+(1.0*rand()/RAND_MAX)<br />
+<br />
+Now Microsoft's rand() function (used in all MS languages) is Linear Congruential Pseudo-Random Number Generator coded using 32 bit integer arithmetic as follows:<br />
+<br />
+static long holdrand;<br />
+int rand()<br />
+{<br />
+ holdrand = holdrand * 214013 + 2531011;<br />
+ return ( holdrand &gt;&gt; 16 ) &amp; 0x7fff;<br />
+}</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>Random</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1583&hilite=Random' target='_blank'>Add Nifty 50 IB Equity Symbol Automatically</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=Random' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=Random' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=765&hilite=Random' target='_blank'>Multiple sinus noised</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=777&hilite=Random' target='_blank'>Random Walk</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=365&hilite=Random' target='_blank'>Randomize()</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Random">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

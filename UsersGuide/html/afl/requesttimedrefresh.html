@@ -1,0 +1,68 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - REQUESTTIMEDREFRESH</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>RequestTimedRefresh</b><br>
+        - forces periodical refresh of indicator pane</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 4.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>RequestTimedRefresh( interval, onlyvisible = True ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function causes given indicator window to refresh automatically every <interval> seconds regardless of data source used or connection state. 
+<p>
+<b>interval</b> parameter defines timeout in seconds between refreshes. AmiBroker attempts to align refreshes to second boundaryso if you call it RequestTimedRefresh( 5 ) you should get refreshes at 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50 and 55 second of the minute.Due to the way how regular (low overhead) timers are implemented in Windows they have accurracy of +/-55ms providedthat CPU is not very busy. Don't expect to get first line of your code to execute exactly at .000 milliseconds. This varies depending on machine load, number of quotes, system time slice and tens of other factors.Usually (on my testing machines) the first line of the code executes anywhere in the first 100 ms of the second, provided that other processes do not interfere. Windows is not real-time operating system and it does not guarantee any fixed execution/reaction times.
+<p>
+<b>onlyvisible</b> parameter set to True (default value) means that refreshes are triggered only for visible and not minimised windows. This applies also to main AmiBroker window - when it is minimised charts are NOT refreshed by default. To force refreshes when window is minimised you need to set this parameter to False. Note that this visibility applies to mostly to 'minimised' state or the situation when you move chart outside the boundary of physical screen so it is not visible to an eye but still open. It does not apply to chart windows that are on placed on inactive sheets, as they do not really exist until they are shown (this way AmiBroker conserves memory and CPU) and as non-existing, can not be refreshed.
+<p>
+Hint: to detect whenever given refresh comes from timer or user action you can use Status("redrawaction") function. It returns 0 for regular refresh (user action) and 1 for timer-refresh
+<p>
+Starting from version 5.30.3 RequestTimedRefresh supports sub-second (down to 0.1 sec) resolution, when enabled via registry setting (HKCU/Software/TJP/Broker/Settings/EnableHiresRTR, DWORD value = 1 ) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>RequestTimedRefresh</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000> );<br>
+</FONT></CODE><CODE><FONT COLOR=#008000>//
+    automatically refresh this particular chart every 5 seconds</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="status.html">STATUS()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>RequestTimedRefresh</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1300&hilite=RequestTimedRefresh' target='_blank'> 	Pivots And Prices And Swing Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=RequestTimedRefresh' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1539&hilite=RequestTimedRefresh' target='_blank'>3 ways to use RMI in one script</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1321&hilite=RequestTimedRefresh' target='_blank'>3TF Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=RequestTimedRefresh' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1178&hilite=RequestTimedRefresh' target='_blank'>Animated BackGround</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1185&hilite=RequestTimedRefresh' target='_blank'>Animated BackGround 1.1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=RequestTimedRefresh' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=RequestTimedRefresh' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=RequestTimedRefresh' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=RequestTimedRefresh' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1199&hilite=RequestTimedRefresh' target='_blank'>CoinToss ver 1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=RequestTimedRefresh' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=RequestTimedRefresh' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=RequestTimedRefresh' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=RequestTimedRefresh' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=RequestTimedRefresh' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=RequestTimedRefresh' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=RequestTimedRefresh' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=RequestTimedRefresh' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=RequestTimedRefresh' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1433&hilite=RequestTimedRefresh' target='_blank'>Volume Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=RequestTimedRefresh' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=RequestTimedRefresh' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=RequestTimedRefresh">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

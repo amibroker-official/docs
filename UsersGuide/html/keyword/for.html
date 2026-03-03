@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>for Statement</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><font size="4"><a name="for"></a>for Statement</font>
+</h4>
+<div>
+  <p>&nbsp;</p>
+</div>
+<div>
+  <p>The <b>for</b> statement lets you repeat a statement or compound statement
+    a specified number of times. The body of a <b>for</b> statement is executed
+    zero or more times until an optional condition becomes false.&nbsp; </p>
+  <p class=label><b>Syntax</b></p>
+  <p class=dt><b>for (</b> <i>init-expression</i> <b>;</b> <i>cond-expression</i> <b>;</b> <i>loop-expression</i> <b>)</b> <i>statement</i> </p>
+  <p>Execution of a <b>for</b> statement proceeds as follows:
+  <ol>
+    <li>The <i>init-expression</i>,&nbsp;is evaluated. This specifies the initialization
+      for the loop. There is no restriction on the type of <i>init-expression</i>.<br>
+            <br>
+    <li>The <i>cond-expression</i>,&nbsp; is evaluated. This expression must
+      have arithmetic type. It is evaluated before each iteration. Three results
+      are possible:
+        <ul type=disc>
+          <li>If <i>cond-expression</i> is true (nonzero), <i>statement</i> is
+            executed; then <i>loop-expression</i>, if any, is evaluated. The <i>loop-expression</i> is
+            evaluated after each iteration. There is no restriction on its type.
+            Side effects will execute in order. The process then begins again
+            with the evaluation of <i>cond-expression</i>.<br>
+                    <br>
+          <li>If <i>cond-expression</i> is false (0), execution of the <b>for</b> statement
+            terminates and control passes to the next statement in the program. </li>
+        </ul>
+    </li>
+  </ol>
+  <p>This example illustrates the <b>for</b> statement:</p>
+  
+  <CODE><FONT COLOR=#000000>myema[ </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ]
+  = </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>[ </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ]; <BR>
+  </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>;
+  i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+  i++ ) <BR>
+  { <BR>
+  &nbsp;&nbsp;&nbsp;
+  myema[ i ] = </FONT><FONT COLOR=#ff00ff>0.1</FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>[
+  i ] + </FONT><FONT COLOR=#ff00ff>0.9</FONT><FONT COLOR=#000000> * myema[ i
+  - </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ]; <BR>
+  }</FONT></CODE>
+  <p><font size=2>This example iterates all bars of close array to calculate
+  exponential moving average.</font></code></code></p>
+  For loop is extremely flexible. 
+  <p>    <em>loop-expression</em> can be ANY kind of expression you wish. You
+  can produce not only regular series like this:</p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+        i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+        i = i + </FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>//
+  increment by 3 every iteration</FONT></CODE></p>
+  <p>but you can  produce exponential series too:</p>
+  <p><code><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+        i = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+        i = i * </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>//
+        produces series of 1, 2, 4, 8, 16, 32, ... </FONT><br>
+  </code>  </p>
+</div>
+<div>
+  <h4>&nbsp;</h4>
+</div>
+</body>
+</html>

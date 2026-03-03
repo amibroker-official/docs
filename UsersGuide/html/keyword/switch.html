@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>switch Statement</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><font size="4"><a name="for"></a>switch Statement</font>
+</h4>
+<div>
+  <p>The switch and case statements help control complex conditional and branching
+    operations. The switch statement transfers control to a statement within
+  its body. </p>
+  <p>Syntax:</p>
+  <p><b>switch</b> ( <i>expression</i> ) <br>
+    {
+  </p>
+  <p><b>case</b> <i>constant-expression1</i> : <i>statement;<br>
+  </i><b>case</b> <i>constant-expression</i>2 : <i>statement;<br>
+  ...<br>
+  </i><b>case</b> <i>constant-expressionN</i> : <i>statement;<br>
+  </i><br>
+  <b>default</b> : <i>statement;</i></p>
+  <p>} </p>
+  <p>Control passes to the statement whose case <i>constant-expression</i> matches
+      the value of switch ( <i>expression</i> ). The switch statement can include any
+      number
+      of case instances, but no two case constants within the same switch statement
+      can have the same value. Execution of the statement body begins at the
+    selected statement and proceeds until the end of the body or until a <b>break</b>    statement
+    transfers control out of the body. </p>
+  <p>You can use the <b>break</b> statement to end processing of a particular case within
+    the switch statement and to branch to the end of the switch statement. Without
+    <b>break</b>, the program continues to the next case, executing the statements until
+    a break or the end of the statement is reached. In some situations, this
+  continuation may be desirable.</p>
+  <p>The <b>default</b> statement is executed if no case constant-expression
+    is equal to the value of switch ( expression ). If the <b>default</b> statement
+    is omitted, and no case match is found, none of the statements in the switch
+    body are
+    executed. There can be at most one default statement. The default statement,
+    if exists, MUST come at the end. Otherwise it may be executed before hitting
+    conditions defined below it. A <b>case</b> or <b>default</b> label is allowed
+    to appear only inside a switch statement. </p>
+  <p>The type of switch expression and case constant-expression can be any.
+    The value of each case constant-expression must be unique within the statement
+    body. Otherwise first-match will be used.<br>
+    <br>
+  Example:</p>
+  <p><CODE><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( n = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+        n &lt; </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>; n++
+        ) <BR>
+{ <BR>
+              </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Current
+              n = %f\n"</FONT><FONT COLOR=#000000>, n ); <BR>
+              <BR>
+              </FONT><FONT COLOR=#800000><B>switch</B></FONT><FONT COLOR=#000000>(n)
+              { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>case</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"The
+number is zero.\n"</FONT><FONT COLOR=#000000>); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>break</B></FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>case</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000>: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>case</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>case</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>7</FONT><FONT COLOR=#000000>: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"n
+is a prime number\n"</FONT><FONT COLOR=#000000>); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>break</B></FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>case</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>: </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"n
+is a prime number\n"</FONT><FONT COLOR=#000000>); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>case</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>4</FONT><FONT COLOR=#000000>: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>case</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>6</FONT><FONT COLOR=#000000>: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>case</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>8</FONT><FONT COLOR=#000000>: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"n
+is an even number\n"</FONT><FONT COLOR=#000000>); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>break</B></FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>case</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>case</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000>: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"n
+is a perfect square\n"</FONT><FONT COLOR=#000000>); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>break</B></FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>default</B></FONT><FONT COLOR=#000000>: <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Only
+single-digit numbers are allowed\n"</FONT><FONT COLOR=#000000>); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>break</B></FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp; } </FONT></CODE> </p>
+  <p>More information can be found here: <a href="http://en.wikipedia.org/wiki/Switch_statement">http://en.wikipedia.org/wiki/Switch_statement</a></p>
+</div>
+</body>
+</html>

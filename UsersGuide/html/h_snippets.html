@@ -1,0 +1,101 @@
+<html>
+
+<head>
+<title>Using code snippets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2><b>Using AFL code snippets</b></h2>
+<p>A code snippet is a small piece of reusable AFL
+code. It can be inserted by:</p>
+<ul>
+  <li>right-clicking in the AFL editor window and choosing &quot;Insert
+    Snippet&quot; menu, or </li>
+  <li>dragging a snippet from Code Snippets window, or </li>
+  <li>typing a keyboard
+        trigger (such as @for) in the editor</li>
+</ul>
+<p><img src="gifs/codesnip.gif" width="596" height="420"></p>
+<p>In version 5.90, code snippets are also available in the auto-complete list in
+  the AFL editor. Just type '@' followed by the first letter of a snippet's key trigger, and the auto-complete
+  list would show you the list of available snippets that have keyboard triggers
+defined starting with that letter. </p>
+<p>Replacement of keyboard triggers works even without auto-complete
+  activated, so, just typing '@keytrigger' is replaced by snippet text.</p>
+<p><img src="gifs/codesnip2.gif" width="412" height="308"></p>
+<p><strong>DEFINING YOUR OWN SNIPPETS</strong></p>
+<p>You can add your own snippets fairly easily using the new Code Snippets window.
+  The Code Snippets window is available in the new AFL editor.
+It can be shown/hidden using the Window menu. </p>
+<p>To create your own snippet, do the following: </p>
+<ol>
+  <li>type the code you want </li>
+  <li>select (mark) the code you want to place in a snippet </li>
+  <li>press <strong>Save selection</strong> as snippet button in the Code Snippets window</li>
+</ol>
+<p><img src="gifs/codesnip1.gif" width="743" height="525"></p>
+<p>If you do the steps above, the following dialog will appear:</p>
+<p><img src="gifs/codesnip3.gif" width="402" height="361"></p>
+<p>Now you need to enter the <strong>Name</strong> of the snippet, the <strong>Description</strong>, and <strong>Category</strong>.
+  A category can be selected from already existing items (using
+  a drop-down box), or a new category name can be typed in the category field. The <strong>Key
+  trigger</strong> field
+  is optional and contains the snippet's auto-complete trigger (described above).
+  The <strong>Formula</strong> field is the snippet code itself. Once
+  you enter all fields and press <strong>OK</strong>, your new snippet will appear in the
+list.</p>
+<p><strong><img src="gifs/codesnip4.gif" width="200" height="423"></strong></p>
+<p>From then on, you can use your own snippet the same way as existing snippets.
+Perhaps the most convenient method is using drag-and-drop from the list to the AFL editor.</p>
+<p>As you may have noticed, user-defined snippets are marked with a red-colored box
+  in the Code Snippets list. Only user-defined snippets can be overwritten and/or
+  deleted. </p>
+<p>To edit an existing user-defined snippet, you can either follow the steps
+    above and give it an existing name. AmiBroker will then ask if you want to overwrite
+    the existing snippet, or you can simply click on <strong>Properties</strong> button
+    and edit the snippet directly, without re-inserting it.</p>
+<p><img src="gifs/codesnip5.gif" width="200" height="83"></p>
+<p>To delete a snippet, select the snippet you want to delete
+      from the list and press <strong>Delete</strong> (X) button in the Code Snippets window.</p>
+<p>&nbsp;</p>
+<p><strong>TECHNICAL INFO</strong> (Advanced users only)<br>
+  <br>
+  There are two files located in the AmiBroker directory that hold snippets:<br>
+  CodeSnippets.xml - these are snippets shipped with the AmiBroker installation (and
+  can be replaced in subsequent installations, so don't modify it!)<br>
+  UserSnippets.xml - these are user-definable snippets. This file is not present
+in the installation, and a user can create it by himself/herself. </p>
+<p>The XML schema for the snippets file is simple (as shown below). Key trigger functionality
+  is not yet implemented; however, Key trigger fields should be included in the
+  definition for future use. It will work like 'auto-complete' so that when you type the shortcut, it will unfold to the formula.</p>
+<p><code><strong>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</strong><br>
+<strong>&lt;AmiBroker-CodeSnippets CompactMode=&quot;0&quot;&gt;</strong></code></p>
+  <p><code><strong>&lt;Snippet&gt;</strong><br>
+      <strong>&lt;Name&gt;</strong><font color="#0000FF">First Snippet</font><strong>&lt;/Name&gt;</strong><br>
+      <strong>&lt;Description&gt;</strong><font color="#0000FF">Description of the snippet</font><strong>&lt;/Description&gt;</strong><br>
+      <strong>&lt;Category&gt;</strong><font color="#0000FF">User category</font><strong>&lt;/Category&gt;</strong><br>
+      <strong>&lt;KeyTrigger&gt;</strong><font color="#0000FF">?trigger1</font><strong>&lt;/KeyTrigger&gt;</strong><br>
+      <strong>&lt;Formula&gt;</strong><br>
+<strong>&lt;![CDATA[</strong></code></p>
+  <p><code><font color="#0000FF">// the formula itself</font></code></p>
+  <p><code><strong>]]&gt;<br>
+&lt;/Formula&gt;<br>
+&lt;/Snippet&gt;</strong></code></p>
+  <p><code><strong>&lt;Snippet&gt;</strong><br>
+      <strong>&lt;Name&gt;</strong><font color="#0000FF">Second Snippe</font>t<strong>&lt;/Name</strong>&gt;<br>
+      <strong>&lt;Description&gt;</strong><font color="#0000FF">Description of the snippet</font><strong>&lt;/Description&gt;</strong><br>
+      <strong>&lt;Category&gt;</strong><font color="#0000FF">User category</font><strong>&lt;/Category&gt;</strong><br>
+      <strong>&lt;KeyTrigger&gt;</strong><font color="#0000FF">?trigger2</font><strong>&lt;/KeyTrigger&gt;</strong><br>
+      <strong>&lt;Formula&gt;<br>
+&lt;![CDATA[</strong></code></p>
+  <p><code><font color="#0000FF">// the formula itself</font></code></p>
+  <p><code><strong>]]&gt;<br>
+&lt;/Formula&gt;<br>
+&lt;/Snippet&gt;<br>
+&lt;/AmiBroker-CodeSnippets&gt;</strong></code></p>
+</body>
+</html>

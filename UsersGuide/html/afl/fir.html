@@ -1,0 +1,130 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - FIR</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>FIR</b><br>
+        - Finite Impulse Response filter</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Moving averages, summation<br>
+        </b>(AmiBroker 5.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>FIR( array, coefficients, size ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function implements general-purpose Finite Impulse Response filter (FIR)
+<a href='http://en.wikipedia.org/wiki/Finite_impulse_response' target='_blank'>http://en.wikipedia.org/wiki/Finite_impulse_response</a> 
+<p>
+The output is convolution of input aray with coefficents table (impulse response table).
+<p>
+The function performs automatic normalization of coefficient table if necessary (if its sum is not 1)
+<p>
+INPUTS:
+<ul>
+ <li>array - input array to be smoothed
+ <li>coefficients - array of FIR coefficients
+ <li>size - number of coefficients ( filter_order + 1 )
+</ul>
+<p>
+It is functional (but 2+ times faster) equivalent of following AFL:
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> FIR_AFL(
+input, coeff, size ) <BR>
+{ <BR>
+&nbsp;result = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;sumcoeff = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#800000><B>&nbsp;for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i &lt; </FONT><FONT COLOR=#0000ff>Min</FONT><FONT COLOR=#000000>( size, </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> );
+i++ ) <BR>
+&nbsp;{ <BR>
+&nbsp;&nbsp;
+sumcoeff += coeff[ i ]; <BR>
+&nbsp;&nbsp;
+result += coeff[ i ] * </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>(
+input, - size + i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+&nbsp;} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>&nbsp;return</B></FONT><FONT COLOR=#000000> result/sumcoeff; <BR>
+}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// for example 5 bar weighted
+moving average can be written:</FONT><FONT COLOR=#000000> <BR>
+coeff[ </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ] = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+coeff[ </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ] = </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>; <BR>
+coeff[ </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ] = </FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000>; <BR>
+coeff[ </FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000> ] = </FONT><FONT COLOR=#800080>4</FONT><FONT COLOR=#000000>; <BR>
+coeff[ </FONT><FONT COLOR=#800080>4</FONT><FONT COLOR=#000000> ] = </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>FIR</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>,
+coeff, </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000> );</FONT></CODE>
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// Another example: ALMA
+which is FIR Filter with </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// shifted Gaussian coefficents can be implemented
+as follows:</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> ALMA_AFL(
+input, range, Offset, sigma ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#800000><B>  local</B></FONT><FONT COLOR=#000000> m, im, s,
+Coeff; <BR>
+<BR>
+ m = </FONT><FONT COLOR=#0000ff>floor</FONT><FONT COLOR=#000000>( Offset * (range
+- </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>) ); <BR>
+ s = range / sigma; <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B> for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i < </FONT><FONT COLOR=#0000ff>Min</FONT><FONT COLOR=#000000>( range, </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000> );
+i++ ) <BR>
+ { <BR>
+  
+im = i - m; <BR>
+  
+Coeff[ i ] = </FONT><FONT COLOR=#0000ff>exp</FONT><FONT COLOR=#000000>( - ( im
+* im )/ ( </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> * s * s ) ); <BR>
+ } <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B> return</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>FIR</FONT><FONT COLOR=#000000>(
+input, Coeff, range ); <BR>
+}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>FIR</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=FIR">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

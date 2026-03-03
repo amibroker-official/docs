@@ -1,0 +1,99 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - DEMA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>DEMA</b><br>
+        - double exponential moving average</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Moving averages, summation<br>
+        </b>(AmiBroker 40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>dema( ARRAY, <i>periods</i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Calculates double exponentially smoothed average - DEMA. The function 
+        accepts time-variable <i>periods.<b> </b></i> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> DEMA( Close, 5 ) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top"> MA(), EMA(), WMA(), TEMA() </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2003-02-06 13:51:31</td><td valign="top">DEMA can be implemented via EMA:<br />
+<br />
+Len=10;<br />
+Graph0= 2 * EMA( C, len ) - EMA( EMA( C, len ), Len );<br />
+<br />
+// for comparison only<br />
+Graph1=DEMA(C,Len);<br />
+</td></tr><TR bgcolor=#ccccff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2003-04-27 15:43:17</td><td valign="top">Note to the comment above:<br />
+EMA and DEMA use different initialization method. DEMA[ 0 ] is initialized with first value of input array, while EMA[ len ] is initialized with simple moving average to match output with Metastock.<br />
+Therefore they will converge at 2 * Len bars from Graph0 start ( 6 * Len bars since beginning of the data).<br />
+<br />
+</td></tr><TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2003-04-27 15:48:11</td><td valign="top">DEMA can also be implemented using new for looping:<br />
+<br />
+Len = 20;<br />
+Plot( DEMA( Close, Len ), &quot;Built-in DEMA&quot;, colorRed );<br />
+<br />
+factor = 2 / (Len + 1 );<br />
+<br />
+e1 = e2 = Close[ 0 ]; // initialize <br />
+<br />
+for( i = 0; i &lt; BarCount; i++ )<br />
+{<br />
+   e1 = factor * Close[ i ] + ( 1 - factor ) * e1;<br />
+   e2 = factor * e1 + ( 1 - factor ) * e2;<br />
+<br />
+   myDema[ i ] = 2 * e1 - e2;<br />
+}<br />
+<br />
+Plot( myDema, &quot;Dema in loop&quot;, colorBlue );</td></tr><TR bgcolor=#ccccff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2003-04-27 15:51:03</td><td valign="top">... and can be implemented using AMA:<br />
+<br />
+Len = 20;<br />
+Factor = 2/(Len+1);<br />
+<br />
+e1 = AMA( Close, Factor );<br />
+e2 = AMA( e1, Factor );<br />
+Plot( DEMA( Close, Len ), &quot;Built-in DEMA&quot;, colorRed );<br />
+Plot( 2*e1 - e2, &quot;AMA-implemened DEMA&quot;, colorBlue );</td></tr><TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2003-04-27 16:26:06</td><td valign="top">For more information on DEMA see:<br />
+Stocks &amp; Commodities V. 12:1 (11-19): Smoothing Data With Faster Moving Averages by Patrick G. Mulloy.</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>DEMA</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1064&hilite=DEMA' target='_blank'>AFL to Python COM Link</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=DEMA' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=816&hilite=DEMA' target='_blank'>Average Price Crossover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1264&hilite=DEMA' target='_blank'>babaloo chapora</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=919&hilite=DEMA' target='_blank'>DEBAJ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=295&hilite=DEMA' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=296&hilite=DEMA' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=796&hilite=DEMA' target='_blank'>Hull with DEMA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=DEMA' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=625&hilite=DEMA' target='_blank'>Lagging MA-Xover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1592&hilite=DEMA' target='_blank'>Linear Candle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=624&hilite=DEMA' target='_blank'>Moving Averages NoX</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=282&hilite=DEMA' target='_blank'>Support Resistance levels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=289&hilite=DEMA' target='_blank'>The D_oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=238&hilite=DEMA' target='_blank'>The Saturation Indicator D_sat</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=418&hilite=DEMA' target='_blank'>Trend Detection</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=DEMA">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

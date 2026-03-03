@@ -1,0 +1,124 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXSETCOORDSMODE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxSetCoordsMode</b><br>
+        - set low-level graphics co-ordinate mode</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxSetCoordsMode( mode ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function allows to switch co-ordinate system for low-level gfx functions:
+<ul>
+<li>mode = 0 - the default screen pixel mode, where both X and Y are expressed in pixels
+<li>mode = 1  - bar / price mode where X is expressed in bar index and Y is expressed in price.
+ This new mode allows way easier overlays on top of existing charts without need to do conversion between bars/price pixels
+ and without any extra refresh normally required in old versions when Y scale changed.
+<li>mode = 2 - X coordinate is pixel, Y coordinate is price (new in 6.20)
+<li>mode = 3 - X coordinate is bar index, Y is pixel (new in 6.20)
+</ul>
+<p>
+The function can be called to switch back and forth from pixel -> bar/price mode and vice versa a number of times
+ allowing to mix different modes in the same chart.
+
+When co-ordinate mode 1 is selected (bar/price), co-ordinates can be fractional. For example if x is 2.5 it means half way between bar 2 and 3. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#009300'>// The sample shows how using GfxSetCoordsMode( 1
+) <br>
+// results in <br>
+// a) easier coding of overlay charts that plot on top of built-in charts (no
+need to convert from bar/price to pixels) <br>
+// b) perfect matching between built-in Plot() and Gfx positioning <br>
+</font><font color='#0000ff'>Plot</font>( <b>C</b>, <font color='#666666'>&quot;Price&quot;</font>, <b>colorDefault</b>, <b>styleLine</b> ); <br>
+<font color='#0000ff'>GfxSetOverlayMode</font>( <font color='#a52a00'>1</font> ); <br>
+<font color='#0000ff'>GfxSetCoordsMode</font>( <font color='#a52a00'>1</font> ); <font color='#009300'>//
+bar/price mode (instead of pixel) <br>
+</font> <br>
+<font color='#0000ff'>GfxSelectSolidBrush</font>( <b>colorRed</b> ); <br>
+<font color='#0000ff'>GfxSelectPen</font>( <b>colorRed</b> ); <br>
+<br>
+boxheight = <font color='#a52a00'>0.01</font> * ( <font color='#0000ff'>HighestVisibleValue</font>( <b>C</b> )
+- <font color='#0000ff'>LowestVisibleValue</font>( <b>C</b> ) ); <br>
+<br>
+bi = <font color='#0000ff'>BarIndex</font>(); <br>
+<br>
+start = <font color='#0000ff'>FirstVisibleValue</font>( bi ); <br>
+end = <font color='#0000ff'>LastVisibleValue</font>( bi ); <br>
+<br>
+<font color='#8b0000'><b>for</b></font> ( i = start; i <= end; i++ ) <br>
+{ <br>
+     
+Cl = <b>Close</b>[ i ]; <br>
+     
+Op = <b>Open</b>[ i ]; <br>
+<br>
+     
+Color = <font color='#0000ff'>IIf</font>( Cl > Op, <b>colorGreen</b>, <b>colorRed</b> ); <br>
+     
+<font color='#0000ff'>GfxSelectPen</font>( Color ); <br>
+     
+<font color='#0000ff'>GfxSelectSolidBrush</font>( Color ); <br>
+<br>
+     
+bodyup = <font color='#0000ff'>Max</font>( Op, Cl ); <br>
+     
+bodydn = <font color='#0000ff'>Min</font>( Op, Cl ); <br>
+<br>
+     
+<font color='#0000ff'>GfxEllipse</font>( i - <font color='#a52a00'>0.4</font>,
+bodyup, i + <font color='#a52a00'>0.4</font>, bodydn ); <br>
+<br>
+     
+<font color='#0000ff'>GfxMoveTo</font>( i, <b>H</b>[ i ] ); <br>
+     
+<font color='#0000ff'>GfxLineTo</font>( i, bodyup ); <br>
+     
+<font color='#0000ff'>GfxMoveTo</font>( i, bodydn ); <br>
+     
+<font color='#0000ff'>GfxLineTo</font>( i, <b>L</b>[ i ] ); <br>
+}</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxSetCoordsMode</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GfxSetCoordsMode' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=GfxSetCoordsMode' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=GfxSetCoordsMode' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1475&hilite=GfxSetCoordsMode' target='_blank'>Multi-color Volume At Price (VAP)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=GfxSetCoordsMode' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=GfxSetCoordsMode' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=GfxSetCoordsMode' target='_blank'>White Theme</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxSetCoordsMode">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

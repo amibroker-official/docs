@@ -1,0 +1,80 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MXCOPY</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>MxCopy</b><br>
+        - copy rectangular block from one matrix to another</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Matrix functions<br>
+        </b>(AmiBroker 6.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>MxCopy( & dstmatrix, src_matrix, dst_start_row, dst_endrow, dst_start_col, dst_end_col, src_start_row = -1, src_end_row = -1, src_start_col = -1, src_end_col = -1 )   </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Copy rectangular block from one matrix to the other (copy portions of one matrix to the other matrix)
+<p>
+The function works in-place (ie. no allocation occurs - first argument is a reference to existing array and that array content would be overwritten)
+<p>
+Parameters:
+<ul>
+<li>dstmatrix - destination matrix (must be passed as reference using & operator)
+<li>src_matrix - source matrix
+<li>dst_start_row, dst_endrow - start and ending rows in the destination matrix
+<li>dst_start_col, dst_end_col - start and ending columns in the destination matrix
+<li>src_start_row, src_end_row - start and ending rows in the source matrix
+<li>src_start_col, src_end_col - start and ending columns in the destination matrix
+</ul>
+<p>
+src_start/src_end values equal to -1 mean &quot;same value as corresponding dst_start/dst_end value&quot;
+<p>
+As you noticed shape of source and destination &quot;rectangles&quot; does not need to be the same
+- for example you can copy vertical column into horizontal row, but the number of elements
+to be copied must be matching.
+So, to perform a copy the number of columns multiplied by number of rows in source and destination &quot;rectangles&quot; must be the same. In other words:
+<p>
+(dst_end_row-dst_start_row+1)*(dst_end_col-dst_start_col+1) == (src_end_row-src_start_row+1)*(src_end_col-src_start_col+1)
+<p> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>MxCopy</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=MxCopy">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

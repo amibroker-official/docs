@@ -1,0 +1,90 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - #INCLUDE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>#include</b><br>
+        - preprocessor include command</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>#include </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> nothing </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Includes external AFL files into your formula.
+      Note 1: include statement need SINGLE backslashes in the path (this is 
+        quite the opposite to normal AFL sting<br>
+        parsing)<br>
+        Note 2: using #include command may slow down formula execution even<br>
+        considering the fact that AmiBroker tries to include only once and cache 
+        pre-processed text<br>
+        Note 3: that currently no error message is given if #include fails and 
+        this code<br>
+        is experimental.<br>
+        Note 4: nesting #include commands is now supported (version 5.10 and above)
+<br>
+Note 5: by default files #included are cached by the AmiBroker. To turn off caching use<br>
+#pragma nocache<br>
+before any #include statements.
+
+
+#include now accepts new way of specifying file names to include:
+<p>
+#include &lt;filename.afl&gt;
+<p>
+(note &lt; &gt; braces instead of " " ) if you specify the file name this way AmiBroker will look for
+the file in "standard include path" that is definable using new prefs setting in Tools->Preferences->AFL
+It makes much shorter to write includes and you can move include folder now without changing all AFL codes using #includes.
+<p>
+For example if you have set standard include path to "C:&#92;AFL&#92;MyIncludes" and write in your formula:
+<p>
+#include &lt;common.afl&gt;
+<p>
+AmiBroker will look for C:&#92;AFL&#92;MyIncludes&#92;common.afl file
+<p>
+Also now #include reports file(s) not found in regular error message box.
+        </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> #include "C:&#92;Program Files&#92;AmiBroker&#92;AFL&#92;common.afl" </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="_pragma.html">#pragma()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>#include</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=%23include">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<html>
+<head>
+<title>Volume window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Formula Editor</h3>
+<DIV><FONT size=2>The new AFL Formula Editor features:</FONT></DIV>
+<DIV>
+  <ul>
+    <li> <a href="h_codeassistant.html">AI-based AFL Code Assistant</a> (new in 7.00)</li>
+    <li>Syntax highlighting (improved in 5.80)</li>
+    <li>Automatic brace matching/highlighting (NEW in 5.80)</li>
+    <li>Auto indentation (NEW in 5.80)</li>
+    <li>Indentation markers (NEW in 5.80)</li>
+    <li>Enhanced auto-complete in two modes (immediate (NEW in 5.80) and on-demand)</li>
+    <li>Parameter information tooltips</li>
+    <li>Line numbering margin and selection margin (NEW in 5.80)</li>
+    <li>Code folding (NEW in 5.80)</li>
+    <li>In-line Error Reporting (NEW in 5.80)</li>
+    <li>New tabbed user interface with ability to work in both MDI and separate
+      floating frame mode, can be moved behind main AmiBroker screen and brought
+      back (Window-&gt;Toggle Frame) (NEW in 5.80) or kept on top (Window-&gt;Keep
+      on top)</li>
+    <li>Rectangular block copy/paste/delete (Use mouse and hold down left <strong>Alt</strong> key
+      to mark rectangular block) (new in 5.80)</li>
+    <li>Auto capitalisation (change case)</li>
+    <li>Virtual space (new in 5.80)</li>
+    <li>Enhanced printing (with syntax highlighting and header/footer)</li>
+    <li><a href="h_snippets.html">Code snippets</a> (new in 5.80)</li>
+    <li><a href="h_debugger.html">Integrated Visual Debugger</a> (NEW in 6.10)</li>
+    <li>Bookmarks (NEW in 6.10)</li>
+    <li>Find-in-Files (NEW in 6.10)</li>
+    <li>Block comment/uncomment (NEW in 6.10)</li>
+    <li>Clickable links in comments (NEW in 6.10)</li>
+  </ul>
+</DIV>
+<DIV><FONT size=2></FONT></DIV>
+<DIV>
+  <p><FONT size=2>These features greatly simplify formula writing and provide
+      instant help, so the time needed to write formulas decreases significantly.</FONT></p>
+  <p><img src="gifs/w_afledit.gif" width="601" height="506"></p>
+  <p><strong>Menu</strong></p>
+  <p>Formula Editor menu options are described in detail in <a href="m_afledit.html">Menus:
+      Formula Editor</a> chapter of the guide.</p>
+  <p><strong>Toolbar</strong></p>
+  <p><img src="gifs/w_afledit_toolbar.gif" width="595" height="192"></p>
+  <p>The Formula Editor toolbar provides the following buttons:</p>
+  <ul>
+    <li><strong>New</strong> - clears the formula editor window</li>
+    <li><strong>Open</strong> - opens the formula file</li>
+    <li><strong>Save</strong> - saves the formula under current name</li>
+    <li><strong>Print</strong> - prints the formula</li>
+    <li><strong>Cut</strong> - cuts the selection and copies to the clipboard</li>
+    <li><strong>Copy</strong> - copies the selection to the clipboard</li>
+    <li><strong>Paste</strong> - pastes current clipboard content in the current cursor position</li>
+    <li><strong>Undo</strong> - undoes recent action (multiple-level)</li>
+    <li><strong>Redo</strong> - redoes recent action (multiple-level)</li>
+    <li><strong>Formula Name</strong> - an EDIT field that allows to modify the
+      formula file name, once you change the name here and press <strong>Save</strong> button,
+      the formula will be saved under a new name and the change will be reflected
+      in
+      editor caption
+      bar and in the status bar (The status bar shows the full path).</li>
+    <li><strong>Check syntax</strong> - checks current formula for errors</li>
+    <li><strong>Apply indicator </strong>- saves the formula and applies the current formula as a
+      chart/indicator once</li>
+    <li><strong>Analysis</strong> - saves the formula and selects it as the current formula
+      in Automatic Analysis window and repeats the most recently used analysis operation
+      (i.e., Scan, Exploration, Backtest, or Optimization)</li>
+  </ul>
+  <p><strong>Usage</strong></p>
+  <p>Typical use of Formula Editor is as follows:</p>
+</DIV>
+<ul>
+  <li>
+    <DIV>Open the Formula Editor</DIV>
+  </li>
+  <li>type the formula</li>
+  <li>type a meaningful name that describes the purpose of your code into <strong>Formula
+    Name</strong> field</li>
+  <li>click <strong>Apply indicator</strong> button (if you have written indicator
+    code) <br>
+    ...
+    or...<br>
+    click the <strong>Analysis </strong>button
+to display the Automatic Analysis window (if you have written an exploration/scan
+    or trading system)</li>
+</ul>
+<DIV></DIV>
+<DIV>
+  <p><strong>AFL Code Assistant</strong></p>
+  <p>Version 7.00 brings a new AI-based code assistant that can write code for
+    you from a single sentence, fix errors for you, and explain code written by
+    others. Detailed explanation of <a href="h_codeassistant.html">AFL Code Assistant
+    functionality is given here</a>.</p>
+  <p><b>Syntax highlighting</b></p>
+  <p><FONT size=2>AmiBroker's AFL editor features user-definable syntax highlighting
+      that automatically applies user-defined colors and styles to different
+      language elements like functions and reserved variable names, strings,
+      numbers, comments, etc. This feature greatly simplifies code writing. You
+      can modify the coloring scheme in <a href="w_preferences.html">Preferences
+      window</a>.</FONT></p>
+  <p><strong>Enhanced error reporting</strong></p>
+  <p>When you make an error in your formula, AmiBroker's enhanced
+      error reporting will help you to locate and fix it by highlighting
+    the place where the error occurred and displaying an extended error description with
+      examples of common mistakes and advice on how to fix them. In version
+    5.80, descriptions of errors are displayed in-line with the code.</p>
+  <p>A message bar displays the total number of errors and/or warnings. If you press
+    &quot;<strong>Go to error</strong>&quot; button, the editor will move the caret
+    to the relevant line containing the error; if you press it again, it will move
+    to the next error and so on. If you close the message bar with the &quot;X&quot; button,
+    all error messages will be cleared (hidden) from the view. You can use<strong> Edit-&gt;Clear
+    Error Message</strong> menu (<strong>Ctrl+E</strong>) to clear an individual error message (in
+    the current line).</p>
+  <p> <img src="gifs/w_afl4.gif" width="790" height="565"></p>
+  <p><b>Context &nbsp;help</b></p>
+</DIV>
+<DIV>
+  <p>You can quickly display the relevant AFL function reference page if you press
+    <b>F1</b> key or choose &quot;Function reference&quot; from the context menu while
+    the caret is inside or right after a function name, as shown in the picture
+    below:</p>
+  <p><img src="gifs/w_afl3.gif" width="790" height="565"></p>
+  <p><FONT size=2><STRONG>Automatic statement completion</STRONG></FONT></p>
+</DIV>
+<DIV><STRONG><FONT size=2></FONT></STRONG>&nbsp;</DIV>
+<DIV>The automatic completion feature&nbsp;(available when you press <STRONG>CTRL+SPACE</STRONG> key
+  combination) finishes typing your functions and reserved variables for you,
+  or displays a list of candidates if what you've typed has more than one possible
+  match. You can select the item from the list using up/down arrow keys or your
+  mouse. To accept the selection, press RETURN (ENTER). You can also immediately
+  type a space (for variables)&nbsp;or an opening brace (for a function), and AmiBroker will
+  auto-complete the currently selected word and close the list. To dismiss the list,
+  press the ESC key.</DIV>
+<DIV><FONT size=2></FONT>&nbsp;</DIV>
+<DIV><FONT size=2><IMG 
+src="gifs/w_afl1.gif" alt="" width="653" height="427" hspace=0 
+border=0 align=baseline></FONT></DIV>
+<DIV><FONT size=2></FONT>&nbsp;</DIV>
+<DIV><FONT size=2><STRONG></STRONG></FONT>&nbsp;</DIV>
+<DIV><FONT size=2><STRONG>Parameter Information</STRONG></FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>When you are typing a function, you can display a Tool Tip containing the
+  complete function prototype, including parameters.&nbsp; The <B>Parameter Info</B> Tool
+  Tip is also displayed for nested functions.</DIV>
+<DIV>
+  <P>With your insertion point next to a&nbsp;function, type an open parenthesis
+    as you normally would to enclose the parameter list. </P>
+  <P class=tl>AmiBroker&nbsp;displays the complete declaration for the function
+    in a pop-up window just under the insertion point. </P>
+  <P class=tl>Typing the closing parenthesis&nbsp;dismisses the parameter list.</P>
+  <P class=tl>You can also dismiss the list if you&nbsp;press an arrow up/down key,
+    click with the&nbsp;mouse, or press RETURN. </P>
+  <P class=tl><img src="gifs/w_afl2.gif" width="508" height="335"></P>
+</DIV>
+<p><strong>Editor configuration</strong></p>
+<p>The settings of the AFL editor can be changed using <strong>Tools-&gt;Preferences</strong>,
+  <strong>Editor</strong> page:</p>
+<p><img src="gifs/w_prefs_editor.gif" width="459" height="502"></p>
+<ul>
+  <li>Auto change case - controls whether the editor automatically changes the case
+    of reserved keywords (for example, if a user typed valuewhen, it changes
+    it to ValueWhen)</li>
+  <li>Parameter info - controls whether parameter info tips are displayed</li>
+  <li>Virtual space - controls whether it is possible to place the caret freely
+    at any place after the end of a line</li>
+  <li>Move edited files from drag-drop to custom folder - normally, formulas created
+    by the drag-drop mechanism are located in the hidden drag-drop folder; if you then
+    want to edit them, you can do so in place, so they remain in the drag-drop (hidden)
+    folder, or you may choose to move them automatically to the 'custom' folder.
+     This switch enables the automatic move to the custom folder</li>
+  <li>Copy as HTML - enables copying in HTML format so AFL code is copied with
+    colors; without it, it will be copied as plain text without formatting</li>
+  <li>Use separate frame - If turned on, it displays the AFL Editor in a completely
+    separate frame that behaves like a separate application; if it is turned off,
+    the AFL editor is displayed as an MDI tab within the main AmiBroker frame (along
+    with charts, analysis windows, web, account windows, and so on). By default,
+    it is turned on</li>
+  <li>Auto-complete: In &quot;On-demand&quot; mode, the auto-complete list shows up only when
+    you press <strong>Ctrl+SPACE</strong>; in &quot;Immediate&quot; mode, the auto-complete
+    list pops up automatically as soon as you type the first character (letter) of
+    the identifier.</li>
+</ul>
+<p><strong>Window control</strong></p>
+<p><img src="gifs/w_afl5.gif" width="526" height="235"></p>
+<p>The AFL Editor window, as a separate frame, can be brought to the top or to the back
+  as any other application window using the Windows Taskbar. In addition to that,
+  there
+   is a <strong>Window-&gt;Toggle Frame</strong> menu (and <strong>Ctrl+`</strong> shortcut (`
+   is the tilde key just above the TAB key on most keyboards)
+   that allows to quickly toggle between the AmiBroker main frame and the AFL editor
+   frame. </p>
+<p>The user may also turn on the <strong>Window-&gt;Keep On Top </strong> feature
+  that keeps the editor window on top of the AmiBroker main frame.</p>
+<p><strong>Margins</strong></p>
+<p><img src="gifs/w_afl6.gif" width="485" height="245"></p>
+<p>The <strong>Line Numbers margin</strong>, <strong>Selection margin</strong>, and
+  <strong>Fold margin</strong> can be switched on/off using the <strong>View</strong>  menu.
+  In this menu, there are also options to fold/unfold all code.</p>
+<p><strong>Code snippets</strong></p>
+<p>A code snippet is a small piece of AFL code. It can be inserted by:</p>
+<ul>
+  <li>right-clicking in the AFL editor window and choosing the &quot;Insert Snippet&quot; menu option,
+    or </li>
+  <li>dragging a snippet from <a href="h_snippets.html">Code Snippets</a> window, or </li>
+  <li>typing a keyboard trigger (such as @for ) in the editor</li>
+</ul>
+<p><img src="gifs/codesnip.gif" width="596" height="420"></p>
+<p>For more information about code snippets, see <a href="h_snippets.html">Tutorial: Using Code Snippets</a></p>
+<p><strong>Bookmarks</strong></p>
+<p>A bookmark is a marker that allows you to quickly jump to a marked line within the
+  formula. <br>
+  <br>
+  To set/remove the bookmark, use <strong>Edit-&gt;Bookmark-&gt;Insert /Remove</strong> menu
+  option or the <strong>Ctrl+F2</strong> key. When you set the bookmark, a light blue marker
+  will be shown in the left-hand margin. Now, with a couple of bookmarks set, you
+  can quickly navigate (jump) between them using the <strong>F2 </strong>key (goes
+  to the next bookmark), or the <strong>Shift+F2 key </strong> (goes to the previous bookmark).
+  You can clear all bookmarks using <strong>Edit-&gt;Bookmark-&gt;Clear All.</strong> Please
+  note that bookmarks are saved along with debug information (breakpoints/watches)
+  in a separate file with a .dbg extension.</p>
+<p><strong>Find in Files</strong></p>
+<p>Find in Files functionality is available from the <strong>Edit-&gt;Find in Files</strong> menu
+  and allows you to search all files in selected folders for specified
+  text. The search results are presented in the Output window (the <strong>Window-&gt;Output</strong>  menu)
+  like this:</p>
+<p><code>Filepath\Filename.afl(line_number): Line contents</code></p>
+<p>Now, if you double-click on that output line, AmiBroker would automatically
+  open the given file in the new editor tab.</p>
+<p><strong>Block comment/uncomment</strong></p>
+<p>The AFL editor now provides a tool to automatically comment out blocks of
+  selected lines. The tool adds a // (double slash) comment to every line within
+  the selected area. To use this tool, select some lines using the mouse or the cursor +
+  SHIFT key, then use the <strong>Edit-&gt;Line Comment</strong> option. All lines within
+  the selected range will be commented out with // (double slash). To uncomment,
+  select the range again and choose the <strong>Edit-&gt;Line Comment</strong> option once again.</p>
+<p><strong>Clickable links in comments</strong></p>
+<p>The AFL Editor now supports clickable JavaDoc/Doxygen-style links in doc comments.
+   To use links in comments, you have to put an @link command followed by the path to
+a file or URL inside a JavaDoc/Doxygen-style comment:</p>
+<ul>
+  <li> multiline comment that
+      begins with /** like this:<br>
+      <code><br>
+      /**<br>
+    @link readme.html<br>
+    @link http://www.amibroker.com<br>
+    */<br>
+      </code><br>
+    (note double asterisk after initial slash)<br>
+  </li>
+  <li>single-line comment that begins
+        with triple slash<br>
+        <br>
+        <code>/// @link readme.html<br>
+    /// @link c:\program files\amibroker\readme.html<br>
+    /// @link http://www.amibroker.com</code></li>
+</ul>
+<p>Now, when you hover the mouse over an @link command, you will see an underline
+  that indicates it is clickable. It reacts to a double-click (not a single click).
+  When you double-click it, the linked document will open.</p>
+<p>An @link command can open web pages, local files (both relative and absolute
+  paths are supported) with a Windows-registered program to open the given file type.
+  So if you use:<br>
+  <br>
+  <code>/// @link something.doc</code></p>
+<p>then MS Word would be used.</p>
+<p><code>/// @link test.xls</code></p>
+<p>would open test.xls in Excel.</p>
+<p>Relative paths refer to the AmiBroker working directory.
+  HTML files are opened with the default browser; TXT files are usually opened with Notepad
+    (or whatever application you use). If a file does not exist, then you will get
+  an error message.</p>
+</body>
+</html>

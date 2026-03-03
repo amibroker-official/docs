@@ -1,0 +1,71 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ADDRANKCOLUMN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>AddRankColumn</b><br>
+        - add ranking column(s) according to current sort set by SetSortColumns</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 7.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>AddRankColumn() </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function adds ranking column(s) according to current sort set by SetSortColumns to exploration result list.
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;Close&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;BI&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddSummaryRows</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>31</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#800080>32</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1.5</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>AddRankColumn</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+without prior sorting AddRankColumn just adds line number</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetSortColumns</FONT><FONT COLOR=#000000>( -</FONT><FONT COLOR=#800080>4</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddRankColumn</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+rank according to 4th column (descending)</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetSortColumns</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddRankColumn</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+rank according to 3rd column (ascending)</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="setsortcolumns.html">SetSortColumns()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>AddRankColumn</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=AddRankColumn">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

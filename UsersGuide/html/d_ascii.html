@@ -1,0 +1,1705 @@
+<html>
+<head>
+<title>Import from ASCII file</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>Import ASCII</h2>
+<p>AmiBroker has an easy-to-use and flexible quotation import feature. This document 
+  describes advanced concepts of the AmiBroker ASCII importer. Novice users should 
+  start with the <a href="w_impwizard.html">ASCII Import Wizard</a>.</p>
+<h3>How does it work?</h3>
+<p>Quotation data may come from various sources, so the format of the ASCII (i.e., 
+  text-based) file may be much different from one source to another. To handle 
+  all these differences, AmiBroker uses format definition commands that define 
+  the way text information is interpreted by the ASCII importer. The format 
+  definition commands are keywords that begin with a dollar sign ('$'). These commands 
+  may be embedded in the data file itself or may be stored in a separate format 
+  definition file for multiple use. Storing format definition commands in a separate 
+  file avoids the need to include the commands in every data file. The default 
+  format definition file name is &quot;default.format&quot;. This file, all other 
+  &quot;.format&quot; files, and the &quot;import.types&quot; file (described later) 
+  should be stored in the <b>\Formats</b> subdirectory of AmiBroker's current working 
+  directory. The defaults are overridden by any commands included (embedded) in 
+  the data file itself.</p>
+<p>So, when you use the &quot;Import from ASCII&quot; menu, AmiBroker first looks 
+  for the format definition stored in the &quot;default.format&quot; file and then 
+  parses the file you have chosen. If there is no &quot;default.format&quot; file, 
+  then it uses internal defaults (described below). </p>
+<p>You can modify the &quot;default.format&quot; file to suit your needs. Moreover, 
+  using OLE Automation (Win32 version) or ARexx (Amiga) interface, you can specify 
+  the name of the format definition file which will be used instead of the &quot;default.format&quot; 
+  file.</p>
+<h3>Format definition commands</h3>
+<p>The command keywords begin with a dollar sign ('$'). Every line starting with 
+  a command is interpreted in a special way. Here is the list of commands recognized 
+  by AmiBroker's built-in importer. Bold letters mark keywords.</p>
+<blockquote> 
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$ADDRESS</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define company address</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;string&gt;</td>
+      <td bgcolor="#FFFFFF">address of company</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$ADDRESS &quot;One Microsoft
+          Way&quot;</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$AUTOADD</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Switch new ticker add mode.</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">0 - do not add; 1 - add a new stock when a non-existing 
+        ticker is detected (default = 0).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$AUTOADD 1</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$ALLOWNEG</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Allow negative numbers in 
+        prices </td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF"><p>0 - do not allow negative values (default); 1 - allow
+           negative values in prices. This additionally switches off any checking
+        for OHLC relationships, so you can import any data into OHLC fields.</p>
+        <p>When $ALLOWNEG is NOT specified in the ASCII importer definition, AmiBroker
+          performs the following range checking and fixup on open, low, and high
+          prices:<br>
+if( open == 0 ) open = close;<br>
+if( high &lt; max( open, close ) ) high = max( open, close );<br>
+if( low == 0 ) low = min( open, close )</p></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$ALLOWNEG 1</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>$ALLOW99SECONDS</b> </td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Convert invalid second stamp.</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;onoff&gt;</td>
+      <td bgcolor="#FFFFFF"><p>This flag works ONLY in conjunction with $TICKMODE
+          1 (see below for details).</p>
+        <p>$ALLOW99SECONDS set to 1 will convert all records
+          with invalid seconds (i.e., greater than 59) to 59s. 
+          So a record stamped 16:29:70 will be treated as 16:29:59.<br>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong><b>$ALLOW99SECONDS</b> 1</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$APPENDNAME</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">append string to the ticker name (useful 
+        when you need to join several fields together to make a unique stock symbol) 
+      </td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;string&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">string to append to the ticker symbol</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF"><strong>$APPENDTICKER</strong></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$BREAKONERR</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define on-error behavior.</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">0 - to continue; 1 - to break import on error (default=0).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$BREAKONERR 1</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$CONT</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define continuous quotations 
+        flag</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">&lt;0 or 1&gt; - continuous quotations flag. This affects $AUTOADD 1 mode - if this is set, newly added stocks are switched 
+        to continuous quotation mode (this means enabling candlestick charts, for 
+        example).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$CONT 1</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$CURRENCY</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define symbol's currency</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;string&gt;</td>
+      <td bgcolor="#FFFFFF">Defines the currency of the symbol.</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><p><strong> $CURRENCY EUR</strong></p>
+      <p>or</p>
+      <p><b>$FORMAT NAME, CURRENCY<br>
+        $OVERWRITE 1<br>
+        $AUTOADD 1
+        </b><br>
+      </p></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$DATE_DMY</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define date</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">The date in Canadian format (DD-MM-YY). If there is 
+        no argument given, the date is taken from the file name (without an extension).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF"><strong>$DATE_CDN</strong></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$DATE_DMY 12-05-99<br>
+        $DATE_CDN 12-05-1999</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$DATE_MDY</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define date</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">The date in US format (MM-DD-YY). If there is no argument 
+        given, the date is taken from the file name (without an extension).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF"><strong>$DATE_USA</strong></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$DATE_MDY 05/12/99<br>
+        $DATE_USA 05/12/99</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$DATE_YMD</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define date</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">The date in International format (YY-MM-DD). If there 
+        is no argument given, the date is taken from the file name (without an 
+        extension).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF"><strong>$DATE_INT</strong></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$DATE_INT 99-05-12<br>
+        $DATE_CDN 1999.05.12</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$DEBUG</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Switch logging (debug) mode</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">0 - no error logging; 1 - log errors to &quot;import.log&quot; 
+        file (default=0).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$DEBUG 1</strong></td>
+    </tr>
+  </table>
+  <br>
+  <br>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$FORMAT</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define line format (sequence 
+        and types of fields)</td>
+    </tr>
+    <tr> 
+      <td valign="top" rowspan="22"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>DATE_MDY</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">date in US format: MM-DD-YY 
+        (alias: <strong>DATE_USA</strong>)</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>DATE_DMY</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">date in Canadian format: 
+        DD-MM-YY (alias: <strong>DATE_CDN</strong>)</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>DATE_YMD</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">date in International format: 
+        YY-MM-DD (alias: <strong>DATE_INT</strong>)</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>TIME</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">time in HH:MM:SS or HH:MM 
+        or HHMM or HHMMSS format</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>NAME</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">ticker name (alias: <strong>TICKER</strong>)</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>ALIAS</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">symbol alias ($AUTOADD and 
+        $OVERWRITE modes only)</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>FULLNAME</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">symbol full name ($AUTOADD 
+        and $OVERWRITE modes only)</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>OPEN</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">open price</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>HIGH</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">high price</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>LOW</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">low price</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>CLOSE</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">close price</td>
+    </tr>
+    <tr>
+      <td valign="top" bgcolor="#FFFFFF"><strong>ADJCLOSE</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">split-adjusted close<br>        <br>
+        This is provided to read the adjusted close column from Yahoo. Works <strong>only</strong> in
+        conjunction with the CLOSE field. When both CLOSE and ADJCLOSE are present
+        in the ASCII
+        format
+        definition, the importer calculates the split factor by dividing ADJCLOSE by CLOSE.
+        It then multiplies OPEN, HIGH, LOW, and CLOSE fields by this factor and
+        divides the VOLUME field by this factor. This effectively converts unadjusted
+        prices to split-adjusted prices. The split ratio gets locked once ADJCLOSE
+      drops below 0.05.</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>OPENINT</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">open interest</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>VOLUME</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">volume</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>VOL1000</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">volume in thousands of shares</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>VOLMIL</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">volume in millions of shares</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>VOLFACTOR</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">volume factor (number of 
+        shares in a block) (default = 1)</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>TURNOVER</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">turnover</td>
+    </tr>
+    <tr>
+      <td valign="top" bgcolor="#FFFFFF"><strong>AUX1</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">AUX1 field (auxiliary data)</td>
+    </tr>
+    <tr>
+      <td valign="top" bgcolor="#FFFFFF"><strong>AUX2</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">AUX2 field (auxiliary data)</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>SKIP</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">skip (ignore) field</td>
+    </tr>
+    <tr> 
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>MARKET</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">specify a field that contains 
+        market ID (affects $AUTOADD and $OVERWRITE modes only)</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>GROUP</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF"> specify a field that contains 
+        group ID (affects $AUTOADD and $OVERWRITE modes only)</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>WATCHLIST</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF"> specify a field that contains 
+        watch list number (0-31) (affects $AUTOADD and $OVERWRITE modes only)</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>INFO</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">specify a field with additional 
+        information (WSE specific: nk, ns, rk, rs, ok, os, zd, bd).</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>REDUCTION</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">specify a field with reduction 
+        rate in percentages (WSE specific)</td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top" bgcolor="#FFFFFF"><strong>ICB</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">(new in 5.60)<br>
+        <p>Specify ICB code.</p>
+        <p>For example, if your file looks as follows:<br>
+  (format is symbol, full name, ICB code)<br>
+  AAN,AARON'S INC,5375</p>
+        <p>Then to import it using AmiBroker's import wizard, use the following:<br>
+  $FORMAT Ticker,FullName,ICB<br>
+  $OVERWRITE 1<br>
+  $SEPARATOR ,<br>
+  $CONT 1<br>
+  $GROUP 255<br>
+  $AUTOADD 1<br>
+  $NOQUOTES 1</p></td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top" bgcolor="#FFFFFF"><strong>GICS</strong></td>
+      <td valign="top" bgcolor="#FFFFFF"><p>Specify GICS code.</p>
+        <p>For example, if your file looks as follows:<br>
+  (format is symbol, full name, GICS sub-industry code)<br>
+  AAN,AARON'S INC,25504060</p>
+        <p>Then to import it using AmiBroker's import wizard, use the following:<br>
+  $FORMAT Ticker,FullName,GICS<br>
+  $OVERWRITE 1<br>
+  $SEPARATOR ,<br>
+  $CONT 1<br>
+  $GROUP 255<br>
+  $AUTOADD 1<br>
+  $NOQUOTES 1</p></td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>INDUSTRY</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">specify a field that contains 
+        industry ID (affects $AUTOADD and $OVERWRITE modes only)</td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top" bgcolor="#FFFFFF"><strong>INDUSTRYNAME</strong></td>
+      <td valign="top" bgcolor="#FFFFFF"><p>(new in 5.60) Specifies a field that
+        contains the Industry Name. AmiBroker will check if a given industry name already
+          exists and, if not, it will create a new Industry and assign the imported
+          stock
+          to the industry specified. Also, if  SECTORNAME is specified, it will
+          assign the newly added industry to the specified sector.</p>
+        <p> (affects $AUTOADD and $OVERWRITE modes only)</p></td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top" bgcolor="#FFFFFF"><strong>SECTORNAME</strong></td>
+      <td valign="top" bgcolor="#FFFFFF"><p>(new in 5.60) Specifies a field that
+          contains the Sector Name. AmiBroker will check if a given sector name already
+          exists and, if not, it will create a new Sector. Also, if INDUSTRYNAME
+          is specified, it will assign the newly added industry to the specified sector.</p>
+        <p> (affects $AUTOADD and $OVERWRITE modes only)</p></td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>APPENDTICKER</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">specify a field that contains 
+        a string that should be appended to the ticker name (useful when you need 
+        to join several fields together to make a unique symbol).</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>MARGIN</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">future contract margin deposit 
+        (positive value = dollars; negative value = percent of full value)</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>POINTVALUE</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">future contract point value</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>ROUNDLOTSIZE</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">round lot size (trading unit 
+        size)</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>TICKSIZE</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">tick size</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>ADVISSUES</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">number of advancing issues 
+      </td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>ADVVOLUME</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">volume of advancing issues</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>DECISSUES</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">number of declining issues</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>DECVOLUME</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">volume of declining issues</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>UNCISSUES</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">number of unchanged issues</td>
+    </tr>
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><b>UNCVOLUME</b></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">volume of unchanged issues</td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top" bgcolor="#FFFFFF"><b>ADDRESS</b></td>
+      <td valign="top" bgcolor="#FFFFFF">street address of company</td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top" bgcolor="#FFFFFF"><b>CURRENCY</b></td>
+      <td valign="top" bgcolor="#FFFFFF">specifies the currency of the symbol.</td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top" bgcolor="#FFFFFF"><strong>WEBID</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">specifies the web ID.</td>
+    </tr>
+    <tr>
+      <td valign="top">&nbsp;</td>
+      <td valign="top" bgcolor="#FFFFFF"><b>DIV_PAY_DATE</b><br>
+        <b>EX_DIV_DATE</b><br>
+        <b>LAST_SPLIT_DATE</b><br>
+        <b>LAST_SPLIT_RATIO<br>
+EPS<br>
+EPS_EST_CUR_YEAR <br>
+EPS_EST_NEXT_YEAR <br>
+EPS_EST_NEXT_QTR <br>
+FORWARD_EPS <br>
+PEG_RATIO <br>
+BOOK_VALUE</b> (requires <b>SHARES_OUT</b> to be specified as well)<br>
+<b>BOOK_VALUE_PER_SHARE <br>
+EBITDA <br>
+PRICE_TO_SALES</b> (requires <b>CLOSE</b> to be specified as well)<br>
+<b>PRICE_TO_EARNINGS</b> (requires <b>CLOSE</b> to be specified as well)<br>
+<b>PRICE_TO_BV</b> (requires <b>CLOSE</b> to be specified as well)<br>
+<b>FORWARD_PE</b> (requires <b>CLOSE</b> to be specified as well)<br>
+<b>REVENUE</b> <br>
+<b>SHARES_SHORT</b> <br>
+<b>DIVIDEND</b> <br>
+<b>ONE_YEAR_TARGET</b> <br>
+<b>MARKET_CAP</b> (requires <b>CLOSE</b> to be specified as well - it is used to calculate
+shares outstanding)<br>
+<b>SHARES_FLOAT</b> <br>
+<b>SHARES_OUT</b> <br>
+<b>PROFIT_MARGIN</b> <br>
+<b>OPERATING_MARGIN</b> <br>
+<b>RETURN_ON_ASSETS</b> <br>
+<b>RETURN_ON_EQUITY</b> <br>
+<b>QTRLY_REVENUE_GROWTH</b> <br>
+<b>GROSS_PROFIT</b> <br>
+<b>QTRLY_EARNINGS_GROWTH</b> <br>
+<b>INSIDER_HOLD_PERCENT</b> <br>
+<b>INSTIT_HOLD_PERCENT</b> <br>
+<b>SHARES_SHORT_PREV</b> <br>
+<b>FORWARD_DIV</b> <br>
+<b>OPERATING_CASH_FLOW</b> <br>
+<b>FREE_CASH_FLOW</b> <br>
+<b>BETA</b> </td>
+      <td valign="top" bgcolor="#FFFFFF">fundamental data fields. For more info,
+        read <a href="h_fundamental.html">Using Fundamental Data</a></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="20%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" width="20%"
+            bgcolor="#FFFFFF"><strong>$FORMAT TICKER DATE_MDY OPEN HIGH LOW CLOSE 
+        VOLUME<br>
+        $FORMAT TICKER, DATE_INT, CLOSE, VOLUME<br>
+        $FORMAT SKIP, TICKER, SKIP, SKIP, DATE_INT, OPEN, HIGH, LOW, CLOSE, TURNOVER</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$FULLNAME</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Define full symbol name</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;string&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">full symbol name</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$FULLNAME Apple Computer 
+        Inc.<br>
+        </strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$GICS</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Define GICS code (Global Industry Category
+        System)</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">This affects $AUTOADD 1 and $OVERWRITE
+        1 modes. If this is specified, symbols are assigned to a given
+        GICS category.</td>
+    </tr>
+    <tr>
+      <td valign="top" height="22"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF" height="22">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF">Now you can import GICS
+        symbol-code assignments using the ASCII importer.<br>
+$FORMAT command now supports the GICS code <br>
+and there is $GICS command for single-symbol files.
+<p>For example, if your file looks as follows:<br>
+  (format is symbol, full name, GICS sub-industry code)<br>
+  AAN,AARON'S INC,25504060</p>
+<p>Then to import it using AmiBroker's import wizard, use the following:<br>
+  $FORMAT Ticker,FullName,GICS<br>
+  $OVERWRITE 1<br>
+  $SEPARATOR ,<br>
+  $CONT 1<br>
+  $GROUP 255<br>
+  $AUTOADD 1<br>
+  $NOQUOTES 1</p></td>
+    </tr>
+</table>
+  <br>
+  <br>
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">  
+  </table>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$GROUP</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Define group ID</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">This affects $AUTOADD 1 mode. If this 
+        is specified, newly added symbols are assigned to a group with a given number. 
+      </td>
+    </tr>
+    <tr> 
+      <td valign="top" height="22"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF" height="22">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$HYBRID</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Switch hybrid mode on/off</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">0 (off) or 1 (on). When this flag is set, 
+        you can combine quotations from multiple files—for example, one file can contain only open prices and volume, and the other file can contain 
+        high/low/close data. This is especially useful for the Warsaw Stock Exchange for combining 
+        data from fixing and later continuous quotations.</td>
+    </tr>
+    <tr> 
+      <td valign="top" height="22"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF" height="22">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$INDUSTRY</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Define industry ID</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">This affects $AUTOADD 1 mode. If this 
+        is specified, newly added symbols are assigned to an industry with a given number. 
+      </td>
+    </tr>
+    <tr> 
+      <td valign="top" height="22"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF" height="22">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$MARKET</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Define market ID</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">This affects $AUTOADD 1 mode. If this 
+        is specified, newly added symbols are assigned to a market with a given number. 
+      </td>
+    </tr>
+    <tr> 
+      <td valign="top" height="22"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF" height="22">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$NAME</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Define ticker name</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;ticker&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">ticker name (symbol) (default = file name 
+        without path and extension)</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF"><strong>$TICKER</strong></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$NAME AAPL<br>
+        $TICKER MSFT</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$NOQUOTES</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Switch quotation data mode</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">0 - (default) accept only quotation data 
+        (AmiBroker checks for non-zero prices and valid dates).<br>
+        1 - switch off quotation data checking; this allows importing non-quotation 
+        data—for example, only ticker and full names.</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF"><strong>$TICKER</strong></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$NAME AAPL<br>
+        $TICKER MSFT</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$OVERWRITE</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Switch overwrite mode on/off</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">0 - off; 1 - on. When overwrite mode is on, information 
+        provided by GROUP, MARKET, INDUSTRY, or FULLNAME fields is overwritten for 
+        existing symbols (not only for newly added).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$OVERWRITE 1 </strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$PRICEFACTOR</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define price factor</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">the factor by which price data are multiplied (default 
+        = 1).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$PRICEFACTOR 100 
+        </strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$RAWCLOSE2OI</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Put Raw Close price into the OI
+        field.</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">0 - off; 1 - on (off by default). This causes the OpenInterest
+      field to be assigned the CLOSE (raw close) field value multiplied by 100.</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$RAWCLOSE2OI 1</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$RECALCSPLITS</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Recalculate splits</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">0 - off; 1 - on (off by default). This causes splits
+        to be recalculated by AmiBroker<br>
+by an algorithm that tries to construct a correct adjusted price, based on inaccurate
+information provided by Yahoo.<br>
+Note that Yahoo provides only 2 decimal digits in the adj. close field; therefore,
+the more the adjusted close approaches zero due to adjustments, the error grows.
+The option $RECALCSPLITS 1 is intended to address this problem (at least partially).<br>
+It works as follows:<br>
+1. For each bar, the ratio ADJCLOSE/CLOSE is calculated.<br>
+2. If the ratio changes in two consecutive bars by more than 10%, it means that
+a split happened in that bar.<br>
+3. Then, the true split ratio is guessed by matching a true fraction
+in the format of X/Y, where X and Y = 1..9, to the change in ratios.<br>
+3. Then the true split ratio is used to adjust all past bars until a new split is detected.<br>
+<br>
+Works only in conjunction with ADJCLOSE</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$RECALCSPLITS 1</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$RECALCVOL</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Switch automatic index volume 
+        recalculation</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">0 - off; 1 - on (base index only); 2 - on (all indexes). 
+        When this is on, AmiBroker calculates volumes for indexes based on assignments 
+        to markets and base indexes defined in the Categories window.</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$RECALCVOL 2</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$RECALCAD</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Switch automatic advance/decline 
+        composite recalculation</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF"><p>0 - off; 1 - on. When this is on, AmiBroker calculates 
+          numbers and volumes of issues advancing, declining, and unchanged based 
+        on assignments to markets and base indexes defined in the Categories window.</p>
+        <p>&nbsp;</p></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$RECALCVOL 2</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$ROUNDADJ</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Round split-adjusted prices
+        to a given number of decimal digits.</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;decimaldigits&gt;</td>
+      <td bgcolor="#FFFFFF"><p><em>decimaldigits</em> - causes split-adjusted prices
+          (see above) to be rounded to 'decimaldigits' precision. By default, no
+      rounding is done.</p>
+      <p>Works only in conjunction with ADJCLOSE</p></td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$ROUNDADJ 2</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$SEPARATOR</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define field separator character</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;separator char&gt;</td>
+      <td bgcolor="#FFFFFF">the character used to separate data fields (default 
+        = space)</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$SEPARATOR ,<br>
+        $SEPARATOR ;</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$SKIPLINES</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define how many lines to 
+        skip (ignore)</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">number of lines to skip (default = 0).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$SKIPLINES 1</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$STRICT</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Switches on/off strict checking
+        of whether Open, High, Low prices are greater than zero.</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;onoff&gt;</td>
+      <td bgcolor="#FFFFFF">(default = 0)</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$STRICT 1</strong></td>
+    </tr>
+  </table>
+  <br>
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$TICKMODE</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Switches on/off tick mode<br>
+      <br>
+      $TICKMODE is a special mode of the importer that allows importing quotes that
+      have duplicate timestamps.
+      <p>It makes two assumptions:<br>
+        a) input data should come in ascending time order (i.e., OLDER records
+          first, LATEST records last).<br>
+        b) input data should consist of the entire tick history because the importer
+        will DELETE any existing quotes (to avoid creating multiple copies of
+        the same ticks).</p>
+      <p>Once again: Turning on <br>
+        $TICKMODE 1<br>
+        will DELETE ANY QUOTES that already exist in the database and then will
+        import all ticks from the input data file.<br>
+        You have been warned.</p>
+      <p><br>
+        For example, data files like this:</p>
+      <p>MOL,0,20050606,162959,16400.0000,16400.0000,16400.0000,16400.0000,2MOL,0,20050606,162959,16400.0000,16400.0000,16400.0000,16400.0000,11MOL,0,20050606,162959,16400.0000,16400.0000,16400.0000,16400.0000,40</p>
+      <p><br>
+        Can be imported using the following definition file:</p>
+      <p><br>
+        $FORMAT Ticker, Skip, Date_YMD, Time, Open, High, Low, Close, Volume<br>
+        $SKIPLINES 1<br>
+        $SEPARATOR ,<br>
+        $CONT 1<br>
+        $GROUP 255<br>
+        $AUTOADD 1<br>
+        $DEBUG 1<br>
+        $TICKMODE 1</p>
+      <p><br>
+        Sometimes it happens that input files have invalid timestamps (seconds &gt; 59).</p>
+      <p>For example:</p>
+      <p>MOL,0,20050606,162970,16400.0000,16400.0000,16400.0000,16400.0000,2</p>
+      <p>Please take a closer look at the first line shown in this example; it has
+        time:16:29:70 (you see 70 seconds!).</p>
+      <p>So I had to add a special flag to the importer that works around such
+        data errors.</p>
+      <p>It is called $ALLOW99SECONDS 1 and will convert all records with invalid
+        seconds (i.e., greater than 59) to 59s. <br>
+        So a record stamped 16:29:70 will be treated as 16:29:59.</p>
+      <p>Now, for tick mode to work with such incorrect records, you would need
+        to add two lines to the ASCII importer definition:</p>
+      <p>$TICKMODE 1<br>
+        $ALLOW99SECONDS 1<br>
+      </p></td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;onoff&gt;</td>
+      <td bgcolor="#FFFFFF">(default = 0)</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$TICKMODE 1</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <a name="TIMESHIFT"></a>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$TIMESHIFT</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define intraday time shift
+        used during import</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">number of hours to shift date/time stamps (can be
+        fractional).</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><p><b>$TIMESHIFT 2 </b><br>
+        ;           will shift 2 hours forward<strong><br>
+          <br>
+          $TIMESHIFT -11.5</strong><br>
+          ; will shift 11 and a half hours backward</p>
+      </td>
+    </tr>
+  </table>
+  <p>&nbsp;</p><table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$VOLFACTOR</strong></td>
+      <td valign="top" width="70%" bgcolor="#FFFFFF">Define volume factor</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td bgcolor="#FFFFFF">the factor by which volume data is multiplied (default 
+        = 1).</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$VOLFACTOR 10</strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$WATCHLIST</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Define watch list number </td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">This affects $AUTOADD 1 and $OVERWRITE 
+        1 modes. If this is specified, newly added symbols are added to the watch 
+        list with a given number. </td>
+    </tr>
+    <tr> 
+      <td valign="top" height="22"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF" height="22">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$CLEANSECTORS</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Clean (wipe) existing sector/industry
+        structure</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">If this is turned on (1), the existing sector/industry
+        structure will be deleted and initialized with Sector 0, 1,
+        2, 3...63 / Industry 0...255.<br>
+        This command should only be used in conjunction with <strong>SECTORNAME</strong> and <strong>INDUSTRYNAME</strong>        $FORMAT
+        fields to allow setting up a fresh industry structure.</td>
+    </tr>
+    <tr>
+      <td valign="top" height="22"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF" height="22">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF">See example below (importing
+        sector/industry structure)</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$SORTSECTORS</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Sort sector/industry
+        structure</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">If this is turned on (1), the sector/industry
+        structure will be sorted alphabetically after importing.<br>
+      This command should only be used in conjunction with <strong>SECTORNAME</strong> and <strong>INDUSTRYNAME</strong> $FORMAT
+      fields to allow setting up a fresh industry structure.</td>
+    </tr>
+    <tr>
+      <td valign="top" height="22"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF" height="22">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF">See example below (importing
+      sector/industry structure)</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$USEONLYLOCALDB</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Switches &quot;Use only local database&quot; option
+        for the symbol</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;number&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">If data is fed by a database plugin, using
+        the ASCII importer to add any symbol causes these newly added symbols
+        to have the &quot;Use only local database&quot; flag turned on.<br>
+        A new command:<br>
+        $USEONLYLOCALDB 0
+        <p>allows turning this off (so newly added symbols have &quot;use only
+          local database&quot; turned off).</p>
+      <p>This flag does NOT affect existing symbols.</p></td>
+    </tr>
+    <tr>
+      <td valign="top" height="22"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF" height="22">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table border="1" cellpadding="3" cellspacing="0" width="80%"
+    bgcolor="#C00000" bordercolor="#C00000"
+    bordercolordark="#C00000">
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Command </strong></em></font></td>
+      <td valign="top" width="20%" bgcolor="#FFFFFF"><strong>$WEBID</strong></td>
+      <td valign="top" bgcolor="#FFFFFF">Define web ID</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Arguments</strong></em></font></td>
+      <td valign="top" bgcolor="#FFFFFF">&lt;string&gt;</td>
+      <td width="70%" bgcolor="#FFFFFF">web ID</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Alias </strong></em></font></td>
+      <td valign="top" colspan="2" width="100%"
+            bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top"><font color="#FFFFFF"><em><strong>Examples </strong></em></font></td>
+      <td valign="top" colspan="2" bgcolor="#FFFFFF"><strong>$WEBID aapl<br>
+      </strong></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+</blockquote>
+<i>Notes:</i>
+<ul>
+  <li>for <strong>DATE_xxx</strong>, you can use &#145;-&#145;, &#145;/&#146; or 
+    &#145;\&#146; as day/month/year separators. You can even omit separators entirely if you give a date in a 6-digit (YYMMDD, MMDDYY, DDMMYY) or 8-digit 
+    format (YYYYMMDD, MMDDYYYY, DDMMYYYY). </li>
+  <li>AmiBroker recognizes decimal as well as true fractions in price data. True 
+    fractions must follow the whole value after at least a single space. For example, you can specify: 5.33 or 5 1/3. </li>
+</ul>
+<p>AmiBroker is not limited to any kind of fraction; if you wish, you can even write: 5 333/999 </p>
+<h3>Comments</h3>
+<p>You can include comments in both format definition file and the data file(s). 
+  Each line starting with <strong>*</strong> (asterisk) or <strong>;</strong> 
+  (semicolon) or <strong>#</strong> (hash) is treated as a comment and ignored 
+  by the ASCII importer.</p>
+<h3>Usage examples</h3>
+<p>What may look complicated from the command list will become quite clear after some 
+  examples. So I will give you four examples of how to write format definition 
+  files. The first example will show the definition for CSV (comma-separated values) 
+  quotes available from Yahoo's finance site. The second example will show the definition 
+  for the Metastock ASCII file format. The third example shows the definition 
+  for the Omega SuperCharts ASCII file format. And the fourth example will show the definition for s-files used 
+  by DM BOS (a Polish brokerage company).</p>
+<h4>Yahoo CSV</h4>
+<p>The data from Yahoo's site looks as follows:</p>
+<p><code>Date,Open,High,Low,Close,Volume <br>
+  1-Feb- 0,104,105,100,100.25,2839600 <br>
+  31-Jan- 0,101,103.875,94.50,103.75,6265000 <br>
+  28-Jan- 0,108.1875,110.875,100.625,101.625,3779900</code></p>
+<p>The first line gives us a hint about the meaning of the comma-separated fields. 
+  The first field will hold the date. The remaining fields will hold open, high, low, 
+  close prices and volume. The importer should skip the first line and parse all the 
+  remaining lines that hold just comma-separated data. An appropriate format definition 
+  file would look like this:</p>
+<p><code>$FORMAT Date_DMY,Open,High,Low,Close,Volume<br>
+  $SKIPLINES 1<br>
+  $SEPARATOR ,<br>
+  $DEBUG 1<br>
+  $AUTOADD 1<br>
+  $BREAKONERR 1</code><br></p>
+<p>$DEBUG switches on error logging to the &quot;import.log&quot; file, and $BREAKONERR 
+  will cause the importer to stop after the first error is found. $AUTOADD ensures that 
+  a new ticker will be added to the database if it is missing. Well... you may ask: 
+  how does it know the ticker name? The answer is simple: if there is no field 
+  which defines the ticker name, the importer takes the file name (without path 
+  and extension) as a ticker. So, if you are importing the file &quot;C:\My data\AAPL.CSV&quot;, 
+  AmiBroker will use &quot;AAPL&quot; as a ticker name.</p>
+<h4>Metastock ASCII</h4>
+<p>The data in Metastock ASCII format looks as follows:</p>
+<p><code>&lt;ticker&gt;,&lt;per&gt;,&lt;date&gt;,&lt;high&gt;,&lt;low&gt;,&lt;close&gt;,&lt;vol&gt; 
+  <br>
+  AAP,D,1/17/2000,5483.33,5332.01,5362.3,0 <br>
+  AKS,D,1/17/2000,9868.45,9638.03,9687.62,0 <br>
+  FET,D,1/17/2000,3741.3,3540.2,3570.81,0</code> </p>
+<p>The first field will hold the ticker name, the second - time period (&quot;D&quot; 
+  means daily data), and the third - quotation date. The rest will hold high, low, close 
+  prices and volume. The importer should then skip the first line and parse all 
+  the remaining lines that hold just comma-separated data. An appropriate format 
+  definition file would look like this:</p>
+<p><code></code><code>$FORMAT Ticker,Skip,Date_MDY,High,Low,Close,Volume<br>
+  $SKIPLINES 1<br>
+  $SEPARATOR ,<br>
+  $DEBUG 1<br>
+  $AUTOADD 1<br>
+  $BREAKONERR 1</code></p>
+<p>Skip in $FORMAT defines a field that should be ignored by the importer.</p>
+<h4>Omega SuperCharts ASCII</h4>
+<p>The data in Omega SC ASCII format looks as follows:</p>
+<p><code>ticker,date,open,high,low,close,vol <br>
+  AAP,20000117,5333.01,5483.33,5332.01,5362.3,3433450</code><font size="3"><code> 
+  </code></font></p>
+<p>This format is similar to previous ones; however, the date is in YYYYMMDD format 
+  without separators between the year, month, and day part. AmiBroker, however, can 
+  handle such dates with ease. An appropriate format definition file would look like 
+  this:</p>
+<p><code>$FORMAT Name,Date_Int,Open,High,Low,Close,Volume<br>
+  $SEPARATOR ,<br>
+  $DEBUG 1<br>
+  $SKIPLINES 1<br>
+  $AUTOADD 1<br>
+  $BREAKONERR 1</code></p>
+<p>Skip in $FORMAT defines a field that should be ignored by the importer.</p>
+<h4>DMBOS S-files</h4>
+<p>The data in this format looks as follows:</p>
+<p><code>0,29-02-00,12:05,MIDWIG,1069.1,,,+1.2,336002000,<br>
+  0,29-02-00,12:05,NIF,48.6,,,+0.8,1763000,<br>
+  0,29-02-00,12:05,WIG20,2300.3,,,+1.1,336002000,<br>
+  0,29-02-00,12:05,WIG,21536.8,,,+0.2,336002000,<br>
+  0,29-02-00,12:05,WIRR,2732.8,,,+1.6,16373000,<br>
+  1,29-02-00,12:05,AGORA,144.00,,,+4.7,15802000,<br>
+  1,29-02-00,12:05,AGROS,40.00,nk,72,+5.0,840000,<br>
+  1,29-02-00,12:05,AMERBANK,28.00,,,+3.7,22000,<br>
+  1,29-02-00,12:05,AMICA,41.50,nk,99,+2.2,564000,</code></p>
+<p>This format is a little more complicated. For us, useful fields are: 2nd - date, 4th - ticker, 5th - close price, and 9th - the turnover value (close * volume). 
+  The remaining fields hold other information that is not useful for us. An appropriate 
+  format definition file would look like this: </p>
+<p><code>$FORMAT Skip,Date_DMY,Skip,Name,Close,Skip,Skip,Skip,Turnover<br>
+  $SEPARATOR ,<br>
+  $DEBUG 1</code><br>
+</p>
+<p><strong>Importing Sector/Industry Structure</strong></p>
+<p>Let's assume we have a text file with stock tickers, full names, sector names,
+  and industry names listed line by line, as follows:</p>
+<p>  &quot;DDD&quot;,&quot;3D Systems Corporation&quot;,&quot;Technology&quot;,&quot;Computer
+  Software: Prepackaged Software&quot;<br>
+  &quot;MMM&quot;,&quot;3M Company&quot;,&quot;Health Care&quot;,&quot;Medical/Dental
+  Instruments&quot;<br>
+  &quot;SVN&quot;,&quot;7 Days Group Holdings Limited&quot;,&quot;Consumer Services&quot;,&quot;Hotels/Resorts&quot;<br>
+  &quot;AHC&quot;,&quot;A.H. Belo Corporation&quot;,&quot;Consumer Services&quot;,&quot;Newspapers/Magazines&quot;<br>
+  &quot;AIR&quot;,&quot;AAR Corp.&quot;,&quot;Capital Goods&quot;,&quot;Aerospace&quot;<br>
+  &quot;AAN&quot;,&quot;Aaron's, Inc.&quot;,&quot;Technology&quot;,&quot;Diversified
+  Commercial Services&quot;<br>
+  &quot;ABB&quot;,&quot;ABB Ltd&quot;,&quot;Consumer Durables&quot;,&quot;Electrical
+Products&quot;</p>
+<p>To import such a file, we use the following format definition:</p>
+<p>$FORMAT Ticker, FullName,SectorName,IndustryName<br>
+  $SEPARATOR ,<br>
+  $AUTOADD 1<br>
+  $NOQUOTES 1<br>
+  $OVERWRITE 1<br>
+  $CLEANSECTORS 1<br>
+$SORTSECTORS 1</p>
+<p>$NOQUOTES 1 tells the importer that we will be importing non-quotation data.
+  $AUTOADD 1/$OVERWRITE 1 is required to automatically add new symbols and overwrite
+  existing symbol information. $CLEANSECTORS 1 wipes the existing stock/industry
+  structure prior to importing, and $SORTSECTORS 1 sorts sectors/industries
+  after importing so they will be listed in alphabetical order in the Symbol
+  window. $FORMAT command just specifies the order and types of fields to import.</p>
+<p>AmiBroker will read such an ASCII file one by one, then it will check whether a given
+  sector name/industry name already exists and, if not, it will create a new sector/industry.
+  Then it will assign the given symbol to the specified sector/industry.</p>
+<p>The result will be a database with a new sector/industry structure being set
+  up and symbols assigned to proper sectors and industries.</p>
+<p> The described functionality is used to implement the Tools->Update US Symbol List
+  and Categories tool.</p>
+<h3>Default behaviour</h3>
+<p>When importing ASCII files, AmiBroker attempts to open the &quot;default.format&quot; 
+  file (in the AmiBroker directory) to obtain the format definition. If such 
+  a file is missing, the following default format is applied:</p>
+<p><code>$FORMAT DATE_USA, OPEN, HIGH, LOW, CLOSE, VOLUME<br>
+  $SEPARATOR </code></p>
+<p>This means that, by default, the ASCII importer will use a space character as a separator 
+  and will parse the following fields: date, open, high, low, close, volume. The 
+  file name (without path and extension) will be used as a ticker name. All other 
+  import parameters ($DEBUG,$AUTOADD, etc.) are set to zero.</p>
+<h3>User-definable file types and formats</h3>
+<p>Now AmiBroker can use not only the default.format definition file but also other 
+  user-specified files. File types, filters, and format definition files are specified 
+  in the <strong>import.types</strong> file (an example is included in the update package). 
+  Now a user can prepare/modify the <strong>import.types</strong> file with a description 
+  of supported ASCII formats and filters to use. The format of the <strong>import.types</strong> 
+  file is:</p>
+<blockquote> 
+  <p><code>&lt;Descriptive name&gt;|&lt;File filter&gt;|&lt;definition file name&gt;</code></p>
+</blockquote>
+<p>Note the vertical line characters between these three fields. An example import.types 
+  file looks as follows:</p>
+<blockquote> 
+  <p><code>Default ASCII (*.*)|*.*|default.format<br>
+    Yahoo's CSV (*.csv)|*.csv|yahoo.format<br>
+    Metastock ASCII (*.mst)|*.mst|metastock.format<br>
+    Omega SC ASCII (*.txt)|*.txt|omega.format<br>
+    S-Files (s*.*)|s*.*|sfile.format<br>
+    C-Files (c*.*)|c*.*|cfile.format<br>
+    Sharenet DAT (*.dat)|*.dat|dat.format</code></p>
+</blockquote>
+<p>If such a file exists, you will see your types in the &quot;Files of type&quot; 
+  combo-box, and when you select one, an appropriate filter will be used. After 
+  selecting some files and clicking OK, the importer will use the specified &quot;.format&quot; 
+  file.</p>
+<p>In that way, you can define as many text-based data formats as you like, and AmiBroker will be able to &quot;understand&quot; them all.</p>
+    
+<h3>Ticker aliases</h3>
+<p>Now, each ticker can have an alias assigned, so AmiBroker's built-in importers
+   can recognize that security by both its ticker symbol and alias names. This is
+  useful when you are using two data sources that use slightly different symbol
+  naming
+   conventions or if you want to give the symbols a more intuitive name while retaining
+  
+  the ability to use importers without problems. </p>
+<h3>GICS Categorization</h3>
+<p>GICS is a global industry classification standard; see   <a href="http://en.wikipedia.org/wiki/Global_Industry_Classification_Standard" target="_blank">http://en.wikipedia.org/wiki/Global_Industry_Classification_Standard</a><br>
+for more details on the GICS system.</p>
+<p> GICS codes are from 2 to 8 digits. Such as 10 for the energy sector or 351010
+  for the &quot;Health
+  Care Equipment &amp; Supplies&quot; industry. <br>
+  The codes are fixed even if new classifications are added at some point in
+  the future. It is important to understand that these codes work in a hierarchical
+way.</p>
+<p>NOTE: Current databases DO NOT have GICS codes assigned to symbols. <br>
+  As far as I know, PremiumData <a href="http://www.premiumdata.net/" target="_blank">http://www.premiumdata.net/</a> is
+  planning to release an AmiBroker-compatible database with GICS support.</p>
+<p>AmiBroker now reads the GICS.txt file from its installation folder. 
+  It contains GICS categories listed one by one in the order of the GICS code in the following
+    format:<br>
+  GICS;Name;Description&lt;CRLF&gt; </p>
+<p>GICS is a numeric code from 2 digits up to 8 digits.<br>
+  Name is the GICS category name.<br>
+  Description is the GICS category description.<br>
+  These fields must be separated by a semicolon.<br>
+&lt;CRLF&gt; means carriage return/line feed characters (meaning &quot;new line&quot;—just press the ENTER/RETURN key if you are editing with a text editor).</p>
+<p>There must be only one category per line in the GICS.txt file.</p>
+<p>The default GICS.txt file is supplied already.</p>
+<p>&nbsp;</p>
+<h3>ICB Categorization</h3>
+<p>ICB stands for Industry Classification Benchmark (<a href="http://en.wikipedia.org/wiki/Industry_Classification_Benchmark">http://en.wikipedia.org/wiki/Industry_Classification_Benchmark</a>).</p>
+<p>AmiBroker also allows the ICB 4-level classification system, but the demo database
+  does not have symbols classified according to that standard. You can find ICB
+  classification codes in the ICB.txt file inside the AmiBroker folder. </p>
+<p>NOTE: Current databases DO NOT have ICB codes assigned to symbols. <br>
+ICB classification for NYSE stocks can be imported from <a href="http://www.nyse.com/indexes/nyaindex.csv" target="_blank">http://www.nyse.com/indexes/nyaindex.csv</a></p>
+<p>AmiBroker now reads the ICB.txt file from its installation folder. It contains
+  ICB categories listed one by one in the order of the ICB code in the following format:<br>
+  ICB;Name&lt;CRLF&gt; </p>
+<p>ICB is a numeric 4-digit code.<br>
+  Name is the ICB category name.<br>
+  These fields must be separated by a semicolon.<br>
+&lt;CRLF&gt; means carriage return/line feed characters (meaning &quot;new line&quot;—just press the ENTER/RETURN key if you are editing with a text editor).</p>
+<p>There must be only one category per line in the ICB.txt file.</p>
+<p>The default ICB.txt file is supplied already.</p>
+<h3>High-resolution timestamps (milli- and microsecond)</h3>
+<p>Starting from version 6.14, the ASCII importer supports microsecond resolution
+  timestamps (HH:MM:SS.mmmuuu), where mmm - milliseconds 000..999, uuu - microseconds
+000..999.</p>
+</body>
+</html>

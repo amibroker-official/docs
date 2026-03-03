@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 701. Missing buy/sell variable assignments.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><a name="E1" id="E1"></a>Error 701. Missing buy/sell variable assignments.</h4>
+<p>The formula that you are trying to backtest does not contain proper Buy and
+  Sell rules. Buy and Sell rules should be written as assignments as shown below:<br>
+</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>50</FONT><FONT COLOR=#000000> )
+      ); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>50</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> )
+);</FONT></CODE> </p>
+<p>For more details see <a href="/h_backtest.html">Tutorial: Backtesting
+    your trading ideas</a></p>
+<p>&nbsp;</p>
+</body>
+</html>

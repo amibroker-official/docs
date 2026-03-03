@@ -1,0 +1,91 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - RSI</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>RSI</b><br>
+        - relative strength index</li></h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b></p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>RSI( <em>periods</em> = 14 )<br>
+        RSIa( <em>array, periods</em> = 14 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Calculates the RSI indicator using <em>periods </em>range 
+      <br>
+      Second version RSIa accepts input array so it RSI can be applied to other 
+      arrays than close. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> RSI( 12 )<br>
+      RSIa( High, 12 ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top"> &nbsp; </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj -- at -- amibroker.com<br>2007-07-27 09:34:56</td><td valign="top">// Internally RSI is implemented as follows<br />
+//<br />
+function BuiltInRSIEquivalent( period )<br />
+{<br />
+ P = N = 0;<br />
+ <br />
+ result = Null;<br />
+<br />
+ for( i = 1; i &lt; BarCount; i++ )<br />
+ {<br />
+   diff = C[ i ] - C[ i - 1 ];<br />
+   W = S = 0;<br />
+   if( diff &gt; 0 ) W = diff;<br />
+   if( diff &lt; 0 ) S = -diff;<br />
+<br />
+   P = ( ( period -1 ) * P + W ) / period;<br />
+   N = ( ( period -1 ) * N + S ) / period;<br />
+<br />
+   if( i &gt;= period )<br />
+      result[ i ] = 100 * P / ( P + N );<br />
+ }<br />
+ return result;<br />
+}   <br />
+<br />
+Plot( BuiltInRSIEquivalent( 14 ), &quot;RSI 1&quot;, colorRed );<br />
+Plot( RSI( 14 ), &quot;RSI 2&quot;, colorBlue );</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>RSI</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=144&hilite=RSI' target='_blank'>Adaptave Zones O/B  & O/S Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=29&hilite=RSI' target='_blank'>Against all odds</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=RSI' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=RSI' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=196&hilite=RSI' target='_blank'>Bollinger band normalization</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1337&hilite=RSI' target='_blank'>candlestick chart for Volume/RSI/OBV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=76&hilite=RSI' target='_blank'>CCT StochasticRSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=79&hilite=RSI' target='_blank'>colored CCI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=206&hilite=RSI' target='_blank'>COMBO</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=188&hilite=RSI' target='_blank'>Compare Sectors against Tickers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1334&hilite=RSI' target='_blank'>Composite Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1380&hilite=RSI' target='_blank'>Connors TPS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1418&hilite=RSI' target='_blank'>ConnorsRSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=263&hilite=RSI' target='_blank'>Derivative Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=374&hilite=RSI' target='_blank'>Divergence indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=465&hilite=RSI' target='_blank'>DT Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=450&hilite=RSI' target='_blank'>Ehlers Laguerre RSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=386&hilite=RSI' target='_blank'>Follow the Leader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=RSI' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=125&hilite=RSI' target='_blank'>Fund Screener</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1431&hilite=RSI' target='_blank'>ICHIMOKU SIGNAL TRADER</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=RSI' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1559&hilite=RSI' target='_blank'>MCDX (Multi Color Dragon Extended)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=369&hilite=RSI' target='_blank'>MultiCycle 1.0</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=179&hilite=RSI' target='_blank'>Overbought issues, Oversold issues</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1348&hilite=RSI' target='_blank'>Perceptron</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=RSI' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=20&hilite=RSI' target='_blank'>Relative Strength Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1087&hilite=RSI' target='_blank'>RSI + Avgs</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=220&hilite=RSI' target='_blank'>RSI Double-Bottom</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1086&hilite=RSI' target='_blank'>RSI indicator with Upper & Lower Zone Bars</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=151&hilite=RSI' target='_blank'>RSI Pointer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=893&hilite=RSI' target='_blank'>RSI styleClipMinMax</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=288&hilite=RSI' target='_blank'>RSI Trendlines and Wedges</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=153&hilite=RSI' target='_blank'>RSIS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=187&hilite=RSI' target='_blank'>SectorRSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=282&hilite=RSI' target='_blank'>Support Resistance levels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1227&hilite=RSI' target='_blank'>testing multiple system simulataneously</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=69&hilite=RSI' target='_blank'>Varexlist</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1333&hilite=RSI' target='_blank'>Vivek Jain</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=388&hilite=RSI' target='_blank'>Volatility System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1097&hilite=RSI' target='_blank'>WILSON RELATIVE PRICE CHANNEL</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=RSI">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

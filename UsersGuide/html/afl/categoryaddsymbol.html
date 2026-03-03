@@ -1,0 +1,93 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - CATEGORYADDSYMBOL</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>CategoryAddSymbol</b><br>
+        - adds a symbol to a category</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Information / Categories<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>CategoryAddSymbol( <i>symbol</i>, <i>category</i>, <i>number<i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The <b>CategoryAddSymbol</b> function adds the <i>symbol</i> to given category, note that for markets, groups, industries 'adding' means moving from one category to another, since the symbol is assigned always to one and only one market, group, industry and sector. This limitation does not apply to watchlists, favorites, and index categories. When <i>symbol</i> string is empty ("") then current symbol is used.
+<p>
+
+<i>category</i> is one of the following:
+<ul>
+<li>categoryMarket 
+<li>categoryGroup 
+<li>categorySector 
+<li>categoryIndustry 
+<li>categoryWatchlist
+<li>categoryFavorite 
+<li>categoryIndex 
+<li>categoryGICS
+<li>categoryICB
+</ul>
+<p>
+<i> number</i> is a market/group/industry/sector/watchlist number:<br>
+0..255 for categoryMarket, categoryGroup, categoryIndustry<br>
+0..63 for categorySector<br>
+no limit for categoryWatchlist.<br>
+ignored for categoryFavorite, categoryIndex
+<p>
+The meaning of index parameter is different for GICS and ICB categories - the index for categoryGICS and categoryICB is actually GICS/ICB code. Such as 10 for energy sector or 351010 for "Health Care Equipment & supplies" industry. 
+The codes are fixed even if new classifications are added at some point in the future. This means that you won't need to change AFL codes even if new classifications are added. But it is important to understand that these codes work in hierarchical way. So<p>
+GetCategorySymbols( categoryGICS, 10 ) <p>will return all symbols belonging to energy sector, including those in 10101010 - Oil & Gas Drilling sector as well as 10102050 - Coal & Consumable Fuels; for example. 
+See
+<a href='http://en.wikipedia.org/wiki/Global_Industry_Classification_Standard' target='_blank'>http://en.wikipedia.org/wiki/Global_Industry_Classification_Standard</a>
+for more details on GICS system<br>
+<a href='http://en.wikipedia.org/wiki/Industry_Classification_Benchmark' target='_blank'>http://en.wikipedia.org/wiki/Industry_Classification_Benchmark</a> for more details on ICB system
+<p>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// the code adds symbols with last day volume > 100000 </FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#008000>// to the watch list number 1 </FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>V</B></FONT><FONT COLOR=#000000> ) > </FONT><FONT COLOR=#ff00ff>100000</FONT><FONT COLOR=#000000> )
+<BR>{
+<BR>   </FONT><FONT COLOR=#0000ff>CategoryAddSymbol</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>""</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>categoryWatchlist</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> );
+<BR>}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="categorygetname.html">CategoryGetName()</A> function , <A HREF="categorygetsymbols.html">CategoryGetSymbols()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>CategoryAddSymbol</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1583&hilite=CategoryAddSymbol' target='_blank'>Add Nifty 50 IB Equity Symbol Automatically</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=709&hilite=CategoryAddSymbol' target='_blank'>Calculate composites for tickers in list files</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=CategoryAddSymbol' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=710&hilite=CategoryAddSymbol' target='_blank'>WLBuildProcess</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=CategoryAddSymbol">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

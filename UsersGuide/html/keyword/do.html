@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>do-while Statement</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<div><font face=Arial size=2></font>
+    <div>
+      <h4><font size="4"><a name="do"></a></font><font size="4">do Keyword</font></h4>
+      <p>The <b>do </b>keyword is a part of <b>do-while</b> statement.</p>
+      <h4><font size="4">do-while
+            Statement</font></h4>
+    </div>
+    <p></p>
+    <p>The <b>do-while</b> statement lets you repeat a statement or compound
+      statement until a specified expression becomes false. </p>
+    <p class=label><b>Syntax</b></p>
+    <p class=dt><b>do</b> <i>statement</i> <b>while (</b> <i>expression</i> <b>)</b> <b>;</b></p>
+    <p>The <i>expression</i> in a <b>do-while</b> statement is evaluated after
+      the body of the loop is executed. Therefore, the body of the loop is always
+      executed at least once. </p>
+    <p>The <i>expression</i> must have numeric or boolean type. Execution proceeds
+      as follows:
+    <ol>
+      <li>The statement body is executed.<br>
+          <br>
+      <li>Next, <i>expression</i> is evaluated. If <i>expression</i> is false,
+        the <b>do-while</b> statement terminates and control passes to the next
+        statement in the program. If <i>expression</i> is true (nonzero), the
+        process is repeated, beginning with step 1. </li>
+    </ol>
+    <p>This is an example of the <b>do-while</b> statement:</p>
+    <pre><CODE><FONT COLOR=#000000>x=</FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>;
+</FONT><FONT COLOR=#800000><B>do</B></FONT><FONT COLOR=#000000> 
+{
+    y = </FONT><FONT COLOR=#0000ff>sin</FONT><FONT COLOR=#000000>( x );
+    x--;
+} </FONT><FONT COLOR=#800000><B>while</B></FONT><FONT COLOR=#000000> ( x &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> );</FONT></CODE></pre>
+    <p>In this <b>do-while</b> statement, the two statements <code>y = sin( x
+        );</code> and <code>x--;</code> are executed, regardless of the initial
+        value of <code>x</code>. Then <code>x &gt; 0</code> is evaluated. If <code>x</code> is
+        greater than 0, the statement body is executed again and <code>x &gt; 0</code> is
+        reevaluated. The statement body is executed repeatedly as long as <code>x</code> remains
+        greater than 0. Execution of the <b>do-while</b> statement terminates
+        when <code>x</code> becomes 0 or negative. The body of the loop is executed
+        at least once. <font size="2"></font></p>
+</div>
+<div></div>
+<div></div>
+</body>
+</html>

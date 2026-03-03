@@ -1,0 +1,435 @@
+<html>
+
+<head>
+<title>Using on-chart GUI controls</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>Using on-chart GUI controls</b></h2>
+<p><em>Basics</em></p>
+<p>AmiBroker 6.30 introduces the ability to create and utilize user-definable GUI
+  controls such as buttons, checkboxes, radio buttons, edit fields, date/time
+  pickers, sliders, etc., which can be placed on a chart and interacted with. </p>
+<p><em>Creation of GUI controls</em></p>
+<p>On-chart GUI controls can be created by calls to appropriate functions, such as:
+  <a href="afl/guibutton.html">GuiButton</a>, <a href="afl/guedit.html">GuiEdit</a>, <a href="afl/guitoggle.html">GuiToggle</a>, <a href="afl/guiradio.html">GuiRadio</a>, <a href="afl/guidatetime.html">GuiDateTime</a>, <a href="afl/guislider.html">GuiSlider</a>.</p>
+<p>All UI creation functions (<a href="afl/guibutton.html">GuiButton</a>, <a href="afl/guedit.html">GuiEdit</a>, <a href="afl/guitoggle.html">GuiToggle</a>, <a href="afl/guiradio.html">GuiRadio</a>, <a href="afl/guidatetime.html">GuiDateTime</a>, <a href="afl/guislider.html">GuiSlider</a>)
+  take a control ID as a parameter. A control ID is a <strong>unique identifier</strong> used
+  to distinguish between controls and to manipulate a given control. The control
+  ID must be an integer number greater than zero. As the code below shows, it is
+  a good idea to assign meaningful names to control
+  IDs and use them instead of plain numbers. </p>
+<p>The following
+    example shows how to create a button:</p>
+<p><CODE><font color='#008000'>// control IDs <br>
+</font>idMyButton = <font color='#800080'>2</font>; <br>
+<br>
+<font color='#0000ff'>GuiButton</font>( <font color='#800080'>"MyButton"</font>,
+idMyButton, <font color='#800080'>10</font>, <font color='#800080'>20</font>, <font color='#800080'>100</font>, <font color='#800080'>20</font>, <b>notifyClicked</b> );</CODE></p>
+<p>The operation model of on-chart GUI controls is such that controls can be
+  destroyed at any time when, for example, a user switches to a different chart sheet.
+  For this reason, the formula needs to be able to recreate UI controls if needed.
+  This is done by simply calling creation functions each time the formula is run.
+The creation functions are intelligent enough not to create duplicates.</p>
+<p>If a control with a given ID already exists,
+        its type will be checked. If an existing
+        control
+        of the
+        same
+        ID
+        and
+        type is found, nothing is done, and the GUI creation function returns a <strong>guiExisting</strong> value.
+        If a control exists but has a different type, it will be destroyed and
+        a control of the new type will be created. If a control with a given ID does not
+        exist, it will be created. In such cases, the creation function will return <strong>guiNew</strong>.
+  The code below shows how to check the return value:</p>
+<p><CODE><font color='#008000'>// control IDs <br>
+</font>idMyButton = <font color='#800080'>2</font>; <br>
+<br>
+rc = <font color='#0000ff'>GuiButton</font>( <font color='#800080'>"MyButton"</font>,
+idMyButton, <font color='#800080'>10</font>, <font color='#800080'>20</font>, <font color='#800080'>100</font>, <font color='#800080'>20</font>, <b>notifyClicked</b> ); <br>
+<br>
+<font color='#800000'><b>if</b></font>( rc == guiNew ) <font color='#0000ff'>_TRACE</font>(<font color='#800080'>"Control
+just created"</font>); <br>
+<font color='#800000'><b>if</b></font>( rc == guiExisting ) <font color='#0000ff'>_TRACE</font>(<font color='#800080'>"Control
+already existing"</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;</CODE></p>
+<p>This is not really needed for buttons that don't require initialization,
+  but it is useful when you would like to set up initial values for controls
+  only
+  when they
+  are
+  created. The following example shows how to set initial text for an edit field:</p>
+<p><CODE><font color='#008000'>// control IDs <br>
+</font>idEdit = <font color='#800080'>1</font>; <br>
+<br>
+<font color='#800000'><b>function</b></font> CreateGUI() <br>
+{ <br>
+&nbsp;&nbsp;
+rc = <font color='#0000ff'>GuiEdit</font>( idEdit, <font color='#800080'>10</font>, <font color='#800080'>20</font>, <font color='#800080'>100</font>, <font color='#800080'>20</font>, <b>notifyEditChange</b> ); <br>
+&nbsp;&nbsp; 
+<br>
+&nbsp;&nbsp;
+<font color='#800000'><b>if</b></font>( rc == guiNew ) <font color='#0000ff'>GuiSetText</font>(<font color='#800080'>"Initial
+text"</font>, idEdit ); <br>
+&nbsp;&nbsp; 
+<br>
+}&nbsp;&nbsp;&nbsp; <br>
+<br>
+CreateGUI();</CODE></p>
+<p><em>Handling events / UI notifications</em></p>
+<p>GUI controls are created to allow the user to interact with them. When this
+  happens (for example, when a user clicks on a button), an event is created and
+  the formula gets executed again. Several controls may trigger events on various
+  occasions, for example, when clicking on them, editing text, gaining or losing
+  focus, etc. To decide whether a given control triggers events or not, we use
+   the notify parameter in the GUI creation functions. For example:</p>
+<p><CODE><font color='#0000ff'>GuiButton</font>( <font color='#800080'>"MyButton"</font>,
+idMyButton, <font color='#800080'>10</font>, <font color='#800080'>20</font>, <font color='#800080'>100</font>, <font color='#800080'>20</font>, <b>notifyClicked</b> ); </CODE></p>
+<p>will create a button that will trigger an event when it is clicked. We can combine
+  various flags using | (binary OR operator) if we want to be notified about
+  many different events by a given control. For example, the code below will create
+  an edit control that will notify us when its contents are changed and
+  when the edit field loses focus:</p>
+<p><CODE><font color='#0000ff'>GuiEdit</font>( idEdit, <font color='#800080'>10</font>, <font color='#800080'>20</font>, <font color='#800080'>100</font>, <font color='#800080'>20</font>, <b>notifyEditChange</b> |
+    <strong>notifyKillFocus</strong> ); </CODE></p>
+<p>There are many possible notifications including:</p>
+<ul>
+  <li>notifyClicked - when a button/toggle/checkbox/radio is clicked</li>
+  <li>notifySetFocus
+    - when a control gets input focus (via mouse or keyboard)</li>
+  <li>notifyKillFocus -
+    when a control loses input focus (via mouse or keyboard)</li>
+  <li>notifyHitReturn -
+    when the ENTER/RETURN key is pressed in an edit field</li>
+  <li>notifyEditChange - when
+      a control's value changes (text inside an edit field, date inside a date/time picker, or a slider
+      is moved to a new position)</li>
+  <li>notifySelChange - when the selection changes in the control (for example, a selected
+    text range in the edit field) </li>
+  <li>notifyMouseEnter - when the mouse hovers over the control</li>
+  <li>notifyMouseLeave - when the mouse leaves the control area</li>
+</ul>
+<p>When an event is triggered, our formula is executed again. If multiple events
+  occur, they are placed in the queue. To handle such UI events, the formula
+should call GuiGetEvent() function to find out if there are any events in the
+  queue and to handle them appropriately.</p>
+<p>The GuiGetEvent( <em>num</em>, <em>what</em> = 0 ) function has two parameters:</p>
+<p>The <em>num</em> parameter defines the index of a notification in the queue. 0 is
+  the first received
+(or &quot;oldest&quot;) since the last execution. The second parameter, <em>what,</em> defines
+what value the GuiGetEvent function returns:</p>
+<ul>
+  <li>  what = 0 - ID of the control that received the event (number)</li>
+  <li>what = 1 - the notification
+    code (number)</li>
+  <li>what = 2 - the ID, the code, and the notification description
+      as text (string)</li>
+</ul>
+<p>Usually, there is zero (when formula execution was not triggered by a UI event)
+  or one event in the queue but note that there can be more than one event notification
+  in the queue if your formula is slow to process. To retrieve them all, use an increasing &quot;num&quot; parameter
+  as long as GuiGetEvent does not return zero (in `what=0` or `what=1` mode) or an empty
+string (`what=2`).</p>
+<p><CODE><font color='#008000'>// read all pending events <br>
+</font><font color='#800000'><b>for</b></font>( i = <font color='#800080'>0</font>;
+id = <font color='#0000ff'>GuiGetEvent</font>( i ); i++ ) <br>
+{ <br>
+&nbsp;&nbsp;&nbsp;
+code = <font color='#0000ff'>GuiGetEvent</font>( i, <font color='#800080'>1</font> ); <br>
+&nbsp;&nbsp;&nbsp;
+text = <font color='#0000ff'>GuiGetEvent</font>( i, <font color='#800080'>2</font> ); <br>
+}</CODE></p>
+<p>It is good practice to have a separate function that handles events, as shown below:</p>
+<p><CODE>idMyFirstButton = <font color='#800080'>1</font>; <br>
+  idMySecondButton = <font color='#800080'>2</font>; <br>
+  <br>
+  <font color='#800000'><b>function</b></font> CreateGUI() <br>
+  { <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#0000ff'>GuiButton</font>( <font color='#800080'>"enable"</font>,
+  idMyFirstButton, <font color='#800080'>10</font>, <font color='#800080'>60</font>, <font color='#800080'>100</font>, <font color='#800080'>30</font>, <b>notifyClicked</b> ); <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#0000ff'>GuiButton</font>( <font color='#800080'>"disable"</font>,
+  idMySecondButton, <font color='#800080'>110</font>, <font color='#800080'>60</font>, <font color='#800080'>100</font>, <font color='#800080'>30</font>, <b>notifyClicked</b> ); <br>
+  } <br>
+  <br>
+  <font color='#800000'><b>function</b></font> HandleEvents() <br>
+  { <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<font color='#800000'><b>for</b></font> ( n = <font color='#800080'>0</font>;
+  id = <font color='#0000ff'>GuiGetEvent</font>( n, <font color='#800080'>0</font> );
+  n++ ) <font color='#008000'>// get the id of the event <br>
+  </font>&nbsp;&nbsp;&nbsp;&nbsp;{ <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  code = <font color='#0000ff'>GuiGetEvent</font>( n, <font color='#800080'>1</font> ); <br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>switch</b></font> ( id ) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  { <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>case</b></font> idMyFirstButton: <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#008000'>// do something <br>
+  </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='#800000'><b>break</b></font>; <br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>case</b></font> idMySecondButton: <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#008000'>// do something else <br>
+  </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='#800000'><b>break</b></font>; <br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>default</b></font>: <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>break</b></font>; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  } <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  } <br>
+  } <br>
+  <br>
+  CreateGUI(); <br>
+  <br>
+HandleEvents();</CODE></p>
+<p><em>Manipulating UI controls</em></p>
+<p>Controls can be manipulated in a number of ways:</p>
+<p>All controls can be hidden and shown again
+  using <a href="afl/guisetvisible.html">GuiSetVisible</a>() function:</p>
+<p><CODE><font color='#0000ff'>GuiSetVisible</font>( id, <b>False</b> ); <font color='#008000'>//
+      hides the control <br>
+</font><font color='#0000ff'>GuiSetVisible</font>( id, <b>True</b> ); <font color='#008000'>//
+shows the control</font></CODE></p>
+<p>All controls can be disabled (so they don't react to user input and become
+'grayed') and enabled again using <a href="afl/guienable.html">GuiEnable</a>() function:</p>
+<p><CODE><font color='#0000ff'>GuiEnable</font>( id, <b>False</b> ); <font color='#008000'>//
+      disables the control <br>
+</font><font color='#0000ff'>GuiEnable</font>( id, <b>True</b> ); <font color='#008000'>//
+enables the control </font></CODE></p>
+<p>You can set the font for all GUI controls using the <a href="afl/guisetfont.html">GuiSetFont</a> call:</p>
+<p><CODE><font color='#0000ff'>GuiSetFont</font>(<font color='#800080'>"Tahoma"</font>, <font color='#800080'>13</font> );</CODE></p>
+<p>Buttons (like all other controls) by default use system colors. But buttons
+  can have their own custom colors
+  defined using <a href="afl/guisetcolors.html">GuiSetColors</a> (other controls
+  only use system colors).</p>
+<p><CODE><font color='#0000ff'>GuiButton</font>( <font color='#800080'>"First"</font>,
+    idFirst, <font color='#800080'>0</font>, <font color='#800080'>50</font>, <font color='#800080'>200</font>, <font color='#800080'>30</font>, <font color='#800080'>7</font> ); <br>
+    <font color='#0000ff'>GuiButton</font>( <font color='#800080'>"Second"</font>,
+    idSecond, <font color='#800080'>200</font>, <font color='#800080'>50</font>, <font color='#800080'>200</font>, <font color='#800080'>30</font>, <font color='#800080'>7</font> ); <br>
+    <font color='#0000ff'>GuiButton</font>( <font color='#800080'>"Third"</font>,
+    idThird, <font color='#800080'>400</font>, <font color='#800080'>50</font>, <font color='#800080'>200</font>, <font color='#800080'>30</font>, <font color='#800080'>7</font> ); <br>
+    <font color='#008000'>// two first buttons will have red text, border and
+    black background <br>
+    </font><font color='#0000ff'>GuiSetColors</font>( idFirst, idSecond, <font color='#800080'>2</font>, <b>colorRed</b>, <b>colorBlack</b>, <b>colorRed</b> ); <br>
+    <font color='#008000'>// and the third green text, border and blue background <br>
+    </font><font color='#0000ff'>GuiSetColors</font>( idThird, idThird, <font color='#800080'>2</font>, <b>colorYellow</b>, <b>colorBlue</b>, <b>colorYellow</b> );
+</CODE></p>
+<p>In this simple example above, we are just setting the normal color of buttons,
+  but they also have separate colors for different states (selected, hovered)
+  and these can be set too. </p>
+<p>All controls can have their text updated via <a href="afl/guisettext.hml">GuiSetText</a> and
+    retrieved using <a href="afl/guigettext.html">GuiGetText</a>.</p>
+<p><CODE><font color='#008000'>// control IDs<br>
+</font></CODE><CODE>idEdit = <font color='#800080'>1</font>; <br>
+  <br>
+    <font color='#800000'><b>function</b></font> CreateGUI() <br>
+  { <br>
+&nbsp;&nbsp; rc = <font color='#0000ff'>GuiEdit</font>( idEdit, <font color='#800080'>10</font>, <font color='#800080'>20</font>, <font color='#800080'>100</font>, <font color='#800080'>20</font>, <b>notifyEditChange</b> ); <br>
+&nbsp;&nbsp; <br>
+&nbsp;&nbsp; <font color='#800000'><b>if</b></font>( rc == guiNew ) <font color='#0000ff'>GuiSetText</font>(<font color='#800080'>"Initial
+  text"</font>, idEdit ); <br>
+&nbsp;&nbsp; <br>
+}&nbsp;&nbsp;&nbsp; </CODE></p>
+<p>If you prefer the numeric value of text in the control you can use <a href="afl/guisetvalue.html">GuiSetValue</a>()/<a href="afl/guigetvalue.html">GuiGetValue</a>()
+pair (especially useful for sliders to get their position). Sliders can also
+  have their min-max range defined using <a href="afl/guisetrange.html">GuiSetRange</a>() as shown in the example below.</p>
+<p><CODE>idSlider = <font color='#800080'>1</font>; </CODE></p>
+<p><CODE><font color='#800000'><b>if</b></font> ( <font color='#0000ff'>GuiSlider</font>(
+      idSlider, <font color='#800080'>10</font>, <font color='#800080'>30</font>, <font color='#800080'>200</font>, <font color='#800080'>30</font>, <b>notifyEditChange</b> )
+      == guiNew ) <br>
+{ <br>
+&nbsp;&nbsp;&nbsp;<font color='#008000'>// init
+  values on control creation <br>
+  </font>&nbsp;&nbsp;&nbsp;<font color='#0000ff'>GuiSetValue</font>(
+  idSlider, <font color='#800080'>5</font> ); <br>
+&nbsp;&nbsp;&nbsp;<font color='#0000ff'>GuiSetRange</font>(
+  idSlider, <font color='#800080'>1</font>, <font color='#800080'>100</font>, <font color='#800080'>0.1</font>, <font color='#800080'>100</font> ); <br>
+ } <font color='#008000'><br>
+</font></CODE></p>
+<p><em>Preserving the state of controls</em></p>
+<p>Basic controls such as push buttons don't have 'permanent' state. They are
+  only used to trigger some actions when a user pushes the button. But some controls
+  have their state (additional information stored in them). For example, the text entered in an edit field, the position of the slider, the date picked in
+  the date/time control, checkbox state, etc. </p>
+<p>Each control (including on-chart controls) in Windows OS is an actual &quot;window&quot; object.
+   <strong>Controls</strong> (window objects in general)<strong>  preserve
+their state on their own as long as they &quot;live&quot;, i.e., as long as they exist as
+&quot;window
+objects&quot;, which means
+as long as a given chart pane is displayed. </strong></p>
+<p><strong>So as long as you don't care about preserving state when a chart is
+  <u>not</u> displayed, you don't need to do anything.</strong> Otherwise, follow the steps below.</p>
+<p>The thing is that on-chart GUI controls are dynamically created by your code
+  when the formula is executed. They can be automatically destroyed if you close
+  a chart window or if you switch to another sheet. Then they can be recreated
+  next time the formula executes.</p>
+<p>This fact has one consequence: if you want to keep your control state between
+  &quot;destroy&quot; and &quot;recreation&quot;, you have to store the state yourself. This can
+  be done using, for example, static variables (or permanent static variables if
+  you want to keep the state between AmiBroker runs).</p>
+<p>As discussed earlier, control creation functions
+    such as GuiButton, GuiEdit, GuiDateTime, GuiCheckbox, GuiRadio, GuiSlider,
+    etc., all return <strong>guiNew</strong> value if a control is newly created
+    or <strong>guiExisting</strong> if a given control (window object) already
+exists. This allows us to know when we need to restore a previously saved state.
+    For example, assuming that we have an edit control's text saved in the &quot;mySavedText&quot;
+    static variable, we could restore the state using code such as the one below:</p>
+<p><CODE><font color='#008000'>// control IDs <br>
+</font>idEdit = <font color='#800080'>1</font>; <br>
+<br>
+<font color='#800000'><b>function</b></font> CreateGUI() <br>
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+rc = <font color='#0000ff'>GuiEdit</font>( idEdit, <font color='#800080'>10</font>, <font color='#800080'>20</font>, <font color='#800080'>100</font>, <font color='#800080'>20</font>, <b>notifyEditChange</b> ); <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>if</b></font>( rc == guiNew ) <font color='#0000ff'>GuiSetText</font>( <font color='#0000ff'>StaticVarGetText</font>( <font color='#800080'>"mySavedText"</font> )
+, idEdit ); <br>
+<br>
+}�</CODE></p>
+<p>Now we may also want to store the text in a static variable whenever it changes:</p>
+<p><CODE><font color='#800000'><b>function</b></font> HandleEvents() <br>
+  { <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>for</b></font>( n = <font color='#800080'>0</font>;
+  id = <font color='#0000ff'>GuiGetEvent</font>( n, <font color='#800080'>0</font> );
+  n++ ) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  { <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>switch</b></font>( id ) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  { <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>case</b></font> idEdit: <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#0000ff'>StaticVarSetText</font>( <font color='#800080'>"mySavedText"</font>, <font color='#0000ff'>GuiGetText</font>(
+  idEdit ), <b>True</b> <font color='#008000'>/* make it persistent */</font> ); <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>break</b></font>; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#008000'>/// the rest of the event handling code .... <br>
+  </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  } <br>
+}</CODE></p>
+<p>As we store the value of edited text on each change into a persistent static variable, it will be preserved between AmiBroker runs and restored whenever the edit control is (re-)created.</p>
+<p>The same technique can be used for other controls as well.</p>
+<p><em>Examples</em></p>
+<p>The example code below shows many techniques described above, including setting initial values on creation, modification of control properties, enabling/disabling
+  controls, showing/hiding controls, handling GUI events.</p>
+<p><CODE><font color='#008000'>// control identifiers <br>
+</font>idSlider = <font color='#800080'>1</font>; <br>
+idEnable = <font color='#800080'>2</font>; <br>
+idDisable = <font color='#800080'>3</font>; <br>
+idShow = <font color='#800080'>4</font>; <br>
+idHide = <font color='#800080'>5</font>; <br>
+<br>
+<font color='#800000'><b>function</b></font> CreateGUI() <br>
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>if</b></font> ( <font color='#0000ff'>GuiSlider</font>(
+idSlider, <font color='#800080'>10</font>, <font color='#800080'>30</font>, <font color='#800080'>200</font>, <font color='#800080'>30</font>, <b>notifyEditChange</b> )
+== guiNew ) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='#008000'>// init values on control creation <br>
+</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='#0000ff'>GuiSetValue</font>(
+idSlider, <font color='#800080'>5</font> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='#0000ff'>GuiSetRange</font>( idSlider, <font color='#800080'>1</font>, <font color='#800080'>100</font>, <font color='#800080'>0.1</font>, <font color='#800080'>100</font> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+} <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#0000ff'>GuiButton</font>( <font color='#800080'>"enable"</font>,
+idEnable, <font color='#800080'>10</font>, <font color='#800080'>60</font>, <font color='#800080'>100</font>, <font color='#800080'>30</font>, <b>notifyClicked</b> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#0000ff'>GuiButton</font>( <font color='#800080'>"disable"</font>,
+idDisable, <font color='#800080'>110</font>, <font color='#800080'>60</font>, <font color='#800080'>100</font>, <font color='#800080'>30</font>, <b>notifyClicked</b> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#0000ff'>GuiButton</font>( <font color='#800080'>"show"</font>,
+idShow, <font color='#800080'>10</font>, <font color='#800080'>90</font>, <font color='#800080'>100</font>, <font color='#800080'>30</font>, <b>notifyClicked</b> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#0000ff'>GuiButton</font>( <font color='#800080'>"hide"</font>,
+idHide, <font color='#800080'>110</font>, <font color='#800080'>90</font>, <font color='#800080'>100</font>, <font color='#800080'>30</font>, <b>notifyClicked</b> ); <br>
+} <br>
+<br>
+<br>
+<font color='#800000'><b>function</b></font> HandleEvents() <br>
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color='#800000'><b>for</b></font>( n = <font color='#800080'>0</font>;
+id = <font color='#0000ff'>GuiGetEvent</font>( n, <font color='#800080'>0</font> );
+n++ ) <br>
+&nbsp;&nbsp;&nbsp;
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>switch</b></font> ( id ) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>case</b></font> idEnable: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#0000ff'>GuiEnable</font>( idSlider, <b>True</b> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>break</b></font>; <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>case</b></font> idDisable: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#0000ff'>GuiEnable</font>( idSlider, <b>False</b> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>break</b></font>; <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>case</b></font> idShow: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#0000ff'>GuiSetVisible</font>( idSlider, <b>True</b> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>break</b></font>; <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>case</b></font> idHide: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#0000ff'>GuiSetVisible</font>( idSlider, <b>False</b> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color='#800000'><b>break</b></font>; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+} <br>
+&nbsp;&nbsp;&nbsp;
+} <br>
+} <br>
+<br>
+CreateGUI(); <br>
+HandleEvents(); <br>
+<br>
+<b>Title</b> = <font color='#800080'>"Value = "</font> + <font color='#0000ff'>GuiGetValue</font>(
+idSlider ); <br>
+<br>
+<br>
+<br>
+</CODE></p>
+<p><em>Caveats</em></p>
+<p>Please be reasonable with Gui* functions and be aware of Windows limits.
+  As all controls in Windows (buttons, edit boxes, etc.) are actual Window objects,
+    they are subject to Windows limitations.
+  And there is a limit of 10000 windows PER PROCESS. So don't try to create thousands
+  of buttons (like a button for every bar of data) because, first, you will see a huge performance decrease, and next, you will hit the limit
+  and run into problems (e.g., a crash)<br>
+  <a href="https://blogs.msdn.microsoft.com/oldnewthing/20070718-00/?p=25963">https://blogs.msdn.microsoft.com/oldnewthing/20070718-00/?p=25963</a></p>
+<p>The best practice is to keep the number under 100-200. If you need more, consider
+using low-level graphics instead.</p>
+</body>
+</html>

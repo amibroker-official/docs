@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Warning 508. The same category is used multiple times in the `Filter settings` window.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><a name="E1" id="E1"></a>Warning 508. The same category is used multiple
+  times in the `Filter settings` window. `GetOption()` can only return very first
+one.</h4>
+<p>Your formula is using <a href="../afl/getoption.html">GetOption</a>() with
+  one of the following fields:</p>
+<p>&quot;FilterIncludeIndex&quot;, &quot;FilterIncludeFavorite&quot;, &quot;FilterIncludeMarket&quot;, &quot;FilterIncludeGroup&quot;, &quot;FilterIncludeSector&quot;, &quot;FilterIncludeIndustry&quot;, &quot;FilterIncludeWatchlist&quot;,  &quot;
+  FilterExcludeIndex&quot;, &quot;FilterExcludeFavorite&quot;, &quot;FilterExcludeMarket&quot;, &quot;FilterExcludeGroup&quot;, &quot;FilterExcludeSector&quot;, &quot;FilterExcludeIndustry&quot;, &quot;FilterExcludeWatchlist&quot; </p>
+<p>but the same category is selected more than once in Filter settings window.
+  In such case GetOption would only return value of VERY FIRST category of selected
+  type.</p>
+<p><CODE><font color='#0000ff'>GetOption</font>(<font color='#800080'>"FilterIncldueWatchlist"</font>)
+    ; <font color='#008000'>// will produce warning 508 if more than one watch
+list is selected in the Filter window.</font></CODE></p>
+</body>
+</html>

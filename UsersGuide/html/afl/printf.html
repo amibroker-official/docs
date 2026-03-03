@@ -1,0 +1,75 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PRINTF</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>printf</b><br>
+        - Print formatted output to the output window.</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> String manipulation<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>printf( <i>formatstr</i>, ... ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The <b>printf</b> function formats and prints a series of characters and values to the output window, which can be either commentary or interpretation window.<p>If arguments follow the format string, the format string must contain specifications that determine the output format for the arguments.<p>
+printf and StrFormat behave identically except that printf writes output to the window, while StrFormat does not write anything to output window but returns resulting string instead.
+
+<p>
+Note 1: for numbers always use %f, %e or %g formatting, %d or %x will not work because there are no integers in AFL.
+<p>Note 2: as of now only numbers and arrays can now be printed. For arrays 'selected value' is printed
+<p>Note 3: to print a single percent-sign character, you can not type % alone, you must use %%.
+<p>Note 4: read more about various % format specifiers on: <a href='https://www.google.com/search?q=printf+format+specifiers'>https://www.google.com/search?q=printf+format+specifiers</a>
+
+<p>Starting from version 6.10, printf/StrFormat now implement a check for correct formatting string as sometimes users passed strings with % that is special marker for formatting string instead of %% to print actual percent sign. When check failes, &quot;Error 61. The number of % formatting specifier(s) does not match the number of arguments passed.&quot; is displayed
+
+<p>Starting from version 6.20, printf/StrFormat support now &quot;%s&quot; (string specifier) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; i < </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>;
+i++ ) <BR>
+{ <BR>
+   </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;Hello
+world, line %g\n&quot;</FONT><FONT COLOR=#000000>, i ); <BR>
+}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="strformat.html">StrFormat()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>printf</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1165&hilite=printf' target='_blank'>AFL_Glossary_1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=printf' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=printf' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=printf' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=printf' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1568&hilite=printf' target='_blank'>Backup Data of 1min Interval</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=printf' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=printf' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=415&hilite=printf' target='_blank'>DateNum_DateStr</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=598&hilite=printf' target='_blank'>ekeko price chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=printf' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1431&hilite=printf' target='_blank'>ICHIMOKU SIGNAL TRADER</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1217&hilite=printf' target='_blank'>interactively test discretionary trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1180&hilite=printf' target='_blank'>Manual Bracket Order Trader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=printf' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=765&hilite=printf' target='_blank'>Multiple sinus noised</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=731&hilite=printf' target='_blank'>nth ( 1 - 8 ) Order Polynomial Fit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=printf' target='_blank'>Polyfit Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=781&hilite=printf' target='_blank'>prakash</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1597&hilite=printf' target='_blank'>Profit Table (Color Coded)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1566&hilite=printf' target='_blank'>Reconnect TWS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1188&hilite=printf' target='_blank'>Robert Antony</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=printf' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1144&hilite=printf' target='_blank'>Stochastic %J - KDJ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=757&hilite=printf' target='_blank'>tomy_frenchy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=775&hilite=printf' target='_blank'>Trigonometric Fit - TrigFit with AR for cos / sin</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=613&hilite=printf' target='_blank'>Ultimate plus</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=printf' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=710&hilite=printf' target='_blank'>WLBuildProcess</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=printf">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

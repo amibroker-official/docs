@@ -1,0 +1,242 @@
+<html>
+
+<head>
+<title>How to write your own chart commentary</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>How to write your own chart commentary</h2>
+<p>One of the interesting aspects of using AmiBroker Formula Language is writing 
+  automatic chart commentaries. The idea behind this technique is as follows: 
+</p>
+<ol>
+  <li>You write the commentary formula that consists of two basic elements: static 
+    texts and AFL expressions</li>
+  <li>AmiBroker evaluates expressions using currently selected symbol data and 
+    generates dynamic content</li>
+  <li>The mixture of static text and evaluated formulas is displayed in commentary 
+    output window</li>
+  <li>Additionally, buy/sell arrows are plotted on the chart</li>
+</ol>
+<p>Commentaries are available from <i>Analysis-&gt;Commentary</i> menu. When you 
+  open commentary window you will see two tabs: <i>Commentary </i>and<i> Formula. 
+  </i>In the <i><a href="w_afledit.html">Formula</a></i> tab, you can type the AFL statements, which will be 
+  evaluated by AmiBroker, resulting in dynamic commentary that appears in the <i>Commentary</i> 
+  tab. The following sections will guide you through the steps needed to write 
+  your very own commentary formulas.</p>
+<p><b>Writing static texts</b> </p>
+<p>Static text elements written in the formula should be enclosed in the quotation 
+  marks and terminated by a semicolon as shown below:</p>
+<blockquote> 
+  <p><code>&quot;This is sample static text statement&quot;;</code></p>
+</blockquote>
+<p>You can write several statements and each statement will be placed in a new 
+  line in the commentary output window:</p>
+<blockquote> 
+  <p><code>&quot;This is first line of text&quot;;<br>
+    &quot;This is second line of text&quot;;</code></p>
+</blockquote>
+<p>Please type these examples into the edit field in the <i>Formula</i> tab and switch 
+  to <i>Commentary</i> tab. You will see the texts displayed in the output area 
+  but without any quotation marks or semicolons. This is because AmiBroker has 
+  evaluated these simple text statements into strings and displayed the strings 
+  in the output window. </p>
+<p>Instead of just typing the text, it is advised that any new code use
+  <strong><a href="afl/printf.html">printf</a></strong> function instead.</p>
+<blockquote>
+  <p>	<CODE><font color='#0000ff'>printf</font>( <font color='#800080'>"This
+  is sample static text statement"</font> );</CODE></p>
+</blockquote>
+<p>To write several lines of text you can use a couple of statements as shown 
+  above or you can do this using a single statement and line break sequence ('\n'):</p>
+<blockquote> 
+  <p><CODE><font color='#0000ff'>printf</font>( <font color='#800080'>"This is
+        first line of text\nThis is second line of text\nThis is third line of
+  text"</font> );</CODE></p>
+</blockquote>
+<p>You can also concatenate the string constants which will result in a single line 
+  of text:</p>
+<blockquote> 
+  <p><CODE><font color='#0000ff'>printf</font>( <font color='#800080'>"This"</font> + <br>
+      <font color='#800080'>" is"</font> + <br>
+      <font color='#800080'>" single"</font>+ <br>
+  <font color='#800080'>" line"</font> + <font color='#800080'>" of text"</font> );</CODE></p>
+</blockquote>
+<p><strong>Colors and styles</strong></p>
+<p>Since version 5.90, commentary and interpretation windows support colors and
+  bold/italic styles. To specify the beginning and end of a bold section, use <strong>&lt;b&gt;</strong> and
+  <strong>&lt;/b&gt;</strong> tags. To specify the beginning and end of an italic section,
+  use <strong>&lt;i&gt;</strong> and<strong> &lt;/i&gt;</strong> tags. To change
+  text color use EncodeColor as shown in the example below:</p>
+<p><CODE><font color='#0000ff'>printf</font>(<font color='#800080'>"&lt;b&gt;Bold
+      text&lt;/b&gt;\n"</font>); <br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>"&lt;i&gt;Italic text&lt;/i&gt;\n"</font>); <br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>"Now "</font> + <font color='#0000ff'>EncodeColor</font>( <b>colorRed</b> )
++ <font color='#800080'>"red text\n"</font>); <br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>"and finally "</font> + <font color='#0000ff'>EncodeColor</font>( <b>colorGreen</b> )
++ <font color='#800080'>"green &lt;b&gt;AND bold &lt;i&gt;AND italic&lt;/i&gt;&lt;/b&gt;\n"</font>); <br>
+<font color='#0000ff'>printf</font>(<font color='#0000ff'>EncodeColor</font>( <b>colorBlack</b> )
++ <font color='#800080'>"going back to black"</font>);</CODE> </p>
+<p><b>Dynamic content</b></p>
+<p>I guess that you are quite bored with these simple examples; let's start with
+  some dynamic content.</p>
+<p>To enable dynamic commentaries, AFL has a couple of special functions available, but two of them are the most important: NumToStr() and WriteIF(). The WriteIF() function is used for conditional text display and will be described later in
+this article. Now, let us see what we can do using the NumToStr() function. </p>
+<p>The AFL reference manual says:</p>
+<table
+        border="0" width="90%">
+  <tr> 
+    <td width="20%"><b>SYNTAX </b></td>
+    <td width="80%">NumToStr( NUMBER );<br>
+      NumToStr( ARRAY );</td>
+  </tr>
+  <tr> 
+    <td><b>RETURNS</b></td>
+    <td>STRING</td>
+  </tr>
+  <tr> 
+    <td valign="top"><b>FUNCTION </b></td>
+    <td width="80%">This function can only be used within a Guru commentary. 
+      It is used to display the numeric value of NUMBER or ARRAY.</td>
+  </tr>
+</table>
+<p>So, if you want to display a value of a number or the currently selected bar of 
+  the array, you should use NumToStr() function. But... wait a minute - what does 
+  it mean &quot;currently selected bar of the array&quot;? Let me explain this 
+  using a simple formula (please type it in the <i>Formula</i> tab):</p>
+<blockquote> 
+  <p><code><font color="#0000FF">printf</font>( NumToStr( close ) );</code></p>
+</blockquote>
+<p>When you switch to <i>Commentary</i> tab, you will see the value of closing 
+  price (the same one which is displayed at the top of the main price chart). But 
+  when you click on the chart in another place, selecting a different date and then 
+  you click &quot;Refresh&quot; button, you will see a different value - the closing 
+  price at the day you have selected. So NumToStr( close ) function displays the value 
+  of the currently selected bar of the close array. And it works in exactly the same way 
+  with other arrays. If you write</p>
+<blockquote> 
+  <p><code><font color="#0000FF">printf</font>( NumToStr( macd() ) );</code></p>
+</blockquote>
+<p>you will see the exact value of the MACD indicator for the day you have selected 
+  in the main chart. With our current know-how, we are able to write some statistics:</p>
+<blockquote> 
+  <p><CODE><font color='#0000ff'>printf</font>( <font color='#800080'>"Closing
+        price = "</font> + <font color='#0000ff'>NumToStr</font>( <b>close</b> )
+        + <font color='#800080'>"\n"</font> ); <br>
+      <font color='#0000ff'>printf</font>( <font color='#800080'>"Change since
+      yesterday = "</font> + <font color='#0000ff'>NumToStr</font>( <b>close</b> - <font color='#0000ff'>ref</font>( <b>close</b>,
+      -<font color='#800080'>1</font> ) ) + <font color='#800080'>"\n"</font> ); <br>
+      <font color='#0000ff'>printf</font>( <font color='#800080'>"Percent chg.
+      since yesterday = "</font> + <font color='#0000ff'>NumToStr</font>( <font color='#0000ff'>roc</font>( <b>close</b>, <font color='#800080'>1</font> )
+      ) + <font color='#800080'>" %%\n"</font> ); <br>
+      <font color='#0000ff'>printf</font>( <font color='#800080'>"MACD ="</font> + <font color='#0000ff'>NumToStr</font>( <font color='#0000ff'>macd</font>()
+      ) + <font color='#800080'>" , Signal line ="</font> + <font color='#0000ff'>NumToStr</font>( <font color='#0000ff'>signal</font>()
+  ) + <font color='#800080'>"\n"</font> );</CODE></p>
+</blockquote>
+<p>When you switch to <i>Commentary</i> tab, you will see output similar to this 
+  one:</p>
+<blockquote> 
+  <p>Closing price = 17.940<br>
+    Change since yesterday = -0.180<br>
+    Percent chg. since yesterday = -0.993 %<br>
+    MACD = -0.001 , Signal line = 0.063</p>
+</blockquote>
+<p>Quite nice, isn't it? You can also write the current symbol ticker and selected 
+  date using name() and date() functions as shown below:</p>
+<blockquote> 
+  <p><code><font color="#0000FF">printf</font>( "Statistics of " + name() + " as
+      of " + date() );</code></p>
+  <p>&nbsp;</p>
+</blockquote>
+<p>Instead of using NumToStr to convert a number to a string, we can format numbers
+  directly using printf's flexible % format specifiers. For example, using %.2f
+  means writing a number with 2 decimal places, %.3f will mean writing a number with
+  3 decimal places, %g will mean writing a number with the minimum required number
+  of digits (auto-format). So we could write our previous example as follows:</p>
+<p><CODE><font color='#0000ff'>printf</font>( <font color='#800080'>"Closing
+      price = %.3f\n"</font>, <b>close</b> ); <br>
+    <font color='#0000ff'>printf</font>( <font color='#800080'>"Change since
+    yesterday = %.3f\n"</font>, <b>close</b> - <font color='#0000ff'>ref</font>( <b>close</b>,
+    -<font color='#800080'>1</font> ) ); <br>
+    <font color='#0000ff'>printf</font>( <font color='#800080'>"Percent chg.
+    since yesterday = %.2f%%\n"</font>, <font color='#0000ff'>roc</font>( <b>close</b>, <font color='#800080'>1</font> )
+    ); <br>
+    <font color='#0000ff'>printf</font>( <font color='#800080'>"MACD = %.4f,
+    Signal line = %.4f\n"</font>, <font color='#0000ff'>macd</font>(), <font color='#0000ff'>signal</font>()
+);</CODE></p>
+<p>As we can see, this code is shorter and clearer. The first argument of <a href="afl/printf.html">printf</a>  function
+  is a  string (strictly speaking, a so-called formatting string that contains text
+  and number placeholders/format specifiers marked with %). Subsequent arguments
+  of the printf function are actual values (numbers) we want to write (without the
+  need to convert to a string anymore). As you may have noted, if we want to specify
+  just a percent sign, not a formatting sequence, we need to write %% (two percent
+  signs).</p>
+<p>But what we're missing here is the ability to write something if some condition is 
+  met and to write something different otherwise...</p>
+<p><b>Conditional text output</b></p>
+<p>AFL is equipped with a very nice function called WriteIF() that can output different 
+  texts depending on an expression. Let us look at what the documentation says:</p>
+<table
+        border="0" width="90%">
+  <tr> 
+    <td width="20%"><b>SYNTAX </b></td>
+    <td width="80%">writeif( EXPRESSION, &quot;TRUE TEXT&quot;, &quot;FALSE TEXT&quot; 
+      )</td>
+  </tr>
+  <tr> 
+    <td><b>RETURNS</b></td>
+    <td>STRING</td>
+  </tr>
+  <tr> 
+    <td valign="top"><b>FUNCTION </b></td>
+    <td width="80%">This function can only be used within a Guru commentary. 
+      If EXPRESSION evaluates to &quot;true&quot;, then the TRUE TEXT string is 
+      displayed within the commentary. If EXPRESSION evaluates to &quot;false&quot;, 
+      then the FALSE TEXT string is displayed.</td>
+  </tr>
+</table>
+<p>So we can easily output different text depending on an expression, for example:</p>
+<blockquote> 
+  <p><code>writeif( macd() &gt; signal(), &quot;The MACD is bullish because it 
+    is above its signal line&quot;, &quot;The MACD is bearish because it is below 
+    its signal line&quot; );</code></p>
+</blockquote>
+<p>You can also combine several WriteIf() function calls in order to handle more 
+  possibilities:</p>
+<blockquote> 
+  <p><code>&quot;The current market condition for &quot;+ name() + &quot; is: 
+    &quot;;</code></p>
+  <p><code>avgcond1 = ( c &gt; ema( close, 200) ) + 0.1 * ( close &gt; ema( close, 
+    90) ) + 0.1 * ( close &gt; ema( close , 30 ) );<br>
+    avgcond2 = -( c &lt; ema( close, 200) ) - 0.1 * ( close &lt; ema( close, 90) 
+    ) - 0.1 * ( close &lt; ema( close , 30 ) );</code></p>
+  <p><code>WriteIf( avgcond1 == 1.2,<br>
+    &quot;Very Bullish&quot;,<br>
+    WriteIf( avgcond1 == 1.1,<br>
+    &quot;Bullish&quot;,<br>
+    WriteIf( avgcond1 == 1.0,<br>
+    &quot;Mildly Bullish&quot;, &quot;&quot;) ) ) +</code></p>
+  <p><code>WriteIf( avgcond2 == -1.2,<br>
+    &quot;Very Bearish&quot;,<br>
+    WriteIf( avgcond2 == -1.1,<br>
+    &quot;Bearish&quot;,<br>
+    WriteIf( avgcond2 == -1.0,<br>
+    &quot;Mildly Bearish&quot;, &quot;&quot;) ) );</code></p>
+</blockquote>
+<p>The formula above will return the text &quot;The current market condition
+  for  {your ticker here} is: Very Bullish&quot; if the close price is above the 30-day 
+   average, and the close is above the 90-day average, and the close is above
+  the 200-day average. In other cases, the formula will give you Bullish, Mildly Bullish,
+  Mildly Bearish, Bearish,
+  or Very
+  Bearish
+  
+  ratings.</p>
+<p>For more examples on AFL commentaries, please check <a href="http://www.amibroker.com/library.html" target="_blank">AFL 
+  formula library</a>, especially the <a href="http://www.amibroker.com/afl/Macd_c.afl" target="_blank">MACD commentary </a>formula, which demonstrates all techniques presented here.</p>
+<p>Now you are ready to start with your own commentaries... Good luck! </p>
+</body>
+</html>

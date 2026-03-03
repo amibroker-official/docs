@@ -1,0 +1,229 @@
+<html>
+<head>
+<title>System test report window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>System test report window</h3>
+<p><strong>NEW BACKTESTER REPORT</strong></p>
+<p><strong>Exposure %</strong> - Market exposure of the trading system calculated
+  on a bar-by-bar basis. The sum of bar exposures divided by the number of bars. Single
+bar exposure is the value of open positions divided by portfolio equity.</p>
+<p><strong>Net Risk Adjusted Return %</strong> - Net profit % divided by Exposure
+  %</p>
+<p><strong>Annual Return % </strong>- Compounded Annual Return % (CAR)</p>
+<p><strong>Risk Adjusted Return % </strong>- Annual return % divided by Exposure
+  %</p>
+<p><strong>Avg. Profit/Loss</strong> - (Profit of winners + Loss of losers)/(number
+  of trades)</p>
+<p><strong>Avg. Profit/Loss %</strong> - (% Profit of winners + % Loss of losers)/(number
+  of trades)</p>
+<p><strong>Avg. Bars Held</strong> - Sum of bars in trades / number of trades</p>
+<p> <strong>Max. trade drawdown </strong>- The largest peak to valley decline
+  experienced in any single trade</p>
+<p><strong>Max. trade % drawdown </strong>- The largest peak to valley percentage
+  decline experienced in any single trade</p>
+<p><strong>Max. system drawdown</strong> - The largest peak to valley decline
+  experienced in portfolio equity</p>
+<p><strong>Max. system % drawdown</strong> - The largest peak to valley percentage
+  decline experienced in portfolio equity<br>
+    <br>
+    <strong>Recovery Factor</strong> - Net profit divided by Max. system drawdown<br>
+                <br>
+                <strong>CAR/MaxDD </strong>- Compound Annual % Return divided
+                by Max. system % drawdown</p>
+<p><strong>RAR/MaxDD</strong> - Risk Adjusted Return divided by Max. system %
+  drawdown </p>
+<p><strong>Profit Factor </strong>- Profit of winners divided by loss of losers</p>
+<p><strong>Payoff Ratio</strong> - Ratio of average win / average loss<br>
+    <br>
+    <strong>Standard Error </strong>- Standard error measures choppiness of the equity
+    line. The lower, the better.</p>
+<p><strong>Risk-Reward Ratio</strong> - Measure of the relation between the risk
+  inherent in trading the system compared to its potential gain. Higher is
+  better. Calculated as the slope of the equity line (expected annual return) divided
+  by its standard error.</p>
+<p><strong>Ulcer Index</strong> - The square root of the sum of squared drawdowns divided
+  by the number of bars</p>
+<p><strong>Ulcer Performance Index</strong> - (Annual profit - Treasury notes profit) / Ulcer Index. Currently, Treasury notes profit
+  is hardcoded at 5.4. In a future version, there will be a user setting for this.</p>
+<p><strong>Sharpe Ratio of trades</strong> - Measure of risk-adjusted return
+  on investment. Above 1.0 is good, more than 2.0 is very good. More information <a href="http://www.stanford.edu/%7Ewfsharpe/art/sr/sr.htm">http://www.stanford.edu/~wfsharpe/art/sr/sr.htm</a>.
+  Calculation: First, the average percentage return and standard deviation of returns
+  are calculated. Then these two figures are annualized by multiplying them by the
+  ratio (NumberOfBarsPerYear)/(AvgNumberOfBarsPerTrade). Then the risk-free rate
+  of return is subtracted (currently hard-coded at 5) from the annualized average return
+  and then divided by the annualized standard deviation of returns.<br>
+    <br>
+    <strong>K-Ratio</strong> - Detects inconsistency in returns. Should be 1.0
+    or more. The higher the K ratio, the more consistent return you may expect
+    from the system. The linear regression slope of the equity line multiplied by the square
+    root of the sum of squared deviations of the bar number divided by the standard error
+    of the equity line multiplied by the square root of the number of bars. More information:
+    Stocks &amp; Commodities V14:3 (115-118): Measuring System Performance by
+    Lars N. Kestner</p>
+<p><strong><a name="old"></a>OLD BACKTESTER REPORT</strong></p>
+<img src="gifs/report.gif">
+<p>This window (accessible from the <b>Report</b> button in <a href="w_analysis.html">Automatic
+  analysis window</a>) provides very useful information about the performance
+  of a trading system under test. The information included here can be customized
+  using <a href="w_settings.html">system test settings dialog</a>.</p>
+<p>Explanation of values: </p>
+<p><b>Total net profit:</b> This is the total profit/loss realized by the test. Includes
+  the closed-out value of the open position (if any).<br>
+  <b>Return on account:</b> This is total profit/loss as a percentage of initial
+  investment. <br>
+  <b>Total commissions paid: </b>The amount of commissions paid during trades.<br>
+  <b>Open position gain/loss: </b>The closed-out value of an open position that existed
+  at the end of the test.<br>
+  <b>Buy-and-hold profit:</b> The total profit/loss realized by the buy-and-hold strategy
+  (including commission).<br>
+  <b>Buy-and-hold % return: </b>The total buy-and-hold strategy return as a percentage
+  of initial investment.<br>
+  <b>Bars in test:</b> The number of bars tested (Overall summary shows the sum of the
+  number of bars in all symbols).<br>
+  <b>Days in test:</b> The number of days between the first bar date and the last bar
+  date (overall summary shows the arithmetic average of the number of days across the
+  population of symbols under test)<br>
+  <b>System to buy-and-hold index:</b> An index showing how much better or worse the
+  system is compared to a buy-and-hold strategy. A value of 0% means that the system
+  gives the same profit as a buy-and-hold strategy. A value of 200% means that the system
+  gives 200% more profit than a buy-and-hold strategy. A value of -50% means that
+  the system gives half of the gains of a buy-and-hold strategy.<br>
+  <b>Annual system % return: </b>Calculated compound annual percentage return
+  of the system (*see note) <br>
+  <b>Annual B&amp;H % return: </b>Calculated compound annual percentage return
+  of the buy-and-hold strategy (*see note) <br>
+  <b>System drawdown: </b>The largest equity dip experienced by the system (relative
+  to the initial investment). <b><br>
+  B&amp;H drawdown: </b>The largest equity dip experienced by the buy-and-hold
+  strategy (relative to the initial investment). <b><br>
+  </b></p>
+<p><b>Max. system drawdown: </b>The largest point distance between an equity peak
+  value and the following trough value experienced by the system<br>
+  <b>Max. system % drawdown: </b>The largest percentage distance between an equity
+  peak value and the following trough value experienced by the system <br>
+  <b>Max. B&amp;H drawdown: </b>The largest point distance between an equity peak
+  value and the following trough value experienced by the buy-and-hold strategy<br>
+  <b>Max. B&amp;H % drawdown: </b>The largest percentage distance between an equity
+  peak value and the following trough value experienced by the buy-and-hold strategy</p>
+<p> <b>Trade drawdown:</b> The largest equity dip experienced by any single trade
+  (relative to the trade's entry price).<br>
+  <b>Max. trade drawdown: </b>The largest point distance between an equity peak
+  value and the following trough value experienced by any single trade<br>
+  <b>Max. trade % drawdown: </b>The largest percentage distance between an equity
+  peak value and the following trough value experienced by any single trade<br>
+</p>
+<p><b>Total number of trades:</b> The number of trades (winners + losers)<br>
+  <b>Percent profitable:</b> The number of winning trades compared to the total number
+  of trades, shown as a percentage<br>
+  <b>Profit of winners/Loss of losers:</b> Total amount of money gained from winners or lost
+  from losers.<br>
+  <b>Total # of bars in winners/losers: </b>The number of bars spent during winning/losing
+  trades<br>
+  <b>Largest winning/losing trade:</b> The amount of the biggest winner/loser<br>
+  <b># of bars in largest winner/loser:</b> The number of bars in the biggest
+  winning/losing trade <br>
+  <b></b><b>Average winning/losing trade:</b> The average of winning/losing trades
+  (sum of winners/losers divided by the number of winning/losing trades)<br>
+  <b>Average # of bars in winners/losers:</b> The average number of bars in winning/losing
+  trades (total number of bars in winners/losers divided by the number
+  of winning/losing trades)<br>
+  <b>Max. consec. winners/losers: </b> The largest number of consecutive winning/losing
+  trades. <br>
+</p>
+<p><b>Bars out of the market</b>: The number of bars for which the system was
+  completely out of the market (was neither long nor short). If you open and close
+  the position during a single day, even if you have no open position at market
+  open and no position at close, this day is NOT considered out of the market.</p>
+<p><b>Interest earned:</b> The total interest earned between trades. Note that
+  AmiBroker simulates O/N (overnight) deposits. This means that if you closed
+  the position on Monday and opened the next one on Tuesday, you earn interest
+  for a single O/N deposit.</p>
+<p><b>Exposure: </b>Shows how much you are exposed to the market. It is a ratio
+  of the bars in the market divided by the total number of bars under test. (The number
+  of bars in the market is given by the total number of bars minus the bars out of the market)</p>
+<p><b>Risk-adjusted ann. return: </b>Shows the annual return of the system (*see note)
+  adjusted (divided) by market exposure. If your system gained 10% over one year
+  with an exposure of 50%, the adjusted return would be 20% (10%/0.5)</p>
+<p><b>Ratio avg win/avg loss:</b> The absolute value of the ratio of average winning
+  trade to average losing trade<br>
+  <b>Profit factor: </b>The absolute value of the ratio of the profit of winners
+  to the loss of losers<br>
+  <b>Avg. trade (win &amp; loss)</b>: The average trade profit calculated as the sum
+  of winners and losers divided by the number of trades. </p>
+<p><u>*Note: Calculation method used for annual percentage returns: </u></p>
+<p>Most of the software (including two of the most popular so-called professional
+  packages) use a very simple annualization method based on the following formula:</p>
+<p>simple_annualized_percentage_return = percentage_return * ( 365 / days_in_test
+  );</p>
+<p>Unfortunately, this method is <b>wrong</b> and very misleading since it would
+  tell you that the annual return is 22% when your system earned 44% during two
+  years. This value is too optimistic. In fact, the annual return in this case is only
+  20%: if your initial investment was 10000, you earn 20% during the first year
+  so you then get 12000, and 20% the second year gives you 14400 (12000 * 120%). So, after two years you earned 44%, but annually it is only 20%.</p>
+<p>AmiBroker is one of the few programs that calculates annual returns correctly
+  and will give you the correct value of 20% as shown in the example above. The
+  formula that AmiBroker uses for annual return calculation is as follows:</p>
+<p>correctly_annualized_perc_return = 100% * ( (final_value/initial_value) ^ (
+  365 / days_in_test ) - 1 )</p>
+<p>where x^y means raising x to the power of y.</p>
+<h4>Known differences between statistics produced by 'old' and<u> 'new' (portfolio)
+    backtester </u></h4>
+<table width="100%" border="1" cellspacing="0" cellpadding="3">
+  <tr>
+    <td>&nbsp;</td>
+    <td>Old backtester</td>
+    <td>New (portfolio) backtester</td>
+  </tr>
+  <tr>
+    <td>System and trade drawdown calculations based on</td>
+    <td>Open/Close/H-L range (worst case), selectable in settings</td>
+    <td>Close price only (regardless of settings) - subject to change</td>
+  </tr>
+  <tr>
+    <td>Max. % trade drawdown</td>
+    <td>Calculated based on total equity</td>
+    <td>Calculated based on ACTUAL trade value at entry point.</td>
+  </tr>
+  <tr>
+    <td>Stats available </td>
+    <td>For all trades only</td>
+    <td>Separately for long, short, and all trades</td>
+  </tr>
+  <tr>
+    <td>Position Sizing</td>
+    <td>Based on individual symbol equity </td>
+    <td><p>Based on portfolio equity.</p>
+        <p>PositionSize = -25; </p>
+        <p>will enter 25% of current portfolio equity</p>
+    </td>
+  </tr>
+  <tr>
+    <td>Trade statistics</td>
+    <td>Include only closed trades; open trades are reported separately</td>
+    <td>Include all trades (closed and those still open at the end of the analysis
+      period). Any open trades are always closed out at the 'close' price.</td>
+  </tr>
+  <tr>
+    <td>Exposure</td>
+    <td>calculated regardless of position size (no matter what the position size is; if a trade is taken for a particular bar, it assumes 100% exposure at that
+      bar)</td>
+    <td>calculations now include (in 4.43.0) the total amount of open positions
+      compared to total portfolio equity. Exposure is calculated on a bar-by-bar
+      basis, so if only 50% of funds are in an open trade, then the exposure for this bar
+      is 0.5. Then, individual bar exposures are summed up and divided by the number
+      of bars to produce the exposure figure. This way, true market exposure is calculated.</td>
+  </tr>
+  <tr>
+    <td>Multiple security testing</td>
+    <td>N independent accounts (multiple single equity)</td>
+    <td>Portfolio equity common to all symbols under test</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

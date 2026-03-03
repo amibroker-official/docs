@@ -1,0 +1,63 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PEAKBARS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PeakBars</b><br>
+        - bars since peak</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Basic price pattern detection<br>
+        </b>(AmiBroker 3.10)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PeakBars(ARRAY, <em>change</em>, <em>n =</em> 1) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Gives the number of bars that have passed from the <em>n</em>-th 
+      peak. This uses the Zig Zag function (see Zig Zag) to determine the peaks. 
+      <em>n</em> =1 would return the number of bars that have passed since the 
+      most recent peak. <em>n</em> =2 would return the number of bars that have 
+      passed since the 2nd most recent peak <b>Caveat:</b> this function is based 
+      on Zig-Zag indicator and may look into the future. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> peakbars(close,5,1) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>PeakBars</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1300&hilite=PeakBars' target='_blank'> 	Pivots And Prices And Swing Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=926&hilite=PeakBars' target='_blank'>Advanced Trend Lines with S & R</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=59&hilite=PeakBars' target='_blank'>DMI Spread Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1084&hilite=PeakBars' target='_blank'>Fibonacci Internal and External Retracements</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1256&hilite=PeakBars' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1257&hilite=PeakBars' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=347&hilite=PeakBars' target='_blank'>Gartley 222 Pattern Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1408&hilite=PeakBars' target='_blank'>Harmonic Patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=166&hilite=PeakBars' target='_blank'>Head & Shoulders Pattern</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=PeakBars' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=PeakBars' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=682&hilite=PeakBars' target='_blank'>LunarPhase</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=884&hilite=PeakBars' target='_blank'>Modified Head & Shoulder Pattern</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=105&hilite=PeakBars' target='_blank'>Pattern Recognition Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=399&hilite=PeakBars' target='_blank'>Pivot Point with S/R Trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=99&hilite=PeakBars' target='_blank'>QP2 Float Analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=288&hilite=PeakBars' target='_blank'>RSI Trendlines and Wedges</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=103&hilite=PeakBars' target='_blank'>Stochastics Trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=767&hilite=PeakBars' target='_blank'>The Fibonaccian behavior</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=597&hilite=PeakBars' target='_blank'>Tom DeMark Trend Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1338&hilite=PeakBars' target='_blank'>Wolfe Wave Patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1095&hilite=PeakBars' target='_blank'>Zig-Hi Zap-Lo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1548&hilite=PeakBars' target='_blank'>ZigZag - Days, Avg (Ord) Volume and Channels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1353&hilite=PeakBars' target='_blank'>ZigZag Hi Lo Barcount</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=930&hilite=PeakBars' target='_blank'>ZigZag Retracements</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PeakBars">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

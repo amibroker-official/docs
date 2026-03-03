@@ -1,0 +1,379 @@
+<html>
+
+<head>
+<title>How to use AmiBroker with external DDE data source</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<div align="center">
+  <h2 align="left">How to use AmiBroker with external DDE data source </h2>
+  <p align="left"><em>Note: the most recent version of this document can be found
+    at: <a href="http://www.amibroker.com/dde.html">http://www.amibroker.com/dde.html</a>.
+    Please check this page for updates.</em></p>
+  <div align="left">
+    <h4>WHAT IS DDE</h4>
+    <p>DDE (Dynamic Data Exchange)
+      is a Windows protocol used to allow applications to exchange data. For
+      example, when you change a form in your database program or a data item
+      in a spreadsheet program, they can be configured to also update these forms
+      or items anywhere they occur in other programs you may use. DDE uses a
+      client/server model in which the application requesting data is considered
+      the client and the application providing data is considered the server. <br>
+    Thousands of applications use DDE, including Microsoft's Excel, Word, Lotus
+  1-2-3, and Visual Basic.</p>
+    <p>For more information
+        about DDE as a communication mechanism in Windows, please follow this link:<br>
+      <a href="http://msdn.microsoft.com/library/en-us/winui/WinUI/WindowsUserInterface/DataExchange/DynamicDataExchange/AboutDynamicDataExchange.asp">http://msdn.microsoft.com/library/en-us/winui/WinUI/WindowsUserInterface/DataExchange/DynamicDataExchange/AboutDynamicDataExchange.asp</a> </p>
+    <h4>DDE FOR TRADERS</h4>
+    <p>What DDE offers for
+      traders? Essentially, real-time streaming quotes. <strong>There is NO BACKFILL
+      via DDE</strong>. Many real-time data providers and brokerages provide
+      the ability to get real-time data by means of DDE. You should ask your brokerage/real-time
+      data vendor if they offer a DDE link. The DDE plugin now available for AmiBroker
+      allows linking to (almost) any DDE source (server) supplying real-time
+      quotes. This makes it an attractive option for all data sources that do not
+    have a dedicated plugin.</p>
+    <h4>WHEN <u>NOT
+    TO USE</u> DDE PLUGIN</h4>
+    <p>If you are using eSignal,
+        IQFeed, Quote.com, and any other source that has a dedicated
+        plugin - you should use this dedicated plugin instead of DDE. This is
+            so because dedicated plugins are ALWAYS a better option (provide more
+            features and are faster) than generic DDE.</p>
+    <h4> DDE PLUGIN FEATURES SUMMARY</h4>
+  </div>
+</div>
+  <ul>
+    <li>
+      <div align="center">
+        <div align="left">user-definable DDE server/topic/item for each field
+          (open, high, low, close, volume, trade size, total volume, bid, bid
+          size, ask, ask size,
+        time) </div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">supports up to 500 streaming symbols in real-time (version
+        1.1.0) </div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">supports all base time intervals: daily, hourly, 15-, 5-, 1-minute,
+        15-, 5-second, tick </div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">NO BACKFILL (due to the fact that most DDE
+                sources do not provide backfill) <br>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div align="center">
+    <div align="left">
+      <h4>HISTORY</h4>
+    </div>
+  </div>
+  <ul>
+    <li>
+      <div align="center">
+        <div align="left">1.2.2 - includes &quot;Time shift&quot; field in the
+          context dialog, stores configuration per-database in dde.config file
+          instead of in the registry, plus other small improvements </div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">1.2.1 - fixed problem with 'type
+        mismatch' </div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">1.2.0 - by default, the plugin uses regional settings numeric
+                format now <br>
+        and CPU load is decreased </div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">1.1.0 - symbol limit increased from 40 to
+        500 </div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">1.0.0 - initial release (BETA) <br>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div align="center">
+    <div align="left">
+      <h4>INSTRUCTIONS
+      </h4>
+        <p>To use DDE data plugin
+              with AmiBroker you need to: 
+        </p>
+      <ol>
+        <li>(optional *) Download the latest version of the DDE plugin
+                  from <a href="http://www.amibroker.com/bin/DDE.dll" target="_blank">http://www.amibroker.com/bin/DDE.dll</a> and
+                  copy it to PLUGINS subfolder of the AmiBroker directory. <br>
+          *Version
+                  1.2.2 of DDE.DLL  (Jun 7, 2007) is already included in AmiBroker 5.00
+                full setup<br>
+        </li>
+        <li> Enable DDE in the
+                  third-party software you are using as a DDE server (consult data vendor/brokerage
+            software documentation for details on how to enable DDE)</li>
+        <li> Run AmiBroker and
+                    create a new database with &quot;<strong>DDE universal data plugin</strong>&quot; as
+              a data source, following these steps:</li>
+        </ol>
+      <UL>
+        <LI>      Run AmiBroker          
+        <LI>      Choose <B>File-&gt;New
+                database</B>      <LI>          Type a new folder
+                    name (for example: C:\Program Files\AmiBroker\DDE) and click <B>Create</B>, as
+                    shown in the picture below:<BR>
+&nbsp;<BR>
+                <BR>
+                <img src="gifs/dde_db.gif"><BR>
+              <LI> Choose&nbsp;<strong>DDE
+                        universal data plugin</strong> from Data source combo and "<B>Enable</B>" from <B>Local
+                  data storage </B>              <LI> Enter 10000 or more
+                      into &quot;<strong>Number of bars to load</strong>&quot; field
+                <LI>      Now choose Base
+                    time interval. <strong>Supported intervals are: EOD, hourly, 15-minute,
+                    5-minute, 1-minute. Professional Edition of AmiBroker also allows selecting
+                    Tick, 5-second, and 15-second intervals.</strong>
+                <LI>      Click <strong>CONFIGURE</strong> button
+                    - IMPORTANT: in the &quot;CONFIGURE&quot; dialog you have to set up
+                    all fields following the description of your data vendor. <br>
+                  <br>
+                  Please
+                        also check the paragraph below (&quot;<strong>CONFIGURING DDE PLUGIN TO WORK
+                        WITH YOUR VENDOR</strong>&quot;) for a detailed description. ATTENTION:
+                        you cannot skip this part - without setting up the fields specifically
+                        for your data vendor, DDE WILL NOT WORK.<br>
+                  <br>
+              <img src="gifs/dde_config.gif"> <br>
+        </LI>
+                <LI>      Click OK.</LI>
+        </UL>
+      <p>The plugin status indicator
+              should change from Yellow &quot;WAIT&quot; to Green &quot;OK&quot; within
+            a few seconds. If it does not turn
+              to the &quot;OK&quot; state, it means that either:<br>
+        a) server name and/or
+              fields are not set up correctly<br>
+&nbsp;&nbsp;or<br>
+      b) DDE server (third-party application) is not running or is not enabled </p>
+      <p>If the indicator
+              shows &quot;OK&quot; -
+                  then real-time quotes flow into AB. You can check it by displaying Window-&gt;Real-time
+                  quote. Note: Since there is no backfill, you would need to wait
+      for at least 3 bars of data to be collected before a chart shows up.</p>
+      <h4>CONFIGURING
+      DDE PLUGIN TO WORK WITH YOUR VENDOR</h4>
+      <p>Various data vendors
+                  use different DDE connection strings; here a few typical examples
+      will be shown.</p>
+      <p>Most documentation of
+                    DDE uses Excel DDE syntax which looks as follows:<strong>=SERVER|TOPIC!ITEM </strong><br>
+        <br>
+        Server is a name of the DDE server such as WINROS, IQLINK, REUTER,
+                    CQGPC, MT, MTLink, etc. <br>
+        Topic is the topic of DDE conversation. Depending on the data source, the topic
+              may be just the ticker symbol (like in IQFeed), or the field name (like
+              in Winros).<br>
+        Item is the item of DDE conversation. Depending on the data source, it
+                    can be the field name (like in IQFeed) or ticker symbol (like in Winros).<br>
+        <br>
+        So a DDE connection string in two most common standards looks as follows:<br>
+        <br>
+        =WINROS|LAST!MSFT<br>
+        <br>
+        =IQLINK|MSFT!LAST<br>
+        <br>
+        Now DDE plugin configuration screen looks like this:</p>
+      <p><img src="gifs/dde_config.gif"><br>
+        <br>
+        In the upper part of the dialog you can see &quot;DDE Server&quot; field.
+                    In this field you should enter the <strong><font color="#FF0000">SERVER</font></strong> part
+              of DDE connection string <strong>(=<font color="#FF0000">SERVER</font>|TOPIC!ITEM)</strong> without
+      the equation mark and without the '|' character. </p>
+      <p>Below you can see 12
+                  text entry boxes where you can define DDE topic and item for each data
+                  field your data source provides. Here you should enter <font color="#009900"><strong>TOPIC!ITEM</strong> </font>pair
+                  of the DDE connection string <strong>(=SERVER|<font color="#009900">TOPIC!ITEM</font>)</strong> with
+      an exclamation mark between the DDE topic and DDE item. </p>
+      <p>As you can see in the
+                  picture above, the DDE plugin allows you to use a few special strings, namely:
+                  {Ticker}, {Field}, {FieldSp}, {Server}, {Id} which are evaluated at
+                  runtime for each symbol separately, allowing you to construct dynamic DDE
+                  strings
+      (depending, for example, on the selected ticker) required by most data sources:</p>
+    </div>
+  </div>
+  <ul>
+    <li>
+      <div align="center">
+        <div align="left">{Ticker}
+          - evaluates to the ticker symbol of a given security</div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">{Field} - evaluates
+              to the corresponding field name (without spaces), i.e., Open, High,
+              Low, Last, LastSize, Volume, Ask, AskSize, Bid, BidSize,
+                    Time,
+              Req</div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">{FieldSp} - similar to {Field} but 2-word field names
+          have spaces, namely: &quot;Last
+                  Size&quot;, &quot;Ask Size&quot;, &quot;Bid Size&quot;</div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">{Server}
+                      - evaluates to the server name</div>
+      </div>
+    </li>
+    <li>
+      <div align="center">
+        <div align="left">{Id} - evaluates to a unique
+          ID (running counter incremented by 1 with each symbol)
+          <div align="center">
+            <div align="left"></div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div align="center">
+    <div align="left">All other
+                      texts are carbon-copied,
+                                        so if you
+                                        write, for example:<br>
+    </div>
+  </div>
+<div align="center">
+  <div align="left">
+      <p>PREFIX_{Ticker }_SUFFIX!MYTEXT</p>
+      <p>it will evaluate to
+                                          =SERVER|PREFIX_MSFT_SUFFIX!MYTEXT (provided
+                that current symbol is MSFT) </p>
+      <p>Next to the field definitions,
+                                    you can see what
+                                    each definition
+                                    will evaluate
+                                    to
+                                        (in Excel notation).
+                                        This makes it easy to verify if the definition
+              is correct. </p>
+      <p>Sample evaluation always uses &quot;MSFT&quot; as
+              a {Ticker}, and 34 as {Id}.</p>
+      <p>If your data source does not provide
+              all fields, you can leave a given field empty. Note
+                                        that for
+                                        proper operation, the &quot;Last&quot; price
+                                        (the price of the last trade) is required.
+                                        If your data source does not provide &quot;last&quot; price
+                                        (most Forex sources don't have &quot;last&quot;)
+                                        you can force the DDE plugin to use &quot;Bid&quot; instead.
+                                        For that, you should make the &quot;Last&quot; field
+                                        blank and provide the appropriate DDE topic!item
+                                        pair in &quot;Bid&quot; field.
+                                        Please also note that Topic!Item pairs
+                                        should evaluate to unique values.<br>
+        <br>
+        In the top part of the dialog, you can
+                                        see &quot;Preset&quot; combo-box.                          </p>
+      <p>As of now, it allows you to preset the fields using two generic schemes:<br>
+        a)
+        {Field}!{Ticker} - &quot;last price&quot; evaluates to
+                                        =SERVER|Last!MSFT<br>
+        b) {Ticker}!{Field} - &quot;last price&quot; evaluates to =SERVER|MSFT!Last                          </p>
+      <p>In the future &quot;Preset&quot; box
+                                        will contain more presets for various
+                          DDE sources that you submit.</p>
+    <h4>A FEW EXAMPLES</h4>
+      <p>Connection examples are shown on the web page: <a href="http://www.amibroker.com/dde.html" target="_blank">http://www.amibroker.com/dde.html</a></p>
+    </div>
+  </div>
+  <div align="center"><div align="left">
+    <h4>TEST PLATFORMS</h4>
+        <p>DDE
+            plugin has been tested and it is known to work properly on Windows
+            XP (32-bit DDE) and
+            Windows 9x (16-bit DDE). The following DDE servers
+            are verified by us to work properly: </p>
+        <ul>
+          <li>IQLINK (DTN)</li>
+          <li>WINROS (eSignal)</li>
+          <li>MT (MetaQuotes)</li>
+        </ul>
+      DDE plugin does NOT
+      work with the following DDE servers:
+        <ul>
+          <li>VTSPOT (Visual Trader)
+            - due to improper coding in VisualTrader that causes the Microsoft DDEML
+            library's DdeConnect function to hang on the very first connection attempt</li>
+        </ul>
+        <p><br>
+      All other DDE servers not listed above should work properly. Contact
+      support at amibroker.com in case of problems.</p>
+        <h4>HELP US TO HELP
+      others:</h4>
+        <p>In order to help others
+        to configure the DDE plugin for their data vendor, once you succeeded
+        to link with your particular vendor, please drop us a note with a screenshot
+        of the CONFIGURE dialog and the name of the source. This will later be included
+        in this document as a reference on how to use various data sources. Working
+        setups will also be added to &quot;presets&quot; combo for easy, one-click configuration.</p>
+        <h4>NOTES ON DDE
+      PLUGIN:</h4>
+        <p>1. There is <strong>NO
+          BACKFILL </strong>in the DDE plugin. You can, however, use the ASCII importer
+          (this includes AmiQuote) to import historical data right into the database
+      that you will later update in real-time using the DDE plugin. </p>
+        <p>2. <strong>Change and %
+      change </strong> fields are NOT available (yet)</p>
+        <p>3. <strong>Time </strong>and <strong>Req</strong> fields
+      are now ignored (this may change in the future)</p>
+        <p>4. The current system
+      time is used to timestamp each tick. </p>
+        <p>5. When your source
+        does not offer &quot;LAST&quot; price (as several Forex sources do) you
+        should make the &quot;Last&quot; field EMPTY in the configuration dialog. This
+      will tell the plugin to use the &quot;BID&quot; field instead.</p>
+        <p>6. Plugin status
+        (connected/disconnected) always initially comes up in the &quot;Wait&quot; state (Yellow indicator).
+        It means that no DDE conversation has been established. If at least ONE
+        DDE conversation starts successfully, it will turn to the &quot;OK&quot; state
+        (green indicator). If the DDE server was not running at the first attempt to connect,
+        the plugin will NOT attempt to reconnect automatically. Instead, you should
+        force reconnection manually (see point 7). The indicator may turn to &quot;Disconnected&quot; (red
+      indicator) only in two cases: &nbsp;<br>
+      a) you were connected
+        properly, but the DDE server (third-party app) has been closed&nbsp;<br>
+        b) you selected &quot;Shutdown&quot; from
+      the plugin status menu</p>
+        <p>7. You can reconnect
+    at any time by selecting &quot;Reconnect&quot; from the plugin status menu.</p>
+    </div>
+  </div>
+</body>
+</html>

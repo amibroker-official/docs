@@ -1,0 +1,102 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - DATETIMEFORMAT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>DateTimeFormat</b><br>
+        - converts datetime to string</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b>(AmiBroker 6.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>DateTimeFormat( ''formatstr'', datetime ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function converts datetime to string according to user-specified format.
+<p>The <i>formatstr</i> argument contains formatting string that specifies how date time should be converted to string.
+<p>Available formatting sequences are exactly like in strftime() C-runtime function strftime:
+<ul>
+<li>%a - Abbreviated weekday name
+<li>%A - Full weekday name
+<li>%b - Abbreviated month name
+<li>%B - Full month name
+<li>%c - Date and time representation appropriate for locale
+<li>%d - Day of month as decimal number (01 &#8211; 31)
+<li>%H - Hour in 24-hour format (00 &#8211; 23)
+<li>%I - Hour in 12-hour format (01 &#8211; 12)
+<li>%j - Day of year as decimal number (001 &#8211; 366)
+<li>%m - Month as decimal number (01 &#8211; 12)
+<li>%M - Minute as decimal number (00 &#8211; 59)
+<li>%p - Current locale&#8217;s A.M./P.M. indicator for 12-hour clock
+<li>%S - Second as decimal number (00 &#8211; 59)
+<li>%U - Week of year as decimal number, with Sunday as first day of week (00 &#8211; 53)
+<li>%w - Weekday as decimal number (0 &#8211; 6; Sunday is 0)
+<li>%W - Week of year as decimal number, with Monday as first day of week (00 &#8211; 53)
+<li>%x - Date representation for current locale
+<li>%X - Time representation for current locale
+<li>%y - Year without century, as decimal number (00 &#8211; 99)
+<li>%Y - Year with century, as decimal number
+<li>%z, %Z - Time-zone name or abbreviation; no characters if time zone is unknown
+<li>%% - Percent sign
+</ul>
+
+<p>
+Extra # flag may prefix any formatting code. In that case, the meaning of the format code is changed as follows.
+<p>
+Format Code Meaning
+<ul>
+<li>%#a, %#A, %#b, %#B, %#p, %#X, %#z, %#Z, %#% # flag is ignored.
+<li>%#c Long date and time representation, appropriate for current locale. For example: &#8220;Tuesday, March 14, 1995, 12:41:29&#8221;.
+<li>%#x Long date representation, appropriate to current locale. For example: &#8220;Tuesday, March 14, 1995&#8221;.
+<li>%#d, %#H, %#I, %#j, %#m, %#M, %#S, %#U, %#w, %#W, %#y, %#Y Remove leading zeros (if any). 
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#008000'>// For example to get full week day name of date
+time use <br>
+</font>str = <font color='#0000ff'>DateTimeFormat</font>( <font color='#800080'>&quot;%A&quot;</font>,
+dt ); <br>
+<br>
+<font color='#008000'>// To get YYYYMMDD without separtors use: <br>
+</font>str = <font color='#0000ff'>DateTimeFormat</font>(<font color='#800080'>&quot;%Y%m%d&quot;</font>,
+dt );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="datetimetostr.html">DateTimeToStr()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>DateTimeFormat</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=DateTimeFormat">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

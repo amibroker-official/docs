@@ -1,0 +1,75 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SETBARSREQUIRED</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SetBarsRequired</b><br>
+        - set number of previous and future bars needed for script/DLL to properly execute</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.10)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SetBarsRequired( <i>backwardref</i> = -1, <i>forwardref</i>       = -1 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> nothing </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> set number of previous and future bars needed for script/DLL to properly 
+        execute. If your formula is pure AFL you don't need to use this function 
+        at all, as AmiBroker automatically calculates number of bars required 
+        for all its built-in functions. But if you are using script or a DLL you 
+        may need to use this function to make sure that your indicators are properly 
+        calculated in QuickAFL mode. Specifying -1 means no change. For example 
+        if you are using the script that calculates 100 bar moving average you 
+        may need to call SetBarsRequired( 100, 0 ); at the very beginning of your 
+        formula.
+      Please note that in most cases it is not necessary (even if you are using 
+        script or DLL) because AmiBroker always provides at least 30 past data 
+        bars more than needed.
+
+Starting from AmiBroker version 5.20 you can use sbrAll (-2) constant to tell AmiBroker
+to use ALL available bars:
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> SetBarsRequired( -2, -2 ); // require ALL past and future bars - this turns OFF quickAFL (v5.20)
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">   </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SetBarsRequired</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=772&hilite=SetBarsRequired' target='_blank'>Adaptive Laguerre Filter, from John Ehlers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=545&hilite=SetBarsRequired' target='_blank'>AFL Example</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=547&hilite=SetBarsRequired' target='_blank'>AFL Example - Enhanced</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=SetBarsRequired' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=540&hilite=SetBarsRequired' target='_blank'>Andrews Pitchfork</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=706&hilite=SetBarsRequired' target='_blank'>Andrews PitchforkV3.3</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=SetBarsRequired' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1324&hilite=SetBarsRequired' target='_blank'>automatic trendlines using fractal patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1568&hilite=SetBarsRequired' target='_blank'>Backup Data of 1min Interval</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=251&hilite=SetBarsRequired' target='_blank'>Bullish Percent Index 2 files combined</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=367&hilite=SetBarsRequired' target='_blank'>Bullish Percent Index 2004</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1187&hilite=SetBarsRequired' target='_blank'>Chandelier Exit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=SetBarsRequired' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1536&hilite=SetBarsRequired' target='_blank'>Computing Cointegration and ADF Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=SetBarsRequired' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=SetBarsRequired' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1388&hilite=SetBarsRequired' target='_blank'>Cybernertic Hilbert Sine Wave</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1562&hilite=SetBarsRequired' target='_blank'>Darvas Wisestocktrader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=415&hilite=SetBarsRequired' target='_blank'>DateNum_DateStr</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1390&hilite=SetBarsRequired' target='_blank'>Dominant Cycle Phase</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=484&hilite=SetBarsRequired' target='_blank'>Ehlers Center of Gravity Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=442&hilite=SetBarsRequired' target='_blank'>Ehlers CyberCycle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=460&hilite=SetBarsRequired' target='_blank'>Ehlers Dominant Cycle Period</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=449&hilite=SetBarsRequired' target='_blank'>Ehlers Fisher Transform</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1472&hilite=SetBarsRequired' target='_blank'>Ehlers Hilbert Transformer Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=444&hilite=SetBarsRequired' target='_blank'>Ehlers Instantaneous Trend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=450&hilite=SetBarsRequired' target='_blank'>Ehlers Laguerre RSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1129&hilite=SetBarsRequired' target='_blank'>Export EOD or Intraday to .csv file</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1454&hilite=SetBarsRequired' target='_blank'>Fre</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=SetBarsRequired' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1396&hilite=SetBarsRequired' target='_blank'>Hilbert Sine Wave Support & Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=SetBarsRequired' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1421&hilite=SetBarsRequired' target='_blank'>IBD relative strength database ranker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1217&hilite=SetBarsRequired' target='_blank'>interactively test discretionary trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1263&hilite=SetBarsRequired' target='_blank'>Intraday Range and Periods Framer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=SetBarsRequired' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=236&hilite=SetBarsRequired' target='_blank'>Kagi Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=SetBarsRequired' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=SetBarsRequired' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=249&hilite=SetBarsRequired' target='_blank'>Monthly bar chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=765&hilite=SetBarsRequired' target='_blank'>Multiple sinus noised</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1331&hilite=SetBarsRequired' target='_blank'>N Line Break  Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=SetBarsRequired' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1429&hilite=SetBarsRequired' target='_blank'>Non-repaitning Zigzag line</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=301&hilite=SetBarsRequired' target='_blank'>P&F Chart - High/Low prices Sept2003</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=257&hilite=SetBarsRequired' target='_blank'>P&F chart with range box sizes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=348&hilite=SetBarsRequired' target='_blank'>PF Chart - Close - April 2004</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1031&hilite=SetBarsRequired' target='_blank'>Prashanth</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1445&hilite=SetBarsRequired' target='_blank'>PVT Trend Decider</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=777&hilite=SetBarsRequired' target='_blank'>Random Walk</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=521&hilite=SetBarsRequired' target='_blank'>Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1603&hilite=SetBarsRequired' target='_blank'>Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1604&hilite=SetBarsRequired' target='_blank'>Revised Renko chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=707&hilite=SetBarsRequired' target='_blank'>Schiff Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1399&hilite=SetBarsRequired' target='_blank'>Signal to Noise</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=950&hilite=SetBarsRequired' target='_blank'>Sine Wave Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1179&hilite=SetBarsRequired' target='_blank'>Sony</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=SetBarsRequired' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1376&hilite=SetBarsRequired' target='_blank'>Super Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=SetBarsRequired' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=SetBarsRequired' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=550&hilite=SetBarsRequired' target='_blank'>Three Line Break - TLB</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=757&hilite=SetBarsRequired' target='_blank'>tomy_frenchy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=237&hilite=SetBarsRequired' target='_blank'>Triangle exploration using P&F Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=696&hilite=SetBarsRequired' target='_blank'>Triangular Moving Average new</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=775&hilite=SetBarsRequired' target='_blank'>Trigonometric Fit - TrigFit with AR for cos / sin</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1465&hilite=SetBarsRequired' target='_blank'>Updated Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=388&hilite=SetBarsRequired' target='_blank'>Volatility System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1268&hilite=SetBarsRequired' target='_blank'>Volume Color with Dynamic Limit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1524&hilite=SetBarsRequired' target='_blank'>Voss Predictive Filter (A Peek Into the Future)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1295&hilite=SetBarsRequired' target='_blank'>VWAP versus Average Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1239&hilite=SetBarsRequired' target='_blank'>VWAP with standard deviation bands</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=SetBarsRequired' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=SetBarsRequired' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SetBarsRequired">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

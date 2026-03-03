@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>continue Keyword</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><font size="4"><a name="for"></a>continue Keyword</font>
+</h4>
+<div>
+  <p>The continue keyword is an optional part of <a href="for.html">for</a> ,
+    <a href="do.html">do-while</a> and <a href="while.html">while</a> statements.</p>
+  <p>It stops the current iteration of a loop, and starts a new iteration. <br>
+    <br>
+  <b>continue;</b></p>
+  <p>You can use the continue statement only inside a while, do...while, or for
+    loop. Executing the continue statement stops the current iteration of the
+    loop and continues program flow with the beginning of the loop.
+      This has the following effects on the different types of loops: <br>
+    while and do...while loops test their condition, and if true, execute the
+    loop again. 
+    for loops execute their increment expression, and if the test expression
+    is true, execute the loop again. <br>
+  The following example illustrates the use of the continue statement: </p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000>i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+  </FONT><FONT COLOR=#800000><B>while</B></FONT><FONT COLOR=#000000> ( i &lt; </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ) <BR>
+  { <BR>
+  &nbsp;&nbsp;i++; <BR>
+  &nbsp;&nbsp;</FONT><FONT COLOR=#008000>// Skip 5 </FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+  i == </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000> ) <BR>
+  &nbsp;&nbsp;{ <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>continue</B></FONT><FONT COLOR=#000000>; <BR>
+  &nbsp;&nbsp;} <BR>
+  &nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Step "</FONT><FONT COLOR=#000000> +
+  i ); <BR>
+  }</FONT></CODE><CODE><FONT COLOR=#000000><BR>
+  </FONT></CODE> </p>
+</div>
+</body>
+</html>

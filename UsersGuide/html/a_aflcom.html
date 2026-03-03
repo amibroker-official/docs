@@ -1,0 +1,182 @@
+<html>
+
+<head>
+<title>Component Object Model support in AFL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="guide.css" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>Component Object Model support in AFL</b></h2>
+<h3><i>Introduction</i></h3>
+<p>The Component Object Model (COM) is the technology that defines and implements 
+  mechanisms that enable software components, such as applications, data objects, 
+  controls, and services, to interact as objects. The COM support in AFL introduced 
+  in version 3.75beta allows you to create instances of COM objects and call the functions 
+  (methods) exposed by those objects. </p>
+<p>The COM object can be created in virtually any language including any C/C++ 
+  flavor, Visual Basic, Delphi, etc. This enables you to write parts of your 
+  indicators, systems, explorations and commentaries in the language of your choice 
+  and run them at full compiled code speed. </p>
+<p>The scripting engines used by AFL scripting host (JScript and VBScript) also 
+  expose themselves as COM objects. AFL COM support now allows you to call functions 
+  defined in the scripting code directly from AFL without using variables to 
+  pass data to and retrieve data from the script. </p>
+<h3><i>Calling functions defined in script</i></h3>
+<p>Until version 3.75 the only way to exchange information between AFL and the 
+  script was by using variables - this technique is explained in detail in <a href="a_script.html" target="_blank">AFL 
+  scripting host documentation</a>.</p>
+<p>Let's suppose we need a function that calculates second order IIR (infinite 
+  impulse response) filter:</p>
+<p>y[ n ] = f0 * x[ n ] + f1 * y[ n - 1 ] + f2 * y[ n - 2 ]</p>
+<p>Please note that well-known exponential smoothing is a first order IIR filter. 
+  Implementing higher order filters minimizes lag, therefore our second order 
+  IIR may be used as a &quot;better&quot; EMA.</p>
+<p>In the &quot;old way&quot; we would need to write the following code:</p>
+<p><code>EnableScript(&quot;jscript&quot;);</code></p>
+<p><code>x = ( High + Low )/2;</code></p>
+<p><code>f0 = 0.2;<br>
+  f1 = 1.2;<br>
+  f2 = -0.4;</code></p>
+<p><code>&lt;%<br>
+  x = VBArray( AFL( &quot;x&quot; ) ).toArray();<br>
+  f0 = AFL( &quot;f0&quot; );<br>
+  f1 = AFL( &quot;f1&quot; );<br>
+  f2 = AFL( &quot;f2&quot; );</code></p>
+<p><code>y = new Array();</code></p>
+<p><code>// initialize first 2 elements of result array<br>
+  y[ 0 ] = x[ 0 ];<br>
+  y[ 1 ] = x[ 1 ]</code></p>
+<p><code>for( i = 2; i &lt; x.length; i++ )<br>
+  {<br>
+  &nbsp;&nbsp;y[ i ] = f0 * x[ i ] + f1 * y[ i - 1 ] + f2 * y[ i - 2 ]; <br>
+  }</code></p>
+<p><code>AFL.Var(&quot;y&quot;) = y;<br>
+  %&gt;</code></p>
+<p><code>Graph0 = Close;<br>
+  Graph0Style = 64;<br>
+  Graph1 = y;</code></p>
+<p>While it is OK for one-time use, if we need such a function multiple times 
+  we would have to repeat the scripting code which is not very nice. Much nicer approach 
+  is to have a function that can be called from multiple places without the need 
+  to repeat the same code. Defining functions in JScript or VBScript is no problem 
+  at all:</p>
+<p><code>EnableScript(&quot;jscript&quot;);<br>
+  </code></p>
+<p><code>&lt;%<br>
+  </code></p>
+<p><br>
+  <code>function IIR2( x, f0, f1, f2 )<br>
+  {</code></p>
+<blockquote> 
+  <p><code>x = VBArray( x ).toArray();</code></p>
+  <p><code>y = new Array();</code></p>
+  <p><code>// initialize first 2 elements of result array<br>
+    y[ 0 ] = x[ 0 ];<br>
+    y[ 1 ] = x[ 1 ];</code></p>
+  <p><code>for( i = 2; i &lt; x.length; i++ )<br>
+    {<br>
+    &nbsp;&nbsp;&nbsp;y[ i ] = f0 * x[ i ] + f1 * y[ i - 1 ] + f2 * y[ i - 2 ]; 
+    <br>
+    }</code></p>
+  <p><code>return y;</code></p>
+</blockquote>
+<p><code>} </code></p>
+<p><code>%&gt;</code></p>
+<p>But how to call such a function from AFL? </p>
+<p>The most important thing is that the script engine exposes itself as a COM object. 
+  A new AFL function GetScriptObject() can be used to obtain access to the script engine. 
+  The rest is simple - once we define the function in the script it is exposed as a method of the script object retrieved by GetScriptObject:</p>
+<p><code>script = GetScriptObject();<br>
+  Graph0 = script.IIR2( ( High + Low )/2, 0.2, 1.2, -0.4 );<br>
+  Graph1 = script.IIR2( ( Open + Close )/2, 0.2, 1.0, -0.2 ); // call it again 
+  and again...</code></p>
+<p>Note also, that with this approach we may pass additional arguments so our 
+  IIR2 filter may be reused with various smoothing parameters.</p>
+<p>So, thanks to a new COM support in AFL, you can define functions in scripts 
+  and call those functions from multiple places in your formula with ease.</p>
+<h3><i>Using external COM/ActiveX objects in AFL</i></h3>
+<p>In a very similar way we can call functions (methods) in external COM objects 
+  directly from the AFL formula. Here I will show how to write such an external ActiveX 
+  in Visual Basic but you can use any other language for this (Delphi for example 
+  is a very good choice for creating ActiveX/COM objects).</p>
+<p>It is quite easy to create your own ActiveX DLL in Visual Basic, here are the 
+  steps required:</p>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td valign="top"> 
+      <ul>
+        <li>Run Visual Basic</li>
+        <li>In the &quot;New project&quot; dialog choose &quot;ActiveX DLL&quot; 
+          icon - this will create the &quot;Project1&quot; that looks like the picture on the right:</li>
+        <li>Now click on the (Name) and rename the &quot;Project1&quot; to something 
+          more meaningful, for example &quot;MyAFLObject&quot;</li>
+        <li>Then double-click on the &quot;Class1&quot; in the project tree item. 
+          The code window will get the title of &quot;MyAFLObject - Class1 (Code)&quot; 
+          as shown below:<br>
+          <img src="gifs/21vb2.gif"> </li>
+        <li>Now you are ready to enter the code</li>
+      </ul>
+    </td>
+    <td><img src="gifs/21vb1.gif"></td>
+  </tr>
+</table>
+<p>As an example we will implement a function similar to the one shown in JScript. 
+  The function will calculate second order Infinite Impulse Response filter. We 
+  will call this function &quot;IIR2&quot;</p>
+<p><code>Public Function IIR2(InputArray() As Variant, f0 As Variant, f1 As Variant, 
+  f2 As Variant) As Variant</code></p>
+<p><code>Dim Result()</code></p>
+<p><code>ReDim Result(UBound(InputArray)) ' size the Result array to match InputArray</code></p>
+<p><code>'initialize first two elements</code></p>
+<p><code>Result(0) = InputArray(0)<br>
+  Result(1) = InputArray(1)</code></p>
+<p><code>For i = 2 To UBound(InputArray)</code></p>
+<p><code> &nbsp;&nbsp;Result(i) = f0 * InputArray(i) + f1 * Result(i - 1) + f2 
+  * Result(i - 2)</code></p>
+<p><code>Next</code></p>
+<p><code>IIR2 = Result</code></p>
+<p><code>End Function</code></p>
+<p>The code is quite similar to the JScript version. The main difference is declaring 
+  types. As you can see all variables passed from and to AFL must be declared 
+  as Variants. This is so, because AmiBroker does not know what kind of object 
+  it is communicating with and puts all arguments into the most universal Variant type and expects 
+  the function to return the value as Variant also. Currently AmiBroker can pass 
+  to your object floating point numbers, arrays of floating point numbers, strings, 
+  and pointers to other objects (dispatch pointers) - all of them packed into 
+  Variant type. When you write the ActiveX, it is your responsibility to interpret 
+  Variants received from AmiBroker correctly. </p>
+<p>Now you should choose Run-&gt;Start in Visual Basic to compile and run the 
+  component. The code in Visual Basic will wait until an external process accesses 
+  the code. </p>
+<p>To access the freshly created ActiveX we will use the following AFL formula
+   (enter it in the Formula Editor and press Apply):</p>
+<p><br>
+  <code>myobj = CreateObject(&quot;MyAFLObject.Class1&quot;);</code></p>
+<p><code>Graph0 = Close;<br>
+  Graph0Style = 64;<br>
+  Graph1 = myobj.IIR2( Close, 0.2, 1.2, -0.4 );</code></p>
+<p>The AFL formula simply creates the instance of our ActiveX object and calls 
+  its member function (IIR2). Note that we are using the new dot (.) operator to access 
+  myobj members. <br>
+  Now click the &quot;Apply&quot; button in the Formula Editor to see how this
+   setup works. You should see a candlestick chart with a quite nice moving
+  average. </p>
+<p><i>2.4 Conclusion</i></p>
+<p>The introduction of COM support in AFL brings even more power to AFL and AmiBroker. 
+  Now you can write indicators, trading systems, explorations and commentaries 
+  using custom functions that are easy to create using a scripting language or full-featured 
+  development environments such as Visual Basic, Borland Delphi, C++ Builder, Visual 
+  C++ and many others. Using integrated development environments like those mentioned makes debugging, testing and development much easier and faster.</p>
+<p>Also, the resulting compiled code executes several times faster than interpreted script 
+  or AFL.</p>
+<p>But this is not the end of the story... C/C++ programmers can choose to write 
+  plugin DLLs that do not use COM technology at all. Plugin DLLs have some additional 
+  features including the ability to call back AFL built-in functions, directly retrieve 
+  and set AFL variables and support automatic syntax coloring of functions exposed 
+  by the plugin.</p>
+<p>This topic is covered in the AmiBroker Development Kit available from the members' area of the AmiBroker site.</p>
+<p>&nbsp; </p>
+</body>
+</html>

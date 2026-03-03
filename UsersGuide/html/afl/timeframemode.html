@@ -1,0 +1,93 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - TIMEFRAMEMODE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>TimeFrameMode</b><br>
+        - switch time frame compression mode</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Time Frame functions<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>TimeFrameMode( mode ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Switches time frame functions to different operating modes. Where mode is one of 0, 1, 2, 3, or 4.
+<ul>
+<li>TimeFrameMode( 0 ); 
+<br>
+- switches time frame functions to time-based operation (the default)
+<li>
+TimeFrameMode( 1 ); 
+<br>
+- switches time frame functions to N-tick operation (positive values passed to TimeFrameSet are treated now as N-tick)
+<li>
+TimeFrameMode( 2 ); 
+<br>
+- switches time frame functions to N-volume bar operation (positive values passed to TimeFrameSet are treated nowas N-volme bars)
+<li>
+TimeFrameMode( 3 ); 
+<br>
+- switches time frame functions to N-Range bar operation (positive values passed to TimeFrameSet are treated now as N-range bars) where N is expressed in DOLLARS 
+(This mode is left in 5.14 and above for backward compatiblity only, see next)
+<li>
+TimeFrameMode( 4 ); 
+<br>
+- switches time frame functions to N-Range bar operation (positive values passed to TimeFrameSet are treated now as N-range bars) where N is expressed in TickSize units (this is default mode of operation
+of range bars in 5.14 and above).
+</ul> 
+
+Note: N-volume bars are very different from time-based bars(compression of data to N-volume bar may actually deliver MORE output bars - for example if one tick is 1000 shares and you have specified 100V bars then single tick will be expanded to TEN 100V bars - ten times original size)<p>
+TimeFrame functions are protected against array overrun and will not decompress beyond original array size (you will get an "Error 47. N-volume bar compressed data longer than base time frame").
+Also switching main time frame to some weird N-volume bar value will result in limiting the output to maximum twice original data size(without error message).<p>
+You should keep that in mind and avoid using too small N-volume bar intervals that could lead to such condition.
+Also due to the nature of N-volume bars the only TimeFrameSet() function will yield correct N-volume bar values, TimeFrameGetPrice() may give slightly distorted results.<p>
+It is also possible to use n-volume bars in TimeFrame functions without calling TimeFrameMode() - it is then necessary to specify n-volume bars as negative number offset by -1000000 (minus one million):<p>
+TimeFrameSet( -1000000 - 2000 );  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>TimeFrameMode</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>50000</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+50'000 share bars.. </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>//...do something ...</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>();</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="timeframeset.html">TimeFrameSet()</A> function , <A HREF="timeframerestore.html">TimeFrameRestore()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>TimeFrameMode</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=887&hilite=TimeFrameMode' target='_blank'>Bad Tick Trim on 5 sec database</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=TimeFrameMode">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

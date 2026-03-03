@@ -1,0 +1,112 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - DATETIMECONVERT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>DateTimeConvert</b><br>
+        - date/time format conversion</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b>(AmiBroker 4.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>DateTimeConvert( format, date, time = Null ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function allows to convert from DateTime format to DateNum and TimeNum and vice versa.
+<p>
+format parameter controls the direction of conversion:
+
+<ul>
+<li>
+format = 0 - converts DateTime format to DateNum format, example 
+<p>mydatenum = DateTimeConvert( 0, DateTime() );// - this returns DateNum 
+<br>
+date argument should be in datetime formattime argument in this case should not be used 
+<p>
+<li>format = 1 - converts DateTime format to TimeNum format, example: 
+<p>mytimenum = DateTimeConvert( 1, DateTime() ); // - returns timenum 
+<br>date argument should be in datetime formattime argument in this case should not be used 
+<p>
+<li>
+format = 2 - converts from DateNum and optionally TimeNum to DateTime format, example: 
+<p>mydatetime = DateTimeConvert( 2, DateNum(), TimeNum() ); 
+<br>
+date argument should be in datenum formattime argument (optional) should be in timenum format. In case of EOD data you can skip time argument: 
+<p>
+mydatetime = DateTimeConvert( 2, DateNum() );
+<p>
+<li>
+format = 3 - (AB5.0 or higher) converts DateTime format to Seconds (00..59) example: 
+<p>myseconds = DateTimeConvert( 3, DateTime() ); 
+<p>
+date argument should be in datetime, formattime argument in this case should not be used  
+<p>
+
+<li>
+format = 4 - (AB5.0 or higher) converts DateTime format to Minutes(00..59) example: 
+<p>myminute = DateTimeConvert( 4, DateTime() ); 
+<p>
+date argument should be in datetime, formattime argument in this case should not be used  
+<p>
+
+<li>
+format = 5 - (AB5.0 or higher) converts DateTime format to Hours (00..23) example: 
+<p>myhour = DateTimeConvert( 5, DateTime() ); 
+<p>
+date argument should be in datetime, formattime argument in this case should not be used  
+<p>
+
+</ul>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000> <BR>
+mydatenum = </FONT><FONT COLOR=#0000ff>DateTimeConvert</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>DateTime</FONT><FONT COLOR=#000000>()
+);</FONT><FONT COLOR=#008000>// - this returns DateNum </FONT><FONT COLOR=#000000> <BR>
+mytimenum = </FONT><FONT COLOR=#0000ff>DateTimeConvert</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>DateTime</FONT><FONT COLOR=#000000>()
+); </FONT><FONT COLOR=#008000>// - returns timenum </FONT><FONT COLOR=#000000> <BR>
+mydatetime = </FONT><FONT COLOR=#0000ff>DateTimeConvert</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>DateNum</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>TimeNum</FONT><FONT COLOR=#000000>()
+); <BR>
+mydatetime = </FONT><FONT COLOR=#0000ff>DateTimeConvert</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>DateNum</FONT><FONT COLOR=#000000>()
+); <BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="datenum.html">DateNum()</A> function , <A HREF="datetime.html">DateTime()</A> function , <A HREF="datetimetostr.html">DateTimeToStr()</A> function , <A HREF="day.html">Day()</A> function , <A HREF="dayofweek.html">DayOfWeek()</A> function , <A HREF="dayofyear.html">DayOfYear()</A> function , <A HREF="timenum.html">TIMENUM()</A> function , <A HREF="month.html">MONTH()</A> function , <A HREF="year.html">YEAR()</A> function , <A HREF="hour.html">HOUR()</A> function , <A HREF="minute.html">MINUTE()</A> function , <A HREF="second.html">SECOND()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>DateTimeConvert</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=DateTimeConvert">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,85 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PLOTGRID</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PlotGrid</b><br>
+        - Plot horizontal grid line</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 4.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PlotGrid( level, color = colorDefault, pattern = 1, width = 1, Label = True ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Plots hotizontal grid line using built-in dotted style at given level, color, pattern, width, with or without Label.
+<p>New in version 5.90:
+<ul>
+<li><i>pattern</i> - defines line pattern. Available grid patterns 1..10 as shown in the Tools->Preferences, &quot;Axes & Grids&quot;, 1-7 are single pixel patterns, 8 is regular windows dot pattern (PS_DOT) , 9 is regular Windows dash pattern (PS_DASH), 10 is solid line
+<li>
+<i>width</i> - grid line width (in pixels). Note that due to Windows GDI limitations only patterns 8 (PS_DOT), 9 (PS_DASH), 10 (PS_SOLID) are available in widths > 1
+<li>
+<i>label</i> - whenever to display value label or not
+</ul>
+Use PlotGrid to display horizontal lines that are constant instead of using Plot.  PlotGrid offers much better performance in this case.<p>
+So instead of
+<p>
+Plot( 50, &quot;&quot;, colorRed, styleLine | styleThick );
+<p>
+use:
+<p>
+PlotGrid( 50, colorRed, 10, 2, False ); // solid line 2 pixels thick, no label </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <code>
+PlotGrid( 25, colorRed );
+</code> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="plot.html">PLOT()</A> function , <A HREF="plotforeign.html">PLOTFOREIGN()</A> function , <A HREF="plotohlc.html">PLOTOHLC()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2003-04-18 07:12:14</td><td valign="top">Instead of number you can also use expression but it must<br />
+be NUMERIC expression, not ARRAY.<br />
+<br />
+Use LastValue to convert:<br />
+<br />
+your_expression = ...<br />
+PlotGrid( LastValue( your_expression ) );</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>PlotGrid</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1437&hilite=PlotGrid' target='_blank'>Adverse Move Ratio</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1012&hilite=PlotGrid' target='_blank'>CCI 14 DrBobStyle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1000&hilite=PlotGrid' target='_blank'>CCI 50 DrBob Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=405&hilite=PlotGrid' target='_blank'>CCI Woodies Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1334&hilite=PlotGrid' target='_blank'>Composite Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=295&hilite=PlotGrid' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=296&hilite=PlotGrid' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=484&hilite=PlotGrid' target='_blank'>Ehlers Center of Gravity Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=449&hilite=PlotGrid' target='_blank'>Ehlers Fisher Transform</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=450&hilite=PlotGrid' target='_blank'>Ehlers Laguerre RSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=375&hilite=PlotGrid' target='_blank'>IFT of RSI - Multiple TimeFrames</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1320&hilite=PlotGrid' target='_blank'>Kairi Relative Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=369&hilite=PlotGrid' target='_blank'>MultiCycle 1.0</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=257&hilite=PlotGrid' target='_blank'>P&F chart with range box sizes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1089&hilite=PlotGrid' target='_blank'>Rene Rijnaars</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1047&hilite=PlotGrid' target='_blank'>Woodie's CCI Panel Basic</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=PlotGrid' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1346&hilite=PlotGrid' target='_blank'>z-distance from vwap</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PlotGrid">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

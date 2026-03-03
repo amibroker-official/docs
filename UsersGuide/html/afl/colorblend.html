@@ -1,0 +1,77 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - COLORBLEND</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>ColorBlend</b><br>
+        - blends (mixes) two colors</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 5.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>ColorBlend( colorFrom, colorTo, factor = 0.5 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function blends (mixes) colorFrom with colorTo with 'factor' proportion using the following algorithm
+<p>
+RGB = ( 1 - factor ) * RGB(colorFrom) + factor * RGB(colorTo );
+<p>So factor = 0 means use colorFrom only, factor = 1 means use colorTo only. All in-between values
+mean create mix of colors. The lower the factor value means more colorFrom.
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <p>This function makes it easy to lighten or darken colors like this:
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> ColorLighten(
+color ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#800000><B>  return</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>ColorBlend</FONT><FONT COLOR=#000000>(
+color, </FONT><FONT COLOR=#000000><B>colorWhite</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0.5</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> ColorDarken(
+color ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#800000><B> return</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>ColorBlend</FONT><FONT COLOR=#000000>(
+color, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0.5</FONT><FONT COLOR=#000000> ); <BR>
+}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="colorrgb.html">ColorRGB()</A> function , <A HREF="colorhsb.html">ColorHSB()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>ColorBlend</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=ColorBlend' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1321&hilite=ColorBlend' target='_blank'>3TF Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=ColorBlend' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1574&hilite=ColorBlend' target='_blank'>Color Combination</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1412&hilite=ColorBlend' target='_blank'>Fib Fan Based on ZZ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=ColorBlend' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1509&hilite=ColorBlend' target='_blank'>Guppy Cloud</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1355&hilite=ColorBlend' target='_blank'>Ichimoku Kinko Hyo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=ColorBlend' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=ColorBlend' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1605&hilite=ColorBlend' target='_blank'>Momentum Volume Price (MVP) Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1589&hilite=ColorBlend' target='_blank'>TSV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=ColorBlend' target='_blank'>White Theme</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=ColorBlend">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,70 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXSETOVERLAYMODE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxSetOverlayMode</b><br>
+        - set low-level graphic overlay mode</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxSetOverlayMode( mode = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sets overlay mode for low-level graphics.
+<p>
+Parameters:
+<ul>
+<li><b>mode</b> - desired overlay mode. Possible values are:
+<br>0 - (default) low-level graphic is overlaid on top of charts
+<br>1 - charts are overlaid on top of low-level graphics
+<br>2 - only low-level graphics is displayed (no charts, no grids, etc)
+</ul>
+
+<p>
+To learn more about low level graphics please read 
+<a href='http://www.amibroker.com/guide/h_lowlevelgfx.html'>Tutorial: Using low-level graphics</a>  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> GfxSetOverlayMode( 2 ); // don't display charts nor grids </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="gfxarc.html">GfxArc()</A> function , <A HREF="gfxchord.html">GfxChord()</A> function , <A HREF="gfxcircle.html">GfxCircle()</A> function , <A HREF="gfxdrawtext.html">GfxDrawText()</A> function , <A HREF="gfxellipse.html">GfxEllipse()</A> function , <A HREF="gfxgradientrect.html">GfxGradientRect()</A> function , <A HREF="gfxlineto.html">GfxLineTo()</A> function , <A HREF="gfxmoveto.html">GfxMoveTo()</A> function , <A HREF="gfxpie.html">GfxPie()</A> function , <A HREF="gfxpolygon.html">GfxPolygon()</A> function , <A HREF="gfxpolyline.html">GfxPolyline()</A> function , <A HREF="gfxrectangle.html">GfxRectangle()</A> function , <A HREF="gfxroundrect.html">GfxRoundRect()</A> function [[331:Gfx </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxSetOverlayMode</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=GfxSetOverlayMode' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1321&hilite=GfxSetOverlayMode' target='_blank'>3TF Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1574&hilite=GfxSetOverlayMode' target='_blank'>Color Combination</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=GfxSetOverlayMode' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=GfxSetOverlayMode' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=GfxSetOverlayMode' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=GfxSetOverlayMode' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=GfxSetOverlayMode' target='_blank'>Market Profile</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1475&hilite=GfxSetOverlayMode' target='_blank'>Multi-color Volume At Price (VAP)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=GfxSetOverlayMode' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1553&hilite=GfxSetOverlayMode' target='_blank'>pattenz</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1572&hilite=GfxSetOverlayMode' target='_blank'>Peter Cooper</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=GfxSetOverlayMode' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=GfxSetOverlayMode' target='_blank'>Stan Weinstein strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=GfxSetOverlayMode' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=GfxSetOverlayMode' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=GfxSetOverlayMode' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=GfxSetOverlayMode' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=GfxSetOverlayMode' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxSetOverlayMode">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

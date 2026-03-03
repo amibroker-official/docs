@@ -1,0 +1,100 @@
+<html>
+
+<head>
+<title>Creating your own indicators</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>Creating your own indicators</h2>
+<p>There are two ways to create your own indicators:</p>
+<p>1) Using a drag-and-drop interface</p>
+<p>2) By writing your own formula</p>
+<p>The first method, using a drag-and-drop interface, is very simple and does not require
+  writing a single line of code. To learn more about drag-and-drop indicator creation,
+  please check <a href="h_dragdrop.html">Tutorial: How to use drag-and-drop charting interface</a></p>
+<p>The second method involves writing an indicator formula in flexible AFL (AmiBroker
+  Formula Language). You can
+  find
+  a description
+  of
+  this language
+  
+  in the <a href="a_language.html">AFL Reference Guide section of the user's guide</a>.
+  Here we will present the basic steps needed to define and display your own custom
+  indicator. In this example, we
+  will 
+  define an &quot;indicator&quot; that will show a line volume graph (opposite
+  to the built-in bar volume graph). </p>
+<p>Just follow these steps:</p>
+<ol>
+  <li> Select the <i>Analysis->Formula Editor</i> option from the menu as shown 
+    below: <br>
+    <br>
+    <img src="gifs/tut1menu.gif"> <br>
+    <br>
+  </li>
+  <li>You will see the following dialog displayed on the screen:<br>
+    <br>
+    <img src="gifs/tut1ibuilder.gif"> <br>
+    <br>
+    It presents an empty <a href="w_afledit.html">Formula Editor</a> window.<br>
+    <br>
+  </li>
+  <li> Now single-click in the edit field located in the editor toolbar to change
+    the name of the indicator:<br>
+    <br>
+    <img src="gifs/tut1rename.gif"><br>
+    <br>
+    Now you can edit the name of the custom indicator. Give it the name &quot;My
+  own indicator&quot;. After you press the ENTER key, the caption will be updated
+   with the new file name as shown below:<br>
+  <br>
+  <img src="gifs/tut1caption.gif"><br>
+    <br>
+  </li>
+  <li>Now type the formula:<br>
+    <br>
+    <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"My
+    volume chart"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> );</FONT></CODE><br>
+    <br>
+    This formula instructs AmiBroker to plot the built-in Volume array. The second parameter
+  specifies the title of the plot, and the third parameter defines the color. The
+  picture below shows the formula editor after entering the code:<br>
+  <br>
+  <img src="gifs/tut1edit.gif"><br>
+  </li>
+  <li>Now click the <strong>"Apply indicator"</strong> toolbar button (or choose the <strong>Tools-&gt;Apply
+    indicator</strong> menu option) as shown in the picture, and close the editor by pressing
+    the <strong>"X"</strong> button in the upper right corner of the editor window.</li>
+</ol>
+<p>Now the indicator you have just written is displayed as a chart. You can also
+  find it stored as a formula in the Chart tree:</p>
+<p><img src="gifs/tut1chart.gif"></p>
+<p>&nbsp;</p>
+<p>Now you can improve your indicator by adding Param functions so that both the color
+  and style of the plot can be modified using the <a href="w_param.html">Parameters</a> dialog.
+  To do so, click with the RIGHT mouse button over the chart pane and select <strong>"Edit
+  Formula"</strong> (or press Ctrl+E)</p>
+<p><img src="gifs/tut1editformula.gif"></p>
+<p>And modify the formula to:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"My
+      volume chart"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Color"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#0000ff>ParamStyle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Style"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,
+maskAll ) );</FONT></CODE></p>
+<p>Then press <strong>"Apply indicator" </strong> to apply the changes. Now click
+  with the RIGHT mouse button over the chart pane again and select <strong>"Parameters"</strong> (or
+  press Ctrl+R), and you will see the Parameters dialog allowing you to modify colors
+  and styles used to plot a chart:</p>
+<p><img src="gifs/tut1param.gif"></p>
+<p>Also, in the &quot;Axes &amp; Grid&quot; tab, you will be able to change settings for axes,
+  grids, and other charting options referring to this particular chart:</p>
+<p><img src="gifs/tut1axes.gif"></p>
+<p>For further information on creating your indicators, please check the <a href="h_indbuilder2.html">Using 
+graph styles and colors</a> tutorial section.</p>
+<p>For further reference on using the Formula Editor, please consult the "Environment
+     - Formula Editor" and "AmiBroker Formula Language - AFL Tools" sections
+  of the AmiBroker User's guide and using the <a href="w_afledit.html">AFL editor</a>.</p>
+</body>
+</html>

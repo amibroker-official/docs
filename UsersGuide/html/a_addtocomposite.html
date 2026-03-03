@@ -1,0 +1,203 @@
+<html>
+
+<head>
+<title>Calculating multiple-security statistics with AddToComposite function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+<h2>Calculating multiple-security statistics with AddToComposite function</h2>
+<p>The vast majority of AFL functions operate on single security prices. There
+  are two exceptions to this rule provided by <b>RelStrength()</b> and <b>Foreign()</b>
+  functions. These two functions allow you to use other security prices in the
+   AFL formula. Although these functions are very useful for things like relative
+  
+  performance charts, they are not so useful for tasks requiring prices of all
+   securities (or a large number of securities) because one would need to type
+  several hundred <b>Foreign()</b> function calls to do so. Moreover, this
+  approach would require listing all the ticker names within the formula which
+  makes
+  the 
+  formula tied to a particular market. We obviously need a completely different
+  approach...</p>
+<p> Just imagine if we were able to store the results of calculations performed 
+  on a single security somewhere and then use that partial data to generate some 
+  multiple security indicator. You may say that one can create the exploration, 
+  then export the results to the CSV file, then load it into Excel and then perform 
+  the calculations there. It would work (in some cases), but you have to agree 
+  that the solution is not nice.<br>
+</p>
+<p>This is the area where AddToComposite function can help.</p>
+<p>Basically, the concept behind AddToComposite is that we run our formula (using 
+  Scan feature) through a group of symbols performing some calculations. We will 
+  compute some multiple security statistics and store the results in the artificial 
+  ticker created using AddToComposite function.</p>
+<p><i>2.3 The solution</i></p>
+<p>The key to the solution is the following algorithm:</p>
+<ol>
+  <li>Do some ordinary AFL calculations using any of the available functions</li>
+  <li>Add the result of the calculations to one of the O, H, L, C, V, I fields 
+    of our artificial ticker (named for example &quot;~composite&quot;) </li>
+</ol>
+<p>When the above procedure is repeated over a group of symbols, our composite 
+  ticker will contain the sum of results of individual symbol calculations. </p>
+<p>Step 2 described above is implemented entirely inside AddToComposite function:</p>
+<table
+        border="0" width="90%" bgcolor="#C0C0C0">
+  <tr> 
+    <td width="20%">SYNTAX </td>
+    <td width="80%">AddToComposite( array, &quot;ticker&quot;, &quot;field&quot;, 
+      flags = atcFlagDefaults )</td>
+  </tr>
+  <tr> 
+    <td>RETURNS</td>
+    <td>NOTHING</td>
+  </tr>
+  <tr> 
+    <td valign="top">FUNCTION </td>
+    <td width="80%"> 
+      <p> Allows you to create composite indicators with ease. <br>
+        Parameters:<br>
+        array - the array of values to be added to &quot;field&quot; in &quot;ticker&quot; 
+        composite symbol <br>
+        &quot;ticker&quot; - the ticker of composite symbol. It is advised to 
+        use ~comp (a tilde at the beginning)<br>
+        newly added composites are assigned to group 253 by default and<br>
+        have the &quot;use only local database&quot; feature switched on for proper 
+        operation with external sources</p>
+      <p>possible field codes: &quot;C&quot; - close; &quot;O&quot; - open; &quot;H&quot; 
+        - high; &quot;L&quot; - low; &quot;V&quot; - volume; &quot;I&quot; -
+        open  interest; &quot;X&quot; - updates all OHLC fields at once; &quot;1&quot;
+         - aux1 field; &quot;2&quot; - aux2 field<br>
+        <br>
+        flags - contains the sum of the following values<br>
+      </p>
+      <ul>
+        <li>atcFlagResetValues = 1 - reset values at the beginning of scan (recommended)</li>
+        <li>atcFlagCompositeGroup = 2 - put composite ticker into group 253 and 
+          EXCLUDE all other tickers from group 253 (avoids adding composite to 
+          composite)</li>
+        <li>atcFlagTimeStamp = 4 - put the last scan date/time stamp into FullName 
+          field</li>
+        <li>atcFlagEnableInBacktest = 8 - allow running AddToComposite in backtest/optimization 
+          mode </li>
+        <li>atcFlagEnableInExplore = 16 - allow running AddToComposite in exploration
+        mode</li>
+        <li>atcFlagResetValues = 32 - reset values at the beginning of scan
+            (not
+          required if you use atcFlagDeleteValues) </li>
+        <li>       atcFlagEnableInPortfolio = 64 - allow running AddToComposite
+        in custom portfolio backtester phase </li>
+        <li>atcFlagDefaults = 7<br>
+          (this is a composition of atcFlagResetValues | atcFlagCompositeGroup 
+          | atcFlagTimeStamp flags)<br>
+          <br>
+        </li>
+      </ul>
+      <p>AddToComposite function also detects the context in which it is run<br>
+        (it works ONLY in scan mode, unless atcFlagEnableInBacktest or atcFlagEnableInExplore 
+        flags are specified) and does NOT affect composite ticker when run in 
+        Indicator or Commentary mode, so it is now possible to join scan and indicator 
+        into a single formula.</p>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top">EXAMPLE</td>
+    <td valign="top">AddToComposite( MACD() &gt; 0, &quot;~BullMACD&quot;, &quot;V&quot;);<br>
+      graph0 = Foreign(&quot;~BullMACD&quot;, &quot;V&quot;);<br>
+      <br>
+      (now you can use the same formula in scan and indicator)</td>
+  </tr>
+</table>
+<p>AddToComposite function opens up a huge variety of interesting applications. 
+  The following examples will help you understand what you can do with AddToComposite 
+  function. </p>
+<p><u>Example 1:</u></p>
+<p>Let's say we want to create a custom index (average of prices of multiple tickers). 
+  With AddToComposite function you can do this fairly easily:</p>
+<blockquote> 
+  <p><code>/* AddToComposite statements are for analysis -&gt; Scan 
+    */<br>
+    /* add Close price to our index OHLC fields */<br>
+    AddToComposite(Close, &quot;~MyIndex&quot;, &quot;X&quot; ); </code></p>
+  <p><code>/* add one to open interest field (we use this field as a counter) */<br>
+    AddToComposite( 1, &quot;~MyIndex&quot;, &quot;I&quot; );<br>
+    </code></p>
+  <p><code>buy = 0; // required by scan mode</code></p>
+  <p><code>/* this part is for Indicator */<br>
+    graph0 = Foreign( &quot;~MyIndex&quot;, &quot;C&quot; )/Foreign( &quot;~MyIndex&quot;, 
+  &quot;I&quot; );</code></p>
+</blockquote>
+<p>You should use the above formula in the Analysis -&gt; Scan mode (over 
+  the group of symbols of your choice). This will create &quot;~MyIndex&quot; artificial 
+  ticker that will contain your index. </p>
+<p>In short, this formula just adds Close price to OHLC fields (the &quot;X&quot; 
+  field stands for all OHLC) of our artificial ticker ~MyIndex. Additionally we 
+  add &quot;1&quot; to &quot;I&quot; (open interest) field - effectively counting 
+  the number of symbols scanned. We can use symbol count later on to divide the 
+  sum of prices by the number of symbols included (the last line of the formula 
+  above).</p>
+<p><u>Example 2:</u></p>
+<p>In the second example we will show how to calculate the indicator that shows 
+  the number of symbols meeting a certain criterion. In this example this would be 
+  RSI less than 30 (oversold condition), but it can be anything you like. </p>
+<p>So the first line of our formula will be:</p>
+<blockquote> 
+  <p><code>values = rsi() &lt; 30;</code></p>
+</blockquote>
+<p>This will store &quot;true&quot; in the values array for all data points when 
+  RSI is less than 30. Then we add the regular AddToComposite part:</p>
+<p><code>buy = 0; // do not generate signals<br>
+  AddToComposite( values, &quot;~MyComposite&quot;, &quot;V&quot; );</code></p>
+<p>If we run the formula using the &quot;Scan&quot; function of the Analysis 
+  window, the result would be an artificial symbol &quot;~MyComposite&quot; filled 
+  with quotations. The Volume field of those quotes will contain the number of 
+  symbols meeting our criterion (RSI&lt;30) in the population of scanned symbols.</p>
+<p>You can easily see the chart of this new &quot;indicator&quot; using the following
+  custom formula:</p>
+<blockquote> 
+  <p><code>graph0 = foreign(&quot;~MyComposite&quot;, &quot;V&quot;); </code></p>
+</blockquote>
+<p>High values of this &quot;indicator&quot; show that most of the symbols in the 
+  analyzed group are oversold. This usually happens before a great rise of the 
+  whole market. We just created a market-wide oversold detector! </p>
+<p><u>Example 3:</u></p>
+<p>In the third example I will show you how to use the same technique to count 
+  the number of open positions of your trading system. This is useful if you want 
+  to know how big an account would you need to trade your system following all trades. 
+  Our formula will be very similar to the one before.</p>
+<p>First we should have our original trading system formula:</p>
+<blockquote> 
+  <p><code>/* Your original formula here */<br>
+    /* In this example this is simple macd/signal crossover system)<br>
+    <br>
+    buy = cross( macd(), signal() );<br>
+    sell = cross( signal(), macd() );</code></p>
+  <p><code>/* the following line uses Flip function to get &quot;1&quot; after 
+    the buy signal and reset it back to &quot;0&quot; after sell appears. */<br>
+    <br>
+    in_trade = flip( buy, sell );<br>
+    <br>
+    AddToComposite( in_trade, &quot;~OpenPosCount&quot;, &quot;V&quot; );</code></p>
+</blockquote>
+<p>We use &quot;~OpenPosCount&quot; artificial ticker to store the results. Again, 
+  we should just run a Scan of the formula, and the &quot;~OpenPosCount&quot; ticker 
+  would become available. </p>
+<p>Use </p>
+<blockquote> 
+  <p><code>graph0 = foreign( &quot;~OpenPosCount&quot;, &quot;V&quot;); </code></p>
+</blockquote>
+<p> after running the backtest to see the chart of the number 
+  of open positions of your system.</p>
+<p><i>2.4 Notes</i></p>
+<p>For more details on composites check &quot;<a href="http://www.amibroker.net/3rdparty/IntroToAtc.pdf" target="_blank">Introduction
+    to AddToComposite</a>&quot; (122KB PDF) 
+      by Herman van den Bergen.</p>
+<p>Please note that to update any composite ticker (for example after adding/editing 
+  quotes) you should run &quot;Scan&quot; again. </p>
+<p>The idea was originally presented in the <a href="http://www.amibroker.com/newsletter/12-2001.html">12/2001 
+  issue of AmiBroker tips newsletter</a>. Special thanks to Mr. Dimitris Tsokakis 
+  for very constructive discussions that allowed the creation and enhancement of 
+  this idea. </p>
+</body>
+</html>

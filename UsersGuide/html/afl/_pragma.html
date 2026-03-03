@@ -1,0 +1,73 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - #PRAGMA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>#pragma</b><br>
+        - sets AFL pre-processor option</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>#pragma optionname </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sets various AFL pre-processor options. Pre-processor is a part of AFL engine that processes formulas BEFORE they are executed. #pragma allows to change pre-processor behaviour. Preprocessor is responsible for inclusion of external files via #include command.<br>
+Pre-processor #pragmas can also affect behavior of Analysis window and declared static variable prefixes
+<p>
+Currently #pragma supports the following commands: 
+<ul>
+<li><b>#pragma nocache</b> - causes that #included files are not cached so they are re-read with every execution
+<br><br>#pragma nocache must be placed before any #include commands Note: between '#pragma' and 'nocache' there must be exactly SINGLE space<br>
+Note 2: disabling caching may slow down execution of the formula (especially
+in indicators) !!!
+<li><b>#pragma maxthreads N</b> - causes Analysis window to limit number of parallel threads to N
+<li><b>#pragma enable_static_decl &quot;prefix_string&quot;</b> - enables static variable declarations with specified prefix
+<li><b>#pragma sequence(list_of_actions)</b> - defines sequence of actions to be performed automatically when you press &quot;Run Sequence&quot; button in the Analysis window
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <code>
+#pragma nocache<br>
+#include &quot;myfile.afl&quot;
+</code> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="_include.html">#include()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>#pragma</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=%23pragma">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

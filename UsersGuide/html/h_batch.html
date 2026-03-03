@@ -1,0 +1,220 @@
+<html>
+
+<head>
+<title>Using Batch window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>Using Batch window</b></h2>
+<h3>Introduction</h3>
+<p>The Batch window introduced in version 6.20 (first introduced in 6.17.0 BETA) allows the user to automate mundane repetitive tasks by providing batch processing.</p>
+<p>Now the user can easily<strong> define
+    and automatically run sequences of Analysis operations such as scan, exploration,
+    backtest, optimization, and
+    file export.</strong> Previously such automation was available only for programmers
+    by means of OLE automation. Now it is available to everyone via an easy-to-use
+    interface.</p>
+<p>Generally, a batch consists of any number of the following basic operations:</p>
+<ul>
+  <li><strong>loading an Analysis project file to be used - </strong>In order
+  to run a batch, you need to first save your analysis project into an .APX (Analysis
+    Project) file that can be later loaded by the batch processor. An Analysis Project
+    (.APX) is self-contained and it holds everything needed to run your scan,
+    exploration, backtest, or optimization, including the formula, all options
+    and settings, as well as apply-to and range selections.<br>
+  </li>
+  <li>(optional) <strong>Set current symbol</strong> - if your formula relies
+    on a specific current symbol, you can set it from the batch prior to running
+    the Analysis</li>
+</ul>
+<ul>
+  <li><strong>Run Scan/Exploration/Backtest/Optimization/Walk-forward</strong> -
+    Once a project is loaded, you can start the execution of any Analysis operation<br>
+  </li>
+  <li>(optional) <strong>Export results</strong> - Using Export to CSV/HTML, you
+    can export the result list. Also, backtest reports are automatically generated
+    after
+    a backtest,
+    so you do <strong>not </strong>need to explicitly export them to see them
+    later in the Report Explorer. <br>
+  </li>
+  <li>(optional) <strong>Notify with sound/speech<em> - </em></strong>The batch
+    processor has the ability to play any .WAV file or speak any supplied text
+    so you can be notified when the batch has reached a certain stage.<br>
+  </li>
+  <li>(optional) <strong>Write text</strong> to log file<br>
+  </li>
+  <li>(optional)<strong> Load/Save Database<br>
+  </strong>  </li>
+  <li>(optional) <strong>Execute</strong> external program and wait for completion<br>
+  </li>
+  <li>(optional) Run vendor-specific <strong>Data Plugin command<br>
+  </strong></li>
+  <li>(optional) <strong>Import</strong> quotation data from ASCII<strong> </strong>files<strong><br>
+  </strong></li>
+</ul>
+<h3>User interface</h3>
+<p>You can open the New Analysis window in a number of ways:</p>
+<ol>
+  <li>Click on the New Tab (+) button and select <strong>New Batch</strong><br>
+      <br>
+      <img src="gifs/newtab.gif" width="354" height="105"><br>
+      <br>
+      or<br>
+  </li>
+  <li><strong>File -&gt; New -&gt; New Batch</strong> menu</li>
+</ol>
+<p>The user
+    interface for the Batch window is very simple:</p>
+<p><img src="gifs/batch_main.gif" width="587" height="424"></p>
+<h3>Basic operations</h3>
+<p> <em>Adding/inserting new batch step</em></p>
+<p>You can add a new batch step by clicking on the <strong>Insert</strong> button.
+  It will add a new step at the end if nothing was selected prior to clicking,
+  or it will insert a new step before a previously selected step. You can also
+add a new step if you just double-click on the list past the last listed step.</p>
+<p>If you add/insert a new step, the Edit batch step window will appear (see below).<br>
+  <br>
+  <br>
+  <em>Editing existing batch step</em></p>
+<p>To edit an existing item, double-click on it, or use the <strong>Edit</strong> button.
+  The Edit batch step window will appear, allowing you to define the batch step action and
+  parameters:</p>
+<p><img src="gifs/batch_edit.gif" width="427" height="133"></p>
+<p>In this window you can select an action to be performed using the <strong>Action</strong> combo box
+  and enter the <strong>Parameter</strong> or <strong>File</strong> name to be used for the given
+  action. </p>
+<p>Actions like <strong>Load
+    Project</strong>,<strong> Export to File</strong> or <strong>Play sound (.WAV)</strong> need
+    a file name to be entered/picked via the <strong>(...)</strong> button. Actions
+    like <strong>Set Current Symbol</strong> or <strong>Say</strong> need a text
+    parameter (symbol or text to be spoken) to be entered. Other actions (like
+    Scan, Backtest, ...) do not need any extra parameters. When a selected action
+    does not require a parameter, the second entry field (<strong>Parameter/File</strong>)
+    is hidden.</p>
+<p>Once you select the desired action along with parameters, press <strong>OK</strong> to
+  accept this step. If you change your mind, press <strong>Cancel</strong>. If
+  you cancel the <strong>Insert</strong> operation, the newly inserted item will be
+  removed from the list.</p>
+<p><em>Deleting existing batch step</em></p>
+<p>To delete an existing batch step, select it by clicking on the list and press the <strong>Delete</strong> button.</p>
+<p><em>Moving/rearranging batch steps</em></p>
+<p>You can change the sequence of existing steps by moving individual items up
+  and down. To move an item up or down, please click on it once and use the blue <strong>up</strong> and <strong>down</strong> <strong>arrow
+  buttons </strong>in the toolbar. You can also rearrange items by dragging
+  them. To do so, click on item(s) once (to multi-select, use the CTRL or SHIFT key),
+  and then pressing and holding down the left mouse button, drag them to the desired
+  location.</p>
+<p><em>Running a batch </em></p>
+<p>Once all batch steps are defined, you can run the sequence by pressing the <strong>Run</strong> (green
+  arrow) button in the toolbar. All steps will be executed in the sequence; you
+  will see the status of subsequent items changing to &quot;In progress...&quot;, then
+  to &quot;Completed&quot; or &quot;Failed&quot;. If any step ends up with a &quot;Failed&quot; status,
+  the entire batch execution is stopped.</p>
+<p>To temporarily pause the execution of a batch, press the <strong>Pause</strong> button.
+  To abort the execution of a running batch, press<strong> Stop</strong> button. (These
+  buttons are only active when a batch is running; otherwise, they are disabled/grayed).</p>
+<p><em>Saving a batch for future use </em></p>
+<p>A batch sequence can be saved using <strong>File-&gt;Save</strong> / <strong>File-&gt;Save
+    As...</strong> into an .abb file (stands for AmiBroker Batch).</p>
+<p>Once a batch is saved, it can be later loaded back using <strong>File-&gt;Open</strong> or
+  using <strong>File-&gt;Recent Files</strong> menu.</p>
+<h3>Miscellaneous commands</h3>
+<p><em>Running external programs from a batch</em></p>
+<p>A batch command <strong>Execute And Wait</strong> allows you to execute an external program and
+  wait for its completion (this allows, among other things, launching an AmiQuote download
+  and waiting until it is complete).</p>
+<p>The following example launches AmiQuote, loads &quot;YourTickerList.tls&quot;,
+  performs download
+and closes AmiQuote:</p>
+<p><code>ExecuteAndWait amiquote\quote.exe YourTickerList.tls /download /close</code></p>
+<p><em>Running data plugin commands</em></p>
+<p>Some data vendors may provide special data-specific commands that can be run
+  from a batch. For example, PremiumData will provide database maintenance capability.</p>
+<p>To run a data plugin command, use:</p>
+<p><code>DataPluginCmd commandname</code></p>
+<p>Where <em>commandname</em> is a data-vendor-specific command. Please consult the data vendor
+  for details. If you specify a non-existing command, the status of the operation will
+  be &quot;Failed&quot; and batch execution will stop.</p>
+<p><em>Importing quotation data from ASCII files</em></p>
+<p>The DataImportASCII command allows you to automate imports via a batch. The parameter
+  is the file name to be imported. The importer uses the file extension to determine the
+  format file used, so if you are importing File.aqh, then the aqh.format definition
+  file will be used automatically. Import would fail if the corresponding definition
+file does not exist in the &quot;Formats&quot; subdirectory.</p>
+<p><em>Triggering a batch run programmatically from the AFL level</em></p>
+<p>It is possible to start the batch programmatically from AFL. The <a href="afl/shellexecute.html">ShellExecute</a> function
+  in AmiBroker 6.20 supports the &quot;runbatch&quot; command. </p>
+<p><CODE><font color='#800000'><b>if</b></font>( <font color='#0000ff'>ParamTrigger</font>(<font color='#800080'>"batch"</font>, <font color='#800080'>"run
+      me"</font> ) ) <br>
+  { <br>
+  &nbsp;&nbsp;&nbsp;
+  <font color='#0000ff'>ShellExecute</font>(<font color='#800080'>"runbatch"</font>, <font color='#800080'>"path_to_batch_file.abb"</font>, <font color='#800080'>""</font> ); <br>
+}</CODE></p>
+<p>Please note that this is an asynchronous call; i.e., ShellExecute will start
+  a batch and return immediately, even though the batch may (and usually will be)
+  still running, so it is a &quot;fire-and-forget&quot; kind of operation. Be careful, as
+  repeated executions of AFL would trigger repeated batch runs. After running
+  the batch, the batch and analysis windows that were opened by the batch are automatically
+    closed.</p>
+<h3><em>Scheduling</em></h3>
+<p>Batches can be scheduled for an automated run at a certain time or at application
+    startup. To open the batch <strong>Scheduler</strong>, either click on the Scheduler
+    icon (clock) in the Batch toolbar or use the <strong>Tools-&gt;Scheduler</strong> item from the main
+    application menu.</p>
+<p>This will open the Scheduler window</p>
+<p><img src="gifs/batch_scheduler.gif" width="507" height="226"></p>
+<p>In the Scheduler window's toolbar, you can see the icons to Add, Delete, and
+  Edit tasks and to decide whether to close the batch window on completion.</p>
+<p>The list displays the path to the batch file, <strong>Start</strong> date/time,
+  and <strong>Repeat</strong> interval,
+  and the date/time of <strong>Next run</strong>. If a batch is scheduled to be
+  run on startup, then
+  the <strong>Next run</strong> field will be empty.</p>
+<p>To add a task, click the <strong>Add task</strong> icon. This will open the following
+  dialog:</p>
+<p><img src="gifs/batch_scheduler_add.gif" width="510" height="340"></p>
+<p>To define a scheduled run of a batch, please do the following:</p>
+<ol>
+  <li>Pick a batch file to be run (with .ABB extension). Such a file can be created
+    by simply saving an open batch via <strong>File-&gt;Save</strong> / <strong>File-&gt;Save
+    As.</strong> If you opened the scheduler from an already open batch window, the
+    current file will be automatically selected for you.</li>
+  <li>Define when to run the batch: either at application startup or at a specific
+    date/time.</li>
+  <li>Define whether runs should be repeated at certain intervals or not. Runs can
+    be done daily or hourly, on specific weekdays and a specific time range.</li>
+</ol>
+<p>Once you are done, click OK and you will see the scheduled task in the Scheduler
+  window list.</p>
+<h3>IMPORTANT NOTES:</h3>
+<ul>
+  <li>The check period is every 10 seconds, so if you schedule something for 12:14:47,
+  it will actually run at 12:14:50.</li>
+  <li>If multiple tasks are scheduled at the
+  same time, they will be run in the order of appearance in the Scheduler list.</li>
+  <li>Scheduled
+    tasks are run sequentially, and the next one would not start if the previous did not
+    finish. For this reason, avoid batches that require user intervention, such
+    as the use of the &quot;PAUSE&quot; command.</li>
+  <li>Scheduled tasks are only started when
+      the UI is not in a modal state; i.e., the UI is NOT waiting for user input (such
+      as a File Open dialog, or any other
+      modal
+  input dialog).</li>
+  <li>Once a modal dialog is closed, missed tasks will be run.</li>
+  <li>Scheduled tasks are
+      only run when AmiBroker is running. AmiBroker does not create background/hidden
+      processes. Windows already has too many wasteful processes running
+    all the time. If you need 24/7 operation, just do not close AmiBroker. If
+    you close AmiBroker, it won't run any tasks until you start AmiBroker again,
+    then all missed tasks will be run once, and afterwards they will be run on a
+    normal
+    schedule (if the repeat option is used).<br>
+  </li>
+</ul>
+</body>
+</html>

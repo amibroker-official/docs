@@ -1,0 +1,68 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - EXREM</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>ExRem</b><br>
+        - remove excessive signals</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 3.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong></b>    <b>exrem</b>( ARRAY1, ARRAY2 )         <b> </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> </b>    ARRAY         <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> </b>
+    removes excessive signals:<br>
+      returns 1 on the first occurence of "true" signal in Array1<br>
+      then returns 0 until Array2 is true even if there are "true" signals 
+      in Array1
+  
+   
+    <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> </b>
+     
+       buy = ExRem( buy, sell );<br>
+        sell = ExRem( sell, buy ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>ExRem</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1539&hilite=ExRem' target='_blank'>3 ways to use RMI in one script</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1247&hilite=ExRem' target='_blank'>4% Model - Determine Stock Market Direction</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1599&hilite=ExRem' target='_blank'>Abhimanyu </A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=925&hilite=ExRem' target='_blank'>Advanced MA system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=185&hilite=ExRem' target='_blank'>ADXbuy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=545&hilite=ExRem' target='_blank'>AFL Example</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=547&hilite=ExRem' target='_blank'>AFL Example - Enhanced</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=ExRem' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=739&hilite=ExRem' target='_blank'>An n bar Reversal Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=706&hilite=ExRem' target='_blank'>Andrews PitchforkV3.3</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=135&hilite=ExRem' target='_blank'>ATR Study</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=ExRem' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=ExRem' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1234&hilite=ExRem' target='_blank'>Awsome Oscilator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=ExRem' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=196&hilite=ExRem' target='_blank'>Bollinger band normalization</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=152&hilite=ExRem' target='_blank'>Bull Fear / Bear Fear</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=ExRem' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1012&hilite=ExRem' target='_blank'>CCI 14 DrBobStyle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1000&hilite=ExRem' target='_blank'>CCI 50 DrBob Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=720&hilite=ExRem' target='_blank'>Chandelier Exit or Advanced Trailing Stop</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=ExRem' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1380&hilite=ExRem' target='_blank'>Connors TPS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=58&hilite=ExRem' target='_blank'>Demand Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=59&hilite=ExRem' target='_blank'>DMI Spread Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1508&hilite=ExRem' target='_blank'>Double Super Trend System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=169&hilite=ExRem' target='_blank'>Ema bands</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1462&hilite=ExRem' target='_blank'>Envelope System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=761&hilite=ExRem' target='_blank'>FastStochK FullStochK-D</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1412&hilite=ExRem' target='_blank'>Fib Fan Based on ZZ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=ExRem' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=60&hilite=ExRem' target='_blank'>Gann HiLo Indicator and System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=ExRem' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=ExRem' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=66&hilite=ExRem' target='_blank'>Hilbert Study</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=785&hilite=ExRem' target='_blank'>Hull Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1431&hilite=ExRem' target='_blank'>ICHIMOKU SIGNAL TRADER</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=ExRem' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=ExRem' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1463&hilite=ExRem' target='_blank'>OBV with Linear Regression</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=ExRem' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1348&hilite=ExRem' target='_blank'>Perceptron</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=128&hilite=ExRem' target='_blank'>Peterson</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1427&hilite=ExRem' target='_blank'>Pivot End Of Day Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1441&hilite=ExRem' target='_blank'>Plot the Equity Curve without Backtesting?</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=24&hilite=ExRem' target='_blank'>Pullback System No. 1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=ExRem' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1409&hilite=ExRem' target='_blank'>Rebalancing Backtest avoiding leverage</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1124&hilite=ExRem' target='_blank'>Relative Momentum Index  (RMI)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1461&hilite=ExRem' target='_blank'>Reverse MFI Crossover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=220&hilite=ExRem' target='_blank'>RSI Double-Bottom</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=153&hilite=ExRem' target='_blank'>RSIS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=307&hilite=ExRem' target='_blank'>RUTVOL timing signal with BB Scoring routine</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=707&hilite=ExRem' target='_blank'>Schiff Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=187&hilite=ExRem' target='_blank'>SectorRSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=ExRem' target='_blank'>Stan Weinstein strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=162&hilite=ExRem' target='_blank'>STD_STK Multi</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=219&hilite=ExRem' target='_blank'>Stochastic Fast%K and Full</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=161&hilite=ExRem' target='_blank'>StochD_StochK Single.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=ExRem' target='_blank'>Stress with SuperSmoother</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1376&hilite=ExRem' target='_blank'>Super Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=396&hilite=ExRem' target='_blank'>TD sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=ExRem' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=289&hilite=ExRem' target='_blank'>The D_oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=552&hilite=ExRem' target='_blank'>The Three Day Reversal</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=437&hilite=ExRem' target='_blank'>Trading ATR 10-1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=163&hilite=ExRem' target='_blank'>Trend Continuation Factor</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=696&hilite=ExRem' target='_blank'>Triangular Moving Average new</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1073&hilite=ExRem' target='_blank'>TTM Squeeze</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=466&hilite=ExRem' target='_blank'>Using From and To dates from Auto Analysis in Code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=660&hilite=ExRem' target='_blank'>Visualization of stoploses and profit in chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1333&hilite=ExRem' target='_blank'>Vivek Jain</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=100&hilite=ExRem' target='_blank'>Williams Alligator system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=ExRem' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=353&hilite=ExRem' target='_blank'>Zig Zag Indicator with Valid Entry and Exit Points</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=ExRem' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=ExRem">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,73 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXCIRCLE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxCircle</b><br>
+        - draw a circle</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxCircle( x, y, radius ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Draws a circle. The center of the circle is given by x and y parameters. The circle is drawn with the current pen, and its interior is filled with the current brush. 
+<p>
+Parameters
+<ul>
+<li>x - x-coordinate of the center of the circle
+<li>y - y-coordinate of the the center of the circle
+<li>radius - radius of the circle
+</ul>
+
+<p>
+This function is essentially the same as GfxEllipse( x - radius, y - radius, x + radius, y + radius );
+
+<p>
+NOTE: This is LOW-LEVEL graphic function. To learn more about low-level
+graphic functions please read <a href='../h_lowlevelgfx.html'>TUTORIAL: Using low-level graphics.</a>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> GfxCircle( 100, 100, 50 ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="gfxellipse.html">GfxEllipse()</A> function , <A HREF="gfxroundrect.html">GfxRoundRect()</A> function , <A HREF="gfxselectpen.html">GfxSelectPen()</A> function , <A HREF="gfxselectsolidbrush.html">GfxSelectSolidBrush()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxCircle</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GfxCircle' target='_blank'>elliott wave manual labelling</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxCircle">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<html>
+
+<head>
+<title>How to use AFL debugger</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>How to use AFL visual debugger </b></h2>
+<p><em>Basics</em></p>
+<p>To run the formula under the debugger, simply choose the<strong> Debug-&gt;Go (F5 key) </strong>menu
+in the Formula Editor or click the toolbar button marked below as <strong>Start/Continue</strong>.</p>
+<p>In most cases, the code would execute in a blink of an eye, so you won't even
+  see if it worked. You can stop the execution long enough to see what is
+  happening by setting a <strong>breakpoint</strong> and then stepping ahead.</p>
+<p><em>Breakpoints</em></p>
+<p>To set a breakpoint, move the cursor to the line where you want to stop the
+  execution and choose <strong>Debug-&gt;Insert/Remove Breakpoint</strong> menu
+  or press the red circle button in the toolbar, or press F9 key. The breakpoint
+  will be shown as a red circle in the left margin.</p>
+<p>Breakpoints can be added/removed at any time, before you start debugging and
+  while you are debugging. They can be added/removed when the debugger is stopped
+  at a breakpoint and while the code is running.</p>
+<p>Now, start debugging again (<strong>Debug-&gt;Go</strong>). Execution should
+  stop at the line marked with the breakpoint sign, before this line's code actually
+  executes. A yellow arrow shows the current position of execution as shown in the
+picture below.</p>
+<p><em>Single stepping</em></p>
+<p>You can cause the code to execute by stepping ahead (<strong>Debug-&gt;Step
+    Over</strong>, <strong>F10</strong> key).
+  You could also click the <strong>Debug-&gt;Step Into</strong> (<strong>F11</strong> key)
+  option. The difference between <strong>Step Into</strong> and <strong>Step
+Over</strong> is observed when you try to single-step a call to a user-defined function. </p>
+<p>If the line contains a call to a user-defined function:</p>
+<ul>
+  <li><strong>Step Into</strong> executes the call itself and stops at the first
+    line of code inside the function</li>
+  <li><strong>Step Over</strong> executes the called function as one step without
+    stopping inside the function</li>
+</ul>
+<p><img src="gifs/debug.gif" width="605" height="717"></p>
+<p><em>Examining the contents of variables</em></p>
+<p>When the debugger is stopped at a breakpoint or stopped by single-stepping, you
+  can examine the contents of variables anywhere in the code. To quickly check
+  the content of any variable, simply <strong>hover the mouse over the variable</strong>. After
+  less than one second, a tooltip will appear showing the type and value of the variable.</p>
+<p><em>The Watch window</em></p>
+<p>If you are interested in watching several variables easily, you can use the <strong>Watch</strong>  window.
+  To open the Watch window, use the <strong>Window-&gt;Watch</strong> menu. </p>
+<p><strong>To add a new variable</strong> to the Watch window,<strong> double-click
+    on an empty row
+    </strong> and type the variable name. You can also simply
+    select the variable in the editor and drag it over the Watch window.</p>
+<p><strong>To edit an existing variable</strong> in the Watch window, <strong>double-click on its
+    name</strong> and
+type the variable name.</p>
+<p><strong>To delete the variable</strong> from the Watch window, click on the name once (select it)
+  and <strong>press the DELETE key</strong>.</p>
+<p>In addition to variables, you can use an entire expression in the Watch window.
+  You can either drag-drop expressions from the editor onto the Watch window, or type
+  the expression after double-clicking, as you would with variables. The expression
+  evaluator used by the Watch window supports the following:</p>
+<ul>
+  <li>all arithmetic
+      operators like +, -, *, /</li>
+  <li>parentheses like (High+Low)/2</li>
+  <li> array subscript
+        expressions with
+          variables and expressions
+          as
+          array
+          indexes, such
+          as
+          Close[ i + 2 ]</li>
+  <li>matrices and matrix expressions with dynamic subscripts, like mat[ i +
+    1 ][ j ]</li>
+  <li>mixing various types of variables, such as concatenating a string and a numeric
+    value like this &quot;Value is = &quot; + Close[ i + 2 ]</li>
+</ul>
+<p>Note that only identifiers that can be used in the Watch window are variable identifiers.
+  You cannot use function identifiers, so you can't call functions from the Watch window.</p>
+<p>The values entered in the Watch window are watched for changes, and if a change in value occurs between two debugging steps, the given value is highlighted with a yellow background. Numeric (scalar) values are displayed in green
+  when they have increased or red if they have decreased.</p>
+<p><em>Arrays tab</em></p>
+<p>The 'Arrays' tab in the Watch window shows exploration-like array output for
+  detailed examination
+of array contents (the first 20 arrays from the Watch window are reported). It is very
+  convenient, as arrays are usually large, and having them in a table format
+  together with the bar number and corresponding date/time stamp makes it much easier
+  to see their contents. Additionally, each element of each
+  array is watched for changes, and an individual item change is highlighted
+  and auto-scroll occurs so that the first changed item is
+  always
+  visible in the 'Arrays' tab. </p>
+<p><em>Output window</em></p>
+<p>When you run the code in the debugger, you can use the Output window (open
+  it using the Window-&gt;Output menu) to display all text that is printed using <a href="afl/printf.html">printf</a>()
+  function. When the formula finishes its execution, the text &quot;Debug session has ended&quot;
+  is displayed in the Output window.</p>
+<p><em>Debugger preferences</em></p>
+<p><a href="w_preferences.html">Tools-&gt;Preferences</a> window now contains
+  a dedicated page with Debugger settings. </p>
+<p><img src="gifs/prefs_debug.gif" width="459" height="502"></p>
+<p>The settings are as follows:</p>
+<ul>
+  <li><strong>Limit BarCount to</strong> - defines the maximum number of bars in arrays (BarCount)
+  used during debugging (<strong>by default it is 200 bars</strong>)</li>
+  <li><strong>Bar interval </strong>- decides if the debugger uses the Base time interval
+    or the current Chart interval. The default is &quot;<strong>Use base time interval</strong>&quot; because
+    there can be no chart open at all!</li>
+  <li><strong>Auto-scroll to first changed
+    item</strong> - when this is ON, the &quot;Arrays&quot; list
+    in the Watch window is scrolled automatically to the first array item that has
+  changed (so you don't need to locate elements that changed manually)</li>
+  <li><strong>Keep
+      debugging state</strong> - when this is ON, the AFL editor saves the debug state (breakpoints
+      and watches) and bookmarks in the .dbg file along with the formula
+    when closing the editor and restores the state when the formula is reopened.
+    Note
+    that the .dbg
+    file is automatically deleted by AmiBroker when there are no breakpoints,
+    no bookmarks and no watches.</li>
+</ul>
+<p><em>Keyboard shortcuts</em></p>
+<p>The following keyboard shortcuts are available in the debugger mode:</p>
+<ul>
+  <li>F5 - Start/Continue debugging</li>
+  <li>F9 - Toggle Breakpoint</li>
+  <li>F10 - Step Over</li>
+  <li>F11 - Step Into</li>
+</ul>
+<p><em>Tips &amp; tricks</em></p>
+<p>If you want to stop execution when a certain condition is met, put the breakpoint
+  inside the if statement like this:</p>
+<p><CODE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='#800000'><b>if</b></font>(
+    reset &gt; 0 AND param &gt; 4 ) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  cs = <font color='#800080'>0</font>; <font color='#008000'>// PUT BREAKPOINT
+  IN THIS LINE and it will stop only when condition is met<br>
+</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</CODE></p>
+<p>Breakpoints currently work with:</p>
+<ul>
+  <li>regular statements (that end with a semicolon).
+      For multi-line statements, place the breakpoint at the beginning line of the
+  statement</li>
+  <li>for loops  
+  <li>while loops  
+  <li>do-while loops (you need to place a breakpoint where the 'while' clause is
+      located; it won't break at the 'do' line as it essentially is a no-op. If
+      you want
+        to break at the beginning<br>
+    of 'do', just place the breakpoint on the first statement inside the { block })  
+  <li>if statements  
+  <li>return statements  
+  <li>switch/case statements  
+  <li>break statements</li>
+</ul>
+<p>Breakpoints that you place on other lines won't trigger. The AFL editor won't
+  allow to place a breakpoint on an empty line, or a line that begins with a // comment
+or a sole brace</p>
+<p>You need to be aware of the fact that breakpoints placed inside conditional
+  statements like if() are only hit when a given condition is met. So, for example, if you have code like below, the code inside 'if'
+  statements won't execute unless it is actually run in the chart (indicator)
+  or in a portfolio backtest in the New Analysis window. </p>
+<p><CODE><font color='#800000'><b>if</b></font>( <font color='#0000ff'>Status</font>(<font color='#800080'>"action"</font>)
+    == <b>actionIndicator</b> ) <br>
+  { <br>
+  &nbsp;&nbsp;
+  <font color='#008000'>// breakpoint placed here won't trigger under debugger
+  because condition above is not met<br>
+  </font>} <br>
+  <br>
+  <font color='#800000'><b>if</b></font>( <font color='#0000ff'>Status</font>(<font color='#800080'>"action"</font>)
+  == <b>actionPortfolio</b> ) <br>
+  { <br>
+  &nbsp;&nbsp;
+  <font color='#008000'>// breakpoint placed here won't trigger under debugger
+  because condition above is not met <br>
+</font>}</CODE></p>
+<p>AmiBroker executes code in various contexts indicated by the &quot;action&quot; status.
+  Parts of the code can be conditionally executed in certain contexts using statements
+  like shown above. This allows, for example, to call Plot() only in charts and
+  to access the backtest object only when it is available. </p>
+<p>As of version 6.10, the debugger runs the code with the <strong>actionBacktest</strong> context.
+  To debug code that is run conditionally in other contexts, you can temporarily
+  disable the conditional check, but please
+  note
+  that
+  you still
+  cannot
+  access certain objects because they are simply not available. Specifically,
+  GetBacktesterObject() when called anywhere outside the second phase of a portfolio
+  backtest within New Analysis would return an empty (Null) object. In the future,
+  this limitation may be removed.</p>
+<h3>&nbsp;</h3>
+</body>
+</html>

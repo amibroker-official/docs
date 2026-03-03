@@ -1,0 +1,96 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SETBACKTESTMODE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SetBacktestMode</b><br>
+        - Sets working mode of the backtester</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SetBacktestMode( mode ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sets working mode of the backtester. A 'mode' parameter is one of the following backtest modes:
+<p>
+Supported backtest modes:
+<ul>
+<li><b>backtestRegular</b> -
+regular, signal-based backtest, redundant signals are removed as shown in 
+<a href='http://www.amibroker.com/gifs/bt_regular.gif'>this picture</a>
+<li><b>backtestRegularRaw</b> - signal-based backtest, redundant (raw) entry signals are NOT removed, only one position per symbol allowed
+<li><b>backtestRegularRawMulti</b> - signal-based backtest, redundant (raw) entry signals are NOT removed, MULTIPLE positions per symbol will be open if BUY/SHORT signal is true for more than one bar and there are free funds, Sell/Cover exit all open positions on given symbol, Scale-In/Out work on all open positions of given symbol at once.
+<li><b>backtestRegularRaw2</b> - for custom backtester users only, the same as backtestRegularRaw, but redundant exit signals are also kept. AVOID this mode - it requires lots of memory and slows everything down.
+<li><b>backtestRegularRaw2Multi</b> - for custom backtester users only, same as backtestRegularRawMulti, but redundant exit signals are also kept. AVOID this mode - it requires lots of memory and slows everything down.
+<li><b>backtestRotational</b> - rotational trading system see <a href='enablerotationaltrading.html'>this</a>.
+</ul>
+
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// default, as in 4.90,
+regular, signal-based backtest, redundant signals are removed </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetBacktestMode</FONT><FONT COLOR=#000000>( backtestRegular
+); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// signal-based backtest, redundant (raw) signals
+are NOT removed, only one position per symbol allowed </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetBacktestMode</FONT><FONT COLOR=#000000>( backtestRegularRaw
+); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// signal-based backtest, redundant (raw) signals
+are NOT removed, </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// MULTIPLE positions per symbol will be open if BUY/SHORT
+signal is 'true' for more than one bar and there are free funds </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// Sell/Cover exit all open positions on given symbol,
+Scale-In/Out work on all open positions of given symbol at once. </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetBacktestMode</FONT><FONT COLOR=#000000>( backtestRegularRawMulti
+); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// rotational trading mode - equivalent of EnableRotationalTrading()
+call </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetBacktestMode</FONT><FONT COLOR=#000000>( backtestRotational
+); <BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="enablerotationaltrading.html">EnableRotationalTrading()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SetBacktestMode</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1462&hilite=SetBacktestMode' target='_blank'>Envelope System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1463&hilite=SetBacktestMode' target='_blank'>OBV with Linear Regression</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1478&hilite=SetBacktestMode' target='_blank'>Periodically ReBalance a BUY & HOLD Portfolio</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1461&hilite=SetBacktestMode' target='_blank'>Reverse MFI Crossover</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SetBacktestMode">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

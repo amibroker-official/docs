@@ -1,0 +1,351 @@
+<html>
+<head>
+<title>Multiple Time Frame Support</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><!-- PAGE BREAK -->
+<h2><b>Multiple Time Frame Support in AFL</b></h2>
+<table width="100%" border="0" cellpadding="7" cellspacing="0" bgcolor="#FFCC33">
+  <tr>
+    <td><strong>IMPORTANT: TimeFrame functions are <u>NOT</u> intended to
+        replace
+        <a href="http://www.amibroker.com/guide/w_settings.html">Periodicity
+    setting</a>. </strong> <strong>To switch periodicity/interval
+    you should only use <a href="http://www.amibroker.com/guide/w_settings.html">Periodicity
+    setting</a>. </strong>TimeFrame functions are ONLY for formulas that mix
+    many different intervals at once in a single formula.</td>
+  </tr>
+</table>
+<p><b></b></p>
+<p>Release 4.41 brings the ability to use multiple time frames (bar intervals) in a
+single formula. The time frame functions can be divided into three functional groups: </p>
+<ol>
+  <li>switching time frame of built-in O, H, L, C, V, OI, and Avg arrays: <strong>TimeFrameSet</strong>, <strong>TimeFrameRestore</strong></li>
+  <li>compressing/expanding single arrays to/from a specified interval: <strong>TimeFrameCompress,
+      TimeFrameExpand</strong></li>
+  <li>immediate access to price/volume arrays in a different time frame: <strong>TimeFrameGetPrice</strong></li>
+</ol>
+<p><strong>First group</strong> is used when your formula needs to perform some
+  calculations on indicators in a different time frame than the currently selected
+  one. For example, if you need to calculate a 13-bar moving average on 5-minute
+  data and a 9-bar exponential average from hourly data while the current interval
+  is 1 minute, you would write:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>in5Minute</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+      switch to 5 minute frame</FONT><FONT COLOR=#000000> <BR>
+      <BR>
+</FONT><FONT COLOR=#008000>/* MA now operates on 5 minute data, ma5_13 holds
+time-compressed 13 bar MA of 5min bars */</FONT><FONT COLOR=#000000> <BR>
+<BR>
+ma5_13 = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>13</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+restore time frame to original</FONT><FONT COLOR=#000000> </FONT></CODE></p>
+<p><CODE><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>inHourly</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  switch now to hourly</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  mah_9 = </FONT><FONT COLOR=#0000ff>EMA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  9 bar moving average from hourly data</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+  restore time frame to original</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorWhite</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>// plot expanded average</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+  ma5_13, </FONT><FONT COLOR=#000000><B>in5Minute</B></FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#ff00ff>"13
+  bar moving average from 5 min bars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+  mah_9, </FONT><FONT COLOR=#000000><B>inHourly</B></FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#ff00ff>"9
+  bar moving average from hourly bars"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> );</FONT></CODE><br>
+</p>
+<p><strong>TimeFrameSet</strong>( <strong>interval</strong> ) - replaces current
+  built-in price/volume arrays (Open, High, Low, Close, Volume, OpenInt, Avg)
+  with time-compressed bars of a specified interval. Once you switch to a different
+  time frame, all calculations and built-in indicators operate on the selected
+  time frame. To get back to the original interval, call the TimeFrameRestore()
+  function. If you want to call TimeFrameSet again with a different interval,
+  you have to restore the original time frame first using TimeFrameRestore().
+  The interval is the time frame interval in seconds. For example, 60 is a one-minute
+  bar. You should use convenient constants for common intervals: in1Minute, in5Minute,
+  in15Minute, inHourly, inDaily, inWeekly, inMonthly.</p>
+<p>With version 4.70 you can also specify N-tick intervals. This is done by passing
+  a negative value as the interval. For example, -5 will give 5-tick bar compression,
+  and -133 will give 133-tick compression. Please note that using N-tick intervals
+  works only if your database uses a tick-base time interval set in<strong> File
+  -&gt; <a href="w_dbsettings.html">Database Settings</a></strong> dialog.</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>(
+      -</FONT><FONT COLOR=#ff00ff>133</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+switch to 133-tick interval</FONT></CODE></p>
+<table width="100%" border="0" cellpadding="7" cellspacing="0" bgcolor="#FFCC33">
+  <tr>
+    <td><strong>IMPORTANT: TimeFrameSet() is NOT an equivalent of the <a href="http://www.amibroker.com/guide/w_settings.html">periodicity
+          setting</a> in Analysis Settings. </strong>The only use for time-frame
+          functions is when you want to have trading rules based on multiple
+          time frames at once. See details in &quot;How it works internally&quot; below.</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p><strong>TimeFrameRestore</strong>() - restores price arrays replaced by SetTimeFrame.
+  Note that only OHLC, V, OI, and Avg built-in variables are restored to their
+  original time frame when you call TimeFrameRestore(). All other variables created
+  when being in a different time frame remain compressed. To decompress them
+  to their original interval, you have to use TimeFrameExpand.</p>
+<p>Once you switch the time frame using TimeFrameSet, all AFL functions operate
+  on this time frame until you switch back the time frame to its original interval
+  using TimeFrameRestore or set it to a different interval again using TimeFrameSet.
+  It is a good idea to ALWAYS call TimeFrameRestore when you are done with processing
+  in other time frames.</p>
+<p>When the time frame is switched to an interval other than the original,
+  the results of all functions called since TimeFrameSet are time-compressed, too.
+  If you want to display them in the original time frame, you would need to
+  'expand' them as described later. Variables created and assigned before calling
+  TimeFrameSet() remain in the time frame they were created. This behavior allows
+  mixing unlimited different time frames in a single formula.</p>
+<table width="100%" border="0" cellpadding="7" cellspacing="0" bgcolor="#FFCC33">
+  <tr>
+    <td><strong>PLEASE NOTE</strong> that you can only compress
+      data from a shorter interval to a longer interval. So, when working with 1-minute
+      data, you can compress to 2, 3, 4, 5, 6, ....N-minute data. But when working
+      with 15-minute data, you cannot get 1-minute data bars. In a similar way,
+    if you have only EOD data, you cannot access intraday time frames.</td>
+  </tr>
+</table>
+<p><strong>Second group: </strong>TimeFrameCompress/TimeFrameExpand allow compressing
+  and expanding single arrays to/from a different time frame. Especially worth
+  mentioning is TimeFrameExpand, which is used to decompress array variables
+  that were created in a different time frame. Decompressing is required to properly
+  display an array created in a different time frame. For example, if you want
+  to display a weekly moving average, it must be 'expanded' so that the data
+  of one weekly bar covers five daily bars (Monday-Friday) of the corresponding week.</p>
+<div></div>
+<div>
+  <div> <strong>TimeFrameExpand</strong>( array, interval, mode = expandLast
+    ) - expands a time-compressed array from an 'interval' time frame to the base time
+    frame ('interval' must match the value used in TimeFrameCompress or TimeFrameSet)<br>
+    Available modes:<br>
+    expandLast - the compressed value is expanded starting from the last bar within
+    a given period (so, for example, weekly close/high/low is available on Friday's
+    bar)<br>
+    expandFirst - the compressed value is expanded starting from the first bar within
+    a given period (so, for example, weekly open is available from Monday's bar)<br>
+    expandPoint - the resulting array gets non-empty values only for the last
+    bar within a given period (all remaining bars are Null (empty)).</div>
+  <div>
+    <p>Caveat: expandFirst used on prices different from open may look into the
+      future. For example, if you create weekly HIGH series, expanding it to daily
+      interval using expandFirst will enable you to know on MONDAY what the high was
+      for the entire week.</p>
+    <table width="100%" border="0" cellpadding="7" cellspacing="0" bgcolor="#FFCC33">
+      <tr>
+        <td><strong>IMPORTANT: TimeFrameExpand IS REQUIRED</strong> for any formula
+          that uses TimeFrame* functions. If you don't expand time-compressed
+          data, you will have incorrect timestamps (see description below in &quot;How
+            it works&quot;).</td>
+      </tr>
+    </table>
+    <p>TimeFrameCompress is provided for completeness and it can be used when
+      you want to compress a single array without affecting built-in OHLC, V arrays.
+    If you call TimeFrameCompress, it does not affect the results of other functions.</p>
+    <p><CODE><FONT COLOR=#000000>wc = </FONT><FONT COLOR=#0000ff>TimeFrameCompress</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000> ); <BR>
+          <BR>
+    </FONT><FONT COLOR=#008000>/* now the time frame is still unchanged (say
+    daily) and our MA will operate on daily data */</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    dailyma = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000> ); <BR>
+    <BR>
+    </FONT><FONT COLOR=#008000>/* but if we call MA on compressed array, it will
+    give MA from other time frame */</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    weeklyma = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( wc, </FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+    note that argument is time-compressed array</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( dailyma, </FONT><FONT COLOR=#ff00ff>"DailyMA"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+    <BR>
+    weeklyma = </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+    weeklyma, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+    expand for display</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( weeklyma, </FONT><FONT COLOR=#ff00ff>"WeeklyMA"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+  </div>
+  <p>During this formula, the time frame remained at its original setting; we only compressed a single array.</p>
+  <p> <strong>TimeFrameCompress</strong>( array, interval, mode = compressLast
+    )<br>
+    - compresses a single array to a given interval using a given compression mode. Available modes:<br>
+    compressLast - last (close) value of the array within the interval<br>
+    compressOpen - open value of the array within the interval<br>
+    compressHigh - highest value of the array within the interval<br>
+    compressLow - lowest value of the array within the interval<br>
+    compressVolume - sum of the values of the array within the interval</p>
+</div>
+<div> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Graph0</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>TimeFrameCompress</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>compressLast</B></FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>expandLast</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Graph1</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>TimeFrameCompress</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>compressOpen</B></FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>expandFirst</B></FONT><FONT COLOR=#000000> );</FONT></CODE></div>
+<div>
+  <p><strong>Third group </strong>consists of just one useful function: TimeFrameGetPrice,
+    which allows referencing price and volume from other time frames without
+    switching, compressing, or expanding time frames. Just one function call
+    to retrieve price from a higher time frame. It also allows referencing not
+    only current but also past bars from different time frames.</p>
+  <p><strong>TimeFrameGetPrice</strong>( pricefield, interval, shift = 0, mode
+    = expandFirst );<br>
+    - references OHLCV fields from other time frames. This works immediately
+    without the need to call TimeFrameSet at all.<br>
+    The price field is one of the following: &quot;O&quot;, &quot;H&quot;, &quot;L&quot;, &quot;C&quot;, &quot;V&quot;, &quot;I&quot; (open
+    interest). The interval is the bar interval in seconds. Shift allows referencing
+    past (negative values) and future (positive values) data in a higher time
+    frame. For example, -1 gives the previous bar's data (like in the Ref function,
+    but this works in a higher time frame).</p>
+  <p>Examples:</p>
+</div>
+<div> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"O"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>,
+      -</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>//
+      gives you previous week Open price</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"C"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>//
+gives you weekly Close price 3 weeks ago</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"H"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>//
+gives you weekly High price 2 weeks ago</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"O"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>//
+gives you this week Open price.</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"H"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inDaily</B></FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>//
+gives previous Day High when working on intraday data</FONT></CODE></div>
+<div>
+  <p>Shift works as in the Ref() function, but it is applied to a compressed time frame.</p>
+</div>
+<div>
+  <p>Note, these functions work like these three nested functions<br>
+      <code>TimeFrameExpand( Ref( TimeFrameCompress( array, interval, compress(depending
+      on field used) ), shift ), interval, expandFirst )</code><br>
+    therefore, if shift = 0, compressed data may look into the future (a weekly
+    high can be known on Monday). If you want to write a trading system using
+    this function, please make sure to reference past data by using a negative
+    shift value.<br>
+      <br>
+    The only difference is that TimeFrameGetPrice is 2x faster than nested Expand/Compress functions.</p>
+</div>
+<blockquote>
+  <div><strong>Note on performance of TimeFrame functions:</strong><br>
+      <br>
+    a) Measurements done on an Athlon 1.46GHz, 18,500 daily bars compressed to a weekly
+    time frame<br>
+          <br>
+    TimeFrameGetPrice( &quot;C&quot;, inWeekly, 0 ) - 0.0098 sec (9.8 milliseconds)<br>
+    TimeFrameSet( inWeekly ) - 0.012 sec	(12 milliseconds)<br>
+    TimeFrameRestore( ) - 0.006 sec (6 milliseconds)<br>
+    TimeFrameCompress( Close, inWeekly, compressLast ); - 0.0097 sec	(9.7 milliseconds)<br>
+    TimeFrameExpand( array, inWeekly, expandLast ); - 0.0098 sec (9.8 milliseconds)</div>
+  <div>
+    <p>b) Measurements done on an Athlon 1.46GHz, 1,000 daily bars compressed to a
+      weekly time frame. All functions below 0.0007 sec (0.7 millisecond)</p>
+  </div>
+</blockquote>
+<div>
+  <p><strong>How does it work internally?</strong></p>
+  <table width="100%" border="0" cellpadding="7" cellspacing="0" bgcolor="#FFCC33">
+    <tr>
+      <td>
+        <p>Time-frame functions <strong>do not </strong>change the BarCount;
+          they just squeeze the arrays so that the first N-bars are filled with
+          NULL values and then the last part of the array contains the actual
+          time-compressed values. </p>
+        <p>This is why it is essential to expand the data back to the original
+          time frame with TimeFrameExpand. </p>
+      </td>
+    </tr>
+  </table>
+  <p>The following simple exploration shows what happens
+      after you switch to a higher time frame. Run an Exploration on the current symbol,
+      all quotations, periodicity set to daily, and you will see how the &quot;weekly close
+      compressed&quot; column contains empty values at the beginning and weekly
+  compressed data at the end of the array. </p>
+  <p>&nbsp;</p>
+  <p><CODE><FONT COLOR=#000000> </FONT><FONT COLOR=#000000>    <B>Filter</B> = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+  </FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>(<B>Close</B>, </FONT><FONT COLOR=#800080>"Daily
+  close"</FONT><FONT COLOR=#000000>); <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>(<B>inWeekly</B>); <BR>
+  </FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>(wc = <B>Close</B>, </FONT><FONT COLOR=#800080>"weekly
+  close compressed"</FONT><FONT COLOR=#000000>); <BR>
+  </FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(wc, <B>inWeekly</B>), </FONT><FONT COLOR=#800080>"weekly
+  close expanded"</FONT><FONT COLOR=#000000>); </FONT></CODE></p>
+  <p><strong>EXAMPLES</strong></p>
+  <p>EXAMPLE 1: Plotting weekly MACD and cross arrows from daily data </p>
+</div>
+<div><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000> ); <BR>
+  m = </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  MACD from WEEKLY data</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); <BR>
+  <BR>
+  m1 = </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+  m, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( m1, </FONT><FONT COLOR=#ff00ff>"Weekly
+  MACD"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#0000ff>PlotShapes</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(
+  m1, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ) * </FONT><FONT COLOR=#000000><B>shapeUpArrow</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#0000ff>PlotShapes</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,
+m1 ) * </FONT><FONT COLOR=#000000><B>shapeDownArrow</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> );</FONT></CODE></div>
+<div><br>
+  EXAMPLE 2: Weekly candlestick chart overlaid on daily line price chart</div>
+<div><br>
+    <CODE><FONT COLOR=#000000>wo = </FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"O"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>expandPoint</B></FONT><FONT COLOR=#000000> ); <BR>
+    wh = </FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"H"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>expandPoint</B></FONT><FONT COLOR=#000000> ); <BR>
+    wl = </FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"L"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>expandPoint</B></FONT><FONT COLOR=#000000> ); <BR>
+    wc = </FONT><FONT COLOR=#0000ff>TimeFrameGetPrice</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"C"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>expandPoint</B></FONT><FONT COLOR=#000000> ); <BR>
+    <BR>
+    </FONT><FONT COLOR=#0000ff>PlotOHLC</FONT><FONT COLOR=#000000>( wo, wh, wl,
+    wc, </FONT><FONT COLOR=#ff00ff>"Weekly Close"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorWhite</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Daily
+    Close"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> ); </FONT></CODE><br>
+</div>
+<div>
+  <p>EXAMPLE 3: Simplified Triple Screen System </p>
+</div>
+<div><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/* switch to weekly
+      time frame */</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000> ); <BR>
+whist = </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000> )
+- </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>12</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>26</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000> ); <BR>
+wtrend = </FONT><FONT COLOR=#0000ff>ROC</FONT><FONT COLOR=#000000>( whist, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+weekly trend - one week change of weekly macd histogram</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>TimeFrameRestore</FONT><FONT COLOR=#000000>(); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>/* expand calculated MACD to daily so we can use it
+with daily signals */</FONT><FONT COLOR=#000000> <BR>
+wtrend = </FONT><FONT COLOR=#0000ff>TimeFrameExpand</FONT><FONT COLOR=#000000>(
+wtrend, </FONT><FONT COLOR=#000000><B>inWeekly</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+<BR>
+</FONT><FONT COLOR=#008000>/* elder ray */</FONT><FONT COLOR=#000000> <BR>
+bullpower= </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#0000ff>EMA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>13</FONT><FONT COLOR=#000000>); <BR>
+bearpower= </FONT><FONT COLOR=#000000><B>Low</B></FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#0000ff>EMA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>13</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = wtrend &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#008000>/*
+1st screen: positive weekly trend */</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> <BR>
+bearpower &lt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> bearpower &gt; </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>(
+bearpower, -</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>/*
+2nd screen bear power negative but rising */</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>/*
+3rd screen, if prices make a new high */</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>BuyPrice</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+buy stop level;</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ; </FONT><FONT COLOR=#008000>//
+exit only by stops</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>ApplyStop</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>stopTypeProfit</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>stopModePercent</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>30</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>ApplyStop</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>stopTypeTrailing</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>stopModePercent</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> );</FONT></CODE></div>
+<div></div>
+</body>
+</html>

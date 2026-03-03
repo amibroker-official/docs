@@ -1,0 +1,96 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PLOTTEXT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PlotText</b><br>
+        - write text on the chart</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PlotText( ''text'', x, y, color, bkcolor = colorDefault, yoffset = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function writes text in specified co-ordinates.
+<p>
+where:
+<ul>
+<li>
+<b>x</b> - is x-coordinate in bars (like in LineArray)
+<li>
+<b>y</b> - is y-coordinate in dollars
+<li>
+<b>color</b> is text color
+<li>
+<b>bkcolor</b> is background color 
+<li>
+<b>yoffset</b> (new in 5.80) is a Y-axis offset in pixels
+</ul>
+<p>
+If bkcolor is NOT specified (or equal to colorDefault) text is written with TRANSPARENT background, any other value causes solid background with specified background color. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>&quot;Price&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>),</FONT><FONT COLOR=#ff00ff>&quot;MA20&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000> )
+); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>= </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+dist = </FONT><FONT COLOR=#ff00ff>1.5</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#0000ff>ATR</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+i < </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+i++ ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>[i]
+) </FONT><FONT COLOR=#0000ff>PlotText</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;Buyn@&quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+i ], i, </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>[ i ]-dist[i], </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>[i]
+) </FONT><FONT COLOR=#0000ff>PlotText</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;Selln@&quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+i ], i, </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>[ i ]+dist[i], </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorYellow</B></FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>PlotShapes</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#000000><B>shapeUpArrow</B></FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#000000><B>shapeDownArrow</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> )
+);</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="plot.html">PLOT()</A> function , <A HREF="plottextsetfont.html">PlotTextSetFont()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>PlotText</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1300&hilite=PlotText' target='_blank'> 	Pivots And Prices And Swing Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1410&hilite=PlotText' target='_blank'>Alternative ZIG function</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=PlotText' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1571&hilite=PlotText' target='_blank'>Auto Fib Ext&Retracement</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=PlotText' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=PlotText' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=PlotText' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=PlotText' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=PlotText' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=PlotText' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1555&hilite=PlotText' target='_blank'>Day Bar No</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1417&hilite=PlotText' target='_blank'>Expiry day/days - Last thursday of month</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1412&hilite=PlotText' target='_blank'>Fib Fan Based on ZZ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1371&hilite=PlotText' target='_blank'>Fibonacci Calculations & Speed Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1084&hilite=PlotText' target='_blank'>Fibonacci Internal and External Retracements</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1454&hilite=PlotText' target='_blank'>Fre</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1256&hilite=PlotText' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1257&hilite=PlotText' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1420&hilite=PlotText' target='_blank'>Gann Swing Charts in 3 modes with text</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=PlotText' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1408&hilite=PlotText' target='_blank'>Harmonic Patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=PlotText' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1396&hilite=PlotText' target='_blank'>Hilbert Sine Wave Support & Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=PlotText' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=PlotText' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=PlotText' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=PlotText' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=PlotText' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1018&hilite=PlotText' target='_blank'>Ord Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1294&hilite=PlotText' target='_blank'>Pivots And Prices</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1191&hilite=PlotText' target='_blank'>Point & figure Chart India Securities</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1476&hilite=PlotText' target='_blank'>Prior Daily OHLC</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=PlotText' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1603&hilite=PlotText' target='_blank'>Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=PlotText' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=758&hilite=PlotText' target='_blank'>SUPER PIVOT POINTS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=PlotText' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1211&hilite=PlotText' target='_blank'>Trix Bars number</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1465&hilite=PlotText' target='_blank'>Updated Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1482&hilite=PlotText' target='_blank'>visual turtle trading system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=660&hilite=PlotText' target='_blank'>Visualization of stoploses and profit in chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=PlotText' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1353&hilite=PlotText' target='_blank'>ZigZag Hi Lo Barcount</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=930&hilite=PlotText' target='_blank'>ZigZag Retracements</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PlotText">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

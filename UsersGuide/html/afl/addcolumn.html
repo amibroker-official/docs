@@ -1,0 +1,118 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ADDCOLUMN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>AddColumn</b><br>
+        - add numeric exploration column</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 3.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>AddColumn( array, name, format = 1.2, textColor = colorDefault, bkgndColor = colorDefault, width = -1, barchart = Null   ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Adds a new column to the exploration result list. The column 
+      shows <i>array</i> values and has a caption of <i>name. </i>The values are 
+      formatted using <i>format</i> specification. <br>
+      By default all variables are displayed with 2 decimal digits, but you 
+        can change this by assigning a different value to this variable: 1.5 gives 
+        5 decimal digits, 1.0 gives no decimal digits. (Note for advanced users: 
+        the integer part of this number can be used to pad formatted number with 
+        spaces - 6.0 will give no decimal digits but a number space-padded upto 
+        6 characters.)
+<br>
+Next two parameters allow to modify text and background color.<br>
+<p>
+special format constants:
+<ul>
+<li>
+formatDateTime - produces date time formated according to your system settings<br>
+<code>
+AddColumn( DateTime(), &quot;Date / Time&quot;, formatDateTime );
+</code><br><br>
+<li>
+formatDateTimeISO - produces date time formated using ISO standard, i.e. YYYY-MM-DD HH:MM:SS<br>
+<code>
+AddColumn( DateTime(), &quot;Date / Time&quot;, formatDateTimeISO );
+</code><br><br>
+<li>
+formatChar - allows outputting single ASCII character codes:
+<br>
+Example (produces signal file accepted by various other programs):
+<br>
+<code>
+Buy=Cross(MACD(),Signal());<br>
+Sell=Cross(Signal(), MACD());<br>
+Filter=Buy OR Sell;<br>
+SetOption(&quot;NoDefaultColumns&quot;, True );<br>
+AddColumn( DateTime(), &quot;Date&quot;, formatDateTime );<br>
+AddColumn( IIf( Buy, 66, 83 ), &quot;Signal&quot;, formatChar );<br>
+</code>
+<li>width parameter allows to control pixel width of the column
+<li>'barchart' parameter accepts values from 0...100 represening percentage width of bar chart displayed in a cell the in-cell bar chart is drawn with bkcolor (background color). 
+</ul>  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> 1. Simple column showing close price<p>
+<code>addcolumn( Close, &quot;Close price&quot;, 1.4 );</code><p>
+
+2. Colorful output<p>
+<code>
+Filter =1;<br>
+<br>
+AddColumn( Close, &quot;Close&quot;, 1.2 );<br>
+AddColumn( MACD(), &quot;MACD&quot;, 1.4 , IIf( MACD() > 0, colorGreen, colorRed ) );<br>
+AddTextColumn( FullName(), &quot;Full name&quot;, 77 , colorDefault, IIf( Close < 10, colorLightBlue, colorDefault ) );<br>
+</code>
+
+<p>
+3. Barchart example
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;Close&quot;</FONT><FONT COLOR=#000000> ); <BR>
+rank = </FONT><FONT COLOR=#0000ff>PercentRank</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> ); <BR>
+Color = </FONT><FONT COLOR=#0000ff>ColorHSB</FONT><FONT COLOR=#000000>( rank
+* </FONT><FONT COLOR=#800080>64</FONT><FONT COLOR=#000000>/</FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( rank, </FONT><FONT COLOR=#800080>&quot;100-day
+percent rank&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1.2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorDefault</B></FONT><FONT COLOR=#000000>,
+Color, -</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>, rank );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="addtextcolumn.html">ADDTEXTCOLUMN()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>AddColumn</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=925&hilite=AddColumn' target='_blank'>Advanced MA system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=185&hilite=AddColumn' target='_blank'>ADXbuy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=545&hilite=AddColumn' target='_blank'>AFL Example</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=547&hilite=AddColumn' target='_blank'>AFL Example - Enhanced</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=270&hilite=AddColumn' target='_blank'>Alert Output As Quick Rewiev</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=788&hilite=AddColumn' target='_blank'>Appel's ROC or The Triple Momentum Timing Model</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=138&hilite=AddColumn' target='_blank'>Aroon Indicators</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=AddColumn' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=AddColumn' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1065&hilite=AddColumn' target='_blank'>Average Dollar Price Volatility Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=AddColumn' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=447&hilite=AddColumn' target='_blank'>Black Scholes Option Pricing</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1469&hilite=AddColumn' target='_blank'>Bollinger Band Squeeze</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1066&hilite=AddColumn' target='_blank'>Bottom Fisher Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=152&hilite=AddColumn' target='_blank'>Bull Fear / Bear Fear</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=251&hilite=AddColumn' target='_blank'>Bullish Percent Index 2 files combined</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=709&hilite=AddColumn' target='_blank'>Calculate composites for tickers in list files</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=306&hilite=AddColumn' target='_blank'>CAMSLIM Cup and Handle Pattern AFL</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1289&hilite=AddColumn' target='_blank'>Commodity Selection Index (CSI)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=290&hilite=AddColumn' target='_blank'>Count Tickers in Watchlist</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1438&hilite=AddColumn' target='_blank'>CVR--severe filter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1560&hilite=AddColumn' target='_blank'>Darvas Amibroker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1561&hilite=AddColumn' target='_blank'>Darvas Johndeo Research</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=708&hilite=AddColumn' target='_blank'>Ed Seykota's TSP: EMA Crossover System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=735&hilite=AddColumn' target='_blank'>Ed Seykota's TSP: Support and Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=598&hilite=AddColumn' target='_blank'>ekeko price chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=585&hilite=AddColumn' target='_blank'>Elder Impulse Indicator V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=634&hilite=AddColumn' target='_blank'>End Of Year Trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=386&hilite=AddColumn' target='_blank'>Follow the Leader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=AddColumn' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=617&hilite=AddColumn' target='_blank'>Gordon Rose</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=142&hilite=AddColumn' target='_blank'>half-automated Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1422&hilite=AddColumn' target='_blank'>IBD relative strength database Viewer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1431&hilite=AddColumn' target='_blank'>ICHIMOKU SIGNAL TRADER</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1135&hilite=AddColumn' target='_blank'>Intraday Average Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=AddColumn' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=AddColumn' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=AddColumn' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=929&hilite=AddColumn' target='_blank'>Market Facilitation Index  VS Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1190&hilite=AddColumn' target='_blank'>mitalpradip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1605&hilite=AddColumn' target='_blank'>Momentum Volume Price (MVP) Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=249&hilite=AddColumn' target='_blank'>Monthly bar chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1101&hilite=AddColumn' target='_blank'>MS Darvas Box with Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=AddColumn' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=AddColumn' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1096&hilite=AddColumn' target='_blank'>NRx Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=731&hilite=AddColumn' target='_blank'>nth ( 1 - 8 ) Order Polynomial Fit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=AddColumn' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1018&hilite=AddColumn' target='_blank'>Ord Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1094&hilite=AddColumn' target='_blank'>Pattern_-_Rectangle_Base_Breakout_on_High_Vol 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1083&hilite=AddColumn' target='_blank'>Position Sizer  vers2, stocks and CFDs</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=245&hilite=AddColumn' target='_blank'>Price Persistency</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=AddColumn' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=323&hilite=AddColumn' target='_blank'>Relative Strength</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1188&hilite=AddColumn' target='_blank'>Robert Antony</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=220&hilite=AddColumn' target='_blank'>RSI Double-Bottom</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=288&hilite=AddColumn' target='_blank'>RSI Trendlines and Wedges</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=307&hilite=AddColumn' target='_blank'>RUTVOL timing signal with BB Scoring routine</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=398&hilite=AddColumn' target='_blank'>Sainath Sidgiddi</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=574&hilite=AddColumn' target='_blank'>SAR-ForNextBarStop</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=187&hilite=AddColumn' target='_blank'>SectorRSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=425&hilite=AddColumn' target='_blank'>Simple Candle Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=AddColumn' target='_blank'>Stan Weinstein strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=162&hilite=AddColumn' target='_blank'>STD_STK Multi</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=161&hilite=AddColumn' target='_blank'>StochD_StochK Single.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=136&hilite=AddColumn' target='_blank'>Stops Implementation in AFS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=587&hilite=AddColumn' target='_blank'>Strength and Weakness</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=756&hilite=AddColumn' target='_blank'>TAZ Trading Method Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1227&hilite=AddColumn' target='_blank'>testing multiple system simulataneously</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=921&hilite=AddColumn' target='_blank'>Three Day Balance Point</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=418&hilite=AddColumn' target='_blank'>Trend Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=724&hilite=AddColumn' target='_blank'>Trend exploration with multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1260&hilite=AddColumn' target='_blank'>Trend Exploration: Count Number of New Highs</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1276&hilite=AddColumn' target='_blank'>Trend Exploration: Slope Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=237&hilite=AddColumn' target='_blank'>Triangle exploration using P&F Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=696&hilite=AddColumn' target='_blank'>Triangular Moving Average new</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=466&hilite=AddColumn' target='_blank'>Using From and To dates from Auto Analysis in Code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=207&hilite=AddColumn' target='_blank'>Volume - compared with Moving Avg (100%)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=248&hilite=AddColumn' target='_blank'>Weekly chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=554&hilite=AddColumn' target='_blank'>Weighted Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1104&hilite=AddColumn' target='_blank'>William's Alligator System II</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=AddColumn">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

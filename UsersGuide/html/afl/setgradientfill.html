@@ -1,0 +1,90 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SETGRADIENTFILL</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SetGradientFill</b><br>
+        - set the colors of a gradient fill plot</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 5.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SetGradientFill( topcolor, bottomcolor, baseline = Null, baselinecolor = -1 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function defines colors for gradient area charts.
+Gradient chart is obtained using styleGradient in the Plot() function call.
+Upper gradient color is specified by topcolor, bottom gradient color is specified by botttomcolor. 
+Optional parameters (baseline/baselinecolor) allow reverse gradient chart (such as underwater equity) and 3 color gradients top->baseline->bottom. See code for Underwater Equity for example usage of reverse gradient chart (with baseline at the top). Baseline parameter specifies the Y-axis position of chart baseline. The baselinecolor parameter specifies the color of gradient that is to be used at that level. If baselinecolor is not specified, then only 2-color gradient is plotted (topcolor->bottomcolor). </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// Underwater Equity chart</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// (C)2009 AmiBroker.com</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// Should be used only on ~~~EQUITY or ~~~OSEQUITY
+symbol</FONT><FONT COLOR=#000000> <BR>
+<BR>
+<BR>
+EQ = </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>; <BR>
+MaxEQ = </FONT><FONT COLOR=#0000ff>Highest</FONT><FONT COLOR=#000000>( EQ ); <BR>
+DD = </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> * ( Eq - MaxEQ
+) / MaxEq; <BR>
+MaxDD = </FONT><FONT COLOR=#0000ff>Lowest</FONT><FONT COLOR=#000000>( DD ); <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Drawdown
+= %.2g%%, Max. drawdown %.2g%%"</FONT><FONT COLOR=#000000>, DD, </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>(
+MaxDD ) ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>SetGradientFill</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>GetChartBkColor</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( DD, </FONT><FONT COLOR=#800080>"Drawdown "</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleGradient</B></FONT><FONT COLOR=#000000> | </FONT><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( MaxDD, </FONT><FONT COLOR=#800080>"Max
+DD"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleNoLabel</B></FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>SetChartOptions</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,
+chartGridPercent ); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Name</FONT><FONT COLOR=#000000>()
+!= </FONT><FONT COLOR=#800080>"~~~EQUITY"</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>Name</FONT><FONT COLOR=#000000>()
+!= </FONT><FONT COLOR=#800080>"~~~OSEQUITY"</FONT><FONT COLOR=#000000>  ) </FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>"Warning:
+wrong ticker! This chart should be used on ~~~EQUITY or ~~~OSEQUITY only"</FONT><FONT COLOR=#000000>;</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="plot.html">Plot()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SetGradientFill</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1520&hilite=SetGradientFill' target='_blank'>B-Xtrender</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=SetGradientFill' target='_blank'>Stress with SuperSmoother</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=SetGradientFill' target='_blank'>White Theme</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SetGradientFill">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

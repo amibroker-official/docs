@@ -1,0 +1,395 @@
+<html>
+
+<head>
+<title>How to use 'drag-and-drop' charting interface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="/guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>How to use drag-and-drop charting interface</b></h2>
+
+<DIV><FONT size=2><STRONG>Introduction</STRONG></FONT></DIV>
+<DIV>
+  <p><FONT size=2> AmiBroker allows you to easily create and modify your indicators
+      with a few moves of a mouse. From now on you can build sophisticated indicators
+      without any programming knowledge at all. The available (ready-to-use)
+      indicators are listed in the <B>Charts</B> tab of the <B>Workspace</B> window.      
+  </FONT></p>
+  <p>There is a video tutorial at: <a href="http://www.amibroker.net/video/dragdrop1.html" target="_blank">http://www.amibroker.net/video/dragdrop1.html</a> that shows basic usage of new drag-and-drop functionality.</p>
+</DIV>
+
+
+
+<DIV>
+  <p><FONT size=2><STRONG>How to insert a new indicator.</STRONG></FONT></p>
+  <p><FONT size=2>To display a new indicator in a separate chart pane, just find
+      the indicator in the Charts list (use <b>Window -> Charts</b> menu) and <b>double-click</b> the
+  indicator name.</FONT>
+</p>
+</DIV>
+<DIV>
+  <p><FONT size=2> <img src="gifs/m_formulacontext.gif" align="left" hspace="10"></FONT></p>
+  <p><FONT size=2>Alternatively, you can choose <strong>Insert</strong> from
+      the <a href="m_formulacontext.html">context
+        menu</a>.
+      As a result, a new indicator pane will be created and the <B>Parameters</B> dialog
+        will be displayed. Here you can change the properties of the indicator
+      (like color or periods). To accept the settings, press the <B>OK</B> button.
+      (You will find the detailed description of the Parameters window below).<BR>
+    <B><br>
+    Example:</B><BR>
+    To insert an RSI pane - find the RSI indicator in the list, double-click the
+        name, select the number of periods and color, then press OK.</FONT></p>
+</DIV>
+<p>&nbsp;</p>
+<DIV>
+  <p><FONT size=2><STRONG>How to overlay one indicator on another indicator.</STRONG></FONT></p>
+</DIV>
+<DIV><FONT size=2> To overlay one indicator on another, press the LEFT mouse
+    button on the indicator name, drag (while holding the mouse button) the chosen indicator
+    into the destination pane and release the button.<BR>
+      <B>Example:</B><BR>
+  To insert another RSI (based on a different number of periods) into the same pane -
+  drag RSI into the previously created RSI pane, change the number of periods
+  in the Parameters window and press OK</FONT></DIV>
+<p>Alternatively, you can choose <strong>Overlay</strong> option from the <a href="m_formulacontext.html">context
+  menu</a>.</p>
+<p>&nbsp; </p>
+<p><FONT size=2><STRONG>How to delete the indicator.</STRONG></FONT></p>
+<DIV>
+  <p><FONT size=2> To remove the indicator, press the <B>Close</B> button from the
+      menu at the top right-hand side of the indicator pane (the menu will be displayed
+      if you place the mouse cursor nearby). This menu also allows you to
+      move the indicator pane up/down or maximize the pane.  </FONT></p>
+</DIV>
+<BR>
+
+<p><img src="gifs/23pic1.gif"></p>
+<p>You can also use the <strong>Close</strong> command from the context menu that shows
+  up when you click the chart pane with the right mouse button.<BR>
+  <br>
+  <BR>
+<img src="gifs/23menu.gif"></p>
+<DIV>
+  <p><BR>
+    <FONT size=2><STRONG>How to remove the indicator plot from the pane.</STRONG></FONT></p>
+</DIV>
+<BR>
+<DIV><FONT size=2> To remove one of the indicators displayed in the indicator
+    pane - click the RIGHT mouse button on the chart title (near the top of
+    the chart pane) and select the indicator that you want to remove.  </FONT></DIV>
+<BR>
+
+<p><img src="gifs/23pic2.gif"></p>
+<p>You can also remove the indicator plot using the <strong>Delete Indicator</strong> option
+  from the <a href="m_chartcontext.html">chart context menu</a>.<BR>
+</p>
+<DIV><FONT size=2><STRONG>How to change parameters/colors/styles of indicators.</STRONG></FONT></DIV><BR>
+<DIV><FONT size=2> The <B>Parameters</B> window allows you to change parameters, colors and styles of your indicators. The Parameters window is displayed when you insert a new indicator. You can also right-click the chart pane and choose Parameters from the context menu. The Parameters window displays all the parameters defined in AFL code of certain indicators (also user-defined parameters), so its contents depend on the indicator chosen. However, for most of the indicators you will see:<BR>
+<UL>
+<LI> <B>Price Field</B> - the data used to calculate the indicator. If the 'Price Field' contains 'Close', it means that the indicator is calculated from Close prices.
+<LI> The Price Field is not available for all indicators, because not all indicators allow you to choose the input (e.g. ADLine).
+<LI> <B>Periods</B> - defines the number of periods used to calculate the indicator
+<LI> <B>Color</B> - allows you to change the color of the indicator
+<LI> <B>Style</B> - allows you to determine the style of the plot (the styles are described in more detail in <a href="http://www.amibroker.com/guide/h_indbuilder2.html">Using graph styles and colors</a> tutorial section.
+</UL>
+</FONT></DIV><BR><BR>
+
+<DIV><FONT size=2><STRONG>How to overlay indicators with different scales.</STRONG></FONT></DIV><BR>
+<DIV><FONT size=2>To have two (or more) indicators that use different scaling in one pane, drag the second indicator onto the first one, in the Parameters window click the <B>Style</B> field and check the <B>StyleOwnScale</B> setting. <BR>
+<B>Example:</B><BR>
+Drag OBV (On Balance Volume) into the RSI pane. Then define the style as StyleOwnScale. As a result, both indicators are visible and properly displayed.</FONT></DIV><BR><BR><BR>
+
+
+<DIV><FONT size=2><STRONG>How to create an indicator based on another indicator.</STRONG></FONT></DIV><BR>
+<DIV><FONT size=2> AmiBroker also allows you to easily create indicators based on the values of another indicator. All you need to do is to press the LEFT mouse button on the indicator name, drag (while holding the mouse button) the chosen indicator into the destination pane and release the button. As a result, the indicator will be placed in the existing chart pane. In the Parameters dialog, the <B>Price field</B> parameter indicates what base values are used to calculate the indicator.<BR>
+<B>Example:</B><BR>
+To calculate a Simple Moving Average of a previously created RSI indicator, drag the MA indicator into the RSI pane. The contents of the "Price Field" parameter indicate that the Moving Average is calculated from RSI(15) values. (See the picture below). </FONT></DIV><BR>
+
+<p><img src="gifs/23pic3.gif"></p>
+<p>&nbsp;</p>
+<hr>
+<p>  <FONT size=2><em>NOTE: The part below contains technical information for
+      advanced users only. Beginners may skip this part.</em></FONT><BR>
+    
+
+    
+</p>
+<DIV><FONT size=2><STRONG> Using Param(), ParamColor(), ParamToggle(), ParamStyle()
+functions </STRONG></FONT></DIV>
+<BR>
+
+<DIV><FONT size=2> These functions, when used in a formula, allow you to change indicators' settings directly from the <B>Parameters</B> window.<BR><BR><BR>
+
+
+<strong>Param( <i>''name'', defvalue, min = 0, max = 100, step = 1, sincr = 0</i> ) </strong><BR>
+Adds a new user-definable parameter, which will be accessible via the Parameters dialog. 
+<ul>
+<li>"name" - defines the parameter name that will be displayed in the Parameters dialog
+<li>defvalue - defines the default value of the parameter
+<li>min, max - define the minimum and maximum values of the parameter
+<li>step - defines the minimum increment of the parameter via a slider in the Parameters dialog
+<li>sincr - defines the increment of the default value when more than one section of the same kind is inserted (dropped) onto the chart. For example, if you insert the default Moving Average indicator into the same pane twice, the first moving average will be based on 15 periods, the other one on 25 (defvalue=15 + sincr=10)
+</ul><BR>
+
+ 
+ <strong>ParamColor( <i>''name'', defaultcolor </i> ) </strong><BR>
+Adds a new user-definable color parameter, accessible via the Parameters dialog.
+<ul>
+<li>''name'' - defines the parameter name that will be displayed in the Parameters dialog
+<li>defaultcolor - defines the default color value of the parameter
+</ul>
+The ParamColor function allows you to use <B>colorCycle</B> as a default value. When you use the colorCycle parameter, the default color cycles through red, blue, green, turquoise, gold, violet, bright green, dark yellow when you insert your indicators into the same pane.<BR><BR><BR>
+
+
+
+<strong>ParamStyle(<I>''name'', defaultval = styleLine, mask = maskDefault</I> )</strong> -
+allows you to select the styles applied to the plot from the Parameters window. Apart
+from styles available in previous versions of AmiBroker, there are two new style
+constants:
+<UL>
+<LI> styleHidden - a combination of styleNoDraw | styleNoRescale
+<LI> styleDashed - dashed line
+</UL>
+The list of available styles displayed in the Parameters window depends on the <B>mask</B> parameter. 
+<UL>
+<LI> maskDefault - Shows thick, dashed, hidden, own scale styles (this is the default mask for ParamStyle)
+<LI> maskAll - Shows all style flags
+<LI> maskPrice - Shows thick, hidden, own scale, candle, bar
+<LI> maskHistogram - Shows histogram, thick, hidden, own scale, area
+</UL><BR>
+
+<strong>ParamField(<I>''name'', field = 3</I> )</strong> - allows you to pick the <B>Price field</B> for the indicator (the field that is used to calculate values of the indicator). The function returns the array defined by <I>field</I> parameter. Default value = 3 returns the Close array. The possible values of <I>field</I> parameter are: 
+<UL>
+<LI> <B>-1</B> - ParamField returns the values of the indicator that was inserted as a first one into the pane, or Close if no indicator was present
+<LI>  <B>0</B> - returns the <B>Open</B> array
+<LI>  <B>1</B> - returns the <B>High</B> array
+<LI>  <B>2</B> - returns the <B>Low</B> array
+<LI>  <B>3</B> - returns the <B>Close</B> array (default)  
+<LI>  <B>4</B> - returns the <B>Average </B> array = (H+L+C)/3
+<LI>  <B>5</B> - returns the <B>Volume</B> array
+<LI>  <B>6</B> - returns the <B>Open Interest</B> array
+<LI>  <B>7,8,9,....</B> - return values of indicators inserted into the pane.
+</UL><BR>
+
+
+<strong>ParamToggle(<I>''name'',''values'',defaultval=0 </I> )</strong> - a function
+that allows you to use boolean (Yes/No) parameters.
+<UL>
+<LI> ''name''  - the name of the parameter
+<LI> ''values'' - parameter values (separated by the | character, e.g. "No|Yes" -
+  the first string represents the false value, and the second string represents the true value)
+<LI> defaultval - the default value of the parameter 
+</UL>
+
+</FONT>
+  <p>_</p>
+  <p><FONT size=2><BR>
+    <B>Example:</B><BR>
+    <BR>
+    The indicator below allows you to check how the parameters work in the custom code. You can change settings from the Parameters dialog.<br>
+    </FONT><FONT size=2><BR>
+      
+
+    <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>()
+      ); <BR>
+    </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>()
+      ); <BR>
+    <BR>
+    pricefield = </FONT><FONT COLOR=#0000ff>ParamField</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Price
+      Field"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>); <BR>
+      Color = </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"color"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>); <BR>
+      style = </FONT><FONT COLOR=#0000ff>ParamStyle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"style"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000>,maskAll); <BR>
+      arrows = </FONT><FONT COLOR=#0000ff>ParamToggle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Display
+      arrows"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"No|Yes"</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>); <BR>
+      </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(pricefield,</FONT><FONT COLOR=#ff00ff>"My
+      Indicator"</FONT><FONT COLOR=#000000>,Color,style); <BR>
+      </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(arrows) <BR>
+      { <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>PlotShapes</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#000000><B>shapeUpArrow</B></FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#000000><B>shapeDownArrow</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>)
+      ); <BR>
+    }</FONT></CODE></FONT></p>
+  <p>&nbsp;</p>
+  <h5><strong><FONT size=2><STRONG>Special functions: SECTION_BEGIN, _SECTION_END,
+          _SECTION_NAME, _DEFAULT_NAME, 
+_PARAM_VALUES explained <br>
+(for advanced users only)
+  </STRONG></FONT></strong></h5>
+  <p>These are new functions that are used by the drag-and-drop mechanism. The most
+    important pair is _SECTION_BEGIN(&quot;name&quot;) and _SECTION_END().</p>
+  <p>When you drop the formula onto a chart pane, AmiBroker appends the formula
+    you have dragged at the end of the existing chart formula and wraps the inserted
+    code with _SECTION_BEGIN(&quot;name&quot;) and _SECTION_END() markers:</p>
+  <p>So, if the original formula looks as follows:<br>
+    <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><BR>
+    P = </FONT><FONT COLOR=#0000ff>ParamField</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Price
+    field"</FONT><FONT COLOR=#000000>,-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>); <BR>
+    Periods = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Periods"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(
+    P, Periods ), </FONT><FONT COLOR=#969696>_DEFAULT_NAME</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Color"</FONT><FONT COLOR=#000000>,
+    colorCycle ), </FONT><FONT COLOR=#0000ff>ParamStyle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Style"</FONT><FONT COLOR=#000000>)
+    ); <BR>
+  </FONT></CODE><br>
+  it will be transformed by AmiBroker to:</p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#969696>_SECTION_BEGIN</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"MA"</FONT><FONT COLOR=#000000>); <BR>
+    P = </FONT><FONT COLOR=#0000ff>ParamField</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Price
+    field"</FONT><FONT COLOR=#000000>,-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>); <BR>
+    Periods = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Periods"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(
+    P, Periods ), </FONT><FONT COLOR=#969696>_DEFAULT_NAME</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Color"</FONT><FONT COLOR=#000000>,
+    colorCycle ), </FONT><FONT COLOR=#0000ff>ParamStyle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Style"</FONT><FONT COLOR=#000000>)
+    ); <BR>
+  </FONT><FONT COLOR=#969696>_SECTION_END</FONT><FONT COLOR=#000000>();</FONT></CODE></p>
+  <p>_SECTION_BEGIN/_SECTION_END markers allow AmiBroker to identify code parts
+    and modify them later (for example, remove individual sections). In addition
+    to that, sections provide the way to make sure that parameters having the
+    same name in many code parts do not interfere with each other. For example, if
+    you drop two moving averages, the resulting code will look as follows:</p>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#969696>_SECTION_BEGIN</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"MA"</FONT><FONT COLOR=#000000>); <BR>
+    P = </FONT><FONT COLOR=#0000ff>ParamField</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Price
+    field"</FONT><FONT COLOR=#000000>,-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>); <BR>
+    Periods = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Periods"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(
+    P, Periods ), </FONT><FONT COLOR=#969696>_DEFAULT_NAME</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Color"</FONT><FONT COLOR=#000000>,
+    colorCycle ), </FONT><FONT COLOR=#0000ff>ParamStyle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Style"</FONT><FONT COLOR=#000000>)
+    ); <BR>
+    </FONT><FONT COLOR=#969696>_SECTION_END</FONT><FONT COLOR=#000000>(); <BR>
+    <BR>
+    </FONT><FONT COLOR=#969696>_SECTION_BEGIN</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"MA1"</FONT><FONT COLOR=#000000>); <BR>
+    P = </FONT><FONT COLOR=#0000ff>ParamField</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Price
+    field"</FONT><FONT COLOR=#000000>,-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>); <BR>
+    Periods = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Periods"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ); <BR>
+    </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(
+    P, Periods ), </FONT><FONT COLOR=#969696>_DEFAULT_NAME</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Color"</FONT><FONT COLOR=#000000>,
+    colorCycle ), </FONT><FONT COLOR=#0000ff>ParamStyle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Style"</FONT><FONT COLOR=#000000>)
+    ); <br>
+    </FONT><FONT COLOR=#969696>_SECTION_END</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#000000>    <BR>
+    </FONT></CODE><br>
+  Note that code and parameter names are identical in both parts. Without
+  sections, parameters with the same name will interfere. But thanks to uniquely
+  named sections, there is no conflict. This is so because AmiBroker identifies
+  the parameter using both the section name AND the parameter name, so if section names are
+  unique, then parameters can be uniquely identified. When dropping an indicator,
+  AmiBroker automatically checks for already-existing section names and auto-numbers
+  similarly named sections to avoid conflicts. The section name also appears in the
+  Parameters dialog:</p>
+  <p><img src="gifs/23param.gif"></p>
+  <p>Last but not least, you should NOT remove _SECTION_BEGIN / _SECTION_END
+    markers from the formula. If you do, AmiBroker will not be able to recognize
+    sections inside a given formula anymore and parameters with the same name
+    will interfere with each other.</p>
+  <p>_SECTION_NAME is a function that just gives the name of the section (given
+    in the previous _SECTION_BEGIN call).</p>
+  <p>_DEFAULT_NAME is a function that returns the default name of the plot. The default
+    name consists of the section name and a comma-separated list of values of numeric
+    parameters defined in the given section. For example, in the following code:</p>
+  <p><CODE><FONT COLOR=#969696>_SECTION_BEGIN</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"MA1"</FONT><FONT COLOR=#000000>); <BR>
+P = </FONT><FONT COLOR=#0000ff>ParamField</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Price
+field"</FONT><FONT COLOR=#000000>); <BR>
+Periods = </FONT><FONT COLOR=#0000ff>Param</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Periods"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(
+P, Periods ), </FONT><FONT COLOR=#969696>_DEFAULT_NAME</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Color"</FONT><FONT COLOR=#000000>,
+colorCycle ), </FONT><FONT COLOR=#0000ff>ParamStyle</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Style"</FONT><FONT COLOR=#000000>)
+); <br>
+    </FONT><FONT COLOR=#969696>_SECTION_END</FONT><FONT COLOR=#000000>(); </FONT></CODE></p>
+  <p>_DEFAULT_NAME will evaluate to &quot;MA1(Close,15)&quot;.</p>
+  <p>_PARAM_VALUES works the same as _DEFAULT_NAME except that no section name
+    is included (so only the list of parameter values is returned). So, in the above
+    example, _PARAM_VALUES will evaluate to &quot;(Close, 15)&quot;.</p>
+  <h5><strong><BR>
+  Frequently Asked Questions about drag-and-drop functionality</strong></h5>
+  <p><strong><em>Q. What is the difference between Insert and Insert Linked options
+      in the chart menu?</em></strong></p>
+  <p>A. <strong>Insert</strong> command internally creates a copy of the original
+      formula file and places such a copy into a hidden drag-and-drop folder, so the original
+      formula will not be affected by subsequent editing or overlaying other
+      indicators onto it.
+    Double-clicking a formula name in the chart tree is equivalent to choosing
+    the <strong>Insert</strong> command from the menu. On the other hand, the <strong>Insert Linked</strong> command
+    does not create a copy of the formula. Instead, it creates a new chart pane
+    that
+    directly
+    links
+    to the original
+        formula. This way, subsequent editing and/or overlaying other indicators
+        will modify the original formula.<br>
+  </p>
+</DIV>
+<p><strong><em>Q. I cannot see buy/sell arrows from my trading system</em></strong></p>
+<p>A. Trade arrows can be displayed on any chart
+pane (not only the built-in price chart). However, by default, the arrow display
+  is turned OFF. 
+To turn it ON, you have to open the Parameters dialog, switch to &quot;Axes and grid&quot; and
+switch the &quot;Show
+trading arrows&quot; option to &quot;Yes&quot;.</p>
+<p><img src="gifs/param_arrows.gif">&nbsp;</p>
+<p><strong><em>Q. The ReadMe says: &quot;Automatic Analysis formula window is now
+      drag-and-drop
+  target too (you can drag formulas and AFL files onto it)&quot;. What does it mean?</em></strong></p>
+<p>A. It means that you can drag the formula from either the Chart tree or an .AFL file
+  from Windows Explorer and drop it onto the Automatic Analysis (AA) formula window
+  and it will load a formula into the AA window. This is an alternative to loading
+  a formula via the &quot;Load&quot; button in the AA window.</p>
+<p><strong><em>Q. Can I drop a shortcut onto the formula window?</em></strong></p>
+<p>A: No, you cannot. You can only drag-and-drop files with the .AFL extension (shortcuts
+in Windows have the .lnk extension).</p>
+<p><em><strong>Q. Can I add my own formulas to the Chart tree?</strong></em><br>
+  <br>
+  A. Yes, you can. Simply save your .AFL formula into the Formulas subfolder of the AmiBroker
+  directory and it will appear under the &quot;Charts&quot; tree (View->Refresh
+  All may be needed 
+  to re-read the directory if you are using an external editor).
+</p>
+<p><strong><em>Q. I have added a new file to the Formulas folder, but it doesn't show up in
+  the Charts tree unless I restart AmiBroker? Is there a way to refresh the Chart tree?</em></strong></p>
+<p>A. You can refresh the Chart tree by choosing the <strong>View->Refresh All</strong> menu.</p>
+<p><strong><em>Q. If I modify the formula that ships with AmiBroker, will it be overwritten
+  by the next upgrade?</em></strong></p>
+<p>A. Yes, it will be overwritten. If you wish to make any modifications to the
+  formulas provided with AmiBroker, please save your modified versions under a new
+  name or (better) in your own custom subfolder.</p>
+<p><strong><em>Q. I can see the Reset All button in the Parameters dialog, but it sets all parameters
+to their default values. Is there a way to reset a SINGLE parameter?</em></strong></p>
+<p>A. No, there is no such option yet, but it will be added in upcoming betas.</p>
+<p><strong><em>Q. I dragged RSI to the price chart pane and got a straight 
+red line at the bottom of the pane. What is wrong?</em></strong></p>
+<p>A. When you drop two indicators/plots that have drastically different values,
+  you have to use style OwnScale for one of them. You can turn on the OwnScale style
+  using the Parameters dialog.
+  This
+  ensures
+  that
+  the scales used for each are independent and you can see them properly. Otherwise,
+  they use
+  one
+  common
+scale that fits both value ranges, which results in flattened plots.</p>
+<p><strong><em>Q. The light-grey color of the new AFL special functions_SECTION_BEGIN
+       etc. makes them invisible in my blue-grey background IB color. How 
+can I change the special functions' color?</em></strong></p>
+<p>A. Right now, you cannot. But there will be a setting for coloring special
+  functions in the next version.<br>
+  <BR>
+  <strong>Q. When I drop the indicator, the Parameters dialog does not show all
+  parameters.
+Is this correct?</strong></p>
+<p>A. Yes, it works that way. The idea behind it is simple. When you drop a new
+  indicator, AmiBroker displays a dialog with parameters ONLY for the currently
+  dropped indicator. This is to make sure that newly inserted indicator parameters
+  are clearly visible (on top) and a new user is not overwhelmed by tens of other
+  parameters referring to previously dropped indicators. On the other hand, when you choose
+  &quot;Parameters&quot; item from the context menu, then ALL
+  parameters
+  will
+  show
+  up - allowing you to modify all of them anytime later.</p>
+<p><BR>
+</p>
+<DIV>
+  <p><BR>
+  </p>
+</DIV>
+</body>
+</html>

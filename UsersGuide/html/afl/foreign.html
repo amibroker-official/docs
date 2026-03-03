@@ -1,0 +1,136 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - FOREIGN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Foreign</b><br>
+        - access foreign security data</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Referencing other symbol data<br>
+        </b>(AmiBroker 3.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong></b>    <b>foreign</b>( TICKER, DATAFIELD, fixup = 1)         <b> </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> </b>    ARRAY         <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> </b>
+     
+      Allows referencing other (than current) tickers in the AFL formulas. 
+        TICKER is a string that holds the symbol of the stock. DATAFIELD defines 
+        which array is referenced. Allowable data fields: "O" (open), "H" (high), "L" (low),
+        "C" (close), "V" (volume), "I" (open Interest), and for v5.29 and above: "1" (aux1), "2" (aux2)<br>
+        The last parameter - fixup - accepts following values 
+<ul>
+<li>0 - the holes are not fixed<p>
+<li>1 - <b>default value</b> - 
+missing data bar OHLC fields are all filled using previous bar Close and volume is set to zero. 
+        <p>Note: you can use Foreign/RelStrength without specifying last parameter:<br>
+        Foreign( "ticker", "field" ), RelStrength( "ticker" 
+        ) - then the holes will be fixed.<p> 
+<li>2 - (old pre-4.90 behaviour) - causes filling 
+        the holes in the data with previous O, H, L, C, V values 
+</ul>
+Unless you know what you are doing you should use DEFAULT value of fixup parameter (Fixup=1). If you do not use fixup=1, data holes will have the value of Null that you would need to handle by yourself.
+ 
+   
+    <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// EXAMPLE 1:</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// Plotting spread between currently selected symbol
+  and another one</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#000000><B>Graph0</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"MSFT"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Close"</FONT><FONT COLOR=#000000> )
+  ; <BR>
+  <BR>
+  <BR>
+  <br>
+  </FONT></CODE><CODE><FONT COLOR=#008000>// EXAMPLE 2:</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// Built-in relative performance chart</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>_N</FONT><FONT COLOR=#000000>( TickerList = </FONT><FONT COLOR=#0000ff>ParamStr</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Tickers"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"^DJI,MSFT,GE"</FONT><FONT COLOR=#000000>)
+  ); <BR>
+  NumBars = </FONT><FONT COLOR=#800080>20</FONT><FONT COLOR=#000000>; <BR>
+  fvb = </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"firstvisiblebar"</FONT><FONT COLOR=#000000>); <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> *
+  ( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+  fvb ] ) / </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[ fvb
+  ], </FONT><FONT COLOR=#0000ff>Name</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+  ( symbol = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>(
+  TickerList, i ) ) != </FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000>;
+  i++ ) <BR>
+  { <BR>
+  fc = </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>( symbol, </FONT><FONT COLOR=#800080>"C"</FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+  </FONT><FONT COLOR=#800000><B>  if</B></FONT><FONT COLOR=#000000>( ! </FONT><FONT COLOR=#0000ff>IsNull</FONT><FONT COLOR=#000000>(
+  fc[ </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ] ) ) <BR>
+  { <BR>
+     
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> *
+( fc - fc[ fvb ] )/ fc[ fvb ], </FONT></CODE><br>
+                    <CODE><FONT COLOR=#000000>symbol, </FONT><FONT COLOR=#000000><B><br>
+          colorLightOrange</B></FONT><FONT COLOR=#000000> +
+  ( (</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>*i) % </FONT><FONT COLOR=#800080>15</FONT><FONT COLOR=#000000> ),<br>
+          </FONT></CODE><CODE><FONT COLOR=#000000><B>styleLine</B></FONT><FONT COLOR=#000000> ); <BR>
+  } <BR>
+  } <BR>
+  </FONT><FONT COLOR=#0000ff>PlotGrid</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorYellow</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#0000ff>_N</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>"{{NAME}}
+  - Relative Performance [%]: {{VALUES}}"</FONT><FONT COLOR=#000000> );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="plotforeign.html">PLOTFOREIGN()</A> function , <A HREF="setforeign.html">SetForeign()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2003-08-07 20:28:41</td><td valign="top">Foreign function synchronizes the data file<br />
+you are referencing with the currently selected symbol.<br />
+<br />
+Synchronization makes sure that EACH bar of FOREIGN data<br />
+matches exactly with each bar of currently selected symbol.<br />
+<br />
+So if DateNum() function returns 990503 for given bar<br />
+then Close array represents the CLOSE of currently selected symbol at May 3, 1999<br />
+and Foreign(&quot;SYMBOL&quot;, &quot;C&quot;) represents close of foreign symbol at May 3, 1999 TOO.<br />
+<br />
+This is absolutely necessary because otherwise you won't be able<br />
+to do ANY meaningful operations involving both selected symbol and foreign symbol.<br />
+<br />
+This also needed for the display so when you mark the quote with vertical<br />
+line it will always match the date displayed regardless if you use Foreign or not.<br />
+<br />
+Please note that if you have data holes in currently selected symbol then in order to synchronize bars Foreign function will remove bars that exist in Foreign symbol but do not exist in currently selected symbol.</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>Foreign</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=277&hilite=Foreign' target='_blank'>30 Week Hi Indicator - Display</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1247&hilite=Foreign' target='_blank'>4% Model - Determine Stock Market Direction</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=502&hilite=Foreign' target='_blank'>52 Week New High-New Low Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=298&hilite=Foreign' target='_blank'>AccuTrack</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=157&hilite=Foreign' target='_blank'>Alpha and Beta and R_Squared Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=Foreign' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=887&hilite=Foreign' target='_blank'>Bad Tick Trim on 5 sec database</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=294&hilite=Foreign' target='_blank'>Baseline Relative Performance Watchlist charts V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1347&hilite=Foreign' target='_blank'>Basket Trading System T101</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1147&hilite=Foreign' target='_blank'>BEANS-Summary of Holdings</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=299&hilite=Foreign' target='_blank'>BMTRIX Intermediate Term Market Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=367&hilite=Foreign' target='_blank'>Bullish Percent Index 2004</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1536&hilite=Foreign' target='_blank'>Computing Cointegration and ADF Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=Foreign' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1286&hilite=Foreign' target='_blank'>COT REPORT</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=531&hilite=Foreign' target='_blank'>Dave Landry PullBack Scan</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1311&hilite=Foreign' target='_blank'>Detailed Equity Curve</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=Foreign' target='_blank'>Elder Triple Screen Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1301&hilite=Foreign' target='_blank'>Graphical sector analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1302&hilite=Foreign' target='_blank'>Graphical sector stock amalysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=Foreign' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=Foreign' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1136&hilite=Foreign' target='_blank'>IB Backfiller</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1421&hilite=Foreign' target='_blank'>IBD relative strength database ranker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=Foreign' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=232&hilite=Foreign' target='_blank'>Index of 30 Wk Highs Vs Lows</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=293&hilite=Foreign' target='_blank'>Indicator Explorer (ZigZag)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1374&hilite=Foreign' target='_blank'>Inter-market Yield Linear Regression Divergence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=Foreign' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=Foreign' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1279&hilite=Foreign' target='_blank'>MOCS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1214&hilite=Foreign' target='_blank'>NASDAQ 100 Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1572&hilite=Foreign' target='_blank'>Peter Cooper</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=905&hilite=Foreign' target='_blank'>qp2 industry charts as a panel in the stocks chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=Foreign' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=411&hilite=Foreign' target='_blank'>Ranking Ticker WatchList</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=335&hilite=Foreign' target='_blank'>Relative Strength Multichart of up to 10 tickers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1089&hilite=Foreign' target='_blank'>Rene Rijnaars</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=307&hilite=Foreign' target='_blank'>RUTVOL timing signal with BB Scoring routine</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=184&hilite=Foreign' target='_blank'>Sector Tracking</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=187&hilite=Foreign' target='_blank'>SectorRSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=Foreign' target='_blank'>Stress with SuperSmoother</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=289&hilite=Foreign' target='_blank'>The D_oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1339&hilite=Foreign' target='_blank'>Tracking Error</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1340&hilite=Foreign' target='_blank'>Tracking Error</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=554&hilite=Foreign' target='_blank'>Weighted Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=710&hilite=Foreign' target='_blank'>WLBuildProcess</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Foreign">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,77 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - INTERVAL</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Interval</b><br>
+        - get bar interval (in seconds)</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b>(AmiBroker 4.10)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Interval( format = 0  ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Interval() function returns bar interval.
+<p>Possible formats:
+<ul>
+<li>format = 0 - returns bar interval in seconds
+<li>format = 1 - as above plus TICK bar intervals are returned with negative sign
+so Interval() function applied to 10 tick chart will return -10
+<li>format = 2 - returns STRING with name of interval such as "Weekly/Monthly/Daily/Hourly/15-minute/5-tick"
+</ul><p>
+Example time intervals in seconds:
+<br>
+      tick bars = 0<br>
+      5 sec bars = 5<br>
+      1 min bars = 60  (inMinute constant)<br>
+      hourly bars = 3600<br>
+      daily bars = 86400 (inDaily constant)<br>
+      weekly bars = 432001 (inWeekly constant) <br>
+      monthly bars = 2160001 (inMonthly constant)
+
+<p>Caveat: it is bad idea to use text comparision like this if( Interval(2) == "Weekly" ) { }. Do NOT do that, because as soon as localized version of AmiBroker arrives, your code will be broken as names will be translated.
+Use NUMERIC comparison, such as: if( Interval() == inWeekly ) { } instead. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> "Interval in seconds " + WriteVal( Interval() ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">   </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Interval</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1300&hilite=Interval' target='_blank'> 	Pivots And Prices And Swing Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=Interval' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1321&hilite=Interval' target='_blank'>3TF Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=431&hilite=Interval' target='_blank'>AFL Timing functions</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=Interval' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=Interval' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=Interval' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=Interval' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=Interval' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1568&hilite=Interval' target='_blank'>Backup Data of 1min Interval</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=Interval' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1337&hilite=Interval' target='_blank'>candlestick chart for Volume/RSI/OBV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1012&hilite=Interval' target='_blank'>CCI 14 DrBobStyle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1000&hilite=Interval' target='_blank'>CCI 50 DrBob Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=405&hilite=Interval' target='_blank'>CCI Woodies Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=Interval' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=Interval' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1215&hilite=Interval' target='_blank'>Chart Zoom</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1289&hilite=Interval' target='_blank'>Commodity Selection Index (CSI)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=Interval' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=776&hilite=Interval' target='_blank'>DPO with shading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=598&hilite=Interval' target='_blank'>ekeko price chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=Interval' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1129&hilite=Interval' target='_blank'>Export EOD or Intraday to .csv file</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1084&hilite=Interval' target='_blank'>Fibonacci Internal and External Retracements</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=Interval' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=Interval' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=Interval' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=Interval' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1408&hilite=Interval' target='_blank'>Harmonic Patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=Interval' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=865&hilite=Interval' target='_blank'>Heinkin-Ashi</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=Interval' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=Interval' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1422&hilite=Interval' target='_blank'>IBD relative strength database Viewer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=Interval' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1135&hilite=Interval' target='_blank'>Intraday Average Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1221&hilite=Interval' target='_blank'>Inverted Plotted Volume Overlay Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1447&hilite=Interval' target='_blank'>Kelly criterion</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1449&hilite=Interval' target='_blank'>Last Five Trades Result Dashboard &#8211; AFL code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=Interval' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=Interval' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=Interval' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=884&hilite=Interval' target='_blank'>Modified Head & Shoulder Pattern</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=Interval' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=Interval' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1553&hilite=Interval' target='_blank'>pattenz</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=406&hilite=Interval' target='_blank'>Price with Woodies Pivots</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=Interval' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=564&hilite=Interval' target='_blank'>Rea Time Daily Price Levels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1376&hilite=Interval' target='_blank'>Super Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=Interval' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=Interval' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=560&hilite=Interval' target='_blank'>Time Left in Bar</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=818&hilite=Interval' target='_blank'>Time Left to Current Bar</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1465&hilite=Interval' target='_blank'>Updated Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1268&hilite=Interval' target='_blank'>Volume Color with Dynamic Limit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=Interval' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1338&hilite=Interval' target='_blank'>Wolfe Wave Patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1047&hilite=Interval' target='_blank'>Woodie's CCI Panel Basic</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=Interval' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1023&hilite=Interval' target='_blank'>Woodie's Price Panel With Woodie's Pivots</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=Interval' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Interval">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,142 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GUIGETEVENT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GuiGetEvent</b><br>
+        - get GUI event</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>GUI functions<br>
+        </b>(AmiBroker 6.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GuiGetEvent( num, what = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function retrieves queued GUI event (such as click, edit change, focus change, etc) that
+was triggered by on-chart GUI control<p>
+Parameters:
+<ul>
+<li><em>num</em> parameter defines the index of notification in the queue. 0 is first received
+(or &quot;oldest&quot;) since last execution. 
+<li><em>what,</em> defines what value is returned by GuiGetEvent function:
+<ul>
+  <li>  what = 0 - ID of control that received event (number)</li>
+  <li>what = 1 - the notification
+    code (number)</li>
+  <li>what = 2 - the ID, the code and the notification description
+      as text (string)</li>
+</ul>
+</ul>
+<p>Usually there is zero (when formula execution was not triggered by UI event)
+  or one event in the queue but note that there can be more than one event notification
+  in the queue if your formula is slow to process. To retrieve them all use increasing &quot;num&quot; parameter as long as GuiGetEvent does not return zero (in what =0, =1 mode) or empty
+string (what=2).</p>
+<p>For more information about using GUI controls see <a href='../h_gui.html'>Tutorial: Using on-chart GUI controls</a> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#008000'>// EXAMPLE 1. Just read all pending events <br>
+</font><font color='#800000'><b>for</b></font>( i = <font color='#800080'>0</font>;
+id = <font color='#0000ff'>GuiGetEvent</font>( i ); i++ ) <br>
+{ <br>
+   
+code = <font color='#0000ff'>GuiGetEvent</font>( i, <font color='#800080'>1</font> ); <br>
+   
+text = <font color='#0000ff'>GuiGetEvent</font>( i, <font color='#800080'>2</font> ); <br>
+}</CODE>
+
+<p>It is good practice to have a separate function that handles the events as
+  shown below:</p>
+
+
+<CODE><font color='#008000'>// EXAMPLE 2. Read and handle events using switch statement <br>
+</font>idMyFirstButton = <font color='#800080'>1</font>; <br>
+  idMySecondButton = <font color='#800080'>2</font>; <br>
+  <br>
+  <font color='#800000'><b>function</b></font> CreateGUI() <br>
+  { <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#0000ff'>GuiButton</font>( <font color='#800080'>&quot;enable&quot;</font>,
+  idMyFirstButton, <font color='#800080'>10</font>, <font color='#800080'>60</font>, <font color='#800080'>100</font>, <font color='#800080'>30</font>, <b>notifyClicked</b> ); <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#0000ff'>GuiButton</font>( <font color='#800080'>&quot;disable&quot;</font>,
+  idMySecondButton, <font color='#800080'>110</font>, <font color='#800080'>60</font>, <font color='#800080'>100</font>, <font color='#800080'>30</font>, <b>notifyClicked</b> ); <br>
+  } <br>
+  <br>
+  <font color='#800000'><b>function</b></font> HandleEvents() <br>
+  { <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<font color='#800000'><b>for</b></font> ( n = <font color='#800080'>0</font>;
+  id = <font color='#0000ff'>GuiGetEvent</font>( n, <font color='#800080'>0</font> );
+  n++ ) <font color='#008000'>// get the id of the event <br>
+  </font>&nbsp;&nbsp;&nbsp;&nbsp;{ <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  code = <font color='#0000ff'>GuiGetEvent</font>( n, <font color='#800080'>1</font> ); <br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>switch</b></font> ( id ) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  { <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>case</b></font> idMyFirstButton: <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#008000'>// do something <br>
+  </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='#800000'><b>break</b></font>; <br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>case</b></font> idMySecondButton: <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#008000'>// do something else <br>
+  </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='#800000'><b>break</b></font>; <br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>default</b></font>: <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <font color='#800000'><b>break</b></font>; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  } <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  } <br>
+  } <br>
+  <br>
+  CreateGUI(); <br>
+  <br>
+HandleEvents();</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="guibutton.html">GuiButton()</A> function , <A HREF="guicheckbox.html">GuiCheckBox()</A> function , <A HREF="guidatetime.html">GuiDateTime()</A> function , <A HREF="guiedit.html">GuiEdit()</A> function , <A HREF="guiradio.html">GuiRadio()</A> function , <A HREF="guislider.html">GuiSlider()</A> function , <A HREF="guitoggle.html">GuiToggle()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GuiGetEvent</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GuiGetEvent">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

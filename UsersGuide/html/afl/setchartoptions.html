@@ -1,0 +1,100 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SETCHARTOPTIONS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SetChartOptions</b><br>
+        - set/clear/overwrite defaults for chart pane options</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 4.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SetChartOptions( Mode = 0, Flags = 0, gridFlags = chartGridMiddle, ymin = 0, ymax = 0, blankbars = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Allows to set/clear/overwrite/set defaults for chart pane options 
+<ul>
+<li>
+Mode - specifies how options are set: 
+<ul>
+<li>0 - set only the DEFAULT values for new chart. Defaults are applied only once when chart is inserted in a new pane, so later you can modify any option using Indicator Builder
+<li>1 - overwrite - the values specified in 2nd and 3rd argument overwrite any previously set values
+<li>2 - set flag - flags specified in 2nd and 3rd parameter are binary-ORed with the current values, so effectively these options are set while remaining are unchanged
+<li>3 - reset flag - flags specified in 2nd and 3rd parameter are cleared while the others remain unchanged.
+</ul>
+
+<li>Flags - allowable flags are:<br>
+chartShowDates, chartLogarithmic, chartShowArrows, chartWrapTitle (4.75 or higher), chartHideQuoteMarker (v5.06). chartHideQuoteMarker - hides the quote selector line on per-pane basis, the same as
+Parameter dialog -> Axes & Grid -> Vert. quote marker: Show/Hide,  chartDisableYAxisCursor (new in 5.80) - disables changing mouse pointer to up/down arrow when hovering above Y axis, chartDisableTooltips (new in 5.80) - disables displaying tooltips (data tips).
+<br>
+<li>gridFlags - (for internal AmiBroker use - do not use it in your own coding as this parameter will be eventually removed) allowable values are: chartGridDiv100, chartGridPercent, chartGridDiv1000, chartGridMargins
+chartGridMiddle, chartGrid0, chartGrid30, chartGrid70, chartGrid10, chartGrid90,
+chartGrid50,chartGrid100,chartGrid20,chartGrid80,chartGrid1
+<li>ymin, ymax - (new in 5.07) these parameters specify Y-axis minimum and maximum values for custom scaling.
+If you specify any values that meet the condition ymin < ymax, AmiBroker will turn OFF automatic scaling and use specified min/max values
+for Y scale. Note that Mode argument controls when these settings are applied (0 - only when new chart is created, 1 - always), when modes 2 and 3 are used - scaling is not changed. 
+<li>blankbars - (new in 5.30) defines the minimum number of blank bars for given chart. The default value of zero means no change (use preferences setting). <br>If specified value is less than value set in preferences, it is ignored, so you can not decrease the blank bars below value set in preferences.
+<br>If many panes within same chart use this function, then the largest specified blankbars will be used
+<p>Note that you can still extend blank space further using END key.
+Special feature - if &quot;blankbars&quot; is negative then extra blank bars added are equal to absolute value of blankbars parameter plus chart gets scrolled to rightmost position. 
+<p>Caveat: forcing custom blankbars via SetChartOptions effectivelly disables HOME key scroll to begin operation. 
+
+
+
+
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>//to mark &quot;Show arrows&quot; by
+default in a new chart use</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetChartOptions</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,
+chartShowArrows );</FONT></CODE>
+<p>
+Example 2 (works only with version 4.75 or higher):<p>
+
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetChartOptions</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>chartWrapTitle</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#ff00ff>&quot;this
+is a test of automatic wrapping of title text that is too long to fit in single
+line, for that reason this sample formula uses very long text. I hope you are
+enjoying the sample&quot;</FONT><FONT COLOR=#000000>;</FONT></CODE>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SetChartOptions</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=SetChartOptions' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1321&hilite=SetChartOptions' target='_blank'>3TF Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=925&hilite=SetChartOptions' target='_blank'>Advanced MA system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=SetChartOptions' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1410&hilite=SetChartOptions' target='_blank'>Alternative ZIG function</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1411&hilite=SetChartOptions' target='_blank'>Alternative ZIG type function, multi TF</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1571&hilite=SetChartOptions' target='_blank'>Auto Fib Ext&Retracement</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=SetChartOptions' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1405&hilite=SetChartOptions' target='_blank'>Automatic Linear Trend Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1351&hilite=SetChartOptions' target='_blank'>Automatic Linear Trend Channel 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1350&hilite=SetChartOptions' target='_blank'>Automatic trend channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1324&hilite=SetChartOptions' target='_blank'>automatic trendlines using fractal patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1349&hilite=SetChartOptions' target='_blank'>Automatic Trendlines using multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=SetChartOptions' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=SetChartOptions' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=816&hilite=SetChartOptions' target='_blank'>Average Price Crossover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1264&hilite=SetChartOptions' target='_blank'>babaloo chapora</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=SetChartOptions' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=SetChartOptions' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=SetChartOptions' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1451&hilite=SetChartOptions' target='_blank'>changing period moving avarage</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=SetChartOptions' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1413&hilite=SetChartOptions' target='_blank'>Channel/S&R and trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1254&hilite=SetChartOptions' target='_blank'>Color Price Bar - Impulse System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1252&hilite=SetChartOptions' target='_blank'>Color Price Bars with MACD Histogram Changes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1134&hilite=SetChartOptions' target='_blank'>Colorfull Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1536&hilite=SetChartOptions' target='_blank'>Computing Cointegration and ADF Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1201&hilite=SetChartOptions' target='_blank'>Coppock Trade Signal on Price Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1336&hilite=SetChartOptions' target='_blank'>Daily High Low in Advance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1560&hilite=SetChartOptions' target='_blank'>Darvas Amibroker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1561&hilite=SetChartOptions' target='_blank'>Darvas Johndeo Research</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=531&hilite=SetChartOptions' target='_blank'>Dave Landry PullBack Scan</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1555&hilite=SetChartOptions' target='_blank'>Day Bar No</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=919&hilite=SetChartOptions' target='_blank'>DEBAJ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1098&hilite=SetChartOptions' target='_blank'>Dinapoli Perferred Stochastic</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1508&hilite=SetChartOptions' target='_blank'>Double Super Trend System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=SetChartOptions' target='_blank'>Elder Triple Screen Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1412&hilite=SetChartOptions' target='_blank'>Fib Fan Based on ZZ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1084&hilite=SetChartOptions' target='_blank'>Fibonacci Internal and External Retracements</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=612&hilite=SetChartOptions' target='_blank'>Fibonacci Moving averages</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=SetChartOptions' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1511&hilite=SetChartOptions' target='_blank'>FTWHMS - FIFTY TWO WEEKS HIGH MOMENTUM STRATEGY</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1256&hilite=SetChartOptions' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1257&hilite=SetChartOptions' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1028&hilite=SetChartOptions' target='_blank'>Gann level plotter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1420&hilite=SetChartOptions' target='_blank'>Gann Swing Charts in 3 modes with text</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1515&hilite=SetChartOptions' target='_blank'>Get Moneycontrol News Snippets into Amiboker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=SetChartOptions' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=SetChartOptions' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1507&hilite=SetChartOptions' target='_blank'>Heikin Ashi System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1121&hilite=SetChartOptions' target='_blank'>Heikin-Ashi(Koma-Ashi) with Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1061&hilite=SetChartOptions' target='_blank'>HH-LL-PriceBar</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=SetChartOptions' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=SetChartOptions' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1136&hilite=SetChartOptions' target='_blank'>IB Backfiller</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1431&hilite=SetChartOptions' target='_blank'>ICHIMOKU SIGNAL TRADER</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1506&hilite=SetChartOptions' target='_blank'>Ichimoku System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=SetChartOptions' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1127&hilite=SetChartOptions' target='_blank'>Intraday Strength</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=SetChartOptions' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1320&hilite=SetChartOptions' target='_blank'>Kairi Relative Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1449&hilite=SetChartOptions' target='_blank'>Last Five Trades Result Dashboard &#8211; AFL code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=SetChartOptions' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1592&hilite=SetChartOptions' target='_blank'>Linear Candle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1424&hilite=SetChartOptions' target='_blank'>Lunar Phases - original</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=682&hilite=SetChartOptions' target='_blank'>LunarPhase</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=SetChartOptions' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1109&hilite=SetChartOptions' target='_blank'>Market Profile</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1101&hilite=SetChartOptions' target='_blank'>MS Darvas Box with Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1475&hilite=SetChartOptions' target='_blank'>Multi-color Volume At Price (VAP)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1331&hilite=SetChartOptions' target='_blank'>N Line Break  Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=SetChartOptions' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=782&hilite=SetChartOptions' target='_blank'>nifty</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1429&hilite=SetChartOptions' target='_blank'>Non-repaitning Zigzag line</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=SetChartOptions' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1553&hilite=SetChartOptions' target='_blank'>pattenz</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1294&hilite=SetChartOptions' target='_blank'>Pivots And Prices</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1075&hilite=SetChartOptions' target='_blank'>plot tomorrows pivots on an intraday database</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=SetChartOptions' target='_blank'>Polyfit Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=781&hilite=SetChartOptions' target='_blank'>prakash</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1299&hilite=SetChartOptions' target='_blank'>Price Chart - Fundamental</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1476&hilite=SetChartOptions' target='_blank'>Prior Daily OHLC</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=SetChartOptions' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1409&hilite=SetChartOptions' target='_blank'>Rebalancing Backtest avoiding leverage</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=893&hilite=SetChartOptions' target='_blank'>RSI styleClipMinMax</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1235&hilite=SetChartOptions' target='_blank'>shailu lunia</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=SetChartOptions' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1510&hilite=SetChartOptions' target='_blank'>Stan Weinstein strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1376&hilite=SetChartOptions' target='_blank'>Super Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1505&hilite=SetChartOptions' target='_blank'>Super Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=SetChartOptions' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=SetChartOptions' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1258&hilite=SetChartOptions' target='_blank'>TrendingRibbonArrowsADX</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1482&hilite=SetChartOptions' target='_blank'>visual turtle trading system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1309&hilite=SetChartOptions' target='_blank'>VSTOP (2)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1310&hilite=SetChartOptions' target='_blank'>VSTOP (3)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1295&hilite=SetChartOptions' target='_blank'>VWAP versus Average Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=SetChartOptions' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1104&hilite=SetChartOptions' target='_blank'>William's Alligator System II</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=SetChartOptions' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=417&hilite=SetChartOptions' target='_blank'>ZigZag filter rewrited from scratch in AFL</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1353&hilite=SetChartOptions' target='_blank'>ZigZag Hi Lo Barcount</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=SetChartOptions' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SetChartOptions">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

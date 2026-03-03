@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>Composite recalculation window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Composite recalculation window</h3>
+<p><img src="gifs/recalc1.gif"></p>
+<p>This dialog allows automatic calculation of the number and volume of advancing/declining/unchanged
+  issues. This dialog also allows calculation of volume numbers for indexes
+  if imported incorrectly. Please note that automatic recalculation of composite
+  data only makes sense when you follow the whole exchange (all symbols are included
+  in your database); otherwise, this calculation will give wrong results.</p>
+
+<P> In order to calculate the composites in the database, it is necessary to set the base index for the market, as it may happen that not all stocks are quoted every business day. AmiBroker checks the 'base index' quotation dates and tries to find the corresponding quotes of all the stocks belonging to that market, to find out how many issues advanced, declined, and remained unchanged.</P>
+
+<P> To calculate composites, you need to:
+<UL>
+	<LI>Open Categories window using Symbol -> Categories menu item.
+	<LI>Select a base index for a given market in the Markets tab and the 'Base indexes for Composites' combo.<BR>
+        For example, if you are following NYSE, this can be ^DJI (Dow Jones Average).
+        ^DJI must be marked as an index in Symbol -> Information and must belong to the same market.
+	<LI>Choose "Symbol -> Calculate composites" menu item to open the window shown below and mark:
+        <I>Number of advancing/declining issues</I> and choose the markets for which you calculate composites and the time range.
+ 	<LI>Click Calculate.
+
+</UL>
+</P>
+<P>There are also two additional fields available:
+<UL>
+	<LI><B>Volume for base index</B>
+	<LI><B>Copy volume to all indexes</B>
+</UL>
+
+These fields are provided in case you DON'T have real volume data for index quotes. In that case, AmiBroker can calculate the volume for an index as the sum of volumes of all stocks belonging to a given market.
+The first option assigns the calculated volume only to the <I>base index</I>; the second option copies the volume figure to all indexes belonging to a given market.
+</P>
+
+
+
+
+<p>&nbsp; </p>
+</body>
+</html>

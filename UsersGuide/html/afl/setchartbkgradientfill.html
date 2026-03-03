@@ -1,0 +1,105 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SETCHARTBKGRADIENTFILL</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SetChartBkGradientFill</b><br>
+        - enables background gradient color fill in indicators</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 4.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SetChartBkGradientFill( topcolor, bottomcolor, titlebkcolor = default, miny= Null, maxy = Null ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Enables background gradient color fill in indicators.
+<p>
+Please note that this is independent from chart background color (background color fills entire pane, gradient fill is only for actual chart interior, so axes area is not affected by gradient fill)
+
+<p>
+<ul>
+<li>topcolor - specifies top color of the gradient fill 
+<li>bottomcolor - specifies bottom color of the gradient fill
+<li>titlebkcolor - (optional) the background color of title text. If not specified then top color is automatically used for title background.
+<li>miny, maxy - (optional, new in 5.30) - allows gradient area charts in combination with cloud style (see example 2 below)
+</ul>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <p>
+Example 1: basic background gradient
+<p>
+
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetChartBkGradientFill</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"BgTop"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorWhite</B></FONT><FONT COLOR=#000000>),</FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"BgBottom"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorLightYellow</B></FONT><FONT COLOR=#000000>));</FONT></CODE>
+
+<p>
+Example 2: area gradient chart
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> PlotGradientArea(
+array, caption, ColorTop, ColorBottom ) <BR>
+{ <BR>
+bkclr = </FONT><FONT COLOR=#0000ff>GetChartBkColor</FONT><FONT COLOR=#000000>(); <BR>
+<BR>
+HH = </FONT><FONT COLOR=#0000ff>HighestVisibleValue</FONT><FONT COLOR=#000000>(
+array ); <BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>NOT</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>IsNull</FONT><FONT COLOR=#000000>(
+hh ) ) </FONT><FONT COLOR=#0000ff>SetChartBkGradientFill</FONT><FONT COLOR=#000000>(
+ColorTop, ColorBottom, bkclr, </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000>,
+HH ); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( array, Caption, </FONT><FONT COLOR=#0000ff>ColorBlend</FONT><FONT COLOR=#000000>(
+ColorBottom, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000> )
+); <BR>
+</FONT><FONT COLOR=#0000ff>PlotOHLC</FONT><FONT COLOR=#000000>( HH, HH, array,
+HH, </FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000>, bkclr, </FONT><FONT COLOR=#000000><B>styleNoLabel</B></FONT><FONT COLOR=#000000> | </FONT><FONT COLOR=#000000><B>styleNoTitle</B></FONT><FONT COLOR=#000000> | </FONT><FONT COLOR=#000000><B>styleCloud</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,
+-</FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#969696>_SECTION_BEGIN</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Price"</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>SetChartOptions</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#000000><B>chartShowArrows</B></FONT><FONT COLOR=#000000>|</FONT><FONT COLOR=#000000><B>chartShowDates</B></FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>_N</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"{{NAME}}
+- {{INTERVAL}} {{DATE}} Open %g, Hi %g, Lo %g, Close %g (%.1f%%) {{VALUES}}"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>O</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>SelectedValue</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>ROC</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+) )); <BR>
+PlotGradientArea( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Close"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Top"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorLightOrange</B></FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#0000ff>ParamColor</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Bottom"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorPaleGreen</B></FONT><FONT COLOR=#000000> )
+); <BR>
+<BR>
+</FONT><FONT COLOR=#969696>_SECTION_END</FONT><FONT COLOR=#000000>(); </FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="plot.html">PLOT()</A> function , <A HREF="plotforeign.html">PLOTFOREIGN()</A> function , <A HREF="plotgrid.html">PLOTGRID()</A> function , <A HREF="plotohlc.html">PLOTOHLC()</A> function , <A HREF="plotshapes.html">PLOTSHAPES()</A> function , <A HREF="plottext.html">PlotText()</A> function , <A HREF="plotvapoverlay.html">PLOTVAPOVERLAY()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SetChartBkGradientFill</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=923&hilite=SetChartBkGradientFill' target='_blank'>ALJEHANI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=816&hilite=SetChartBkGradientFill' target='_blank'>Average Price Crossover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=SetChartBkGradientFill' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1199&hilite=SetChartBkGradientFill' target='_blank'>CoinToss ver 1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1201&hilite=SetChartBkGradientFill' target='_blank'>Coppock Trade Signal on Price Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1200&hilite=SetChartBkGradientFill' target='_blank'>Coppock Trade Signal v1.1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=919&hilite=SetChartBkGradientFill' target='_blank'>DEBAJ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1412&hilite=SetChartBkGradientFill' target='_blank'>Fib Fan Based on ZZ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1084&hilite=SetChartBkGradientFill' target='_blank'>Fibonacci Internal and External Retracements</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1256&hilite=SetChartBkGradientFill' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1257&hilite=SetChartBkGradientFill' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=865&hilite=SetChartBkGradientFill' target='_blank'>Heinkin-Ashi</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=SetChartBkGradientFill' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1267&hilite=SetChartBkGradientFill' target='_blank'>Jesse Livermore Secret Market Key</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1592&hilite=SetChartBkGradientFill' target='_blank'>Linear Candle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1424&hilite=SetChartBkGradientFill' target='_blank'>Lunar Phases - original</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=682&hilite=SetChartBkGradientFill' target='_blank'>LunarPhase</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1442&hilite=SetChartBkGradientFill' target='_blank'>Plot visual stop / target ratio.</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=SetChartBkGradientFill' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1087&hilite=SetChartBkGradientFill' target='_blank'>RSI + Avgs</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1086&hilite=SetChartBkGradientFill' target='_blank'>RSI indicator with Upper & Lower Zone Bars</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=SetChartBkGradientFill' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=SetChartBkGradientFill' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=921&hilite=SetChartBkGradientFill' target='_blank'>Three Day Balance Point</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1145&hilite=SetChartBkGradientFill' target='_blank'>TRENDAdvisor</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1589&hilite=SetChartBkGradientFill' target='_blank'>TSV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1272&hilite=SetChartBkGradientFill' target='_blank'>Volume Occilator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=SetChartBkGradientFill' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1097&hilite=SetChartBkGradientFill' target='_blank'>WILSON RELATIVE PRICE CHANNEL</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SetChartBkGradientFill">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

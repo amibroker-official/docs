@@ -1,0 +1,185 @@
+<html>
+
+<head>
+<title>Using New Analysis window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>Using New Analysis window</b></h2>
+<h3>Introduction</h3>
+<p>New Analysis window, introduced in version 5.50 (initially in 5.41.0
+  BETA), brings the following improvements over the old Automatic Analysis:</p>
+<ul>
+  <li><strong>multi-threaded operation = speed - </strong>New Analysis window
+    uses all available CPUs/cores to execute formulas in many threads in parallel,
+    providing
+    significant speedups. For example, on a 4-core Intel i7 that can run up to 8
+    threads, it can run up to 8 times faster than the old Analysis window. Exact speedup
+    depends on the complexity of the formula (the more complex it is, the more
+    speedup is possible) and the amount of data processed (RAM access may not be as
+    fast as the CPU, thus limiting possible speed gains).<br>
+  </li>
+  <li><strong>non-blocking operation</strong> - You can now view, scroll, and
+    sort results of the analysis while they are still generated. Also, as the user interface
+    thread is not used for processing for the most part, charts and other GUI-driven
+    program parts are much more responsive than with the old automatic analysis.<br>
+  </li>
+  <li><strong>multiple instances </strong>- You can run more than one instance
+    of New Analysis at a time, so you can run many scans, backtests, explorations, or optimizations
+    in parallel without waiting for one to complete.<br>
+  </li>
+  <li><strong>slicker user interface <em>- </em></strong>New Analysis window
+    can act as a tabbed document, can be floated, and buttons can be rearranged for a
+    better workflow. There is much more space for the result list, and extra information
+    about execution is provided on the new &quot;Info&quot; tab. Also, Walk-Forward results
+    are now displayed within the New Analysis window to reduce
+    clutter.</li>
+</ul>
+<h3>User interface</h3>
+<p>You can open New Analysis window in a number of ways:</p>
+<ol>
+  <li>Click on the New Tab (+) button and select <strong>New Analysis</strong><br>
+      <br>
+      <img src="gifs/newtab.gif" width="354" height="105"><br>
+      <br>
+      or<br>
+  </li>
+  <li><strong>File -> New -> New Analysis</strong> menu<br>
+    <br>
+  or<br>
+  </li>
+  <li><strong>Analysis -> New Analysis</strong> menu <br>
+    <br>
+    or
+    <br>
+  </li>
+  <li>Right-click on the formula in the <strong>Charts</strong> window and select <strong>Analysis<br>
+        <br>
+        <img src="gifs/nacharts.gif" width="255" height="267"><br>
+        <br>
+        <br>
+        </strong>or<strong><br>
+  </strong></li>
+  <li>From the Formula Editor, press the <strong>Send to Analysis</strong> button<br>
+      <br>
+    <img src="gifs/naformulasend.gif" width="603" height="213"> </li>
+</ol>
+<p>&nbsp;</p>
+<p>The user interface for the New Analysis window is functionally similar
+  to the old automatic analysis and looks as follows:</p>
+<p><img src="gifs/newanalysis.gif" width="736" height="630"></p>
+<p>Basic operations</p>
+<p> <em>Selecting the symbol to apply analysis to.</em></p>
+<p>Click on the drop-down arrow in
+    the <strong>Apply to</strong> combo box to select the
+      operation mode: <strong>All symbols</strong> / <strong>Current</strong> symbol / <strong>Filter</strong><br>
+  <br>
+  <br>
+  <img src="gifs/na1.gif" width="184" height="108"><br>
+</p>
+<p><em>Defining a Filter</em></p>
+<p>If <strong>Apply To</strong> is set to <strong>Filter</strong>, the Analysis window
+  will be run on the symbols that match the filtering criteria, which are definable
+  in the <strong>Filter Settings</strong> window. To open the <strong>Filter Settings</strong> window, press the <strong><img src="gifs/na2.gif" width="25" height="18"> Filter</strong>  button</p>
+<p>&nbsp;</p>
+<p><em>Defining the Date/Time Range</em></p>
+<p>Click on the drop-down arrow in the <strong>Range</strong> combo box to select the
+  range selection mode: <strong>All symbols </strong>/ <strong>N recent bar</strong>(s)
+  /<strong> N
+  recent day</strong>(s) /<strong> From-To
+  dates</strong></p>
+<p><img src="gifs/na3.gif" width="355" height="120"></p>
+<p>The 'N' can represent any number. For example, to define a range of <u>15 recent
+  days</u>, select <strong>1 recent day(s)</strong> first, and
+  then type <strong>15</strong> and press ENTER. You will see the text automatically
+  update to <strong>15 recent day(s)</strong>. Remember, you don't need to type
+  the whole thing; just a number is sufficient.</p>
+<p>&nbsp;</p>
+<p><em>Viewing Reports / Running the Report Explorer</em></p>
+<p>To view the report from the last backtest, click on the <strong>Report</strong> button.
+  To run the Report Explorer, use the <strong>Report</strong> button's drop-down menu
+  as shown below</p>
+<p><img src="gifs/na4.gif" width="163" height="75"></p>
+<p>&nbsp;</p>
+<p><em>Changing Settings / Options</em></p>
+<p>To change backtester settings, click on the <strong>Settings</strong> button.
+  To turn on or off additional options like:</p>
+<ul>
+  <li>Sync chart on select</li>
+  <li>Wait for backfill</li>
+  <li>Auto repeat Scan/Explore</li>
+  <li>Auto repeat interval</li>
+</ul>
+<p>click on the drop-down arrow on the <strong>Settings</strong> button to display
+  the menu as shown below</p>
+<p><img src="gifs/na5.gif" width="286" height="147"></p>
+<p>Auto-repeat interval can be entered in the <strong>Interval</strong> field.
+  Note that plain numbers (like 5) represent minutes. To get seconds, you need
+  to enter <strong>5sec</strong> or <strong>5s</strong> and press <strong>ENTER</strong></p>
+<p>&nbsp;</p>
+<p><em>Running a Walk-Forward Test</em></p>
+<p>Click on the arrow on the <strong>Optimize</strong> button to display the menu as shown below
+  and select <strong>Walk-Forward</strong></p>
+<p><img src="gifs/na6.gif" width="190" height="106"></p>
+<p>The results of the Walk-Forward test will be displayed in the <strong>Walk Forward</strong> tab
+  (see bottom of the Analysis window).</p>
+<p>&nbsp;</p>
+<p><em>Displaying the 3D Optimization Chart</em></p>
+<p>To display the 3D Optimization Chart, first run an optimization that
+  has exactly two optimization parameters, and then click on the arrow on the
+  <strong>Optimize</strong> button to display the menu as shown above and select <strong>3D Optimization
+Chart</strong>. </p>
+<p>&nbsp;</p>
+<p><em>Displaying Equity Charts</em></p>
+<p><img src="gifs/na_eq.gif" width="164" height="77"></p>
+<p>Equity charts (portfolio and individual) can be added to chart windows using
+  <strong>Portfolio Equity</strong> / <strong>Individual Equity</strong> options as shown above.</p>
+<p>&nbsp;</p>
+<p><em>Exporting and Importing the Result List</em></p>
+<p>To export data to a CSV file or an HTML file, use the <strong>File -> Export HTML/CSV</strong> menu
+  (from the main window). To import a previously exported HTML file, use <strong>File -> Import
+  HTML... </strong> as shown in the picture below. Note that these menu items
+  appear only if you have the New Analysis window active.</p>
+<p><img src="gifs/newa_export.gif" width="219" height="458"></p>
+<p>&nbsp;</p>
+<p><em><a name="SEQUENCE"></a>Running a sequence of actions</em></p>
+<p>In addition to <a href="h_batch.html">comprehensive batch
+    capabilities</a>, AmiBroker 6.40 brings the ability to run sequences of actions
+    within the Analysis window alone.</p>
+<p>This new feature is not intended to replace batches, but to augment the
+  available choices and allow &quot;quick hacking&quot; so you can run sequences directly
+  in the Analysis
+window without resorting to using full-fledged batches.</p>
+<p>There is a new <strong>#pragma sequence</strong>(list of actions) statement
+  that will define a sequence of actions to be performed, and a toolbar button &quot;Run
+  Sequence&quot; to
+  allow you to run a sequence of actions via a single click.</p>
+<p>This allows you to, say, create composites and later run an exploration that
+  uses those composites, all via a single click on the &quot;Run Sequence&quot; button</p>
+<p>The code that uses <strong>#pragma sequence</strong> looks like this:</p>
+<p>&nbsp;</p>
+<p><CODE><font color='#009300'>// the statement below defines sequence of actions <br>
+</font><font color='#ff6820'>#pragma</font> sequence(scan,explore) <br>
+<br>
+<font color='#800000'><b>if</b></font>( <font color='#0000ff'>Status</font>(<font color='#ff0000'>"action"</font>)
+== <font color='#40e0d0'><b>actionScan</b></font> ) <br>
+{ <br>
+&nbsp;&nbsp; 
+<font color='#0000ff'>AddToComposite</font>( .. ); <br>
+&nbsp;&nbsp; 
+<font color='#0000ff'>StaticVarAdd</font>(...); <br>
+&nbsp;&nbsp;
+<font color='#0000ff'>_exit</font>(); <font color='#009300'>// quick exit in
+scan mode <br>
+</font>} <br>
+<br>
+<font color='#40e0d0'><b>Filter</b></font> = ... <br>
+<font color='#0000ff'>AddColumn</font>( ... ); <font color='#009300'>// exploration
+code that can use composites / static vars created in scan step <br>
+</font></CODE><br>
+</p>
+</body>
+</html>

@@ -1,0 +1,76 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PLOTVAPOVERLAY</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PlotVAPOverlay</b><br>
+        - plot Volume-At-Price overlay chart</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 4.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PlotVAPOverlay( lines = 300, width = 5, color = colorGreen, vapstyle = 0 ); </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Plots Volume-At-Price (VAP) overlay chart. 
+Please note that there must be at least one regular Plot function in your formula for this to work, and there can be only one PlotVAPOverlay in one indicator.
+
+This function plots single segment for visible bars only.
+To plot multiple-segment VAP chart use <b>PlotVAPOverlayA</b> function.
+
+<ul>
+<li>vapstyle = 0 - left side, area fill, on top of all plots
+<li>vapstyle = 1 - right side, area fill, on top of all plots
+<li>vapstyle = 2 - left side, lines only, on top of all plots
+<li>vapstyle = 3 - right side, lines only, on top of all plots
+<li>vapstyle = 4 - left side, area fill, behind all plots
+<li>vapstyle = 5 - right side, area fill, behind all plots
+<li>vapstyle = 6 - left side, lines only, behind all plots
+<li>vapstyle = 7 - right side, lines only, behind all plots 
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <code>
+Plot( Close, "Price", colorWhite, styleCandle );<br>
+PlotVAPOverlay( Param("lines",300,10,1000,1), Param("width",10,1,99,1), ParamColor("color", colorDarkBlue), Param("style",0,0,7,1) );
+</code> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="plot.html">PLOT()</A> function , <A HREF="plotvapoverlaya.html">PlotVAPOverlayA()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>PlotVAPOverlay</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PlotVAPOverlay">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

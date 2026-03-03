@@ -1,0 +1,84 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STUDY</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Study</b><br>
+        - reference hand-drawn study</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 3.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Study( STUDYID, CHARTID = 1, scale = -1 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top">       generates an array equivalent to a trendline study drawn by the user 
+        - allows detecting trendline breakouts from AFL.<br>
+        <b>STUDYID</b> is a two-character identifier of the study. identifiers 
+        are: "UP" - uptrend, "DN" - downtrend, "SU" 
+        - support, "RE" - resistance, "ST" - stop loss, however 
+        you can use ANY identifiers (there are no limitations except that AmiBroker 
+        accepts only 2 letter codes).<br>
+        <b> CHARTID</b> - identifies the chart pane where the study was drawn - you can find out what is the chart ID for given chart by looking in Parameters dialog, Axes & Grid, Miscellaneous: Chart ID
+or using GetChartID() AFL function.
+<br><b>Scale - this parameter specifies which scale should be used:
+<ul>
+<li>scale = -1 : automatic (default value) - either linear or logarithmic depending on actual chart setting, chart is specified by chartID
+<li>scale = 0 : linear scale
+<li>scale = 1 : logarithmic scale
+</ul>
+<p>
+More information about this function is included in the 
+<a href='/guide/h_studies.html'>Tutorial: Using Studies in AFL formulas</a>
+<p>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// this example plots filled area between</FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#008000>// support (SU) and resistance (RE) lines</FONT><FONT COLOR=#000000>
+<BR>
+<BR></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Price"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> );
+<BR>su = </FONT><FONT COLOR=#0000ff>Study</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"SU"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>GetChartID</FONT><FONT COLOR=#000000>() );
+<BR>re = </FONT><FONT COLOR=#0000ff>Study</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"RE"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>GetChartID</FONT><FONT COLOR=#000000>() );
+<BR></FONT><FONT COLOR=#0000ff>PlotOHLC</FONT><FONT COLOR=#000000>( re,  re,  su, su, </FONT><FONT COLOR=#ff00ff>""</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorYellow</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#000000><B>styleCloud</B></FONT><FONT COLOR=#000000> );
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="getchartid.html">GETCHARTID()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Study</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1442&hilite=Study' target='_blank'>Plot visual stop / target ratio.</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Study">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

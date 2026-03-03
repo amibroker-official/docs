@@ -1,0 +1,772 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8000-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>AmiBroker Object Model</title>
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2>AmiBroker's OLE Automation Object Model</h2>
+<p>Important note about OLE automation:</p>
+<p><strong>OLE automation interface is provided to control AmiBroker from the
+    OUTSIDE process (such as Windows Scripting Host)</strong>. While it is possible
+    to access Broker.Application and underlying objects from AFL
+    formulas
+    you should be very careful
+    NOT to
+  touch any user interface objects (Documents, Document, Windows, Window, Analysis
+  object) from AFL formula because doing so, you will likely be "Sawing Off the
+  Branch You're Sitting On". Especially things like switching chart tabs from
+  currently running chart formula are totally forbidden. Changing user interface
+    objects via OLE from AFL that is currently running within those user interface
+    parts is a recipe for disaster. You have been warned.</p>
+<div align="left"> 
+  <table border="1" cellpadding="4" cellspacing="0">
+    <tr> 
+      <td nowrap> 
+        <p align="center"><b>AmiBroker object model hierarchy. v5.50</b></p>
+      </td>
+    </tr>
+    <tr> 
+      <td align="center" width="100%">
+        <p align="center"><img
+        src="gifs/model.gif" width="514" height="411"></p>
+      </td>
+    </tr>
+  </table>
+</div>
+<h3>Index of objects</h3>
+<table border="0">
+  <tr>
+    <td valign="top"><ul>
+        <li><a href="#ADQuotation">ADQuotation</a></li>
+        <li><a href="#ADQuotations">ADQuotations</a></li>
+        <li><a href="#Analysis">Analysis</a><sup>(1)</sup></li>
+        <li><a href="#AnalysisDoc">AnalysisDoc</a><sup>(2)</sup></li>
+        <li><a href="#AnalysisDocs">AnalysisDocs</a><sup>(2)</sup></li>
+        <li><a href="#Application">Application</a></li>
+        <li><a href="#AWindow">Window</a></li>
+      </ul>
+    </td>
+    <td valign="top"><ul>
+        <li><a href="#AWindows">Windows</a></li>
+        <li><a href="#Commentary">Commentary</a></li>
+        <li><a href="#Document">Document</a></li>
+        <li><a href="#Documents">Documents</a></li>
+        <li><a href="#Market">Market</a></li>
+      </ul>
+    </td>
+    <td valign="top"><ul>
+        <li><a href="#Markets">Markets</a></li>
+        <li><a href="#Quotation">Quotation</a></li>
+        <li><a href="#Quotations">Quotations</a></li>
+        <li><a href="#Stock">Stock</a></li>
+        <li><a href="#Stocks">Stocks</a></li>
+        </ul>
+    </td>
+  </tr>
+</table>
+
+
+<p><br>
+<sup>(1)</sup> - <strong>Analysis</strong> object is obsolete as of 5.50. It is left here for backward compatibility
+  and accesses Old Automatic Analysis window only.<br>
+<sup>(2)</sup> - <strong>AnalysisDoc</strong> object and <strong>AnalysisDocs</strong> collection are new objects introduced
+  in v5.50 and allow controlling the New Analysis window</p>
+<p>&nbsp; </p>
+<h3><a name="ADQuotation">ADQuotation</a></h3>
+<blockquote>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong>Date</strong></font> As Date</li>
+    <li><font color="#0000FF"><strong>AdvIssues</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>AdvVolume</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>DecIssues</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>DecVolume</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>UncIssues</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>UncVolume</strong></font> As Single</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>ADQuotation class keeps one bar of advance/decline information.</p>
+</blockquote>
+
+
+<h3><a name="ADQuotations">ADQuotations</a></h3>
+<blockquote>
+  <h4>Methods:</h4>
+  <ul><li>Function <font color="#0000FF"><strong>Add</strong></font>(ByVal <strong>Date</strong> As
+      Variant) As Object</li>
+    <li>Function <font color="#0000FF"><strong>Remove</strong></font>(ByVal <strong>Date</strong> As
+      Variant) As Boolean</li>
+  </ul>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#FF0000"><strong>Item</strong></font>(ByVal <strong>Date</strong> As
+    Variant) As Object<font color="#808080"> [r/o]</font> <font color="#808080">[default]</font></li>
+    <li><font color="#0000FF"><strong>Count</strong></font> As Long</li>
+  </ul>
+</blockquote>
+<blockquote>
+  <h4>Description:</h4>
+  <p>ADQuotations is a collection of ADQuotation objects.</p>
+</blockquote>
+<h3><a name="Analysis">Analysis</a></h3>
+<blockquote>
+  <p><strong><font color="#FF0000">This object is obsolete. It is provided only
+        to maintain compatibility with old code. Analysis object always accesses
+        OLD Automatic Analysis.</font></strong></p>
+  <h4>Properties:</h4>
+  <ul>
+    <li>Property <font color="#0000FF"><strong>Filter</strong></font>(ByVal <strong>nType</strong> As
+      Integer, ByVal <strong>pszCategory</strong> As String) As Long<font color="#808080"> [r/w]</font></li>
+  </ul>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Sub <font color="#0000FF"><strong>Backtest</strong></font>([ByVal <strong>Type</strong> As
+      Variant])</li>
+    <li>Sub <font color="#0000FF"><strong>ClearFilters</strong></font>()</li>
+    <li>Sub <font color="#0000FF"><strong>Edit</strong></font>([ByVal <strong>bForceReload</strong> As
+      Variant])</li>
+    <li>Sub <font color="#0000FF"><strong>Explore</strong></font>()</li>
+    <li>Function <font color="#0000FF"><strong>Export</strong></font>(ByVal <strong>pszFileName</strong> As
+      String) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>LoadFormula</strong></font>(ByVal <strong>FileName</strong> As
+      String) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>LoadSettings</strong></font>(ByVal <strong>pszFileName</strong> As
+      String) As Boolean</li>
+    <li>Sub <font color="#0000FF"><strong>MoveWindow</strong></font>(ByVal <strong>Left</strong> As
+      Long, ByVal <strong>Top</strong> As Long, ByVal <strong>Width</strong> As
+      Long, ByVal <strong>Height</strong> As Long)</li>
+    <li>Sub <font color="#0000FF"><strong>Optimize</strong></font>([ByVal <strong>Type</strong> As
+      Variant])</li>
+    <li>Function <font color="#0000FF"><strong>Report</strong></font>(ByVal <strong>pszFileName</strong> As
+      String) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>SaveFormula</strong></font>(ByVal <strong>pszFileName</strong> As
+      String) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>SaveSettings</strong></font>(ByVal <strong>pszFileName</strong> As
+      String) As Boolean</li>
+    <li>Sub <font color="#0000FF"><strong>Scan</strong></font>()</li>
+    <li>Sub <font color="#0000FF"><strong>ShowWindow</strong></font>(ByVal <strong>nShowCmd</strong> As
+      Long)</li>
+    <li>Sub <font color="#0000FF"><strong>SortByColumn</strong></font>(ByVal <strong>iColumn</strong> As
+      Long, ByVal <strong>bAscending</strong> As Integer, ByVal <strong>bMultiMode</strong> As
+      Integer)</li>
+  </ul>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong>RangeMode</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>RangeN</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>RangeFromDate</strong></font> As Date</li>
+    <li><font color="#0000FF"><strong>RangeToDate</strong></font> As Date</li>
+    <li><font color="#0000FF"><strong>ApplyTo</strong></font> As Long</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>Analysis object provides programmatic control of the automatic analysis window.</p>
+  <p>Notes:</p>
+  <p>Analysis.Backtest( Type = 2 ); - runs a backtest.<br>
+Type parameter can be one of the following values:<br>
+0 : portfolio backtest/optimize<br>
+1 : individual backtest/optimize<br>
+2 : old backtest/optimize<br>
+<br>
+IT IS IMPORTANT TO NOTE THAT FOR BACKWARD COMPATIBILITY REASONS, THE DEFAULT BACKTESTER MODE<br>
+IS "OLD" BACKTEST. THEREFORE, YOU MUST SPECIFY TYPE = 0 IF YOU WANT TO GET A PORTFOLIO BACKTEST.</p>
+  <p>Analysis.Optimize(Type = 2 ); - runs an optimization.<br>
+    Type parameter can be one of the following values:<br>
+    0 : portfolio backtest/optimize<br>
+    1 : individual backtest/optimize<br>
+    2 : old backtest/optimize<br>
+    3 : walk-forward test (AmiBroker version 5.11.0 or higher)
+  </p>
+  <p>Analysis.Report( FileName: String ) - saves the report to the file or displays
+  it if FileName = "".</p>
+  <p>    Analysis.ApplyTo - defines the apply-to mode: 0 - all stocks, 1 - current
+    stock, 2 - use filter<br>
+  Analysis.RangeMode - defines the range mode: 0 - all quotes, 1 - N last quotes,
+  2 - N last days, 3 - from-to date<br>
+  Analysis.RangeN - defines N (number of bars/days to backtest)<br>
+  Analysis.RangeFromDate - defines "From" date<br>
+  Analysis.RangeToDate - defines "To" date<br>
+  Analysis.Filter( nType: short, Category: String ) - sets/retrieves the filter
+  setting<br>
+  nType argument defines the type of filter: 0 - include, 1 - exclude<br>
+  Category argument defines filter category:<br>
+"index", "favorite", "market", "group", "sector", "index", "watchlist"</p>
+</blockquote>
+<h3><a name="AnalysisDoc" id="AnalysisDoc">AnalysisDoc</a></h3>
+<blockquote>
+  <p>AnalysisDoc is a new object introduced in version 5.50. It allows access to New Analysis project documents (.apx extension) and perform multithreaded
+    scans/explorations/backtests/optimizations
+    in the New Analysis window in an asynchronous way. Asynchronous means that the Run()
+    method only starts the process and returns immediately. To wait for completion, you must check the IsBusy flag periodically (such as every second) in your own
+    code.</p>
+  <h4>Properties:</h4>
+  <ul>
+    <li>Property <font color="#0000FF"><strong>IsBusy</strong></font> As Boolean<font color="#808080"> [r]</font></li>
+  </ul>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Sub <font color="#0000FF"><strong>Close</strong></font>()</li>
+    <li>Function <font color="#0000FF"><strong>Export</strong></font>(ByVal <strong>pszFileName</strong> As
+    String, [ByVal <strong>WhatToExport</strong> As Variant] ) As Long</li>
+    <li>Function <font color="#0000FF"><strong>Run</strong></font>(ByVal <strong>Action</strong> As
+      Long) As Long</li>
+    <li>Sub <font color="#0000FF"><strong>Abort</strong></font>() (new in 6.20)</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>AnalysisDoc object provides programmatic control of the New Analysis document/window.</p>
+  <p>    <strong>IsBusy</strong> property allows you to check whether the Analysis window
+    is busy performing analysis. You must check this flag periodically if you want
+    to wait for completion. Take care NOT to call this too often, as it will decrease
+    performance. For best results, check it every one second. Also, you need to
+    check this flag if you are not sure whether the Analysis window is busy before
+    trying
+    to
+    call
+    Export()
+    or Run();
+    otherwise,
+    these calls
+    would
+    fail if analysis is in progress.<br>
+    <br>
+    <strong>Close</strong>(  ) method closes the Analysis document/window. If there
+    is any operation in progress, it will be terminated. To prevent premature
+    termination, check the IsBusy property.</p>
+  <p><strong>Export</strong>( pszFileName, whatToExport) method allows exporting the
+    analysis result list to either an .HTML or .CSV file. Returns 1 on success (successful
+    export)
+    or 0 on failure (for example, if the analysis window is busy). WhatToExport decides
+    what data should be exported: whatToExport
+    = 0 - exports the result list (the default behavior when this parameter is not
+    provided);
+    whatToExport = 1 - exports the walk-forward tab.</p>
+  <p><strong>Run</strong>( Action ) method allows you to run asynchronous
+    scans, explorations, backtests, and optimizations.<br>
+    Action parameter can be one of the following values:<br>
+    0 : Scan<br>
+    1 : Exploration<br>
+    2 : Portfolio Backtest<br>
+    3 : Individual Backtest<br>
+    4 : Portfolio Optimization <br>
+    5 : Individual Optimization (supported starting from v5.69)<br>
+    6 : Walk Forward Test<br>
+    <br>
+    It is important to understand that the Run method just starts the process and
+    returns immediately. It does NOT wait for completion.<br>
+    To wait for completion, you need to query the IsBusy flag periodically (such as
+    every one second).<br>
+    <br>
+    <strong>Run</strong>() returns 1 on success (successfully starting the process) or 0 on failure
+    (for example, if the analysis window is busy)<br>
+    <br>
+    The procedure to run an automated backtest involves opening a previously saved
+    Analysis project (it includes all settings that are necessary to perform
+    any action), calling Run() and waiting for completion.<br>
+    <br>
+    Since you can currently have multiple analysis projects running, there is
+    an AnalysisDocs collection that represents all open Analysis documents and
+    allows you to open previously saved files (that contain the formula, settings
+  and everything needed to run).</p>
+  <p>The new AnalysisDoc object does not allow you to read/write settings for this
+    purpose. You are not supposed to manipulate the UI while the New Analysis window
+    is running. The correct way of using the New Analysis window is to open an existing
+    project file and run. If you want to modify the settings, you should write/modify
+    the existing project file. The analysis project file (.apx extension)
+    is a human-readable, self-explanatory XML-format file that can be written/edited/modified
+    from
+    any language or any
+    text editor. </p>
+  <p>The following JScript example<br>
+    a) opens an analysis project from the C:\Analysis1.apx file<br>
+    b) starts backtest (asynchronously)<br>
+    c) waits for completion<br>
+    d) exports results<br>
+  e) closes analysis document</p>
+  <p><CODE><FONT COLOR=#000000>AB = new ActiveXObject( </FONT><FONT COLOR=#800080>"Broker.Application"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+        creates AmiBroker object</FONT><FONT COLOR=#000000><BR>
+        <BR>
+        <font color="#800000"><strong>try</strong></font> <BR>
+        { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;NewA = AB.AnalysisDocs.Open( </FONT><FONT COLOR=#800080>"C:\\analysis1.apx"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+        opens previously saved analysis project file</FONT><FONT COLOR=#000000> <br>
+        </FONT><FONT COLOR=#008000>	&nbsp;&nbsp;&nbsp;&nbsp;// NewA represents
+        the instance of New Analysis document/window</FONT><FONT COLOR=#000000>        <BR>
+        <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000> (
+        NewA ) <BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;{ <BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    NewA.Run( </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+        start backtest asynchronously</FONT><FONT COLOR=#000000><BR>
+        <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </FONT><FONT COLOR=#800000><B>while</B></FONT><FONT COLOR=#000000> (
+        NewA.IsBusy ) WScript.Sleep( </FONT><FONT COLOR=#800080>500</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+        check IsBusy every 0.5 second</FONT><FONT COLOR=#000000> <BR>
+        <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        NewA.Export( </FONT><FONT COLOR=#800080>"test.html"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+        export result list to HTML file</FONT><FONT COLOR=#000000><BR>
+        <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        WScript.echo( </FONT><FONT COLOR=#800080>"Completed"</FONT><FONT COLOR=#000000> ); <BR>
+        <BR>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        NewA.Close(); </FONT><FONT COLOR=#008000>// close new Analysis </FONT><FONT COLOR=#000000><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;
+        } <BR>
+        } <BR>
+        <strong><font color="#800000">catch</font></strong> ( err ) <BR>
+        { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;
+        WScript.echo( </FONT><FONT COLOR=#800080>"Exception: "</FONT><FONT COLOR=#000000> +
+        err.message ); </FONT><FONT COLOR=#008000>// display error that may occur</FONT><FONT COLOR=#000000><BR>
+        }</FONT></CODE><br>
+  </p>
+  <p><strong>Abort</strong>( ) method will abort any running Analysis scan, exploration, or backtest.</p>
+</blockquote>
+<h3><a name="AnalysisDocs" id="AnalysisDocs">AnalysisDocs</a></h3>
+<blockquote>
+  <p>AnalysisDocs is a new object introduced in version 5.50. It is a collection
+    of AnalysisDoc objects. It allows adding new Analysis documents, opening existing analysis
+    projects, and iterating through analysis objects.</p>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Function <font color="#0000FF"><strong>Add</strong></font>() As Object</li>
+    <li>Sub <font color="#0000FF"><strong>Close</strong></font>()</li>
+    <li>Function <font color="#0000FF"><strong>Open</strong></font>(ByVal <strong>FileName</strong> As
+      String) As Object</li>
+  </ul>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#FF0000"><strong>Item</strong></font>(ByVal <strong>Index</strong> As
+      Long) As Object<font color="#808080"> [r/o]</font> <font color="#808080">[default]</font></li>
+    <li><font color="#0000FF"><strong>Count</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>Application</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>Parent</strong></font> As Object</li>
+  </ul>
+</blockquote>
+<blockquote>
+  <h4>Description:</h4>
+  <p>AnalysisDocs is a collection of AnalysisDoc objects.<br>
+    <br>
+    <strong>Add</strong> method creates a new Analysis document/window. The method
+    returns an <strong>AnalysisDoc</strong> object.</p>
+  <p><strong>Close</strong> method closes all open Analysis documents/windows.
+    If any analysis project is running, it will be terminated immediately.</p>
+  <p><strong>Open</strong> method allows opening an existing Analysis project file (.apx). The method
+    returns an <strong>AnalysisDoc</strong> object.</p>
+  <p><strong>Item</strong> property allows access to the Index-th element of the collection. The property
+  returns an <strong>AnalysisDoc</strong> object.</p>
+  <p><strong>Count</strong> property gives the number of open analysis documents.</p>
+  <p>Both <strong>Application</strong> and <strong>Parent</strong> properties
+    point to the Broker.Application object.</p>
+  <p>For example usage, see the <strong>AnalysisDoc</strong> object description.</p>
+</blockquote>
+<h3><a name="Application">Application</a></h3>
+<blockquote>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Function <font color="#0000FF"><strong>Import</strong></font>(ByVal <strong>Type</strong> As
+      Integer, ByVal <strong>FileName</strong> As String, [ByVal <strong>DefFileName</strong> As
+      Variant]) As Long</li>
+    <li>Function <font color="#0000FF"><strong>LoadDatabase</strong></font>(ByVal <strong>Path</strong> As
+      String) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>LoadLayout</strong></font>(ByVal <strong>pszFileName</strong> As
+      String) As Boolean</li>
+    <li>Sub <font color="#0000FF"><strong>LoadWatchlists</strong></font>()</li>
+    <li>Function <font color="#0000FF"><strong>Log</strong></font>(ByVal <strong>Action</strong> As
+      Integer) As Long</li>
+    <li>Sub <font color="#0000FF"><strong>Quit</strong></font>()</li>
+    <li>Sub <font color="#0000FF"><strong>RefreshAll</strong></font>()</li>
+    <li>Sub <font color="#0000FF"><strong>SaveDatabase</strong></font>()</li>
+    <li>Function <font color="#0000FF"><strong>SaveLayout</strong></font>(ByVal <strong>pszFileName</strong> As
+      String) As Boolean</li>
+  </ul>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong>ActiveDocument</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>Stocks</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>Version</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>Documents</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>Markets</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>DatabasePath</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>Analysis</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>Commentary</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>ActiveWindow</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>Visible</strong></font> As Integer</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>Application object is the main OLE automation object for AmiBroker. You have
+    to create it prior to accessing any other objects. To create an Application object,
+    use the following code:</p>
+  <p>JScript:</p>
+  <p>AB = new ActiveXObject(&quot;Broker.Application&quot;);</p>
+  <p>VB/VBScript:</p>
+  <p>AB = CreateObject(&quot;Broker.Application&quot;)</p>
+  <p>AFL:</p>
+  <p>AB = CreateObject(&quot;Broker.Application&quot;);</p>
+</blockquote>
+
+
+<h3><a name="AWindow">Window</a></h3>
+<blockquote>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Sub <font color="#0000FF"><strong>Activate</strong></font>()</li>
+    <li>Sub <font color="#0000FF"><strong>Close</strong></font>()</li>
+    <li>Function <font color="#0000FF"><strong>ExportImage</strong></font>(ByVal <strong>FileName</strong> As
+      String, [ByVal <strong>Width</strong> As Variant], [ByVal <strong>Height</strong> As
+      Variant], [ByVal <strong>Depth</strong> As Variant]) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>LoadTemplate</strong></font>(ByVal <strong>lpszFileName</strong> As
+      String) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>SaveTemplate</strong></font>(ByVal <strong>lpszFileName</strong> As
+      String) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>ZoomToRange</strong></font>(ByVal <strong>From</strong> As
+      Variant, ByVal <strong>To</strong> As Variant) As Boolean</li>
+  </ul>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong>SelectedTab</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>Document</strong></font> As Object</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>The Window object provides programmatic control over a charting window.</p>
+</blockquote>
+
+
+<h3><a name="AWindows">Windows</a></h3>
+<blockquote>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Function <font color="#0000FF"><strong>Add</strong></font>() As Object</li>
+  </ul>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong><font color="#FF0000"><strong>Item</strong></font>(ByVal <strong>Index</strong> As
+    Long) As Object<font color="#808080"> [r/o]</font> <font color="#808080">[default]</font></strong></font></li>
+    <li><font color="#0000FF"><strong>Count</strong></font> As Long</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>Windows is a collection of Window objects.</p>
+</blockquote>
+
+
+<h3><a name="Commentary">Commentary</a></h3>
+<blockquote>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Sub <font color="#0000FF"><strong>Apply</strong></font>()</li>
+    <li>Sub <font color="#0000FF"><strong>Close</strong></font>()</li>
+    <li>Function <font color="#0000FF"><strong>LoadFormula</strong></font>(ByVal <strong>pszFileName</strong> As
+      String) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>Save</strong></font>(ByVal <strong>pszFileName</strong> As
+      String) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>SaveFormula</strong></font>(ByVal <strong>pszFileName</strong> As
+      String) As Boolean</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>The Commentary object provides programmatic control over the guru commentary window.</p>
+</blockquote>
+
+
+<h3><a name="Document">Document</a></h3>
+<blockquote>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Sub <font color="#0000FF"><strong>Activate</strong></font>()</li>
+    <li>Sub <font color="#0000FF"><strong>Close</strong></font>()</li>
+    <li>Sub <font color="#0000FF"><strong>ShowMessage</strong></font>(ByVal <strong>Text</strong> As
+      String)</li>
+  </ul>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong>Application</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>Parent</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>Name</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>ActiveWindow</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>Windows</strong></font> As Object</li>
+    <li><strong><font color="#0000FF">Interval</font></strong> As Integer</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>The Document object represents an active document (of 'chart' type). In document-view
+    architecture, each document can have multiple windows (views) connected. The Name
+    property defines the currently selected symbol for the document.</p>
+  <p>Name is a ticker symbol; Interval is a chart interval in seconds.</p>
+</blockquote>
+
+
+<h3><a name="Documents">Documents</a></h3>
+<blockquote>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Function <font color="#0000FF"><strong>Add</strong></font>() As Object</li>
+    <li>Sub <font color="#0000FF"><strong>Close</strong></font>()</li>
+    <li>Function <font color="#0000FF"><strong>Open</strong></font>(ByVal <strong>Ticker</strong> As
+      String) As Object</li>
+  </ul>
+  <h4>Properties:</h4>
+  <ul>
+      <li><font color="#FF0000"><strong>Item</strong></font>(ByVal <strong>Index</strong> As
+        Long) As Object<font color="#808080"> [r/o]</font> <font color="#808080">[default]</font></li>
+    <li><font color="#0000FF"><strong>Count</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>Application</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>Parent</strong></font> As Object</li>
+  </ul>
+</blockquote>
+<blockquote>
+  <h4>Description:</h4>
+  <p>Documents is a collection of Document objects.</p>
+</blockquote>
+
+
+<h3><a name="Market">Market</a></h3>
+<blockquote>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong>Name</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>ADQuotations</strong></font> As Object</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>Market represents a market category and its related data (i.e., per-market
+    advance/decline information).</p>
+</blockquote>
+
+
+<h3><a name="Markets">Markets</a></h3>
+<blockquote>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong><font color="#FF0000"><strong>Item</strong></font>(ByVal <strong>Index</strong> As
+    Integer) As Object<font color="#808080"> [r/o]</font> <font color="#808080">[default]</font></strong></font></li>
+    <li><font color="#0000FF"><strong>Count</strong></font> As Integer</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>Markets is a collection of Market objects.</p>
+</blockquote>
+
+
+<h3><a name="Quotation">Quotation</a></h3>
+<blockquote>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong>Date</strong></font> As Date</li>
+    <li><font color="#0000FF"><strong>Close</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>Open</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>High</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>Low</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>Volume</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>OpenInt</strong></font> As Single</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>The Quotation class represents one bar of price data.</p>
+</blockquote>
+
+
+<h3><a name="Quotations">Quotations</a></h3>
+<blockquote>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Function <font color="#0000FF"><strong>Add</strong></font>(ByVal <strong>Date</strong> As
+      Date) As Object</li>
+    <li>Function <font color="#0000FF"><strong>Adjust</strong></font>(ByVal <strong>FieldList</strong> As
+      String, ByVal <strong>Multiplier</strong> As Float, ByVal <strong>Offset</strong> as
+      Float, ByVal <strong>DateTime</strong> as Date, ByVal <strong>Before</strong> as
+    Boolean) As Long - <em>new in version 6.40.2</em>    </li>
+    <blockquote>
+      <p><em>The function performs price adjustment on quotations; <strong>FieldList</strong> defines
+          which fields will be adjusted, such as "OHLC". The
+        value of each field mentioned in the <strong>FieldList</strong> gets multiplied by <strong>Multiplier</strong>        and has the
+                      <strong>Offset</strong> value added: new_value = old_value * <strong>Multiplier</strong>        +
+                      <strong>Offset</strong>.<br>
+        Quotes affected will be <strong>Before</strong> (=True) or after the specified
+      <strong>DateTime</strong>.</em></p>
+    </blockquote>
+    <li>Function <font color="#0000FF"><strong>Remove</strong></font>(ByVal <strong>Item</strong> As
+      Variant) As Boolean</li>
+    <li>Function <font color="#0000FF"><strong>Retrieve</strong></font>(ByVal <strong>Count</strong> As
+      Long, ByRef <strong>Date</strong> As Variant, ByRef <strong>Open</strong> As
+      Variant, ByRef <strong>High</strong> As Variant, ByRef <strong>Low</strong> As
+      Variant, ByRef <strong>Close</strong> As Variant, ByRef <strong>Volume</strong> As
+      Variant, ByRef <strong>OpenInt</strong> As Variant) As Long</li>
+  </ul>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong><font color="#FF0000"><strong>Item</strong></font>(ByVal <strong>Item</strong> As
+    Variant) As Object<font color="#808080"> [r/o]</font> <font color="#808080">[default]</font></strong></font></li>
+    <li><font color="#0000FF"><strong>Count</strong></font> As Long</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>Quotations is a collection of Quotation objects. It represents all quotations
+    available for a given symbol. The Quotations collection is available as a property
+    of a Stock object.</p>
+</blockquote>
+
+
+<h3><a name="Stock">Stock</a></h3>
+<blockquote>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#0000FF"><strong>Ticker</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>Quotations</strong></font> As Object</li>
+    <li><font color="#0000FF"><strong>FullName</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>Index</strong></font> As Boolean</li>
+    <li><font color="#0000FF"><strong>Favourite</strong></font> As Boolean</li>
+    <li><font color="#0000FF"><strong>Continuous</strong></font> As Boolean</li>
+    <li><font color="#0000FF"><strong>MarketID</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>GroupID</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>Beta</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>SharesOut</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>BookValuePerShare</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>SharesFloat</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>Address</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>WebID</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>Alias</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>IsDirty</strong></font> As Boolean</li>
+    <li><font color="#0000FF"><strong>IndustryID</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>WatchListBits</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>DataSource</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>DataLocalMode</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>PointValue</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>MarginDeposit</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>RoundLotSize</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>TickSize</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>WatchListBits2</strong></font> As Long</li>
+    <li><font color="#0000FF"><strong>Currency</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>LastSplitFactor</strong></font> As String</li>
+    <li><font color="#0000FF"><strong>LastSplitDate</strong></font> As Date</li>
+    <li><font color="#0000FF"><strong>DividendPerShare</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>DividendPayDate</strong></font> As Date</li>
+    <li><font color="#0000FF"><strong>ExDividendDate</strong></font> As Date</li>
+    <li><font color="#0000FF"><strong>PEGRatio</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>ProfitMargin</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>OperatingMargin</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>OneYearTargetPrice</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>ReturnOnAssets</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>ReturnOnEquity</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>QtrlyRevenueGrowth</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>GrossProfitPerShare</strong></font> As
+      Single</li>
+    <li><font color="#0000FF"><strong>SalesPerShare</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>EBITDAPerShare</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>QtrlyEarningsGrowth</strong></font> As
+      Single</li>
+    <li><font color="#0000FF"><strong>InsiderHoldPercent</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>InstitutionHoldPercent</strong></font> As
+      Single</li>
+    <li><font color="#0000FF"><strong>SharesShort</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>SharesShortPrevMonth</strong></font> As
+      Single</li>
+    <li><font color="#0000FF"><strong>ForwardDividendPerShare</strong></font> As
+      Single</li>
+    <li><font color="#0000FF"><strong>ForwardEPS</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>EPS</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>EPSEstCurrentYear</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>EPSEstNextYear</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>EPSEstNextQuarter</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>OperatingCashFlow</strong></font> As Single</li>
+    <li><font color="#0000FF"><strong>LeveredFreeCashFlow</strong></font> As
+      Single</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>Stock class represents single-symbol data. For historical reasons, the name
+    of the object is Stock, but it can hold any kind of instrument (including futures, forex, etc.).</p>
+</blockquote>
+
+
+<h3><a name="Stocks">Stocks</a></h3>
+<blockquote>
+  <h4>Methods:</h4>
+  <ul>
+    <li>Function <font color="#0000FF"><strong>Add</strong></font>(ByVal <strong>Ticker</strong> As
+      String) As Object</li>
+    <li>Function <font color="#0000FF"><strong>GetTickerList</strong></font>(ByVal <strong>nType</strong> As
+      Long) As String</li>
+    <li>Function <font color="#0000FF"><strong>Remove</strong></font>(ByVal <strong>Item</strong> As
+      Variant) As Boolean</li>
+  </ul>
+  <h4>Properties:</h4>
+  <ul>
+    <li><font color="#FF0000"><strong>Item</strong></font>(ByVal <strong>Item</strong> As
+    Variant) As Object<font color="#808080"> [r/o]</font> <font color="#808080">[default]</font></li>
+    <li><font color="#0000FF"><strong>Count</strong></font> As Long</li>
+  </ul>
+  <h4>Description:</h4>
+  <p>Stocks is a collection of Stock objects. It is available as a property of
+    the Application object.</p>
+  <h4>Notes:</h4>
+  <p>Stock.WatchListBits (long) - each bit 0..31 represents assignment
+  to one of 32 watch lists. To add a stock to the nth watch list, write (JScript example): <br>
+  Stock.WatchListBits |= 1 &lt;&lt; nth;<br>
+  <br>
+  Stock.WatchListBits2 (long) - each bit 0..31 represents assignment
+  to one of watch lists numbered from 32-63. To add a stock to the nth watch list,
+  write
+  (JScript example): <br>
+  Stock.WatchListBits2 |= 1 &lt;&lt; ( nth - 32 );<br>
+  <br>
+  Stock.DataSource ( 0 - default, 1 - local only )<br>
+  Stock.DataLocalMode ( 0 - default, 1 - store locally, 2 - don't store
+  locally).</p>
+</blockquote>
+
+<h3>Practical Examples:</h3>
+<p>  <b>Example 1: Running a simple backtest</b></p>
+<p> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000>AB = new ActiveXObject( </FONT><FONT COLOR=#800080>"Broker.Application"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+          creates AmiBroker object</FONT><FONT COLOR=#000000><BR>
+          <BR>
+          <font color="#800000"><strong>try</strong></font> <BR>
+  { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;NewA = AB.AnalysisDocs.Open( </FONT><FONT COLOR=#800080>"C:\\analysis1.apx"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  opens previously saved analysis project file</FONT><FONT COLOR=#000000> <br>
+      </FONT><FONT COLOR=#008000> &nbsp;&nbsp;&nbsp;&nbsp;// NewA represents
+          the instance of New Analysis document/window</FONT><FONT COLOR=#000000> <BR>
+          <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000> (
+  NewA ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NewA.Run( </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  start backtest asynchronously</FONT><FONT COLOR=#000000><BR>
+      <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </FONT><FONT COLOR=#800000><B>while</B></FONT><FONT COLOR=#000000> (
+  NewA.IsBusy ) WScript.Sleep( </FONT><FONT COLOR=#800080>500</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  check IsBusy every 0.5 second</FONT><FONT COLOR=#000000> <BR>
+      <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NewA.Export( </FONT><FONT COLOR=#800080>"test.html"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  export result list to HTML file</FONT><FONT COLOR=#000000><BR>
+      <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WScript.echo( </FONT><FONT COLOR=#800080>"Completed"</FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NewA.Close(); </FONT><FONT COLOR=#008000>//
+  close new Analysis </FONT><FONT COLOR=#000000><BR>
+&nbsp;&nbsp;&nbsp;&nbsp; } <BR>
+  } <BR>
+  <strong><font color="#800000">catch</font></strong> ( err ) <BR>
+  { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp; WScript.echo( </FONT><FONT COLOR=#800080>"Exception: "</FONT><FONT COLOR=#000000> +
+  err.message ); </FONT><FONT COLOR=#008000>// display error that may occur</FONT><FONT COLOR=#000000><BR>
+  }</FONT></CODE></p>
+<p><br>
+  <br>
+  <strong>Example 2: Executing commentary</strong></p>
+
+<p><CODE><FONT COLOR=#000000>AB = new ActiveXObject(</FONT><FONT COLOR=#800080>"Broker.Application"</FONT><FONT COLOR=#000000>); <BR>
+  AB.Commentary.LoadFormula(</FONT><FONT COLOR=#800080>"C:\\Program Files\\AmiBroker\\AFL\\MACD_c.afl"</FONT><FONT COLOR=#000000>); <BR>
+  AB.Commentary.Apply(); <BR>
+  AB.Commentary.Save(</FONT><FONT COLOR=#800080>"Test.txt"</FONT><FONT COLOR=#000000>); <BR>
+  AB.Commentary.SaveFormula(</FONT><FONT COLOR=#800080>"MACDTest.afl"</FONT><FONT COLOR=#000000>); <BR>
+  </FONT><FONT COLOR=#008000>//AB.Commentary.Close();</FONT></CODE><br>
+</p>
+<p> </p>
+<pre>&nbsp;
+</pre>
+<pre>&nbsp;</pre>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body>
+</html>

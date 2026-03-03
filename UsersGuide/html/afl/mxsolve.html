@@ -1,0 +1,225 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MXSOLVE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>MxSolve</b><br>
+        - solves linear equation system A @ X = B</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Matrix functions<br>
+        </b>(AmiBroker 6.10)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>MxSolve( A, B ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> Matrix </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function solves linear equation system A@X = B.
+<p>
+A needs to be square matrix NxN<br>
+B has to have N rows and at least one column (vertical vector).
+<p>
+Then calling<p>
+X = MxSolve( A, B );
+<p>
+would give vertical vector holding solution of the system of equations A @ X = B
+<p>
+B can also be a matrix,with each of its column representing different vector B. This way single call to MxSolve can solve several systems with same matrix A but different right hand vectors.
+If B is a matrix NxM then MxSolve will produce result also having NxM cells with each column representing single solution.
+<p>
+<i>(Highly) Technical note about numerical precision</i>
+<p>
+Despite the fact that both MxSolve and MxInverse use double precision arithmetic solving/inverting matrices is subject to numerical precision of double IEEE and for example zero result may come up as something like 1.4355e-16 (0.0000000000000001) due to the fact that double precision is still limited in accuracy (16 digits).
+<p>
+The result of<p>
+X = MxInverse( A ) @ B;<p>
+although mathematically the same as solving the system of equations, would yield slightly different result because if you do the inverse the returned matrix is converted back
+to single precision and matrix product is performed with single precision. When you use MxSolve you are performing all calcs using 64-bit (double) precision and
+only end result is converted back to single precision. So for example polynomial fit code works better with MxSolve than MxInverse. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#008000'>// Example 1: <br>
+</font> <br>
+A = <font color='#0000ff'>MxFromString</font>(<font color='#800080'>&quot;[ 1, 1,
+1, 1; 0, 2, 5, -1; 2, 5, -1, 1; 2, 2, 2, 1 ]&quot;</font>); <br>
+B = <font color='#0000ff'>MxFromString</font>(<font color='#800080'>&quot;[ 7; -5;
+28; 13 ]&quot;</font> ); <font color='#008000'>// single vertical vector B <br>
+</font> <br>
+<font color='#0000ff'>printf</font>( <font color='#800080'>&quot;Solving A * X = B
+&quot;</font> ); <br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;Matrix A
+&quot;</font>); <br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+A ) ); <br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;
+Matrix B
+&quot;</font>); <br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+B ) ); <br>
+<br>
+X = <font color='#0000ff'>MxSolve</font>( A, B ); <br>
+<br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;
+Solution X
+&quot;</font>); <br>
+<br>
+<font color='#008000'>// Example 2: <br>
+</font> <br>
+A = <font color='#0000ff'>MxFromString</font>(<font color='#800080'>&quot;[ 1, 1,
+1, 1; 0, 2, 5, -1; 2, 5, -1, 1; 2, 2, 2, 1 ]&quot;</font>); <br>
+B = <font color='#0000ff'>MxFromString</font>(<font color='#800080'>&quot;[ 7, 14
+; -5, -10; 28, 56; 13, 26 ]&quot;</font> ); <font color='#008000'>// 2 right-hand
+side vertical vectors <br>
+</font> <br>
+<font color='#0000ff'>printf</font>( <font color='#800080'>&quot;Solving A * X = B
+&quot;</font> ); <br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;Matrix A
+&quot;</font>); <br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+A ) ); <br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;
+Matrix B
+&quot;</font>); <br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+B ) ); <br>
+<br>
+X = <font color='#0000ff'>MxSolve</font>( A, B ); <br>
+<br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;
+Solutions X
+&quot;</font>); <br>
+<br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+X ) ); <font color='#008000'>// two solutions <br>
+</font> <br>
+<font color='#008000'>//////////////////////////////////////// <br>
+// Example 3 <br>
+// N-th order Polynomial Fit example <br>
+///// <br>
+</font>order = <font color='#0000ff'>Param</font>( <font color='#800080'>&quot;n-th
+Order&quot;</font>, <font color='#800080'>10</font>, <font color='#800080'>1</font>, <font color='#800080'>16</font>, <font color='#800080'>1</font> ); <br>
+length = <font color='#800080'>60</font>; <br>
+<br>
+lvb = <b>BarCount</b> - <font color='#800080'>1</font>; <br>
+fvb = lvb - length; <br>
+<br>
+yy = <font color='#0000ff'>Matrix</font>( length + <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>0</font> ); <br>
+xx = <font color='#0000ff'>Matrix</font>( length + <font color='#800080'>1</font>,
+order + <font color='#800080'>1</font>, <font color='#800080'>1</font> ); <br>
+<br>
+yy = <font color='#0000ff'>MxSetBlock</font>( yy, <font color='#800080'>0</font>,
+length, <font color='#800080'>0</font>, <font color='#800080'>0</font>, <font color='#0000ff'>Ref</font>( <b>C</b>,
+fvb ) ); <br>
+<br>
+x = <font color='#0000ff'>BarIndex</font>() - length/<font color='#800080'>2</font>; <br>
+<br>
+<font color='#800000'><b>for</b></font>( j = <font color='#800080'>1</font>;
+j &lt;= order; j++ ) <br>
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+xx = <font color='#0000ff'>MxSetBlock</font>( xx, <font color='#800080'>0</font>,
+length, j, j, x ^ j ); <br>
+} <br>
+<br>
+xxt = <font color='#0000ff'>MxTranspose</font>( xx ); <br>
+aa = <font color='#0000ff'>MxSolve</font>( xxt @ xx, xxt ) @ yy; <br>
+<font color='#008000'>//aa = MxInverse( xxt @ xx ) @ xxt @ yy; // alternative
+way <br>
+</font>&nbsp;&nbsp; <br>
+<font color='#800000'><b>if</b></font>( aa ) <font color='#008000'>// check if
+matrix is not null (so solution exists) <br>
+</font>{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+rr = <b>Null</b>; <font color='#008000'>// store the fit in rr <br>
+</font>&nbsp;&nbsp; <font color='#800000'><b>for</b></font>( i = fvb; i &lt;=
+lvb; i++ ) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+rr[i] = aa[<font color='#800080'>0</font>][<font color='#800080'>0</font>]; <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color='#800000'><b>for</b></font>( j = <font color='#800080'>1</font>;
+j &lt;= order; j++ ) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rr[i] += aa[j][<font color='#800080'>0</font>] * x[ i - fvb ] ^ j; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+} <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color='#800000'><b>if</b></font>( <font color='#0000ff'>IsNan</font>( rr[
+fvb ] ) ) <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color='#008000'>// our polynomial yields infinite or not-a-number result
+due to overflow/underflow <br>
+</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Title</b> = <font color='#800080'>&quot;Polyfit
+failed. The order of polynomial is too High&quot;</font>; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+} <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color='#800000'><b>else</b></font> <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color='#0000ff'>SetChartOptions</font>( <font color='#800080'>0</font>, <b>chartShowDates</b> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color='#0000ff'>SetBarFillColor</font>( <font color='#0000ff'>IIf</font>( <b>C</b> &gt; <b>O</b>, <font color='#0000ff'>ColorRGB</font>( <font color='#800080'>0</font>, <font color='#800080'>75</font>, <font color='#800080'>0</font> ), <font color='#0000ff'>IIf</font>( <b>C</b> &lt;= <b>O</b>, <font color='#0000ff'>ColorRGB</font>( <font color='#800080'>75</font>, <font color='#800080'>0</font>, <font color='#800080'>0</font> ), <b>colorLightGrey</b> )
+) ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color='#0000ff'>Plot</font>( rr, <font color='#800080'>&quot;rr&quot;</font>, <b>colorWhite</b>, <b>styleLine</b> | <b>styleThick</b>); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+} <br>
+} <br>
+<font color='#800000'><b>else</b></font> <br>
+{ <br>
+&nbsp;&nbsp; 
+<b>Title</b> = <font color='#800080'>&quot;Matrix is singular. The order of polynomial
+is too high&quot;</font>; <br>
+} <br>
+<br>
+<font color='#0000ff'>Plot</font>( <b>C</b>, <font color='#800080'>&quot;&quot;</font>, <font color='#0000ff'>IIf</font>( <b>C</b> &gt; <b>O</b>, <font color='#0000ff'>ColorRGB</font>( <font color='#800080'>0</font>, <font color='#800080'>255</font>, <font color='#800080'>0</font> ), <font color='#0000ff'>IIf</font>( <b>C</b> &lt;= <b>O</b>, <font color='#0000ff'>ColorRGB</font>( <font color='#800080'>255</font>, <font color='#800080'>0</font>, <font color='#800080'>0</font> ), <b>colorLightGrey</b> )
+), <b>styleDots</b> | <b>styleNoLine</b> ); </CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="matrix.html">Matrix()</A> function , <A HREF="mxgetsize.html">MxGetSize()</A> function , <A HREF="mxidentity.html">MxIdentity()</A> function , <A HREF="mxtranspose.html">MxTranspose()</A> function , <A HREF="mxtostring.html">MxToString()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>MxSolve</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=MxSolve' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=MxSolve' target='_blank'>Polyfit Lines</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=MxSolve">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

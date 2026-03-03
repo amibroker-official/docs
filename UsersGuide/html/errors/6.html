@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 6. Condition in IF, WHILE, FOR statements has to be Numeric or Boolean type.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4>  <a name="E6"></a>Error 6. Condition in IF, WHILE, FOR statements has to be Numeric or
+    Boolean type. You can not use array here, please use [] (array subscript
+  operator) to access array elements</h4>
+<p>The if keyword executes statement1 if expression is true (nonzero); if else
+  is present and expression is false (zero), it executes statement2. After executing
+  statement1 or statement2, control passes to the next statement. Expression
+  must be boolean ( True/False) type (so it CANNOT be ARRAY because there would
+  be no way do decide whether to execute statement1 or not, if for example array
+was: [True,True,False,.....,False,True] )</p>
+<p><strong>if</strong>( expression )<br>
+  &nbsp;&nbsp;statement1; <br>
+  <strong>else</strong> <br>
+&nbsp;&nbsp;statement2;</p>
+<p><strong>EXAMPLE</strong></p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>//
+      WRONG </FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;
+  Color = </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//statement
+  1 </FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;
+  Color = </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//statement
+  2 </FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>"Colored
+Price"</FONT><FONT COLOR=#000000>,Color,</FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000>);</FONT></CODE></p>
+<p>The above example is wrong, as both Open and Close are arrays and such expression
+  as Close &gt; Open is also an ARRAY. The solution depends on the statement.
+  It&#8217;s either possible to implement it on bar-by-bar basis, with use of
+  FOR loop:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(
+      i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+      i++ ) <BR>
+  { <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>[
+  i ] &gt; </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>[
+  i ] ) </FONT><FONT COLOR=#008000>// CORRECT </FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Color[ i ] = </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>; <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Color[ i ] = </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000>; <BR>
+  } <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Colored
+Price"</FONT><FONT COLOR=#000000>, Color, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+<p>It is also possible in this case to use IIf( ) function:</p>
+<p><CODE><FONT COLOR=#000000>Color = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorGreen</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+      ALSO CORRECT - working directly on arrays </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Colored
+Price"</FONT><FONT COLOR=#000000>, Color, </FONT><FONT COLOR=#000000><B>styleCandle</B></FONT><FONT COLOR=#000000> );</FONT></CODE><br>
+</p>
+<p>&nbsp;</p>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SPARSEINTERPOLATE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SparseInterpolate</b><br>
+        - interpolate values between sparse points given as input</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 6.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SparseInterpolate( sparse_points, data, order ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Interpolate values between sparse data points
+<p>
+Parameters:
+<ul>
+<li>sparse_points - non-zero values define sparse points
+<li>data - input data
+<li>order - the interpolator order/algorithm to use (1..5)
+</ul>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE>sparse_points = <font color='#0000ff'>DayOfWeek</font>() == <font color='#800080'>1</font>; <br>
+<br>
+y = <font color='#0000ff'>SparseInterpolate</font>( sparse_points, <b>Close</b>, <font color='#800080'>2</font> ); <br>
+<br>
+<font color='#0000ff'>Plot</font>( <font color='#0000ff'>IIf</font>( sparse_points, <b>C</b>, <b>Null</b> ), <font color='#800080'>&quot;Data&quot;</font>, <b>colorRed</b>, <b>styleDots</b> ); <br>
+<font color='#0000ff'>Plot</font>( y, <font color='#800080'>&quot;interpolated&quot;</font>, <b>colorBlue</b>, <b>styleLine</b> );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="sparsecompress.html">SparseCompress()</A> function , <A HREF="sparseexpand.html">SparseExpand()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SparseInterpolate</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SparseInterpolate">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

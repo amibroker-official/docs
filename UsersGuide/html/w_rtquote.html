@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Real-time quote window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Real-time quote window</h3>
+<H4>Working with real-time quote window</H4>
+<P>The RT quote window provides real-time streaming quotes and some basic fundamental
+  data. It is fairly easy to operate as shown in the picture below:</P>
+<P><img src="gifs/main.gif"></P>
+<P>You can also display a context menu by pressing the right mouse button over the RT quote
+  window.</P>
+<P><img src="gifs/w_rtquote.gif"></P>
+<p>The context menu allows you to access the following options:</p>
+<ul>
+  <li><B>Time &amp; Sales</B><BR>
+    Opens <a href="w_timesales.html">Time &amp; Sales window</a> that provides
+  information about every bid, ask, and trade streaming from the market.<br>
+  </li>
+  <li><b>Easy Alerts</b><br>
+    Opens <a href="w_easyalerts.html">Easy Alerts</a> window that provides a way to define real-time alerts executed
+      when bid/ask/last and other fields hit user-defined levels.<br>
+  </li>
+  <li> <B>Add Symbol</B><BR>
+  Adds the current symbol to the Real-time Quote list.<br>
+  </li>
+  <li><b>Add watchlist...<br>
+    </b>Adds the entire watchlist to the real-time quote window.<br>
+  </li>
+  <li><b>Type-in symbols<br>
+  </b>Allows you to type the symbols directly as a comma-separated list.<br>
+  </li>
+  <li><b>Insert empty line<br>
+    </b>Adds an empty (separator) line, useful for grouping symbols.<b><br>
+  </b> </li>
+  <li> <B>Remove Symbol<br>
+  </B>Removes the highlighted line (symbol) from the Real-time Quote list.<br>
+  </li>
+  <li><b>Remove All<br>
+    </b>Removes all symbols from the real-time quote list.<br>
+  </li>
+  <li> <b>Hide</b><BR>
+    Hides the Real-time Quote list.</li>
+</ul>
+<P><b>Re-arranging symbols using drag-and-drop</b></P>
+<P>Real-time quote window now (v5.10 and up) allows you to rearrange the list
+  of symbols by a drag-and-drop mechanism. Simply click the left mouse button over
+  the symbol, hold it down, and drag to the desired location, then release the button.</P>
+<P><strong><a name="BIDASKTREND"></a>Bid/ask trend indicator</strong></P>
+<P><img src="gifs/bidasktrend.gif" width="526" height="83"></P>
+<p>Version 5.90 adds Bid/Ask trend - a graphical indicator showing the direction
+    of the 10 most recent changes in real-time bid/ask prices.
+  The right-most box is the most recent, and as new bid/ask quotes arrive, they are
+  shifted to the left side. Color coding is as follows:</p>
+<ul>
+  <li><strong><font color="#008000">Dark green</font>:</strong> bid &gt; previous
+    bid OR ask &gt; previous ask</li>
+  <li><strong><font color="#00FF00">Bright green</font>: </strong>bid &gt; previous bid AND ask &gt; previous
+    ask</li>
+  <li><strong><font color="#800000">Dark red</font>:</strong> bid &lt; previous bid OR ask &lt; previous ask</li>
+  <li><strong><font color="#FF0000">Bright red</font></strong>: bid &lt; previous
+    bid AND ask &lt; previous ask</li>
+  <li><strong><font color="#990000">Red</font> / <font color="#009900">Green</font> box:</strong> ask &lt; previous ask AND bid &gt; previous
+    bid</li>
+  <li><strong><font color="#009900">Green</font> / <font color="#990000">Red</font> box:</strong> ask &gt; previous ask AND bid &lt; previous bid</li>
+</ul>
+<p>If bid/ask prices don't change, there is no new box. NOTE: This column works
+  only if there are real-time quotes streaming (markets are open).</p>
+<p>&nbsp; </p>
+</body>
+</html>

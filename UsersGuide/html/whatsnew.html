@@ -1,0 +1,2215 @@
+<html>
+<head>
+<title>What's new in AmiBroker 7.00</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+<h2><b>What's new in the latest version?</b></h2>
+<p><b>Highlights of version 7.00</b></p>
+<p>This cycle of releases introduces a groundbreaking AI-powered feature, significant
+    enhancements to the user interface including a dark mode expansion, and a
+    host of new capabilities for AFL scripting and analysis. This release cycle
+  demonstrates a focus on both innovative features with the AI Code Assistant
+  and continuous improvement
+      in user
+    experience, scripting power, and data handling flexibility.</p>
+<p><strong>Major New Features &amp; Enhancements:</strong></p>
+<ul>
+  <li> <b>Brand-new <a href="h_codeassistant.html">AFL Code
+              Assistant integrated in AFL Editor</a> powered by Artificial Intelligence
+              LLM</b> <strong><br>
+              <br>
+              </strong>Remember our 2007 AFL Code Wizard? Cute, right?
+              <p>Get ready for the real deal.</p>
+              <p>Now AmiBroker 7 features a brand-new, complete AI-driven
+                AFL Code Assistant!</p>
+              <p>It's a developer, an analyst, and a debugger, all in one.<br>
+                <br> 
+                &gt;<strong> Writes
+                code</strong> from your English description.<br>
+               &gt;<strong> Explains any formula</strong> you give it.<br>
+                &gt;<strong> Analyzes </strong>your code's strengths &amp; weaknesses.<br>
+                &gt; <strong>Fixes bugs</strong> and errors instantly.<br>
+                &gt; <strong>Suggests</strong> improvements.</p>
+              <p>THE BEST PART? YOU CHOOSE THE AI BRAIN! <br>
+                Plug in OpenAI, Google Gemini, or even a 100% PRIVATE local AI
+                  running on your own PC.</p>
+              <p>Your strategies stay YOURS.</p>
+  </li>
+  <li><strong>Symbol Tagging for Organization</strong> <br>
+    <br>
+    Users can now assign color-coded tags
+          to symbols for easier identification and filtering. These tags are
+    visible in the symbol list and can be managed programmatically via AFL.<br>
+  </li>
+
+  <li>  <strong>Integrated
+    Software Updater<br>
+    <br>
+  </strong>A new built-in software updater allows for checking and installing
+  new AmiBroker versions directly from the Help menu.<br>
+  </li>
+  <li><strong> Plot Opacity and Alpha Blending</strong><br>
+    <br> 
+    Introducing
+    the SetOpacity function, allowing for transparency effects on various plot
+    styles
+    including lines, bars, candles, histograms, and areas when using QuickGFX.<br>
+  </li>
+  <li><strong> Dark
+    Mode Expansion<br>
+    <br>
+  </strong>The dark mode introduced in earlier versions has
+    been extended to more interface elements in version 6.92, including
+    the Charts (formula) tree, Interpretation window, Symbol list, and more,
+    for
+        a consistent viewing experience.</li>
+</ul>
+<p><strong>AFL (AmiBroker Formula Language) Advancements:</strong></p>
+<ul>
+          <li> <strong>New Analysis and Summary Capabilities</strong><br>
+            <br>
+            The AddSummaryRows function can
+              now be used in all analysis modes, not just explorations, to add
+            summary statistics. New constants like asrTotal and asrAverage have
+            been added
+  for this purpose.<br>
+  </li>
+          <li><strong>Enhanced Category Management<br>
+            <br>
+          </strong> AFL now provides
+            more robust control over symbol categories and tags, with new functions
+              to add, remove, and
+    retrieve symbols based on their assigned tags.<br>
+    </li>
+          <li><strong>File Handling</strong> <br>
+            <br>
+            A new thread-safe
+            function, fappend, allows for safely appending text to a file from
+            multiple threads simultaneously. <br>
+          </li>
+          <li><strong>Date and Time</strong> <br>
+            <br>
+            StrToDateTime now
+              supports years up to 2037. Additionally, AddColumn supports new
+            formats to display only the date or only
+            the time portion of a DateTime value.<br>
+          </li>
+          <li><strong>Analysis Control</strong> <br>
+            <br>
+            A new SetOption(&quot;MaxEntryRank&quot;,
+              N) allows users to limit the number of entry signals tracked per
+              bar
+            in backtests.</li>
+</ul>
+<p><strong>User Interface and Usability Improvements:</strong></p>
+<ul>
+  <li><strong>AFL Editor Enhancements</strong> <br>
+    <br>
+    A new keyboard shortcut, Ctrl+/,
+    has been added for line commenting. Users can also now move selected lines
+                of code
+            up or down using Alt+UP/DOWN arrow keys. Copying an entire line without
+  selection is now possible.<br>
+  </li>
+  <li><strong>Improved Analysis Workflow</strong> <br>
+    <br>
+    Selecting a trade in
+      the New Analysis result list can now automatically synchronize the chart,
+      display
+                  trade arrows,
+    and mark the trade range for a more intuitive analysis process.<br>
+  </li>
+  <li><strong>Batch
+      Processing</strong><br>
+      <br>
+      The ExecuteAndWait command in batch operations now allows
+    for defining a current working directory.<br>
+  </li>
+  <li><strong>UI Polish</strong> <br>
+    <br>
+    Numerous smaller improvements
+        have been made, such as using the default text tool font for new text
+    objects on charts,
+                  better number
+                    display in the Account window to avoid scientific notation,
+    and improved list view copy functionality.<br>
+  </li>
+  <li> <strong>Data Handling</strong></li>
+  <p> Flexible N-Second Intervals: N-second intervals no longer need
+                to be aligned to a full minute, and time compression now supports
+                second
+    intervals that are not divisors of 60.</p>
+</ul>
+<p>&nbsp;</p>
+<p><b>Highlights of version 6.90</b></p>
+<ul>
+  <li><strong>AFL editor improvements
+  </strong>    
+    <ul>
+      <li> Multi-cursor Navigation: Enhanced editing with multi-cursor support,
+      multiple selection editing, and split window editing.</li>
+      <li>Information tooltips, showing description
+          and parameters of each function as you type them.</li>
+      <li>Inline &quot;profiler/checker&quot; messages: Added to show which lines/functions
+        cause look-into-the-future issues.</li>
+      <li>better HiDPI scaling</li>
+      <li>Synthetic Data for Debugging: When a symbol has no quotes, synthetic
+      data is created to allow code verification and debugging.</li>
+      <li>When errors are detected, an &quot;Explain&quot; button is added to the caption
+      bar that displays a help page with the error explanation.</li>
+      <li>ChatGPT Code Detection: Added a notice to detect and inform users about
+      potentially invalid ChatGPT-generated code.</li>
+      <li>UI Improvements: Fixed typo in auto-complete dropdown, fold margin
+        width scales with font/DPI, and watch window displays small arrays entirely.<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>New Web Research browser</strong>    
+    <ul>
+      <li>Brand-new, standard-compliant Chromium / Edge (WebView2) browser is
+        now available as an alternative to the old browser.<br>
+        <br>
+        To use the new web browser engine within AmiBroker, you have to use 64-bit
+        AmiBroker and do the following:
+        <p>1. Download x64 WebView2 component from Microsoft<br>
+          <a href="https://developer.microsoft.com/en-us/microsoft-edge/webview2/">https://developer.microsoft.com/en-us/microsoft-edge/webview2/</a></p>
+        <p>2. In AmiBroker go to Tools-&gt;Preferences, &quot;Miscellaneous&quot; tab
+          and turn ON the option &quot;Use Chromium/Edge (WebView2) for Web Research&quot;</p>
+        <p>3. Restart AmiBroker </p>
+      </li>
+    </ul>
+  </li>
+  <li><strong>AFL new features and improvements  </strong>      
+    <ul>
+      <li>added support for maps / dictionaries (key-value pairs) - MapCreate
+        function</li>
+      <li>added support for C++ raw strings and Python-style raw strings</li>
+      <li>added AddToComposite automatic normalization via atcFlagNormalize</li>
+      <li>added TrimResultRows function</li>
+      <li>added SparseInterpolate function</li>
+      <li>added GetOption(&quot;BHSymbol&quot;)</li>
+      <li>enhanced Nz, SafeDivide, Matrix, StaticVarInfo, SumSince</li>
+      <li>added static variable declarations with custom initial value (instead
+      of Null)</li>
+      <li>stricter checking of printf/StrFormat formatting string</li>
+      <li>one-shot auto save of persistent static variables via SetOption(&quot;StaticVarAutoSave&quot;,
+      -1 )</li>
+      <li>Matrix Initialization: New parameter increment allows creation of matrices
+      with monotonically increasing elements.</li>
+      <li>Memory and Performance Enhancements: Increased micro-allocator block
+      size to 64 bytes and improved handling of static variables.</li>
+      <li>Error Handling: New error codes, stricter checking for format strings,
+      and enhanced warnings for invalid characters.</li>
+      <li>Gui Control Functions*: Added extra 'style' parameter for all Gui*
+        functions.<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Charting improvements / new features</strong>
+    <ul>
+      <li>Text tool allows specifying font style / size.</li>
+      <li>increased limit of minimum X grid spacing for HiDPI displays</li>
+      <li>lots of QuickGFX fixes, improvements and speed-ups<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Analysis window improvements / new features
+    </strong>    
+    <ul>
+      <li>added information on when equity gained from interest is greater than
+        from trades alone</li>
+      <li>added information on how many times liquidity limit was hit</li>
+      <li>added support for &quot;Show current trade arrows&quot; after exploration run</li>
+      <li>New Analysis Info: Summary of symbols with filtered-out quotes due
+      to padding displayed in the INFO tab.</li>
+      <li>Individual Optimization: Fixed crashes and sharing violations when
+      GenerateReports was turned on.</li>
+      <li>Timestamp Resolution: Increased resolution for report folder timestamps
+      using a unique counter.</li>
+      <li>Category Management: Filter dialog shows instructions if no symbols
+        meet the selected criteria and shows categories with empty names.<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Report Explorer</strong>
+    <ul>
+      <li>Performance Improvements: Re-reads/refreshes
+        are 10x faster, and the display performance is improved by 20x using
+      a hyper-fast list view implementation.</li>
+      <li>Error Handling: Sharing violation messages are quietly
+        displayed in the status bar instead of a modal blocking dialog box.<br>
+        <br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Database maintenance / data feed improvements
+  </strong>    
+    <ul>
+      <li>Edit-&gt;Delete range supports multiple symbol selection, so you can delete
+      a range of quotes from multiple symbols at once.</li>
+      <li>IQFeed plugin now has an option to consolidate unbundled ticks and symbol
+      lookup in the context menu.</li>
+      <li>ASCII Import: Improved performance by early removal of duplicate lines
+        in large files.<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>UI improvements
+  </strong>    
+    <ul>
+      <li>modal dialog boxes flash and move to the mouse position to prevent
+        user confusion when a modal dialog box opened on another monitor blocks the
+      program from continuing.</li>
+      <li>High DPI Support: Various UI elements, such as flyout buttons, modal
+        dialog boxes, property grid expand buttons, and XAML markup units, now
+      properly scale with High DPI displays.</li>
+      <li>added the Start page to improve new-user orientation</li>
+      <li>added pause button to Batch scheduler</li>
+      <li> Dark Mode Improvements: Enhanced readability of read-only items in
+      the Account Summary page in dark mode. </li>
+      <li>Symbol Bar: Added context menu key support (VK_APPS) in addition to
+      right-click.</li>
+      <li>Category Dialog: Prevents setting category names to empty, reverting
+        to default name if attempted.<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Other fixes</strong>
+    <ul>
+      <li>Parameter file does not get corrupted when parameters mistakenly use
+        new lines.</li>
+      <li>Indicator Maintenance Wizard: Automatically creates timestamped backup
+      files for easy restoration.</li>
+      <li>Easy Alerts: Now displays comment field content in Alert Output window.</li>
+    </ul>
+  </li>
+</ul>
+<p><b>Highlights of version 6.40</b></p>
+<p>Version 6.40 brings lots of new functionality, especially with regards to the
+  formula language and performance. There are hundreds of new features and changes
+  to existing functionality as compared to version 6.30, listed in detail in &quot;Release
+  Notes&quot; document in AmiBroker directory. Below is just a short list of a
+few of them:</p>
+<ul>
+  <li><strong>QuickGFX - brand-new chart rendering engine</strong>  delivering
+    up to 100x performance boost as compared to GDI rendering. GDI rendering speed
+    also improved up to 2x.<br>
+    <br>
+   In-house developed QuickGFX direct rendering technology
+   completely bypasses Windows GDI and offers an amazing 10x-100x performance gain
+   as compared
+    to GDI rendering.
+    <p>To enable QuickGFX experimental technology, go to Tools-&gt;Preferences, &quot;Miscellaneous&quot; tab,
+      click &quot;Experimental: Use QuickGFX render&quot; and press &quot;Apply&quot; or &quot;OK&quot;.<br>
+      You can see that when it is enabled, the chart timing footnote (when enabled) will
+      say &quot;QuickGFX render ...ms&quot; instead of &quot;GDI render ...ms&quot;.</p>
+    <p>This is a PROFESSIONAL edition feature only. Users of the Standard version would
+      need to purchase an upgrade in order to use this feature.</p>
+  </li>
+  <li><strong>Automatic Analysis improvements</strong>
+    <ul>
+      <li> <a href="h_newanalysis.html#SEQUENCE">Easy Sequencing</a> of multiple Analysis actions via
+        #pragma sequence(scan,exploration) and new &quot;Run Sequence&quot; button
+        without the need to write batches. Allows, for example, single-click two-step
+        analysis runs, creating composites or static variables in the first step and
+        using them in the second step.</li>
+      <li>Backtester - added &quot;Max. position value&quot; option in the settings
+        allowing to specify the maximum dollar value of a position. Zero (0) means
+        no maximum. Positions larger will be shrunk (if shrinking is enabled)
+      or won't be entered at all (if shrinking is disabled).</li>
+      <li>huge speed-ups in running large explorations, 
+dark theme, and 5x speed-up for rendering huge list views (as compared to
+  6.31).<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>    AmiBroker Formula Language new functions</strong>
+/ features   
+  <ul>
+      <li><a href="afl/findindex.html">FindIndex</a>( array, value, start_from = 0, dir = 1 ) - finds the index of
+      an array item matching the specified value. </li>
+      <li><a href="afl/barssincecompare.html">BarsSinceCompare</a>( past, comparison, current ) - for every bar, compares
+        past array values with the current bar value and returns the number of bars
+      since the last time the comparison was true.</li>
+      <li><a href="afl/internetsetheaders.html">InternetSetHeaders</a>( &quot;headers&quot; ) - sets custom HTTP headers
+      for subsequent web requests.</li>
+      <li><a href="afl/internetsetoption.html">InternetSetOption</a>( option, value ) - sets an HTTP option for an internet session.</li>
+      <li><a href="afl/internetpostrequest.html">InternetPostRequest</a>(''http://url_to_your_web_resource'', data, flags
+      = 0) - sends an HTTP Post request to an Internet web resource (URL).</li>
+      <li><a href="afl/mxcopy.html">MxCopy</a>() - in-place copying of rectangular blocks from one matrix
+        to the other (copies portions of one matrix to the other matrix).</li>
+      <li><a href="afl/_exit.html">_exit</a>() - gracefully ends AFL execution at the point of the call.</li>
+      <li> <a href="afl/internetgetstatuscode.html">InternetGetStatusCode</a>() - returns the HTTP status code of the last
+      InternetOpenURL or InternetPostRequest call.</li>
+      <li><a href="afl/chr.html">Chr</a>( code ) returns a string representing a single character of a given ASCII
+      code.</li>
+      <li><a href="afl/getobject.html">GetObject</a>( path, class ) provides functionality equivalent to JScript
+      GetObject and VBScript GetObject.</li>
+      <li><a href="afl/guisendkeyevents.html">GuiSendKeyEvents</a>(&quot;ED&quot;) - registers given characters to be
+        sent as a GUI event when a keyboard key is pressed. GuiGetEvent will return
+        code == notifyKeyDown and the ID of the given character, for example, id == 'D'
+      for the 'D' letter.</li>
+      <li> <a href="afl/inverf.html">inverf</a>(x) - inverse of the erf function. </li>
+      <li> <a href="afl/erf.html">erf</a>(x) - computes the Error function https://en.wikipedia.org/wiki/Error_function.</li>
+      <li><a href="afl/safedivide.html">SafeDivide</a>( x, y, valueifzerodiv ) - safe division that handles division
+      by zero using special handling (replaces the result with a user-defined value).</li>
+      <li>new Javascript engine (Chakra) features native JSON support (<a href="afl/enablescript.html">EnableScript</a>(&quot;chakra&quot;)).<br>
+      </li>
+  </ul>
+  </li>
+  <li><strong>AmiBroker Formula Language improvements, enhancements and fixes
+  </strong>    
+    <ul>
+      <li>exponentiation operator is made 50-100x faster in cases of small integer
+      exponents of 2, 3, 4 and 5.</li>
+      <li>GuiSetText() function avoids sending change notifications to
+      prevent update loops.</li>
+      <li>ADX function vectorized (2x faster than before).</li>
+      <li>added an extra parameter for Error() function to stop execution.</li>
+      <li>internal function signatures have changed to allow flexible ordering
+          of arguments, regardless of their type,<strong> </strong>and varargs with less
+      overhead.</li>
+      <li>GfxDrawImage with PNG images: exclusive file lock removed.</li>
+      <li>the parser warns if an empty body is used in 'for' or 'while' statements.</li>
+      <li>support for gzip and deflate compression in Internet functions.</li>
+      <li>plugin interface: backward compatibility with changing function signatures.</li>
+      <li>more
+        runtime checks to prevent user errors and other fixes.<br>
+        <strong>                                                                                            </strong></li>
+    </ul>
+  </li>
+  <li><strong>Batch window new features / improvements</strong>
+    <ul>
+      <li>Clipboard Cut/Copy/Paste implemented in the batch editor.</li>
+      <li>Edit-&gt;Delete (from main menu) and Edit-Delete All implemented for
+      completeness.</li>
+      <li>list view now uses virtual mode (owner data).</li>
+      <li>added &quot;add results to watchlist&quot; action / WatchlistAddResults.</li>
+      <li>added &quot;clear watchlist&quot; action / WatchlistClear.</li>
+      <li>added &quot;comment&quot; action.</li>
+      <li>added optional parameter to Data Import ASCII command to allow specifying
+      a format definition file.</li>
+      <li>added optional parameter to Execute and Wait command to specify the current
+      working directory for the command.</li>
+      <li>added optional parameter to Export to File / Export walk-forward to
+        file to specify the column separator in CSV files.
+        - Optional parameter defines the column separator used for export. Only
+      a single character is used. When it is not supplied, a comma is used.<br> 
+      </li>
+    </ul>
+  </li>
+  <li><strong>AFL editor enhancements</strong>
+    <ul>
+      <li>call tips (parameter information tooltips) now provide an extra description
+          about the function and its parameters (as of v6.39 only 20 functions
+        have this extra info).</li>
+      <li> A debugging session is automatically terminated with appropriate notice
+          when the user attempts to edit the code during debugging (this saves mouse
+        clicks that were needed to stop the debug session in order to edit).</li>
+      <li>previously when no text was selected and Prettify Code was chosen,
+          the message box caused the main frame to get focus instead of the focus staying
+        in the AFL frame. Fixed.</li>
+      <li>when a runtime error is detected during a debugging session, the message bar
+        now shows the number of detected errors (as it did previously during a normal &quot;verify&quot; run).</li>
+      <li> when dark mode list views are used, the watch window's default text color
+        was black, making it hardly visible; it has been changed to white.</li>
+    </ul>
+    <br>
+  </li>
+  <li><strong>User Interface new features and improvements:</strong>
+    <ul>
+      <li>Dark theme for all owner-draw
+        list views (NOT in dialogs) now features a customizable theme (currently
+        available &quot;system (light) theme&quot; and &quot;black theme&quot;)
+        - go to Tools-&gt;Customize, &quot;Appearance&quot; tab, &quot;Dark mode
+      for list views&quot; checkbox.</li>
+      <li>5x speed-up for rendering huge list views (bypassing Windows rendering).        </li>
+      <li>Preferences: added a Text Tool font setting independent
+        from the Axis font (Preferences-&gt;Miscellaneous page).</li>
+      <li>Charts: improved text tool, with per-study selectable font size.</li>
+      <li>Parameter names are not truncated in HighDPI screens.<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Database improvements</strong>
+    <ul>
+      <li> A new 8-digit ICB structure implemented: https://www.ftserussell.com/data/industry-classification-benchmark-icb.</li>
+      <li> Database Purify is 10x faster.</li>
+      <li>OLE: Added the Stock.Quotations.Adjust function to perform adjustments
+        programmatically. OLE: Added the Stock.Quotations.Adjust() function: long
+        Adjust(BSTR pszFieldList, float fMultiplier, float fOffset, DATE dDateTime,
+        boolean bBefore).<br>
+        <br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Other fixes</strong>
+    <ul>
+      <li>Parameter file does not get corrupted when parameters mistakenly use
+        new lines.</li>
+      <li>Indicator Maintenance Wizard: Automatically creates timestamped backup
+      files for easy restoration.</li>
+      <li>Easy Alerts: Now displays comment field content in Alert Output window.</li>
+    </ul>
+  </li>
+</ul>
+<p><b>Highlights of version 6.30</b></p>
+<p>Version 6.30 brings lots of new functionality, especially with regards to the
+  formula language and performance. There are hundreds of new features and changes
+  to existing functionality as
+  compared to version 6.20, listed in detail in &quot;Release Notes&quot; document
+  in AmiBroker directory. Below is just a short list of a few of them:</p>
+<ul>
+  <li><strong>HIGHLIGHT: User-definable on-chart GUI controls</strong>  </li>
+  <blockquote>
+    <p><strong>18 new AFL functions </strong> were added to allow creation of
+      user-definable on-chart graphical user interfaces.<strong><br>
+    </strong></p>
+    <ul>
+      <li><b><a href="./afl/guibutton.html">GuiButton </a></b> - create on-chart
+        button control (AFL 4.30)</li>
+      <li><b><a href="./afl/guicheckbox.html">GuiCheckBox </a></b> - creates
+        on-chart checkbox control (AFL 4.30)</li>
+      <li><b><a href="./afl/guidatetime.html">GuiDateTime </a></b> - creates
+        on-chart date-time picker control (AFL 4.30)</li>
+      <li><b><a href="./afl/guiedit.html">GuiEdit </a></b> - create on-chart
+        edit control (AFL 4.30)</li>
+      <li><b><a href="./afl/guienable.html">GuiEnable </a></b> - enables or disables
+        on-chart control (AFL 4.30)</li>
+      <li><b><a href="./afl/guigetcheck.html">GuiGetCheck </a></b> - get checked
+        state of control (AFL 4.30)</li>
+      <li><b><a href="./afl/guigetevent.html">GuiGetEvent </a></b> - get GUI
+        event (AFL 4.30)</li>
+      <li><b><a href="./afl/guigettext.html">GuiGetText </a></b> - get text from
+        on-chart control (AFL 4.30)</li>
+      <li><b><a href="./afl/guigetvalue.html">GuiGetValue </a></b> - get numeric
+        value of on-chart control (AFL 4.30)</li>
+      <li><b><a href="./afl/guiradio.html">GuiRadio </a></b> - creates on-chart
+        radio button control (AFL 4.30)</li>
+      <li><b><a href="./afl/guisetcheck.html">GuiSetCheck </a></b> - set checked
+        state of on-chart control (AFL 4.30)</li>
+      <li><b><a href="./afl/guisetfont.html">GuiSetFont </a></b> - set the font
+        for on-chart control (AFL 4.30)</li>
+      <li><b><a href="./afl/guisetrange.html">GuiSetRange </a></b> - set slider
+        control range (AFL 4.30)</li>
+      <li><b><a href="./afl/guisettext.html">GuiSetText </a></b> - set text value
+        of on-chart control (AFL 4.30)</li>
+      <li><b><a href="./afl/guisetvalue.html">GuiSetValue </a></b> - set numeric
+        value of on-chart control (AFL 4.30)</li>
+      <li><b><a href="./afl/guisetvisible.html">GuiSetVisible </a></b> - shows
+        or hides on-chart control (AFL 4.30)</li>
+      <li><b><a href="./afl/guislider.html">GuiSlider </a></b> - creates on-chart
+        slider control (AFL 4.30)</li>
+      <li><b><a href="./afl/guitoggle.html">GuiToggle </a></b> - create on-chart
+        toggle button control (AFL 4.30)</li>
+    </ul>
+  </blockquote>
+  <li><strong>New features in AmiBroker Formula Language</strong>  </li>
+</ul>
+<ul>
+  <ul>
+    <li><a href="keyword/static.html">static variable declaration</a></li>
+    <li>passing variables by reference</li>
+    <li>new voice functions<br><ul><li><b><a href="./afl/voicesetrate.html">VoiceSetRate </a></b> - sets
+          voice speech rate (AFL 4.30)</li>
+        <li><b><a href="./afl/voicesetvolume.html">VoiceSetVolume </a></b> -
+          set the volume of speech (AFL 4.30)</li>
+        <li><b><a href="./afl/voicewaituntildone.html">VoiceWaitUntilDone </a></b> -
+        waits until TTS voice has finished speaking (AFL 4.30)<br>
+        </li>
+      </ul>
+    </li>
+    <li>system error handling via <a href="afl/getlastoserror.html">GetLastOSError</a></li>
+    <li>support for geometric pens in <a href="afl/gfxselectpen.html">GfxSelectPen</a><strong><br>
+    </strong></li>
+  </ul>
+  <li><strong>Huge performance improvements in 64-bit version with migration
+        to new VC++2017 compiler</strong><br>
+      <br>
+    Why did we migrate to a new compiler with the 64-bit version?
+    <ul>
+      <li>The new compiler supports
+      new CPU instructions (SSE3/AVX) that we can use to offer better performance.</li>
+      <li>According to our tests, the new compiler
+                      produces faster code by itself (better optimizations, auto-vectorization,
+                etc).</li>
+      <li>The new compiler is better with error checking (less bugs to slip through).</li>
+      <li>We
+                      don't need to care about compatibility with pre-Vista systems
+          in the 64-bit version, and all 64-bit capable CPUs are &quot;modern&quot; enough.</li>
+    </ul>
+  </li>
+</ul>
+<blockquote>
+  <p>Why did we stay with the old compiler in the 32-bit version?</p>
+  <ul>
+      <li> The new compiler does not
+          produce code compatible with older operating systems (XP or earlier). The old
+          compiler offers 100% compatibility
+        with all Windows versions.</li>
+    <li>The new compiler requires modern CPUs.</li>
+  </ul>
+  <p>Exact performance improvement is function-dependent and hardware-dependent.
+            Many functions are faster by 30-50%, but in some cases, such as Min()/Max()
+          functions, as large as an 8x speed-up can be observed in the 64-bit version. </p>
+</blockquote>
+<ul>
+  <li><strong>Other key improvements</strong>
+    <br>    
+    <ul>
+      <li>Auto-optimization framework</li>
+      <li>HTML5 compatibility in Web Research window</li>
+      <li>comment folding in the AFL editor</li>
+      <li>clickable links in Analysis result list</li>
+    </ul>
+  </li>
+</ul>
+<p><b>Highlights of version 6.20</b></p>
+<p>Version 6.20 brings lots of new functionality, especially with regards to system
+  testing. There are hundreds of new features and changes to existing functionality
+  as compared to version 6.10, listed in detail in &quot;Release Notes&quot; document
+  in AmiBroker directory. Below is just a short list of a few of them:</p>
+<ul>
+  <li><strong>HIGHLIGHT: Integrated <a href="h_batch.html">Batch Processor</a> </strong>-
+  allowing you to automate complex, sequential tasks and featuring:
+    <ul>
+    <li>easy-to-use interface</li>
+      <li>built-in time scheduler</li>
+      <li>command line interface</li>
+      <li>AFL triggering</li>
+      <li>logging</li>
+    </ul>
+  </li>
+  <li><strong>New features in AmiBroker Formula Language</strong>:
+    <ul>
+      <li>direct internet access functions (<a href="afl/internetopenurl.html">InternetOpenURL</a>/<a href="afl/internetreadstring.html">InternetReadString</a>/<a href="afl/internetclose.html">InternetClose</a>)
+        allow interfacing with web / REST services from AFL</li>
+      <li>general-purpose distribution function: <a href="afl/pricevoldistribution.html">PriceVolDistribution</a></li>
+      <li>more statistical functions: <a href="afl/normdist.html">NormDist</a>/<a href="afl/kurtosis.html">Kurtosis</a>/<a href="afl/skewness.html">Skewness</a></li>
+      <li>variable period <a href="afl/percentrank.html">PercentRank</a> and <a href="afl/stdev.html">StDev</a></li>
+      <li>cumulative product functions <a href="afl/cumprod.html">CumProd</a>/<a href="afl/prod.html">Prod</a>/<a href="afl/prodsince.html">ProdSince</a></li>
+      <li>bitmap image drawing function <a href="afl/gfxdrawimage.html">GfxDrawImage</a></li>
+      <li>ability to select a Speech API voice via <a href="afl/voiceselect.html">VoiceSelect</a>/<a href="afl/voicecount.html">VoiceCount</a></li>
+      <li>multi-text exploration columns via <a href="afl/addmultitextcolumn.html">AddMultiTextColumn</a> </li>
+    </ul>
+  </li>
+  <li><strong>Performance improvements</strong>
+    <ul>
+      <li>faster startup</li>
+      <li>more responsive Analysis window while it is busy processing (plus new
+        Pause function)</li>
+    </ul>
+  </li>
+  <li><strong>UI and usability improvements</strong>
+    <ul>
+      <li>many adjustments in UI scaling to better support HiDPI/4K displays</li>
+      <li>walk-forward settings are now per-project, not global</li>
+      <li>debugger's watch window supports the display of static variables and expressions
+        with static variables</li>
+    </ul>
+  </li>
+</ul>
+<ul>
+</ul>
+<p><b>Highlights of version 6.10</b></p>
+<p>Version 6.10 brings lots of new functionality, especially with regards to system
+  testing. There are hundreds of new features and changes to existing functionality
+  as compared to version 6.00, listed in detail in &quot;Release Notes&quot; document
+  in AmiBroker directory. Below is just a short list of a few of them:</p>
+<ul>
+  <li><strong>HIGHLIGHT: Integrated <a href="h_debugger.html">Visual Debugger</a> </strong>-
+    featuring
+    <ul>
+      <li> single-step execution</li>
+      <li>breakpoints</li>
+      <li>user-definable watches with expression
+      evaluator</li>
+      <li>array view with per-item change highlighting</li>
+      <li>value inspection tooltips</li>
+      <li>output window (for printf output)<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>HIGHLIGHT: Enhanced Matrix support</strong>
+    <ul>
+      <li><a href="afl/mxinverse.html">matrix inversion</a> (via Gauss-Jordan elimination)</li>
+      <li> <a href="afl/mxsolve.html">solving linear equation systems</a> (example polynomial fit code included)</li>
+      <li><a href="afl/mxdet.html">determinant</a></li>
+      <li><a href="afl/mxsetblock.html">fast block access</a></li>
+      <li><a href="afl/mxsortrows.html">matrix column/row sorting</a></li>
+      <li><a href="afl/mxfromstring.html">converting matrix from/to
+      string</a></li>
+      <li> <a href="afl/staticvarset.html">persistency</a> (saving/loading
+        matrices from/to disk via static variable mechanism)<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>New features in the <a href="w_afledit.html">AFL Editor</a>: </strong>    
+    <ul>
+      <li>Bookmarks</li>
+      <li>Find in Files</li>
+      <li>Block comment/uncomment</li>
+      <li>Clickable links to external documentation/files in comments<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>New features in AmiBroker Formula Language</strong><ul><li>faster composites by means of <a href="afl/staticvaradd.html">StaticVarAdd</a></li>
+        <li>compression of persistent static variables (can save as much as 90%
+          of disk space and memory)</li>
+        <li>stricter error checking (printf/StrFormat format string checking)</li>
+        <li>static and dynamic variable functions now support matrices</li>
+        <li>new functions <a href="afl/gfxfillsolidrect.html">GfxFillSolidRect</a>, <a href="afl/sumsince.html">SumSince</a>, <a href="afl/mxinverse.html">MxInverse</a>, <a href="afl/mxsolve.html">MxSolve</a>, <a href="afl/mxdet.html">MxDet</a>,
+          <a href="afl/mxsetblock.html">MxSetBlock</a>, <a href="afl/mxgetblock.html">MxGetBlock</a>, <a href="afl/mxsort.html">MxSort</a>, <a href="afl/mxsortrows.html">MxSortRows</a>, <a href="afl/mxtostring.html">MxToString</a>, <a href="afl/mxfromstring.html">MxFromString</a>,
+          <a href="afl/staticvaradd.html">StaticVarAdd</a>, <a href="afl/fgetcwd.html">fgetcwd</a></li>
+        <li>new parameters in functions: <a href="afl/datetimetostr.html">DateTimeToStr</a>, <a href="afl/staticvarset.html">StaticVarSet</a></li>
+        <li>performance improvements in printf(), variable period Sum<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Charting, User interface and under-the-hood
+improvements </strong>   
+    <ul>
+      <li>enhanced <a href="w_categories.html">category window</a> (allowing to rearrange (move up/down) markets/groups/sectors/industries
+      and watch lists)</li>
+      <li>user-definable candlestick wick thickness</li>
+      <li>user-definable decimal places in horizontal line price level</li>
+      <li>cycle tool handles years past 2038 </li>
+      <li>large icons are used on HighDPI displays for tree views and list view
+              checkboxes for much better accessibility</li>
+      <li>Auto-size Analysis columns to content</li>
+      <li>crash recovery improvements</li>
+      <li>tons of other improvements (see Release Notes for details)</li>
+    </ul>
+  </li>
+</ul>
+<p><b>Highlights of version 6.00</b></p>
+<p>Version 6.00 brings lots of new functionality, especially with regards to system
+  testing. There are hundreds of new features and changes to existing functionality
+  as compared to version 5.90, listed in detail in &quot;Release Notes&quot; document
+  in AmiBroker directory. Below is just a short list of a few of them:</p>
+<ul>
+  <li>Integrated high-performance <strong><a href="h_montecarlo.html">Monte Carlo
+        simulator</a></strong> - with cumulative distribution charts of equity,
+        max. drawdowns, support for custom user-definable metrics and ability
+        to perform MC simulator-driven optimizations.<br>
+  </li>
+  <li>Full <strong><a href="a_language.html#MATRIX">Matrix support</a></strong> (two-dimensional
+    arrays) in AFL with direct native matrix arithmetic (matrix operations
+    like addition, subtraction, multiplication,
+    division,
+    transpose,
+  etc), see <a href="afl/matrix.html">Matrix</a>, <a href="afl/mxidentity.html">MxIdentity</a>, <a href="afl/mxtranspose.html">MxTranspose</a>, <a href="afl/mxgetsize.html">MxGetSize</a>.<br>
+  </li>
+  <li>Detailed <strong>Buy-and-hold (benchmark) statistics </strong>automatically added to the
+  backtest reports.<br>
+  </li>
+  <li>User-definable <strong>stop precedence</strong> (<a href="afl/setstopprecedence.html">SetStopPrecedence</a> function) and
+    <strong>stop validity</strong> (ValidFrom/ValidTo parameters in <a href="afl/applystop.html">ApplyStop</a> function).<br>
+  </li>
+  <li><strong>Sparse array </strong>support: <a href="afl/sparsecompress.html">SparseCompress</a>, <a href="afl/sparseexpand.html">SparseExpand</a>.<br>
+  </li>
+  <li><strong>Infinite Impulse Response</strong> filter function (<a href="afl/iir.html">IIR</a>) for efficient implementation
+    of higher-order smoothing algorithms.<br>
+  </li>
+  <li><strong>Raw text  output in explorations</strong> via <a href="afl/addrow.html">AddRow</a> function.<br>
+  </li>
+  <li>  New styles supported by Exploration XYCharts.<br>
+  </li>
+  <li><strong>Variable period <a href="afl/percentile.html">Percentile</a></strong> function.<br>
+  </li>
+  <li><strong>Unicode (UCN) support</strong> in <a href="afl/plottext.html">PlotText</a>, <a href="afl/plottextsetfont.html">PlotTextSetFont</a>, <a href="afl/gfxdrawtext.html">GfxDrawText</a>, <a href="afl/gfxtextout.html">GfxTextOut</a>,
+    chart titles, interpretations and commentary windows (allows various graphic
+    annotations/windings).<br>
+  </li>
+  <li><strong>New low-level graphic functions</strong>: <a href="afl/gfxselecthatchbrush.html">GfxSelectHatchBrush</a>, <a href="afl/gfxselectstockobject.html">GfxSelectStockObject</a>.<br>
+  </li>
+  <li>wildcard matching function StrMatch.<br>
+  </li>
+  <li>enhanced Assignment Organizer.<br>
+  </li>
+  <li><strong>Word-wrap</strong> functionality in AFL editor and<strong> enhanced
+  &quot;Code Prettify&quot;</strong> function.</li>
+</ul>
+<p><b>Highlights of version 5.90</b></p>
+<p>In addition to completely new functionality, this
+  version focuses on <strong>speed
+  improvements</strong> and enhancements of existing functionality. There are
+  hundreds of new features and changes to existing functionality as compared
+  to version
+  5.80, listed in detail in &quot;Release Notes&quot; document in AmiBroker directory.
+Below is just a short list of a few of them:</p>
+<ul><li><strong>Performance improvements</strong>
+  <ul>
+    <li><strong>AFL Engine</strong>: custom memory allocator no longer uses Microsoft
+            runtime libraries for reference tracking. Result: <strong>complex</strong> <strong>formulas</strong> with
+            lots of loops and OLE (especially low-level custom backtests) <strong>run
+        up to 3 times faster in 32-bit and 4 times faster in 64-bit</strong>.</li>
+  </ul>
+</li>
+  <ul>
+    <li>execution <strong>speed improved by a factor of &gt; 2x</strong> for AFL functions:
+          MACD, Signal, CCI, Sum (variable period).<br>
+    </li>
+  </ul>
+  <li><strong>Brand-new <a href="h_snippets.html">Code Snippets window and keyboard triggers</a></strong> 
+    <ul>
+      <li> added <strong>Code Snippets</strong> window - allows inserting, deleting, and saving selected
+          parts of the formula as snippets. Also, convenient drag-and-drop
+        of snippets to the formula edit window is implemented.</li>
+    </ul>
+  </li>
+  <ul>
+    <li>Code snippets are available in the auto-complete list (type @ plus
+            first letter of snippet key trigger), and even without auto-complete
+    activated, @keytrigger is replaced by snippet text.<br>
+    </li>
+  </ul>
+  <li><strong>Redesigned Report Explorer and improved Report Viewer (HTMLView)</strong>
+    <ul>
+      <li>Column layout (order and sizes) is now saved and restored
+      between runs.</li>
+      <li>Loading and refresh performance significantly improved (5x)
+      using owner-draw/virtual mode.</li>
+      <li> Multi-column sorting
+      implemented.</li>
+      <li>Numeric columns are now right-aligned for
+      better readability.</li>
+      <li>visuals significantly improved (list uses modern
+          style, grid lines, immediate column resizing, double buffering for
+        no flicker, thousand separators, negative values are displayed in dark
+            red, HighDPI-aware, and changed
+      toolbar).</li>
+      <li>HTMLView – Backtest report viewer – added Edit/Copy, Edit/Select All,
+        and Edit/Copy TABLE. The last command transforms HTML tables into CSV
+        format and copies them to the clipboard so tables can be pasted easily to
+        Excel. It also divides Entry/Exit columns into separate Entry/exit date/price
+      columns.<br>
+      </li>
+    </ul>
+  </li>
+  <li>new <strong><a href="w_rtquote.html#BIDASKTREND">Bid/Ask trend indicator</a></strong> in the <strong>Real-time quote
+      window</strong> -
+a graphical indicator showing the direction of the 10 most recent changes in real-time
+  bid/ask prices. 
+The right-most box is the most recent, and as new bid/ask quotes arrive, they are shifted
+to the left side.<br>
+  </li>
+  <li><strong>User-definable HTML backtest reports</strong>
+  </li>
+  <ul>
+    <li> Now it is possible to output HTML instead of graphics
+          in report chart formulas using AFL: EnableTextOutput( 3 ) – HTML output
+          to backtest
+    report.</li>
+    <li>rewritten <em>3. Profit Table.afl</em> using HTML embedding
+            features auto-scalable layout (so it enlarges when numbers are bigger),
+            bold summary
+            columns, negative values in red, and boundary date changed to the last
+        day of year/month.<br>
+    </li>
+  </ul>
+  <li><strong>Charting improvements</strong>
+    <ul>
+      <li>Left/right extended trend lines and rays now use a user-definable
+          Extension Factor (a new field in Study properties) instead of always
+          having infinite extent. An Ext. Factor equal to ZERO means INFINITE; other values
+      0.1 ... 26 define how far to the left/right the line is extended.</li>
+      <li>Max zoom achievable via View-&gt;Zoom Out is increased to 5
+      million bars. Also, the Pref/Charting/Default zoom limit is set to 5 million.</li>
+      <li>Line drawings now have user-definable line width in pixels (a new &quot;Line
+        width&quot; field in the Study Properties dialog). In addition to that, the &quot;Thick
+        line&quot; box makes the line twice as wide (so the actual width of a thick line
+      is 2 * lineWidth instead of adding 1 pixel to the width).</li>
+      <li>added ability to control the number of decimals in chart value labels via
+        GraphLabelDecimals variable (example, adding GraphLabelDecimals = 2;
+        to the formula would give you value labels with 2 decimal places).<br>
+        <strong>                                </strong> </li>
+    </ul>
+  </li>
+  <li><strong>User Interface improvements</strong>
+    <ul>
+      <li>Parameter window's look and feel improved. Item height is increased,
+      and the slider thumb is made wider for easier use on small-size/high-DPI screens.</li>
+      <li>New Analysis UI refreshes faster.</li>
+      <li>Colors, bold and italic styles are now added to Interpretation and
+      Commentary windows.</li>
+      <li>Filter dialog now shows the number of matching symbols in real-time.</li>
+      <li>Column setup dialog has new &quot;Mark All / Toggle All&quot; buttons.<br>
+      </li>
+    </ul>
+  </li>
+</ul>
+<ul><li><strong>AFL new features / improvements:</strong><ul><li><strong>new</strong> AFL functions: <a href="afl/getformulapath.html">GetFormulaPath</a>, <a href="afl/nullcount.html">NullCount</a>, <a href="afl/sort.html">Sort</a>, <a href="afl/reverse.html">Reverse</a>, <a href="afl/strsort.html">StrSort</a>,
+        <a href="afl/strtrim.html">StrTrim</a>, <a href="afl/sendemail.html">SendEmail</a></li>
+      <li>extended functionality of AFL functions:  <a href="afl/strextract.html">StrExtract</a>, <a href="afl/strmid.html">StrMid</a>, <a href="afl/restorepricearrays.html">RestorePriceArrays</a>,
+        <a href="afl/plotgrid.html">PlotGrid</a>, <a href="afl/enabletextoutput.html">EnableTextOutput</a>, <a href="afl/getoption.html">GetOption</a></li>
+      <li>Single-character literals added to AFL.<br>
+      </li>
+      </ul>
+  </li>
+  <li><strong>Stability &amp; debug improvements</strong>
+    <ul>
+      <li>added lots of parameter checks</li>
+      <li>64-bit version now has a call stack trace in the bug report for better
+        debugging</li>
+      <li>added more memory checks, early warnings, and error messages when running
+        out of memory</li>
+      <li>added checks for unusual, yet potentially 'troublemaker' scenarios</li>
+    </ul>
+  </li>
+</ul>
+<p><b>Highlights of version 5.80</b></p>
+<p>In addition to completely new functionality, this version focuses on incremental
+  improvements and enhancements of existing functionality. There are hundreds
+  of new features and changes to existing functionality as compared to version
+  5.70,
+  listed in detail in &quot;Release Notes&quot; document in AmiBroker directory.
+Below is just a short list of a few of them:</p>
+<ul>
+  <li><strong>Brand-new, completely rewritten <a href="w_afledit.html">AFL Formula
+        Editor</a> </strong>that
+    supports the following features:
+    <ul>
+      <li>Improved syntax highlighting</li>
+      <li>Automatic brace matching/highlighting (NEW)</li>
+      <li>Auto-indentation (NEW)</li>
+      <li>Indentation markers (NEW)</li>
+      <li>Enhanced auto-complete in two modes (immediate (NEW) and on-demand)</li>
+      <li>Parameter information </li>
+      <li>Line numbering margin and selection margin (NEW)</li>
+      <li>Code folding (NEW)</li>
+      <li>In-line error reporting (NEW)</li>
+      <li>New tabbed user interface with the ability to work in both MDI and separate
+        floating frame mode, can be moved behind the main AmiBroker screen and brought
+        back (Window-&gt;Toggle Frame) (NEW) or kept on top (Window-&gt;Keep on top)</li>
+      <li>Rectangular block copy/paste/delete (Use mouse and hold down left <strong>Alt</strong> key
+        to mark rectangular block)</li>
+      <li>Enhanced printing (with syntax highlighting and header/footer)<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong><a href="h_snippets.html">Code snippets</a> </strong>- these are  small pieces of reusable
+    AFL code. They can be inserted by right-clicking in the AFL editor window and
+    choosing &quot;Insert
+  Snippet&quot; menu. Code snippets are user-definable. <br>
+  </li>
+  <li><strong>New features in <a href="a_lowlevelgfx.html">Low-level graphics</a></strong>
+    <ul>
+      <li>multiple Z-order layers (<a href="afl/gfxsetzorder.html">GfxSetZOrder</a>)</li>
+      <li>coordinates can now be given in both pixels and bar-price mode (<a href="afl/gfxsetcoordsmode.html">GfxSetCoordsMode</a>)</li>
+      <li>speed improvements (up to 3x)<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Persistent static variables - </strong><a href="afl/staticvarset.html">StaticVarSet</a>/<a href="afl/staticvarsettext.html">StaticVarSetText</a> (added
+    'persistent' parameter)    <strong><br>
+    </strong></li>
+  <li><strong>Analysis (Backtest/Optimize) enhancements</strong>
+    <ul>
+      <li>a new &quot;Trade using FX cash conversion&quot; setting</li>
+      <li>64-bit SPSO/Tribes engine fixes<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>New/enhanced AFL functions</strong>
+    <ul>
+      <li><a href="afl/plottextsetfont.html">PlotTextSetFont</a> (NEW)</li>
+      <li><a href="afl/gfxsetcoordsmode.html">GfxSetCoordsMode</a> (NEW)</li>
+      <li><a href="afl/gfxsetzorder.html">GfxSetZOrder</a> (NEW)</li>
+      <li><a href="afl/gfxgettextwidth.html">GfxGetTextWidth</a> (NEW)</li>
+      <li><a href="afl/fopen.html">fopen</a> (added 'shared' parameter)</li>
+      <li><a href="afl/staticvarset.html">StaticVarSet</a>/<a href="afl/staticvarsettext.html">StaticVarSetText</a> (added 'persistent' parameter)</li>
+      <li><a href="afl/setoption.html">SetOption</a> (new option &quot;StaticVarAutoSave&quot;)</li>
+      <li><a href="afl/setchartoptions.html">SetChartOptions</a> (new flags chartDisableYAxisCursor, chartDisableTooltips
+        )</li>
+      <li><a href="afl/plottext.html">PlotText</a> (new parameter yoffset)</li>
+    </ul>
+  </li>
+</ul>
+<p><b>Highlights of version 5.70</b></p>
+<p>In addition to completely new functionality, this version focuses on incremental
+  improvements and enhancements of existing functionality. There are 116 new
+  features and changes to existing functionality as compared to version 5.60,
+  listed in detail in &quot;Release Notes&quot; document in AmiBroker directory. Below
+  is just
+  a
+  short list
+  of a few of them:</p>
+<ul>
+  <li><strong>Analysis improvements:</strong>    
+    <ul>
+      <li><strong>New <a href="h_optimization.html#INDIVIDUAL">multi-threaded Individual Optimization</a></strong></li>
+      <li><strong>New <a href="h_ranking.html">general-purpose ranking</a> functions:</strong> StaticVarGenerateRanks/StaticVarGetRankedSymbols</li>
+      <li>User-definable ranking columns (via AddRankColumn function)</li>
+      <li>Lots of internal speed-ups in backtesting/optimization engine</li>
+      <li>SPSO, Tribes optimization engines now also available in 64-bit.<br>
+        <br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Time&amp;Sales improvements</strong>: user-definable filtering, user-definable colors,
+    and 2 user-selectable display modes. <br>
+  </li>
+  <li><strong>Database improvements</strong>:
+    <ul>
+      <li> 64-bit version supports files larger than 2GB per symbol</li>
+      <li>in-memory cache can hold up to 100,000 symbols (up from 20K)</li>
+      <li>new 64-bit DDE and ODBC plugins<br>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Charting improvements:</strong></li>
+  <ul>
+    <li>Greatly improved performance: QuickData technology implemented, lowering
+      CPU usage for charts.</li>
+    <li>Edit-&gt;'Paste Special' allows copying and pasting an entire chart pane
+      with various options.</li>
+    <li>Distance measuring when drawing trendlines (X, Y distance in the status
+      bar).</li>
+    <li>X/Y constraints for drawing tools (press X and/or Y key to constrain
+      movement in either X or Y direction when drawing).</li>
+    <li>ASCII importer adds support for millisecond timestamps.<br>
+    </li>
+  </ul>
+    <li><strong>AFL improvements</strong>:      
+<ul>
+        <li>new functions:
+          <ul>
+            <li> <a href="afl/staticvargenerateranks.html">StaticVarGenerateRanks</a>, <a href="afl/staticvargetrankedsymbols.html">StaticVarGetRankedSymbols</a> - general-purpose,
+              user-definable ranking.</li>
+            <li><a href="afl/error.html">Error</a> - displays user-definable error messages (also useful for
+              plugin developers).</li>
+            <li><a href="afl/fdir.html">fdir</a> - directory listing.</li>
+            <li><a href="afl/categorycreate.html">CategoryCreate</a> - programmatic creation of watchlists.</li>
+            <li><a href="afl/addrankcolumn.html">AddRankColumn</a> - ranking columns in exploration.<br>
+            </li>
+          </ul>
+        </li>
+        <li>performance improved for <a href="afl/percentile.html">Percentile</a>() (by order(s) of magnitude).</li>
+        <li>new fields supported in <a href="afl/getfndata.html">GetFnData</a>.</li>
+        <li>XShift support added to <a href="afl/plotshapes.html">PlotShapes</a>.</li>
+        <li>speeded up transcendental math functions (sqrt, sin, asin, cos, acos,
+          tan, atan, ln, log10, etc).</li>
+        <li>improved <a href="afl/setsortcolumns.html">SetSortColumns</a>.</li>
+      </ul>
+    </li>
+</ul>
+<p>&nbsp;</p>
+<p><b>Highlights of version 5.60</b></p>
+<ul>
+  <li><b>Multithreaded GDI (graphics) rendering </b>-  now all drawing (graphic
+    rendering) is done in separate worker threads, so the user interface is far
+  more responsive, and charts are updated faster and completely independently
+    from each other.<br>
+  </li>
+  <li><b>Automatic <a href="h_walkforward.html#SUMMARY">Walk-Forward out-of-sample summary
+        report</a> -</b> each out-of-sample
+    step now produces an individual report, plus there is a new <strong>summary
+    report</strong> that
+    covers all out-of-sample steps. It is visible in the Report Explorer as the last
+    one and has &quot;PS&quot; type.<br>
+  <b>  </b></li>
+  <li><b>Enhanced <a href="h_report.html#COLORCODE"> color-coded backtest report</a><br>
+    <a href="h_exploration.html#XYCHART">    </a></b></li>
+  <li><a href="h_exploration.html#XYCHART"><strong>XY (scatter) charts in explorations</strong></a><br>
+  </li>
+  <li><strong><a href="h_themes.html">Chart themes</a></strong> and improved
+    chart look (esp. the grid).<br>
+  </li>
+  <li><strong>One-click automatic setup and update of <a href="h_categories.html#UPDATE">stocks listing, sector,
+      and industry assignments</a></strong> for
+    all major US exchanges.<br>
+  </li>
+  <li><strong>Unlimited ad-hoc chart intervals</strong> by means of a new Interval
+    combo box that accepts any interval typed manually.<br>
+  </li>
+  <li><strong><a href="h_categories.html#ICB">Support for ICB</a></strong> (Industry Classification Benchmark) categories
+    in AFL, UI, ASCII importer and OLE interface.<br>
+  </li>
+  <li>native <strong><a href="h_indbuilder2.html#GRADIENT">Gradient area charts</a><br>
+  </strong></li>
+  <li><strong><a href="h_indbuilder2.html#THICK">super-thick lines</a> </strong> in <a href="afl/plot.html">Plot</a>,
+    <a href="afl/plotohlc.html"> PlotOHLC</a>, <a href="afl/plotforeign.html">PlotForeign</a>    <br>
+  </li>
+  <li><strong>new AFL functions</strong>: <a href="afl/getasynckeystate.html">GetAsyncKeyState</a>, <a href="afl/inicb.html">InIcb</a>, <a href="afl/icbid.html">IcbID</a>, <a href="afl/staticvarinfo.html">StaticVarInfo</a>,
+    <a href="afl/setgradientfill.html">SetGradientFill</a>, <a href="afl/xychartaddpoint.html">XYChartAddPoint</a>, <a href="afl/xychartsetaxis.html">XYChartSetAxis</a><br>
+  </li>
+  <li><strong>updated AFL functions</strong> with new functionality: <a href="afl/status.html">Status</a>,
+    <a href="afl/categorygetsymbols.html">CategoryGetSymbols</a>, <a href="afl/categorygetname.html">CategoryGetName</a>, <a href="afl/categorysetname.html">CategorySetName</a>, <a href="afl/categoryaddsymbol.html">CategoryAddSymbol</a>,
+  <a href="afl/categoryremovesymbol.html">CategoryRemoveSymbol</a>, <a href="afl/categoryfind.html">CategoryFind</a>, <a href="afl/plot.html">Plot</a>, <a href="afl/plotohlc.html"> PlotOHLC</a>, <a href="afl/plotforeign.html">PlotForeign</a><br>
+  </li>
+  <li>new 64-bit eSignal plugin<br>
+  </li>
+  <li>updated UI in many places<br>
+  </li>
+  <li>many other improvements (see Release Notes for details)</li>
+</ul>
+<p><b>Highlights of version 5.50</b></p>
+<ul>
+  <li><a href="h_newanalysis.html"><strong>New Analysis window</strong></a> introduced
+    in version 5.50 brings the following improvements over the old Automatic Analysis:<br>
+    <ul>
+      <li><strong>multi-threaded operation = speed - </strong>the new Analysis window
+        uses all available CPUs/cores to execute formulas in many threads in parallel,
+        providing significant speed-ups. For example, on a 4-core Intel i7 that can
+        run up to 8 threads, it can run up to 8 times faster than the old Analysis window.
+        The exact speed-up depends on the complexity of the formula (the more complex it
+        is, the more speed-up is possible) and the amount of data processed (RAM access may
+        not be as fast as CPU, thus limiting possible speed gains).<br>
+      </li>
+      <li><strong>non-blocking operation</strong> - you can now view, scroll, and
+        sort results of analysis while they are still generated. Also, as the user interface
+        thread is not used for processing for the most part, charts and other GUI-driven
+        program parts are far more responsive than with the old automatic analysis.<br>
+      </li>
+      <li><strong>multiple instances </strong>- you can run more than one instance
+        of New Analysis at a time, so you can run many scans, backtests, explorations, and optimizations
+        in parallel without waiting for one to complete.<br>
+      </li>
+      <li><strong>slicker user interface <em>- </em></strong>the New Analysis window
+        can act as a tabbed document, can be floated, and buttons can be rearranged
+        for better workflow. There is far more space for the result list, and extra
+        information
+        about execution is provided on the new &quot;Info&quot; tab. Also, walk-forward
+      results are now displayed within the New Analysis window for less clutter.<br>
+      </li>
+    </ul>
+  </li>
+  <li>Mini <strong>High-Low rank chart</strong> in the Real-Time quote window.</li>
+  <li>User-definable<strong> mini bar charts in Explorations</strong> (see <a href="afl/addcolumn.html">AddColumn</a> function).</li>
+  <li><strong>Add Rank Column</strong> feature - right-click the Analysis result list and choose &quot;Add
+    Rank column&quot; - it adds a column with ordinal rankings based on the current sort
+    or just a row number column
+    when
+    the list
+    is not
+    sorted.</li>
+  <li>IRA account backtesting via SettlementDelay feature (see <a href="afl/setoption.html">SetOption</a> function).</li>
+  <li><strong>Range bars</strong> algorithm improved significantly. </li>
+  <li><strong>new AFL functions</strong>: <a href="afl/threadsleep.html">ThreadSleep</a>, <a href="afl/staticvarcompareexchange.html">StaticVarCompareExchange</a></li>
+  <li><strong>updated AFL functions</strong> with new functionality: <a href="afl/addcolumn.html">AddColumn</a>, <a href="afl/setoption.html">SetOption</a>,
+    <a href="afl/getoption.html">GetOption</a>, <a href="afl/categorygetsymbols.html">CategoryGetSymbols</a>,
+    <a href="afl/popupwindow.html">PopupWindow</a>, <a href="afl/getfndata.html">GetFnData</a>,
+    <a href="afl/clipboardset.html">ClipboardSet</a></li>
+  <li>updated <a href="objects.html">OLE interface</a> to support the new Analysis
+    window.</li>
+  <li>updated <a href="a_custombacktest.html">custom backtester interface</a> to
+    support access to local, per-analysis EquityArray property.</li>
+  <li>updated UI in many places.</li>
+  <li>Owner-draw list views for a 10x speed improvement when displaying millions
+  of rows.</li>
+  <li>many other improvements (see Release Notes for details).</li>
+</ul>
+<p><b>Highlights of version 5.40</b></p>
+<ul>
+  <li><b>Fully multi-threaded charting; massively parallel AFL execution </b>(each
+      chart pane runs in a separate thread) allows to maximize speed and utilization
+      of modern multi-core / multi-CPU computers. For example, on an 8-core Intel
+    i7 CPU, your charts will run up to 8 times faster than in version 5.30. <strong>The
+    AFL engine has been completely rewritten</strong> from the ground up to allow
+    multiple instances
+    of the engine running simultaneously. This enables not only multithreading
+    but also enhances the responsiveness of the entire application, as even a badly-written
+    user formula used in a chart is not able to lock or slow down the rest of the
+    program. <strong>Multi-threading is ON by default.</strong> It can be turned off by unchecking
+    &quot;Multi-threaded charts&quot; box in <a href="w_preferences.html">Tools-&gt;Preferences</a>, &quot;AFL&quot; tab, but it is strongly
+    discouraged. Multi-threading should be ON if you want AmiBroker to operate
+    at full speed.</li>
+  <li><strong>12 new AFL functions</strong>
+    <ul>
+      <li><a href="afl/datetimeadd.html">DateTimeAdd</a> - adds specified number
+      of seconds/minutes/hours/days to a datetime.</li>
+      <li><a href="afl/hma.html">HMA</a> - Hull moving average.</li>
+      <li><a href="afl/fir.html">FIR</a> - Finite Impulse Response filter.</li>
+      <li><a href="afl/percentrank.html">PercentRank</a> - calculates percent rank.</li>
+      <li><a href="afl/lookup.html">Lookup</a> - searches the array for a bar with
+        specified date/time.</li>
+      <li><a href="afl/firstvisiblevalue.html">FirstVisibleValue</a> - gets the first
+        visible value of the array. </li>
+      <li><a href="afl/lastvisiblevalue.html">LastVisibleValue</a> - gets the last
+      visible value of the array.</li>
+      <li><a href="afl/ingics.html">InGICS</a> - checks if a given symbol belongs
+      to a specified GICS category.</li>
+      <li><a href="afl/gicsid.html">GicsID</a> - gets information about a GICS category.</li>
+      <li><a href="afl/playsound.html">PlaySound</a> - plays a .WAV sound file.</li>
+      <li><a href="afl/shellexecute.html">ShellExecute</a> - executes an external
+        program/file. </li>
+      <li><a href="afl/_dt.html">_DT</a> - Synonym of StrToDateTime.</li>
+    </ul>
+  </li>
+  <li>Quote Editor improvements and fixes: allows the user to turn on/off
+    time shift and editing timestamps down to milliseconds; fixed handling of
+    12-hour (AM/PM) regional settings.</li>
+  <li>Charting improvements: better-looking value labels, low-level gfx functions
+  sped up 4 times.</li>
+  <li>Charting-related changes
+    <ul>
+      <li>Data Window and data tooltip readout is immediate
+          and does not require extra AFL execution (values required for display
+        are stored in RAM during normal chart refresh and available without the
+        need to re-run the formula). Tooltip variable is now obsolete. To display
+        custom
+          values in tooltips without plotting a line you can use Plot() with
+        styleHidden flag.</li>
+      <li>Interpretation display does not require AFL execution.</li>
+      <li>Inserting an indicator and resetting parameters are orders of magnitude
+        faster.</li>
+      <li>chart zoom setting is now saved in a layout file and restored when
+        layout is loaded.</li>
+    </ul>
+  </li>
+  <li>OLE interface improvements (new IsBusy method of Analysis object and Import
+    method refreshes the UI automatically).</li>
+  <li>AFL engine improvements:
+    <ul>
+      <li>added warnings that detect potential user mistakes, such as assignment
+        within conditional expression or redundant calls to Plot() function.</li>
+      <li>added extra checks for invalid parameter values for many functions
+        and array subscript == Null; an appropriate error message is displayed.</li>
+      <li>PlotText optimized to conserve memory and reduce execution time by
+        skipping invisible parts.</li>
+    </ul>
+  </li>
+  <li>Account Manager fixes.</li>
+  <li>improved compatibility with Windows 7 (high-DPI-aware manifest, compatibility
+    with Internet Explorer 9).</li>
+  <li>64-bit-specific fixes (including fixing problems with 3rd party DLLs).</li>
+  <li>new appearance themes and many other improvements
+    and fixes.</li>
+</ul>
+<p><b>Highlights of version 5.30</b></p>
+<ul>
+  <li>changed database format to support timestamp granularity down to one microsecond
+    (0.000001s) and more data fields.</li>
+  <li><a href="afl/staticvarset.html">static <strong>array</strong> variables</a>.</li>
+  <li><strong>user-definable backtest report charts</strong> (see examples in Charts window, &quot;Report
+    Charts&quot; folder).</li>
+  <li>new <a href="w_datawindow.html">Data Window</a> (Window-&gt;Data Window).</li>
+  <li>new  <a href="w_perfmonitor.html">Performance Monitor</a> tool.</li>
+  <li>tick statistics added to <a href="w_timesales.html">Time&amp;Sales window</a>.</li>
+  <li>chart blank area extension using the <strong>END</strong> key
+    (on the keyboard); to restore the original setting, press the <strong>HOME</strong> key.</li>
+  <li>added an option to require variable declarations (SetOption(&quot;RequireDeclarations&quot;,
+    True )).</li>
+  <li>persistent  column state (widths, order, visibility) in the Automatic
+    Analysis and all other list views.</li>
+  <li>gradient area charts capability (see Charts - Basic Chart - Gradient Price
+    chart).</li>
+  <li><strong>new <a href="keyword/typeof.html">typeof</a>() AFL operator</strong>.</li>
+  <li><strong>new AFL functions</strong>
+    <ul>
+      <li><a href="afl/colorblend.html">ColorBlend</a></li>
+      <li><a href="afl/datetimediff.html">DateTimeDiff</a></li>
+      <li><a href="afl/highestvisiblevalue.html">HighestVisibleValue</a></li>
+      <li><a href="afl/lowestvisiblevalue.html">LowestVisibleValue</a></li>
+      <li><a href="afl/staticvarcount.html">StaticVarCount</a> <br>
+      </li>
+    </ul>
+  </li>
+  <li><a href="h_zorder.html"><strong>User-definable Z-order</strong></a> of drawings and indicator plots.</li>
+  <li>optional data padding for non-trading days.</li>
+  <li>Rectangle and ellipse drawing tools are now solid by default.</li>
+  <li><strong>X-Y coordinate labels</strong> added (use View-&gt;X-Y Labels menu
+    to display/hide).</li>
+  <li>Support for SSL (secure connection) and TCP/IP port selection for email
+    alerts added.</li>
+  <li>new <a href="h_categories.html">Symbols window with ultra-quick full-text
+      search and sorting</a>.</li>
+  <li>support for GICS 4-level category system. </li>
+  <li><a href="w_placeorder.html">placing orders directly from chart</a> (Interactive Brokers).</li>
+  <li>many other improvements and fixes (see Release Notes document for details).</li>
+</ul>
+<p><b>Highlights of version 5.20</b></p>
+<ul>
+  <li><b><a href="h_optimization.html#SMART">Smart (non-exhaustive) trading system optimization</a><br>
+    </b><br>
+    AmiBroker now ships with three non-exhaustive, evolutionary optimization algorithms:<br>
+    <b>SPSO</b> (Standard Particle Swarm Optimizer)<br>
+    <b>TRIBES</b> (Advanced Particle Swarm)<br>
+    <b>CMA-ES</b> (Covariance Matrix Adaptation Evolutionary Strategy).<b><br>
+    </b></li>
+  <li><b><a href="h_portfolio.html#NEUTRAL">Support for market-neutral, long-short balanced strategies</a> </b>via MaxOpenLong/MaxOpenShort
+  control and separate long/short rankings in the backtester.<br>
+  </li>
+  <li><b>Performance optimizations in chart drawing engine </b>- charts are orders
+    of magnitude faster when the number of bars displayed is much greater than the
+    number of pixels.<br>
+  </li>
+  <li><a href="w_log.html"><b>Log window</b></a> implemented – allowing tracing and run-time error reporting.<br>
+  </li>
+  <li><b><a href="http://www.amibroker.com/kb/2008/07/03/quickafl/" target="_blank">QuickAFL</a> implemented
+      in the Automatic Analysis</b> - speeds up backtests, optimization,
+  and explorations by a factor of 2 or more (if range is less than all quotations).
+  (Note: in order to enable it you need to check &quot;Use QuickAFL&quot; box in the Automatic
+  Analysis settings).<br>
+  </li>
+  <li><b>Multiple-segment Volume-At-Price charts</b> (via <a href="afl/plotvapoverlaya.html">PlotVAPOverlayA</a> function).<br>
+  </li>
+  <li>32-bit AmiBroker is now LARGEADDRESSAWARE, i.e. can now use up to 4GB of
+    RAM.<br> 
+  </li>
+  <li><b>Built-in Quarterly and Yearly intervals</b><br>
+    <br>
+  </li>
+  <li><b>Automatic summary rows in the explorations</b> (via <a href="afl/addsummaryrows.html">AddSummaryRows</a> AFL
+  function). <br>
+  </li>
+  <li><b>Charting enhancements and improvements</b></li>
+  <ul>
+    <li>better handling of drawing tools</li>
+    <li>better magnet mode</li>
+    <li>Fibonacci timezones now include lines 144 and 233</li>
+    <li>zooming via scroll bar improved<br>
+    </li>
+  </ul>
+  <li>Range bars now use per-symbol TickSize as a unit.<br>
+  </li>
+  <li><b>new AFL functions</b>:<br>
+    <a href="afl/getchartbkcolor.html">GetChartBkColor</a><br>
+    <a href="afl/categorysetname.html">CategorySetName</a><br>
+    <a href="afl/plotvapoverlaya.html">PlotVAPOverlayA</a><br>
+    <a href="afl/addsummaryrows.html">AddSummaryRows</a><br>
+    <a href="afl/dayssince1900.html">DaysSince1900</a>    <br>
+    <a href="afl/optimizersetengine.html">OptimizerSetEngine</a><br>
+  <a href="afl/optimizersetoption.html">OptimizerSetOption</a><br>
+  <a href="afl/strcount.html">StrCount<br>
+  </a>  </li>
+  <li>AFL performance improvements in LinearReg, LinRegSlope, LinRegIntercept,
+    TSF and StdErr, Day(), Month(), Year(), DaysSince1900(), DayOfWeek(), DayOfYear()
+    functions (order of magnitude faster).<br>
+  </li>
+  <li>Improved AFL functions: queued <a href="afl/say.html">Say</a>() command
+    (text-to-speech), improved <a href="afl/strextract.html">StrExtract</a>() -
+    can now refer to items counting from the end.<br>
+  </li>
+  <li>real-time data plugins updated (IB version 1.2.4, eSignal version 1.9.0);
+    IBController updated to support the latest changes in data sources.<br>
+    <br>                
+  </li>
+</ul>
+<p>&nbsp;</p>
+<p><b>Highlights of version 5.10</b></p>
+<ul>
+  <li>Automatic <a href="h_walkforward.html"><b>Walk-Forward testing</b></a> (trading system optimization and validation
+      technique).<br>
+      <br>
+  </li>
+  <li><b><a href="h_sheets.html#FLOATING">Floating windows</a></b> (TRUE multi-monitor charting capability).<br>
+    Ability to &quot;undock&quot; (or &quot;float&quot;) the chart window and move it to a separate
+      monitor. <br>
+      All layout code is also updated to correctly save and restore multi-monitor
+      chart setups.<br>
+      <a href="http://www.amibroker.com/video/FloatAndLink.html" target="_blank">http://www.amibroker.com/video/FloatAndLink.html </a><br>
+      <br> 
+  </li>
+  <li><a href="h_sheets.html#LINKING"><b>Symbol and Interval linking</b></a><b> <br>
+    </b>multiple charts can now be linked by symbol and/or by interval using
+    easy-to-use color-coded links.<br>
+    <br>
+  </li>
+  <li><b>AFL Code Profiler</b> - shows code analysis with a detailed per-function
+  timing report (AFL Editor: <b>Tools-&gt;Code Check &amp; Profile</b> menu).<br>
+  <br>
+  </li>
+  <li><b><a href="w_rtquote.html">Real-time quote window</a></b> improvements:
+    <ul>
+      <li>reordering of symbols in the RT quote using drag-and-drop</li>
+      <li>direct type-in of symbols into RT quote window</li>
+      <li>ability to separate groups of symbols by inserting an empty line</li>
+      <li>faster refresh and multi-stage background color fading upon quote change.<br>
+        <br>
+      </li>
+    </ul>
+  </li>
+  <li><b>new/improved AFL functions
+  </b>    
+    <ul>
+      <li>(new) <a href="afl/setbarfillcolor.html">SetBarFillColor</a></li>
+      <li>(improved) <a href="afl/getcursorxposition.html">GetCursorXPosition</a> </li>
+      <li>(improved) <a href="afl/getcursoryposition.html">GetCursorYPosition</a></li>
+      <li>(improved) <a href="afl/getcursormousebuttons.html">GetCursorMouseButtons</a> </li>
+      <li>(improved) <a href="afl/setchartoptions.html">SetChartOptions</a></li>
+      <li>(improved) <a href="afl/setoption.html">SetOption</a></li>
+      <li>(improved) <a href="afl/status.html">Status</a><br>
+        <br>
+      </li>
+    </ul>
+  </li>
+  <li>Improved speed of backtesting/optimization (up to 2x in some cases as compared
+  to v5.00).<br>
+  <br>
+  </li>
+  <li>improved chart crosshairs - no flicker, work faster, and can be switched
+    on/off globally.<br>
+    <br>
+  </li>
+  <li>track more foreign markets: now you can define rates for up to 20 currencies
+    (different from the base currency) for multiple currency backtesting in the <a href="w_preferences.html">preferences
+    window</a>.<br>
+  </li>
+</ul>
+<ul>
+  <li>new backtester modes: <a href="h_portfolio.html">backtestRegularRaw2 and backtestRegularRaw2Multi</a>.<br>
+    <br>
+  </li>
+  <li>new <a href="a_custombacktest.html">FindSignal method of backtester object</a>.<br>
+    <br>
+  </li>
+  <li>3D optimization chart animation is now smoother (100fps).<br>
+    <br>
+  </li>
+  <li>unlimited nesting of <a href="afl/_include.html">#include</a> and <a href="afl/_include_once.html">#include_once</a> statements.<br>
+    <br>
+  </li>
+  <li>Improved scaling of semi-log charts, MDI tab order saved in the layout,
+    improved bug reporting, high resolution Vista icon added, other fixes and
+    improvements.<br>
+  </li>
+</ul>
+<p><b>Highlights of version 5.00</b></p>
+<ul>
+  <li>New <a href="h_watchlist.html">Watchlist system</a> featuring:
+    <ul>
+      <li>unlimited number of watchlists</li>
+      <li>lists keep the original order in which symbols
+      were added (still can be sorted alphabetically on-demand)</li>
+      <li>new<a href="afl/categoryfind.html"> AFL function to refer to watchlists
+          by name</a><br>
+      </li>
+    </ul>
+  </li>
+  <li>Support for <b>AFL Code Wizard</b> - a brand-new automatic formula creation program
+    for people without any programming experience. For more information about
+    AFL Code Wizard, see this introductory video: <a href="http://www.amibroker.com/video/amiwiz/AFLWiz1.html" target="_blank">http://www.amibroker.com/video/amiwiz/AFLWiz1.html</a>.<br>
+  </li>
+  <li>  AFL engine enhancements:
+    <ul>
+      <li>new flow control statements: <a href="keyword/switch.html">switch</a> /<a href="keyword/case.html">case</a> / <a href="keyword/break.html">break</a> / <a href="keyword/continue.html">continue</a> </li>
+      <li>new
+      compound assignment operators: +=, -=, *=, /=, %=, &amp;=, |=</li>
+      <li>new functions: <a href="afl/getplaybackdatetime.html">GetPlaybackDateTime</a>(),
+        <a href="afl/popupwindow.html">PopupWindow</a>(), Mersenne Twister Random
+      Number Generator <a href="afl/mtrandom.html">mtRandom</a>(), and others.<br>
+</li>
+    </ul>
+  </li>
+  <li>New dedicated memory heap allocators for quotes and trading system signals
+    resulting in the ability to run much longer optimizations than ever without getting
+    out-of-memory messages.<br>
+  </li>
+  <li>Two new backtester modes (available using <a href="afl/setbacktestmode.html">SetBacktestMode</a> function)
+    allowing the <a href="h_portfolio.html#MODES">handling of unfiltered (raw) entry signals</a>.<br>
+  </li>
+  <li>User-definable <a href="w_commission.html">5-tier commission schedule</a> in the backtest (Automatic Analysis
+    / Settings).<br>
+  </li>
+  <li>Chart template sharing: <br>
+    now you can <a href="h_sheets.html#NEWFORMAT">save the chart as &quot;Chart Template, Complete
+    (*.chart)&quot;</a> that stores all layout AND referenced formulas in a SINGLE file
+    that can
+        be sent to your friend, and the entire chart will be restored on any computer
+        with ease, without the need to copy individual formulas.<br>
+  </li>
+  <li>New-Look charts – divider lines between panes are now single-pixel and
+    no borders around charts, giving a cleaner, larger, and more readable chart
+    display and printout.<br>
+  </li>
+  <li>Custom Range Bars (supported in charts and via <a href="afl/timeframeset.html">TimeFrameSet</a>()).<br>
+  </li>
+  <li>New <a href="a_lowlevelgfx.html">Low-level graphics interface (23 new AFL functions)</a>.<br>
+  </li>
+  <li>HTML Import in Automatic Analysis.<br>
+  </li>
+  <li>Full-screen anti-aliasing in 3D optimization chart viewer (beautifully
+  smooth 3D charts and improved readability).<br>
+  </li>
+  <li>Enhanced Real-Time Quote window display (faster updates, dual-color change
+    marks). <br>
+  </li>
+  <li>Control of <a href="d_ascii.html#TIMESHIFT">Time Shift in the ASCII importer</a>.</li>
+</ul>
+<p>&nbsp;</p>
+<ul><p>&nbsp;</p>
+</ul>
+<h3>  Detailed Change Log</h3>
+<p><strong>CHANGES FOR VERSION 6.10.0 (as compared to 6.09.0)</strong></p>
+              <ul>
+  <li>SetOption new fields for Monte Carlo: <br>
+    MCUseEquityChanges – use equity changes instead of a trade list. <br>
+    MCChartEquityScale
+    – 1 for log scale, 0 for linear scale. <br>
+    MCLogScaleFinalEquity – 1 for log scale,
+    0 for linear scale. <br>
+    MCLogScaleDrawdown – 1 for log scale, 0 for linear scale.
+    <br>
+    MCNegativeDrawdown – 1 – use negative numbers for drawdown (reverse drawdown
+    CDF).  </li>
+  <li>QuickData cache was not flushed when double-clicking on the Analysis result list to display a chart. Fixed.</li>
+  <li> Monte Carlo: added an option to use negative numbers for drawdowns (on by
+    default). This reverses the ordering of the &quot;drawdown&quot; column
+   in the MC table and reverses the meaning (i.e., a 10% percentile value means
+    that there is a 10% chance of drawdowns being equal to or worse (more negative)
+    than the presented value). With this option turned off (as in old versions),
+    drawdowns are reported as numbers greater than zero, and a 10% percentile value
+    means a 10% chance of drawdowns
+   being equal to or better (smaller) than the presented amount.  </li>
+  <li> AFL: Gfx: Low-level graphics recorded on layer 128 was played prematurely. Fixed.</li>
+  <li>Added error message when the user attempts to write a value to BarCount (read-only symbol).</li>
+  <li>More documentation updates.</li>
+</ul>
+<p><strong>CHANGES FOR VERSION 6.09.0 (as compared to 6.08.0)</strong></p>
+<ul>
+  <li>AFL: new function fgetcwd - get the current working directory.</li>
+  <li>AFL Editor: an error message box displayed when an @link file was not found caused the main frame to get focus. Fixed.</li>
+  <li> AFL Editor: auto-complete and parameter tooltips popped up when adding/editing Doxygen/Javadoc comment sections. Fixed.</li>
+  <li>Updated documentation.</li>
+</ul>
+   <p><strong>CHANGES FOR VERSION 6.08.0 (as compared to 6.07.0)</strong></p>
+                <ul>
+                  <li>AFL Editor: Implemented clickable JavaDoc/Doxygen-style
+                                    links in doc comments.<br>
+                    To use links in comments, you have to put the @link command followed by the path to
+                    a file or URL inside a JavaDoc/Doxygen style comment:<br>
+                    a) multi-line comment that begins with<br>
+                    /** <br>
+                    @link readme.html<br>
+                    @link http://www.amibroker.com<br>
+                    */<br>
+                    (note double asterisk after initial slash)<br>
+                    b) single-line comment that begins with a triple slash <br>
+                    /// @link readme.html<br>
+                    /// @link c:\program files\amibroker\readme.html<br>
+                    /// @link http://www.amibroker.com
+                    <p>Now, when you hover the mouse over the @link command, you will see an underline
+                      that indicates it is clickable.<br>
+                      It reacts to a DOUBLE CLICK (not a single click). When you double-click it, the
+                    linked document will open.</p>
+                    <p>@link command can open web pages, local files (both relative and absolute
+                      paths are supported) with a Windows-registered program<br>
+                      to open a given file type. So if you use<br>
+                    /// @link something.doc</p>
+                    <p>then MS Word would be used.</p>
+                    <p>/// @link test.xls</p>
+                    <p>would open test.xls in Excel.</p>
+                    <p>Relative paths refer to the AmiBroker working directory. <br>
+                      HTML files are opened with the default browser; TXT files are usually opened with
+                    Notepad (or whatever application you use).</p>
+                    <p>If the file does not exist, then you will get an error message.<br>
+                    </p>
+                  </li>
+                  <li>AFL: Unary minus and the NOT operator could cause a crash when
+                                    applied to the result of an undefined function or variable of non-numeric
+                    type. Fixed.</li>
+                  <li>64-bit stack walker no longer uses Microsoft symbol server
+                                    anymore, so it can initialize a lot faster. Also, initialization
+                                    of the stack walker is moved to the startup sequence because doing
+                    it after an exception is risky and unreliable.</li>
+                  <li>64-bit: access violations during Analysis run do not result
+                                    in an 'application not responding' freeze. Instead, a bug report
+                    is displayed with a proper call stack.</li>
+                  <li>After a change in 6.02, the exception dialog displayed the first error
+                                    in the formula even if the exception was really caused not by the
+                    first but the last error. Fixed.</li>
+                  <li>Exception info could get mixed up when multiple threads
+                    generated them simultaneously. Fixed.</li>
+                  <li>New Analysis: Auto-size column functionality re-displayed
+                    hidden columns. Fixed.</li>
+                  <li>UI: AmiBroker now prevents piling on &quot;Bug recovery&quot; dialogs
+                                    when multiple exceptions are thrown from multiple threads.
+                                    The first dialog is displayed; other exceptions are logged into
+                    DebugView as long as &quot;Bug recovery&quot; is not dismissed.</li>
+                  <li>&quot;Rename&quot; and backup functions in several places
+                    could fail if the new file name already existed. Fixed.</li>
+                  <li>Support for Windows 95 is dropped.</li>
+                </ul>
+                <p><strong>CHANGES FOR VERSION 6.07.0 (as compared to 6.06.0)</strong></p>
+                <ul>
+                  <li>AFL: compression for array static variables implemented
+                                    to save memory and file size: StaticVarSet has an additional
+                                    parameter that controls compression.<br>
+                    The compressMode parameter decides whether a given variable will be compressed
+                    or not.<br>
+                    By default, only persistent static variables will be compressed (cmDefault).<br>
+                    You can turn it off completely (compressionMode = cmNever) or turn it on for
+                    persistent and non-persistent variables using<br>
+                    compressionMode = cmAlways.
+                    <p>Compression is done by removing repeated values from the sequence, as repeated
+                      values<br>
+                      are restored when doing StaticVarGet.<br>
+                      Compression is NOT compatible with the non-aligned mode of StaticVarGet.<br>
+                      If a compressed array is retrieved by StaticVarGet with align=False, then
+                    repeated values found in the original array would not be retrieved.</p>
+                    <p>Turning compression on slows down StaticVarSet (as it needs to do some
+                      extra processing), but does not affect the performance of other functions,<br>
+                      so StaticVarGet is equally fast with or without compression.<br>
+                    </p>
+                  </li>
+                  <li>AFL: printf/StrFormat checks for %s, %c, %d, %x, %i, %u,
+                                    %x, %p sequences that are not supported now and prints Error
+                    62 when they are found.</li>
+                  <li>AFL: printf/StrFormat now implements a check for a correct
+                                    formatting string, as sometimes users passed strings with
+                                    % (which is a special marker for a formatting string) instead of
+                                    %% to print an actual percent sign.<br>
+                    <br>
+                    When the check fails, &quot;Error 61. The number of % formatting specifier(s)
+                    does not match the number of arguments passed.&quot; is displayed.<br>
+                  </li>
+                  <li>AFL: Some variable period functions such as Ref/Sum/MA
+                                    incorrectly accepted a matrix as a 'period'. Fixed (a proper
+                    error message is displayed now).</li>
+                  <li>AFL: StaticVarGet/StaticVarSet functions now support matrices
+                                    including persistency (so matrices can be written to disk
+                    and loaded back between AmiBroker runs).</li>
+                  <li>AFL: VarSet/VarGet officially accept matrices (allow dynamic
+                                    variables of matrix type). (FWIW they were accepted in previous
+                    versions but implementation was incomplete.)</li>
+                  <li>Charting: Candlestick wick thickness is now user-definable
+                                    as a % of candle width with a max. pixel width (Tools-&gt;Preferences, &quot;Bars
+                                    and Candles&quot; tab). Also, by default, wick thickness is
+                    now 25%/5px max instead of a constant 1 pixel.</li>
+                  <li>Charting: Cycles tool in weekly chart produced incorrect
+                    lines when it went past 2038. Fixed.</li>
+                  <li>Charting: Horizontal line tool level is now displayed with
+                                    the number of decimals as defined in Preferences (Misc tab, &quot;decimal
+                                    places in chart titles/tools&quot;). Note that this setting
+                    is used when you draw a new line or modify an old one.</li>
+                  <li>Debugger: Added the F5 key as a keyboard shortcut for &quot;Debug
+                    / Go&quot;.</li>
+                </ul>
+                <p><strong>CHANGES FOR VERSION 6.06.0 (as compared to 6.05.0)</strong></p>
+                <ul>
+                  <li>AFL Editor: bookmarks implemented (Ctrl+F2 – toggle bookmark,
+                    F2 – go to next bookmark, Shift+F2 – go to previous bookmark).</li>
+                  <li>AFL Editor: Find in Files - when a file name contained braces,
+                    double-clicking on it would not open it. Fixed.</li>
+                  <li>AFL Editor: Line comment puts double // comments on lines
+                                    that appear after an empty line. Fixed. Now empty lines are
+                    left untouched.</li>
+                  <li>AFL: an extra parameter for DateTimeToStr function mode (mode
+                                    = 0 - convert both date and time portions, 1 - only date,
+                                    2 - only time). Note that mode 2 would give an empty string
+                    when applied on a chart with a daily or longer interval.</li>
+                  <li>AFL: new function GfxFillSolidRect( x1, y1, x2, y2, color
+                                    ) - it is the fastest method to fill a solid rectangle with a single
+                                    color (faster than GfxRectangle).<br>
+                    pw = Status(&quot;pxwidth&quot;);<br>
+                    ph = Status(&quot;pxheight&quot;);
+                    <p>GfxFillSolidRect( 0, 0, pw, ph, colorBlack );</p>
+                  </li>
+                  <li>AFL: new function SumSince - a fast sum of array elements
+                                    since a condition was true, works like Cum( array ) - ValueWhen(
+                                    condition, Cum( array ) ) or Sum( array, BarsSince( condition
+                                    )), but much faster.<br>
+                    Syntax: SumSince( condition, array ).<br>
+                  </li>
+                  <li>AFL: Variable period Sum() performance improved significantly
+                    when period changes +/-1 on a bar-by-bar basis.</li>
+                  <li>Categories dialog: added the ability to rearrange the order
+                                    of markets/groups/sectors/industries and watchlists using &quot;Move
+                                    Up&quot; / &quot;Move down&quot; buttons.<br>
+                    This is a non-trivial task, as all symbols must be synchronized with the change;
+                    when the ordering of categories changes, then all symbols' data must be re-indexed
+                  to reflect the new order, as symbols refer to the ordinal position of the category. </li>
+                  <li>New Analysis: Added an option &quot;Auto-size columns to
+                                    fit content&quot; – OFF by default. When turned on, column
+                                    widths are adjusted to fit the content after analysis is
+                                    complete. Note that this means any widths specified
+                                    in the width parameter in AddColumn will be ignored when
+                    this is turned ON.</li>
+                  <li>New Analysis: when &quot;Wait for backfill&quot; was turned
+                                    ON and some symbols in the &quot;Apply to&quot; list were
+                                    wrong (non-existing), then Analysis attempted to run code
+                    for a symbol without quotes, causing trouble. Fixed.</li>
+                </ul>
+                <p><strong>CHANGES FOR VERSION 6.05.0 (as compared to 6.04.0)</strong></p>
+                <ul>
+                  <li>AFL Editor: Find in Files implemented – on the output list,
+                    you can double-click on a line to open the file in the editor.</li>
+                  <li>AFL Editor/Debugger: Code Check and Profile stopped working
+                    when it was run after a debugging session. Fixed.</li>
+                  <li>AFL: Null is now accepted by MxFromString.</li>
+                  <li>AFL: performance of printf() for large-volume output (&gt;60000
+                    characters) improved ~60 times.</li>
+                  <li>Charts: reduced tearing when resizing the chart window.</li>
+                  <li>Debugger now can use either the base time interval or the current
+                                    chart interval (Tools-&gt;Preferences, Debugger tab, &quot;Bar
+                    interval&quot; setting).</li>
+                  <li>Debugger: implemented an Output window (for printf() output
+                    during debugging).</li>
+                  <li>Removed the old-style legacy AFL editor from the code; removed the &quot;use
+                                    new editor&quot; checkbox from the preferences. The new editor
+                    is always used now.</li>
+                  <li>UI: Unfold triangles in tree views and checkboxes in the Layers
+                                    list were hard to click on HighDPI screens because icons
+                                    were too small. Fixed. Now, larger icons (32x32) are used
+                                    instead of small (16x16) on small tablets like 8'' Windows
+                                    with high resolution (such as 1920x1200) that have very high
+                    DPI (approx 200 DPI).</li>
+                  <li>Watch window: now expressions with 2D subscripts to access
+                    elements of matrix, matrix[ x ][ y ], are supported.<br>
+                  </li>
+                </ul>
+                <p><strong>CHANGES FOR VERSION 6.04.0 (as compared to 6.03.0)</strong></p>
+                <ul>
+                  <li>AFL Editor &amp; Watch Window: the contents of matrices
+                    are now displayed in value tooltips and the watch window.</li>
+                  <li>Debugger state (watch variables/expressions and breakpoint
+                                    locations) is now saved between AFL editor sessions (formula-wise,
+                                    so each formula has its own &quot;debug state&quot;). The
+                    data are saved in an XML file with a .dbg extension.</li>
+                  <li>Debugger: MDI mode implemented. In 6.0.3, the AFL Editor did
+                                    not support 'MDI mode' (even crashed); now this functionality
+                                    is back. Also, the Watch window is available in MDI mode, and the debugger
+                    is working in MDI mode too.</li>
+                  <li>Preferences: added a new page with Debugger settings. <br>
+                    The settings are as follows:<br>
+                    + Limit BarCount to – defines the maximum number of bars in arrays (BarCount)
+                    used during debugging.<br>
+                    + Auto-scroll to first changed item – when this is ON, the &quot;Arrays&quot; list
+                    in the Watch window is scrolled automatically to the first array item that has
+                    changed (so you don't need to locate elements that changed manually).<br>
+                    + Keep debugging state – when this is ON, the AFL editor saves the debug state
+                    (breakpoints and watches) in the .dbg file along with the formula when closing
+                    the editor and restores the state when the formula is reopened.<br>
+                  </li>
+                  <li>Preferences: the 'Editor' tab moved so that 'AFL', 'Editor', and
+                                    'Debugger' tabs are next to each other. Also, the 'Alerts' and
+                    'Currencies' tabs moved before 'Miscellaneous'.</li>
+                  <li>Watch window: a new tab &quot;Arrays&quot; shows exploration-like
+                                    array output for detailed examination of array contents (the first
+                    20 arrays from the watch window are reported).</li>
+                  <li>Watch window: implemented array item change highlighting
+                                    and auto-scrolling so the first changed item is always visible
+                    in the 'Arrays' tab.</li>
+                  <li>Watch window: implemented an expression evaluator, so you
+                                    can not only display variables but also expressions involving
+                                    variables such as (high+low)/2 or individual array elements
+                    such as myvariable[ i ] where 'i' is a dynamic loop counter.</li>
+                  <li>Watch window: implemented value change highlighting: changed
+                                    values are displayed with a light yellow background; additionally,
+                                    numeric (scalar) values are displayed in green when they
+                    increased or red if they decreased.</li>
+                  <li>Watch window: pressing DELETE key while editing variable
+                    name caused deletion of the variable from the watch. Fixed.</li>
+                  <li>Watch window: variables can now be drag-dropped from the AFL
+                                    editor window.<br>
+                  </li>
+                </ul>
+                <p><strong>CHANGES FOR VERSION 6.03.0 (as compared to 6.02.0)</strong></p>
+                <ul>
+                  <li>AFL Editor: Implemented a brand-new, fully integrated Visual
+                                    AFL Debugger.<br>
+                    NOTES: This is work-in-progress; more features will be added in later betas.<br>
+                  </li>
+                  <li>Debugger: Implemented breakpoints (including those set
+                                    before compilation, as well as adding/removing breakpoints
+                                    during debugging).<br>
+                    <br>
+                    To add/remove a breakpoint, use the red circle toolbar button or press F9.<br>
+                    Breakpoints can be added and removed at any time (during editing, when the debugger
+                    is in a 'running' state, or stopped at a breakpoint).<br>
+                    Breakpoints are implemented statement-wise (as single-stepping). Keep in
+                    mind that there can be only one breakpoint in any single line, so if a line
+                    has more than one statement<br>
+                    like this:<br>
+                    x=1;y=1;<br>
+                    the breakpoint will trigger before the first statement in this line.
+                    <p>Breakpoints currently work with:<br>
+                      a) regular statements (that end with a semicolon). For multi-line statements,
+                        place the breakpoint at the beginning line of the statement.<br>
+                      b) for loops<br>
+                      c) while loops<br>
+                      d) do-while loops (you need to place the breakpoint where the 'while' clause is
+                      located; it won't break at the 'do' line as it essentially is a no-op; if
+                      you want to break at the beginning<br>
+                      of 'do', just place the breakpoint on the first statement inside the { block }).<br>
+                      e) return statements.<br>
+                      f) switch/case statements.<br>
+                    g) break statements.</p>
+                    <p>Breakpoints that you place on other lines won't trigger. The AFL editor
+                      won't allow placing a breakpoint on an empty line, or a line that begins with
+                    a // comment or a sole brace.</p>
+                    <p></p>
+                  </li>
+                  <li>Debugger: Implemented single-stepping (Step Into, Step Over).<br>
+                    <br>
+                    Single-stepping is done statement-wise, so it works on a single statement at
+                    a time. For example, empty lines are skipped, and statements spanning multiple
+                    rows, like below, are treated as one step.
+                    <p>x = &quot;test&quot; +<br>
+&quot; second row&quot; +<br>
+&quot; third row&quot;;</p>
+                    <p>But if you put two statements in a single line, like this:<br>
+                    x = 1; y = 2;</p>
+                    <p>Then this line would be treated as two steps (each expression 'x = 1;' and
+                    'y = 2;' separately).</p>
+                    <p>Keyboard shortcuts:<br>
+                      Step Over F10<br>
+                    Step Into F11</p>
+                    <p></p>
+                  </li>
+                  <li>Debugger: Implemented variable value inspection tooltips
+                                    (hover the mouse over a variable to see its value).<br>
+                  </li>
+                  <li>Debugger: Implemented Watch window with variable value
+                                    display, automatically updating when the debugger single-steps
+                                    or reaches a breakpoint.<br>
+                    <br>
+                    To add a variable to the watch window, simply double-click on the list (at the end
+                    to add a new variable).<br>
+                    You can also change a variable name by double-clicking on an existing item.<br>
+                  </li>
+                  <li>Renaming of PersistVars.temp to PersistVars.bin failed
+                    on some versions of the OS. Fixed.</li>
+                  <li>RT Quote window: drag-and-drop list view shows a small arrow
+                    marker for the drop point now.</li>
+                  <li>RT Quote window: when moving items using drag-and-drop, the moved
+                    item's image was flickering. Fixed.</li>
+                  <li>UI: Chart zoom via Ctrl+mouse wheel now works so it attempts
+                                    to use the current mouse position as a &quot;center&quot; point of
+                                    zoom when possible. (Previously, it always worked so the right
+                    border was the 'center').</li>
+                  <li>AFL: Sum(array,N) outputs NULL values for indices starting
+                    from 0 up to index N-1 instead of N.</li>
+                  <li>When intraday data were used, timestamp of 00:00:00 was
+                                    not displayed in data tooltip (empty field was shown). Fixed.<br>
+                  </li>
+                </ul>
+                <p><strong>CHANGES FOR VERSION 6.02.0 (as compared to 6.01.0)</strong></p>
+                <ul>
+                  <li>AFL Editor: Implemented Line comment/uncomment feature
+                                    (Edit-&gt;Line Comment, Ctrl+Q) to automatically add/remove
+                                    // line comments from single or multiple lines. If multiple
+                                    lines are selected, the content of the first selected line
+                                    decides whether a block of lines is to be commented or
+                    uncommented.</li>
+                  <li>AFL: If any matrix cell has a Null value, then the matrix product
+                                    operator @ produces a Null respective row/column of the result
+                    matrix.</li>
+                  <li>AFL: if a user called (a) GetPerformanceCounter( 1 ) then
+                                    (b) GetPerformanceCounter( 0 ), then a subsequent call to GetPerformanceCounter(0)
+                                    returned accumulated time not from call (a) but from system
+                    boot. Fixed.</li>
+                  <li>AFL: matrix identifier can now be used in an if-else statement.
+                                    Such a condition checks whether the very first element of matrix
+                                    [0][0] is NOT NULL. This is useful for checking the output of
+                                    functions like MxInverse/MxSolve that would return NULL in
+                                    all cells if the matrix is singular.<br>
+                    So
+                    <p><CODE>m = <font color='#0000ff'>Matrix</font>( <font color='#800080'>10</font>, <font color='#800080'>10</font>, <font color='#800080'>0</font> ); <br>
+                      <br>
+                      <font color='#008000'>// do something with matrix </font><br>
+                      <font color='#800000'><b>if</b></font>( m ) <br>
+                      { <br>
+                      <font color='#008000'>// some code <br>
+                      </font>} <br>
+                      <br>
+                      is equivalent to <br>
+                      <br>
+                      <font color='#800000'><b>if</b></font>( <font color='#800000'><b>NOT</b></font> <font color='#0000ff'>IsNull</font>(
+                      m[ <font color='#800080'>0</font> ][ <font color='#800080'>0</font> ] )
+                      ) <br>
+                      { <br>
+                      <font color='#008000'>// some code <br>
+                    </font>}</CODE></p>
+                  </li>
+                  <li>AFL: MxSolve/MxInverse now return a matrix filled with
+                                    Nulls as a result if the source matrix cannot be inverted and
+                    produce warning level 2 instead of an error. </li>
+                  <li>AFL: On Windows Vista and higher static variables use a slim
+                                    read-write (SRW) lock instead of critical section. This gives
+                    a 5% performance increase in multithreading scenarios.</li>
+                  <li>AFL: StaticVarAdd( &quot;name&quot;, value, keepAll = True,
+                                    persistent = False ) - an atomic addition (interlocked read-add-write)
+                                    operation for static variables.<br>
+                    <br>
+                    It is a multithreading-safe addition for static variables that are shared by
+                    multiple threads. This function is atomic with respect to calls to other
+                    static variable functions.
+                    <p>The KeepAll flag, when it is set to true, emulates the behavior of AddToComposite.
+                      It keeps all values that are already present, so if data holes exist in
+                      the current symbol,<br>
+                      the bars that are present in the static variable but not present in the current
+                      symbol remain untouched.<br>
+                      When KeepAll is set to false, then only bars that are present in the current
+                      symbol are kept. Any other bars that were present in the static variable but
+                      not present in currently<br>
+                    processed symbols are removed. That is what normally happens with StaticVarSet().</p>
+                    <p>In fact, when KeepAll is set to False, StaticVarAdd can be seen as the
+                      following pseudo code:<br>
+                      <code>EnterCriticalSection<br>
+                      x = Nz( StaticVarGet( &quot;name&quot; ) ); // read existing value (and
+                      convert Nulls to zero)<br>
+                      x += Nz( value ); // add value to existing<br>
+                      StaticVarSet( &quot;name&quot;, x ); // store updated value<br>
+                    LeaveCriticalSection</code></p>
+                    <p>The function can be used to create composites like this:</p>
+                    <p><CODE><font color='#800000'><b>if</b></font>( <font color='#0000ff'>status</font>(<font color='#800080'>"stocknum"</font>)
+                        == <font color='#800080'>0</font> ) <br>
+                      { <br>
+&nbsp;&nbsp;&nbsp; <font color='#008000'>// remove any earlier composite values <br>
+                      </font>&nbsp;&nbsp;&nbsp;<font color='#0000ff'>StaticVarRemove</font>(<font color='#800080'>"~Composite"</font>); <br>
+                      } <br>
+                      <br>
+                      <font color="#0000FF">StaticVarAdd</font>( <font color='#800080'>"~Composite"</font>, <font color='#0000ff'>MACD</font>() &gt; <font color='#0000ff'>Signal</font>()
+                      ); <br>
+                    <b>Buy</b> = <font color='#800080'>0</font>;</CODE></p>
+                    <p>NOTES:<br>
+                      1. StaticVarAdd automatically converts all Nulls to zeros (as AddToComposite
+                        does).<br>
+                      2. If you want to replace AddToComposite with StaticVarAdd, keep in mind
+                      that by default AddToComposite skips symbols in group 253. This is done
+                      so composite symbols<br>
+                      are not added to themselves. If you have composite symbols in your database
+                      and want to skip symbols in group 253, you can use<br>
+                      if( GroupID() != 253 ) StaticVarAdd(&quot;~Composite&quot;, values );<br>
+                      3. Thanks to extensive code tuning, StaticVarAdd generally offers better
+                      performance than AddToComposite, which was already blazing fast. Single-threaded
+                      StaticVarAdd may be twice as fast as ATC. With 8 threads running,
+                      StaticVarAdd may be 4x as fast (it does not scale as much as a naive person
+                      may think, because critical section limits performance due to lock contention).
+                      To illustrate the amount of fine-tuning applied, it can be said that the first
+                      'straightforward' version of StaticVarAdd was actually 20 times slower
+                      than ATC.<br>
+                      4. Be careful when using &quot;quickafl,&quot; as StaticVarAdd would not
+                      increase 'required bars' (as ATC does); so if you want to actually add
+                      all bars and quick afl is turned on in analysis, it is better to add SetBarsRequired(sbrAll,
+                    sbrAll).</p>
+                    <p></p>
+                  </li>
+                  <li>AFL: Study() returned NULL array when a line's start date
+                                    was greater than the end date. Fixed (now it works for lines
+                    drawn from right to left too).</li>
+                  <li>Docs: Example polynomial fit formula shows how to gracefully
+                                    handle a singular matrix and overflow/not-a-numbers in polynomial
+                    calculations.<br>
+                    <br>
+                    <CODE>order = <font color='#0000ff'>Param</font>( <font color='#800080'>"n-th
+                      Order"</font>, <font color='#800080'>10</font>, <font color='#800080'>1</font>, <font color='#800080'>16</font>, <font color='#800080'>1</font> ); <br>
+                    length = <font color='#800080'>60</font>; <br>
+                    <br>
+                    lvb = <b>BarCount</b> - <font color='#800080'>1</font>; <br>
+                    fvb = lvb - length; <br>
+                    <br>
+                    yy = <font color='#0000ff'>Matrix</font>( length + <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>0</font> ); <br>
+                    xx = <font color='#0000ff'>Matrix</font>( length + <font color='#800080'>1</font>,
+                    order + <font color='#800080'>1</font>, <font color='#800080'>1</font> ); <br>
+                    <br>
+                    yy = <font color='#0000ff'>MxSetBlock</font>( yy, <font color='#800080'>0</font>,
+                    length, <font color='#800080'>0</font>, <font color='#800080'>0</font>, <font color='#0000ff'>Ref</font>( <b>C</b>,
+                    fvb ) ); <br>
+                    <br>
+                    x = <font color='#0000ff'>BarIndex</font>() - length/<font color='#800080'>2</font>; <br>
+                    <br>
+                    <font color='#800000'><b>for</b></font>( j = <font color='#800080'>1</font>;
+                    j &lt;= order; j++ ) <br>
+                    { <br>
+&nbsp;&nbsp;&nbsp;&nbsp; xx = <font color='#0000ff'>MxSetBlock</font>( xx, <font color='#800080'>0</font>,
+                length, j, j, x ^ j ); <br>
+                    } <br>
+                    <br>
+                    xxt = <font color='#0000ff'>MxTranspose</font>( xx ); <br>
+                    aa = <font color='#0000ff'>MxSolve</font>( xxt @ xx, xxt ) @ yy; <br>
+                    <font color='#008000'>//aa = MxInverse( xxt @ xx ) @ xxt @ yy; // alternative
+                    way <br>
+                    </font>&nbsp;&nbsp;&nbsp; <br>
+                    <font color='#800000'><b>if</b></font>( aa ) <font color='#008000'>// check
+                    if matrix is not null (so solution exists) <br>
+                    </font>{ <br>
+&nbsp;&nbsp;&nbsp; rr = <b>Null</b>; <font color='#008000'>// store the fit in
+                rr <br>
+                    </font>&nbsp;&nbsp;&nbsp;<font color='#800000'><b>for</b></font>( i = fvb;
+                    i &lt;= lvb; i++ ) <br>
+&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rr[i] = aa[<font color='#800080'>0</font>][<font color='#800080'>0</font>]; <br>
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color='#800000'><b>for</b></font>(
+                j = <font color='#800080'>1</font>; j &lt;= order; j++ ) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rr[i] += aa[j][<font color='#800080'>0</font>]
+                * x[ i - fvb ] ^ j; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
+&nbsp;&nbsp;&nbsp; } <br>
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <font color='#800000'><b>if</b></font>( <font color='#0000ff'>IsNan</font>(
+                rr[ fvb ] ) ) <br>
+&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color='#008000'>// our polynomial
+                yields infinite or not-a-number result due to overflow/underflow <br>
+                    </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Title</b> = <font color='#800080'>"Polyfit
+                    failed. The order of polynomial is too High"</font>; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; } <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <font color='#800000'><b>else</b></font> <br>
+&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color='#0000ff'>SetChartOptions</font>( <font color='#800080'>0</font>, <b>chartShowDates</b> ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color='#0000ff'>SetBarFillColor</font>( <font color='#0000ff'>IIf</font>( <b>C</b> &gt; <b>O</b>, <font color='#0000ff'>ColorRGB</font>( <font color='#800080'>0</font>, <font color='#800080'>75</font>, <font color='#800080'>0</font> ), <font color='#0000ff'>IIf</font>( <b>C</b> &lt;= <b>O</b>, <font color='#800080'>75</font>, <font color='#800080'>0</font>, <font color='#800080'>0</font> ), <b>colorLightGrey</b> )
+                ) ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color='#0000ff'>Plot</font>( rr, <font color='#800080'>"rr"</font>, <b>colorWhite</b>, <b>styleLine</b> | <b>styleThick</b>); <br>
+&nbsp;&nbsp;&nbsp; } <br>
+                    } <br>
+                    <font color='#800000'><b>else</b></font> <br>
+                    { <br>
+&nbsp;&nbsp; <b>Title</b> = <font color='#800080'>"Matrix is singular. The order
+                of polynomial is too high"</font>; <br>
+                    } <br>
+                    <br>
+                    <font color='#0000ff'>Plot</font>( <b>C</b>, <font color='#800080'>""</font>, <font color='#0000ff'>IIf</font>( <b>C</b> &gt; <b>O</b>, <font color='#0000ff'>ColorRGB</font>( <font color='#800080'>0</font>, <font color='#800080'>255</font>, <font color='#800080'>0</font> ), <font color='#0000ff'>IIf</font>( <b>C</b> &lt;= <b>O</b>, <font color='#800080'>255</font>, <font color='#800080'>0</font>, <font color='#800080'>0</font> ), <b>colorLightGrey</b> )
+                    ), <b>styleDots</b> | <b>styleNoLine</b> ); </CODE><br>
+                  </li>
+                  <li>Persistent static variables are now saved to PersistVars.temp,
+                                    and once write is successful, the file is renamed to PersistVars.bin.
+                                    This is to prevent data loss when writing very large sets
+                    of persistent variables.</li>
+                  <li>When more than one error is detected in a single line of
+                                    the formula, then the first error message is displayed instead
+                                    of the last one in chart/commentary/analysis.<br>
+                  </li>
+                </ul>
+                <p><strong>CHANGES FOR VERSION 6.01.0 (as compared to 6.00.0)</strong></p>
+                <ul>
+                  <li>AFL: MxDet( mx, method = 0 ) - calculates the determinant of
+                                    the matrix.<br>
+                    method = 0 – auto (uses slow method for matrices up to and including 5x5,
+                    fast for larger matrices).<br>
+                    method = 1 – slow (slow, more accurate).<br>
+                    method = 2 – fast (LU decomposition, less accurate).
+                    <p>&quot;slow&quot; method uses Laplace expansion. <br>
+&quot;fast&quot; method uses LU decomposition.<br>
+&quot;Slow&quot; method for small matrices (1x1, 2x2, 3x3, 4x4) is actually
+                faster than &quot;fast,&quot; equally fast for matrix 5x5, and<br>
+                    slower than the &quot;fast&quot; method for matrices larger than 5x5. </p>
+                    <p>For this reason, the &quot;auto&quot; method uses the &quot;fast&quot; LU method
+                    only for matrices larger than 5x5.</p>
+                    <p>CAVEAT: Laplace method has a complexity of O(N!), and for this reason, even
+                      if you use method = 1, the maximum dimension for this method is limited
+                      to 10x10.<br>
+                    Matrices larger than that are always calculated using the LU method.</p>
+                    <br>
+                  </li>
+                  <li>AFL: MxFromString() - creates a new matrix out of a string
+                                    in Mathematica/Wolfram list-style: &quot;{ { 1, 2, 3 }, {
+                                    4, 5, 6 } }&quot; or Matlab/Maple style &quot;[ [ 1, 2, 3
+                                    ], [ 4, 5, 6 ] ]&quot; or GNU Octave comma-semicolon style
+                    [ 1, 2, 3; 4, 5, 6 ].</li>
+                  <li>AFL: MxGetBlock( matrix, startrow, endrow, startcol, endcol,
+                                    asArray = False )<br>
+                    <br>
+                    Retrieves items from a rectangular submatrix (block) and returns either a smaller
+                    matrix (when asArray is set to False)<br>
+                    or a &quot;normal&quot; AFL array (when asArray is set to True). If the array
+                    has a different number of bars, unused elements are filled with Null.
+                    <p>z = Matrix( 2, 20, 0 );<br>
+                      // first row<br>
+                      z = MxSetBlock( z, 0, 0, 0, 19, Close );<br>
+                      // second row<br>
+                      z = MxSetBlock( z, 1, 1, 0, 19, RSI( 5 ) );<br>
+                      printf(&quot;Matrix z\n&quot;);<br>
+                    printf( MxToString( z ) );</p>
+                    <p>x = MxGetBlock( z, 0, 1, 0, 19, True );</p>
+                    <p>printf(&quot;Items are now in regular array (data series):\n&quot; );<br>
+                      for( i = 0; i &lt; 20; i++ )<br>
+                    printf( NumToStr( x[ i ] ) + &quot;\n&quot; );</p>
+                    <p>z = MxGetBlock( z, 0, 1, 0, 1 ); // retrieve upper 2x2 submatrix<br>
+                      printf(&quot;Upper submatrix z\n&quot;);<br>
+                      printf( MxToString( z ) );<br>
+                    </p>
+                  </li>
+                  <li>AFL: MxInverse( mx ) - calculates the inverse of the matrix
+                                    (see comments to MxSolve for more info).<br>
+                    <br>
+                  </li>
+                  <li>AFL: MxSetBlock( matrix, startrow, endrow, startcol, endcol,
+                                    values = 0 ) <br>
+                    Sets values in a rectangular block of cells (rows in the range startrow..endrow
+                    and columns in the range startcol..endcol inclusive).<br>
+                    This allows filling entire or partial rows, columns, and all other kinds of
+                    rectangular areas in the matrix with user-specified data.<br>
+                    Row and column numbers are zero-based.<br>
+                    If the values parameter is scalar, all cells in the specified block are filled with
+                    that value.<br>
+                    If the values parameter is an array, cells in the block are filled from left
+                    to right and from top to bottom with consecutive values taken from that array.<br>
+                    If there are more cells in the block than values in the array, the array
+                    item counter wraps around to zero and starts taking values from the beginning.
+                    <p>Note: the function creates a new matrix as a result (so the source matrix is
+                      unaffected unless you assign the result back to the original
+                    variable).</p>
+                    <p>Example 1:<br>
+                      // Create a 6x6 matrix<br>
+                    // and fill the 4x4 interior (except edges) with consecutively increasing numbers.</p>
+                    <p>y = Matrix( 6, 6, 0 );<br>
+                      y = MxSetBlock( y, 1, 4, 1, 4, Cum(1));<br>
+                      printf(&quot;Matrix y\n&quot;);<br>
+                    printf( MxToString( y ) );</p>
+                    <p>Example 2:<br>
+                      // Create a matrix with 2 rows x 20 columns and fill rows 0, 1 with the first 20
+                    values of Close and RSI(5) arrays, respectively. </p>
+                    <p>z = Matrix( 2, 20, 0 );<br>
+                      // first row<br>
+                      z = MxSetBlock( z, 0, 0, 0, 19, Close );<br>
+                      // second row<br>
+                      z = MxSetBlock( z, 1, 1, 0, 19, RSI( 5 ) );<br>
+                      printf(&quot;Matrix z\n&quot;);<br>
+                    printf( MxToString( z ) );</p>
+                  </li>
+                  <li>AFL: MxSolve( A, B ) - solves linear equation system A@X
+                                    = B.<br>
+                    <br>
+                    A needs to be a square matrix NxN. <br>
+                    B has to have N rows and at least one column (a vertical vector).<br>
+                    Then calling<br>
+                    X = MxSolve( A, B ) would give a vertical vector holding the solution of the system
+                    of equations A @ X = B.
+                    <p>B can also be a matrix, with each of its columns representing a different
+                      vector B. This way, a single call to MxSolve can solve several systems with
+                      the same matrix A but different right-hand vectors.<br>
+                      If B is a matrix NxM, then MxSolve will produce a result also having NxM cells,
+                    with each column representing a single solution.</p>
+                    <p>Example 1:</p>
+                    <p>A = MxFromString(&quot;[ 1, 1, 1, 1; 0, 2, 5, -1; 2, 5, -1, 1; 2, 2, 2,
+                      1 ]&quot;);<br>
+                      B = MxFromString(&quot;[ 7; -5; 28; 13 ]&quot; ); // single vertical vector
+                    B</p>
+                    <p>printf( &quot;Solving A * X = B\n&quot; );<br>
+                      printf(&quot;Matrix A\n&quot;);<br>
+                      printf( MxToString( A ) );<br>
+                      printf(&quot;\nMatrix B\n&quot;);<br>
+                      printf( MxToString( B ) );<br>
+                      <br>
+                    X = MxSolve( A, B );</p>
+                    <p>printf(&quot;\nSolution X\n&quot;);</p>
+                    <p>Example 2:</p>
+                    <p>A = MxFromString(&quot;[ 1, 1, 1, 1; 0, 2, 5, -1; 2, 5, -1, 1; 2, 2, 2,
+                      1 ]&quot;);<br>
+                      B = MxFromString(&quot;[ 7, 14 ; -5, -10; 28, 56; 13, 26 ]&quot; ); //
+                    2 right-hand side vertical vectors</p>
+                    <p>printf( &quot;Solving A * X = B\n&quot; );<br>
+                      printf(&quot;Matrix A\n&quot;);<br>
+                      printf( MxToString( A ) );<br>
+                      printf(&quot;\nMatrix B\n&quot;);<br>
+                      printf( MxToString( B ) );<br>
+                      <br>
+                    X = MxSolve( A, B );</p>
+                    <p>printf(&quot;\nSolutions X\n&quot;);</p>
+                    <p>printf( MxToString( X ) ); // two solutions</p>
+                    <p>(Highly) Technical note about numerical precision:</p>
+                    <p>Despite the fact that both MxSolve and MxInverse use double-precision
+                      arithmetic, solving/inverting matrices is subject to the numerical precision
+                      of double IEEE, <br>
+                      and for example, a zero result may come up as something like 1.4355e-16 (0.0000000000000001)
+                      due to the fact that double precision is still limited in accuracy (16
+                    digits).</p>
+                    <p>The result of <br>
+                      X = MxInverse( A ) @ B;<br>
+                      although mathematically the same as solving the system of equations, would
+                      yield a slightly different result because if you do the inverse, the returned
+                      matrix is converted back<br>
+                      to single precision, and the matrix product is performed with single precision.
+                      When you use MxSolve, you are performing all calculations using 64-bit (double)
+                      precision, and<br>
+                      only the end result is converted back to single precision. So, for example, polynomial
+                    fit code works better with MxSolve than MxInverse.</p>
+                    <br>
+                    <CODE><font color='#008000'>// Least Squares Polynomial Fit test <br>
+                    </font> <br>
+                    order = <font color='#0000ff'>Param</font>( <font color='#800080'>"n-th Order"</font>, <font color='#800080'>15</font>, <font color='#800080'>1</font>, <font color='#800080'>25</font>, <font color='#800080'>1</font> ); <br>
+                    length = <font color='#800080'>60</font>; <br>
+                    <br>
+                    lvb = <b>BarCount</b> - <font color='#800080'>1</font>; <br>
+                    fvb = lvb - length; <br>
+                    <br>
+                    yy = <font color='#0000ff'>Matrix</font>( length + <font color='#800080'>1</font>, <font color='#800080'>1</font>, <font color='#800080'>0</font> ); <br>
+                    xx = <font color='#0000ff'>Matrix</font>( length + <font color='#800080'>1</font>,
+                    order + <font color='#800080'>1</font>, <font color='#800080'>1</font> ); <br>
+                    <br>
+                    yy = <font color='#0000ff'>MxSetBlock</font>( yy, <font color='#800080'>0</font>,
+                    length, <font color='#800080'>0</font>, <font color='#800080'>0</font>, <font color='#0000ff'>Ref</font>( <b>C</b>,
+                    fvb ) ); <br>
+                    <br>
+                    x = <font color='#0000ff'>BarIndex</font>() - length/<font color='#800080'>2</font>; <br>
+                    <br>
+                    <font color='#800000'><b>for</b></font>( j = <font color='#800080'>1</font>;
+                    j &lt;= order; j++ ) <br>
+                    { <br>
+&nbsp;&nbsp;&nbsp;&nbsp; xx = <font color='#0000ff'>MxSetBlock</font>( xx, <font color='#800080'>0</font>,
+                length, j, j, x ^ j ); <br>
+                    } <br>
+                    <br>
+                    xxt = <font color='#0000ff'>MxTranspose</font>( xx ); <br>
+                    aa = <font color='#0000ff'>MxSolve</font>( xxt @ xx, xxt ) @ yy; <br>
+                    <font color='#008000'>//aa = MxInverse( xxt @ xx ) @ xxt @ yy; // alternative
+                    way <br>
+                    </font> <br>
+                    rr = <b>Null</b>; <font color='#008000'>// store the fit in rr <br>
+                    </font><font color='#800000'><b>for</b></font>( i = fvb; i &lt;= lvb; i++
+                    ) <br>
+                    { <br>
+&nbsp;&nbsp;&nbsp;&nbsp; rr[i] = aa[<font color='#800080'>0</font>][<font color='#800080'>0</font>]; <br>
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <font color='#800000'><b>for</b></font>( j = <font color='#800080'>1</font>;
+                j &lt;= order; j++ ) <br>
+&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rr[i] += aa[j][<font color='#800080'>0</font>]
+                * x[ i - fvb ] ^ j; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; } <br>
+                    } <br>
+                    <br>
+                    <font color='#0000ff'>SetChartOptions</font>( <font color='#800080'>0</font>, <b>chartShowDates</b> ); <br>
+                    <font color='#0000ff'>SetBarFillColor</font>( <font color='#0000ff'>IIf</font>( <b>C</b> &gt; <b>O</b>, <font color='#0000ff'>ColorRGB</font>( <font color='#800080'>0</font>, <font color='#800080'>75</font>, <font color='#800080'>0</font> ), <font color='#0000ff'>IIf</font>( <b>C</b> &lt;= <b>O</b>, <font color='#800080'>75</font>, <font color='#800080'>0</font>, <font color='#800080'>0</font> ), <b>colorLightGrey</b> )
+                    ) ); <br>
+                    <font color='#0000ff'>Plot</font>( rr, <font color='#800080'>"rr"</font>, <b>colorWhite</b>, <b>styleLine</b> | <b>styleThick</b>); <br>
+                    <font color='#0000ff'>Plot</font>( <b>C</b>, <font color='#800080'>""</font>, <font color='#0000ff'>IIf</font>( <b>C</b> &gt; <b>O</b>, <font color='#800080'>0</font>, <font color='#800080'>255</font>, <font color='#800080'>0</font> ), <font color='#0000ff'>IIf</font>( <b>C</b> &lt;= <b>O</b>, <font color='#800080'>255</font>, <font color='#800080'>0</font>, <font color='#800080'>0</font> ), <b>colorLightGrey</b> )
+                      ), <b>styleDots</b> | <b>styleNoLine</b> ); <br>
+                  </CODE></li>
+                  <li>AFL: MxSort( mx, dim = -1, ascending = True ) - sorts the
+                                    matrix.<br>
+                      <br>
+                    Sorts all items in a matrix. <br>
+                    When dim == -1 (the default), it would sort:<br>
+                    a) a row if there is only one row (vector is horizontal).<br>
+                    b) a column if there is only one column (vector is vertical).<br>
+                    c) each column separately if there are more rows and columns than one (so
+                    we have an actual 2D matrix).<br>
+                    <br>
+                    When dim == 0, the function sorts the items in each row separately. <br>
+                    When dim == 1, the function sorts the items in each column separately.
+                    <p><br>
+                      // example<br>
+                    m = MxFromString(&quot;[ 9, 5, 6; 8, 7, 3 ]&quot;);</p>
+                    <p>printf( MxToString( m ) + &quot;\n\n&quot; );</p>
+                    <p>printf(&quot;%g, %g\n\n&quot;, MxGetSize( m, 0 ), MxGetSize( m, 1 ) );</p>
+                    <p>m2 = MxSort( m, 0 ) ;</p>
+                    <p>printf( MxToString( m2 ) + &quot;\n\n&quot; );</p>
+                    <p>m3 = MxSort( m, 1 ) ;</p>
+                    <p>printf( MxToString( m3 ) + &quot;\n\n&quot; );<br>
+                    </p>
+                  </li>
+                  <li>AFL: MxSortRows( mx, ascending = True, col1 = 0, col2 =
+                                    -1, col3 = -1 )<br>
+                    <br>
+                    Sorts the rows of the matrix in ascending/descending order of the col1 column.
+                    When the col1 column has equal values, SortRows sorts according to the col2
+                    and col3 columns in succession (if col2 and col3 are specified and &gt;=
+                    0).<br>
+                    Column numbers are zero-based.
+                    <p>Hint: if you want to sort columns instead, you can Transpose/Sort rows/Transpose
+                    back.</p>
+                    <p>m = MxFromString(&quot;[ 9, 1, 6; 40, 30, 20; 8, 7, 3; 3, 5, 1 ]&quot;);</p>
+                    <p>printf(&quot;Input matrix\n&quot;);</p>
+                    <p>printf( MxToString( m ) + &quot;\n\n&quot; );</p>
+                    <p>printf(&quot;Rows %g, Cols %g\n\n&quot;, MxGetSize( m, 0 ), MxGetSize(
+                    m, 1 ) );</p>
+                    <p>printf(&quot;Sorting every row separately\n&quot;);<br>
+                    m2 = MxSort( m, 0 ) ;</p>
+                    <p>printf( MxToString( m2 ) + &quot;\n\n&quot; );</p>
+                    <p>printf(&quot;Sorting every column separately\n&quot;);<br>
+                    m3 = MxSort( m, 1 ) ;</p>
+                    <p>printf( MxToString( m3 )+ &quot;\n\n&quot;);</p>
+                    <p>printf(&quot;Sorting rows by contents of first column\n&quot;);<br>
+                    m4 = MxSortRows( m, True, 0 ) ;</p>
+                    <p>printf(MxToString( m4 )+ &quot;\n\n&quot;);</p>
+                    <p>printf(&quot;Sorting rows by contents of second column\n&quot;);<br>
+                    m5 = MxSortRows( m, True, 1 ) ;</p

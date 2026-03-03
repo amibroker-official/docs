@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 33. The identifier is already in use.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4>Error 33. The identifier is already in use. You attempted to assign value
+to the identifier representing a function. If you want to return value from
+function you should use RETURN statement instead.</h4>
+<p>Example 1:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> Test(
+      x ) <BR>
+  { <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>return</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> *
+  x; <BR>
+  } <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>VarSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Test"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>7</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+error, identifier 'Test' is already used for function</FONT></CODE></p>
+<p></p>
+<p>Example 2:</p>
+<p>(incorrect)</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> Test(
+      x ) <BR>
+  { <BR>
+  &nbsp;Test = </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> * x; </FONT><FONT COLOR=#008000>// error here because Test identifier is already
+  used for function,</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>&nbsp;// you should use return statement to return values
+  from function</FONT><FONT COLOR=#000000> <BR>
+  } <BR>
+  <BR>
+x = Test(</FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>);</FONT></CODE></p>
+<p>Correct function returning value would look like this:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> Test(
+      x ) <BR>
+  { <BR>
+  &nbsp;&nbsp;&nbsp; 
+  </FONT><FONT COLOR=#800000><B>return</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> *
+  x; </FONT><FONT COLOR=#008000>// correct, returning values using return statement </FONT><FONT COLOR=#000000> <BR>
+  } <BR>
+  <BR>
+x = Test(</FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>);</FONT></CODE></p>
+<p></p>
+<p>&nbsp;</p>
+
+</body>
+</html>

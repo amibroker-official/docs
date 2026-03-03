@@ -1,0 +1,189 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETASYNCKEYSTATE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetAsyncKeyState</b><br>
+        - query the current state of keyboard keys</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 5.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetAsyncKeyState( vkey ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> <p>
+The function queries current state of keyboard keys (at the time of the call).
+<p>
+GetAsyncKeyState is 100% equivalent of Windows API function of the same name.
+<p>See: <a href='http://msdn.microsoft.com/en-us/library/windows/desktop/ms646293(v=vs.85).aspx' target='_blank'>http://msdn.microsoft.com/en-us/library/windows/desktop/ms646293(v=vs.85).aspx</a> 
+<p>
+Arguments:
+<br>vkey is virtual key code to query (see table below).
+<p>
+The function returns 0 if key is NOT pressed and value < 0 ( less than zero) when key is currently pressed.
+<p>Virtual Key codes:</p>
+    <p>vk_BackSpace = 8; <br>
+      vk_Tab = 9; <br>
+      vk_Return = 13;<br>
+      vk_Shift = 16; <br>
+      vk_Control = 17;<br>
+      vk_Alt = 18; <br>
+      vk_Pause = 19; <br>
+      vk_CapsLock = 20;<br>
+      vk_Escape = 27; <br>
+      vk_Space = 32; <br>
+      vk_PageUp = 33;<br>
+      vk_PageDown = 34; <br>
+      vk_End = 35; <br>
+      vk_Home = 36;<br>
+      vk_Left = 37; <br>
+      vk_Up = 38; <br>
+      vk_Right = 39;<br>
+      vk_Down = 40; <br>
+      vk_PrintScreen = 44; <br>
+      vk_Insert = 45;<br>
+      vk_Delete = 46; </p>
+    <p>/* NOTE: vk_0..vk_9 vk_A.. vk_Z match regular ASCII codes for digits and
+      A-Z letters */</p>
+    <p>vk_0 = 48; <br>
+      vk_1 = 49; <br>
+      vk_2 = 50;<br>
+      vk_3 = 51; <br>
+      vk_4 = 52; <br>
+      vk_5 = 53;<br>
+      vk_6 = 54; <br>
+      vk_7 = 55; <br>
+      vk_8 = 56;<br>
+      vk_9 = 57; <br>
+      vk_A = 65; <br>
+      vk_B = 66; <br>
+      vk_C = 67;<br>
+      vk_D = 68; <br>
+      vk_E = 69; <br>
+      vk_F = 70;<br>
+      vk_G = 71; <br>
+      vk_H = 72; <br>
+      vk_I = 73;<br>
+      vk_J = 74; <br>
+      vk_K = 75; <br>
+      vk_L = 76;<br>
+      vk_M = 77; <br>
+      vk_N = 78; <br>
+      vk_O = 79;<br>
+      vk_P = 80; <br>
+      vk_Q = 81; <br>
+      vk_R = 82;<br>
+      vk_S = 83; <br>
+      vk_T = 84; <br>
+      vk_U = 85;<br>
+      vk_V = 86; <br>
+      vk_W = 87; <br>
+      vk_X = 88;<br>
+      vk_Y = 89; <br>
+      vk_Z = 90; <br>
+    </p>
+    <p>vk_LWin = 91; <br>
+      vk_RWin = 92; <br>
+      vk_Apps = 93; <br>
+      /* numerical key pad */<br>
+      vk_NumPad0 = 96; <br>
+      vk_NumPad1 = 97; <br>
+      vk_NumPad2 = 98;<br>
+      vk_NumPad3 = 99; <br>
+      vk_NumPad4 = 100; <br>
+      vk_NumPad5 = 101;<br>
+      vk_NumPad6 = 102; <br>
+      vk_NumPad7 = 103; <br>
+      vk_NumPad8 = 104;<br>
+      vk_NumPad9 = 105; <br>
+      vk_Multiply = 106; <br>
+      vk_Add = 107;<br>
+      vk_Subtract = 109; <br>
+      vk_Decimal = 110; <br>
+      vk_Divide = 111;<br>
+      /* function keys */<br>
+      vk_F1 = 112; <br>
+      vk_F2 = 113; <br>
+      vk_F3 = 114;<br>
+      vk_F4 = 115; <br>
+      vk_F5 = 116; <br>
+      vk_F6 = 117;<br>
+      vk_F7 = 118; <br>
+      vk_F8 = 119; <br>
+      vk_F9 = 120;<br>
+      vk_F10 = 121; <br>
+      vk_F11 = 122; <br>
+      vk_F12 = 123;<br>
+      vk_F13 = 124; <br>
+      vk_F14 = 125; <br>
+      vk_F15 = 126;<br>
+      vk_F16 = 127; <br>
+      <br>
+      vk_NumLock = 144; <br>
+      vk_ScrollLock = 145; <br>
+      vk_LShift = 160; <br>
+      vk_RShift = 161; <br>
+      vk_LControl = 162; <br>
+      vk_RControl = 163; <br>
+      vk_LAlt = 164;<br>
+      vk_RAlt = 165; <br>
+      vk_SemiColon = 186;<br>
+      vk_Equals = 187; <br>
+      vk_Comma = 188; <br>
+      vk_UnderScore = 189;<br>
+      vk_Period = 190; <br>
+      vk_Slash = 191; <br>
+      vk_BackSlash = 220;<br>
+      vk_RightBrace = 221; <br>
+      vk_LeftBrace = 219; <br>
+      vk_Apostrophe = 222;</p>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"Close"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+vk_Shift = </FONT><FONT COLOR=#800080>16</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>GetAsyncKeyState</FONT><FONT COLOR=#000000>(
+vk_Shift ) < </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>"Shift
+is pressed"</FONT><FONT COLOR=#000000>;</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetAsyncKeyState</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GetAsyncKeyState' target='_blank'>elliott wave manual labelling</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetAsyncKeyState">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

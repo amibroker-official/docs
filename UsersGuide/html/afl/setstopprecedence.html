@@ -1,0 +1,64 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SETSTOPPRECEDENCE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SetStopPrecedence</b><br>
+        - set precedence of built-in stops</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SetStopPrecedence( type1, type2, type3, type4 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> SetStopPrecedence defines the order in which stops are executed in case many stops trigger on the very same bar, as in example given below. SetStopPrecedence should be called AFTER ApplyStop() functions.
+
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#008000'>// first execute N-bar stop, then max loss, then
+trailing, then profit<br> <br>
+</font><font color='#0000ff'>SetStopPrecedence</font>( <b>stopTypeNBar</b>, <b>stopTypeLoss</b>, <b>stopTypeTrailing</b>, <b>stopTypeProfit</b> );</CODE>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="applystop.html">ApplyStop()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SetStopPrecedence</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SetStopPrecedence">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

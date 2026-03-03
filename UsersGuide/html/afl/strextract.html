@@ -1,0 +1,97 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STREXTRACT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StrExtract</b><br>
+        - extracts given item (substring) from comma-separated string</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> String manipulation<br>
+        </b>(AmiBroker 4.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StrExtract( list, item, separator = ',' ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Extracts given item (substring) from comma-separated list of items.
+item is a zero-based index of the item in the list (see also note below).
+<p>
+If no substring at given index is found then empty string is returned (&quot;&quot;).
+<p>
+Useful to retrive symbols from the list obtained via GetCategorySymbols function.
+<p>
+New in AmiBroker version 5.20:
+<br> StrExtract( &quot;string&quot;, item ) now accepts negative item values allowing to address items counting from the END of the list
+<p>
+New in AmiBroker version 5.90:
+<br> <b>separator</b> parameter allows to define separator other than comma </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;MSFT,AAPL,AMD,INTC&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> );</FONT><FONT COLOR=#008000>//
+will return AMD </FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;MSFT,AAPL,AMD,INTC&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> );</FONT><FONT COLOR=#008000>//
+will return MSFT </FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;MSFT,AAPL,AMD,INTC&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>200</FONT><FONT COLOR=#000000> );</FONT><FONT COLOR=#008000>//
+will return empty string &quot;&quot; </FONT><FONT COLOR=#000000> <BR>
+<BR>
+<BR>
+</FONT><FONT COLOR=#008000>//</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// The example below shows how to use negative item </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// references (Version 5.20 AND up only!) </FONT><FONT COLOR=#000000> <BR>
+<BR>
+tickers = </FONT><FONT COLOR=#800080>&quot;AAPL,MSFT,INTC&quot;</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#800080>&quot;The last item is &quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>(
+tickers, -</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;listing
+from the end of the list:n&quot;</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( item = -</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>;
+( sym = </FONT><FONT COLOR=#0000ff>StrExtract</FONT><FONT COLOR=#000000>( tickers,
+item ) ) != </FONT><FONT COLOR=#800080>&quot;&quot;</FONT><FONT COLOR=#000000>; item--
+) <BR>
+{ <BR>
+  </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( sym
++ </FONT><FONT COLOR=#800080>&quot;n&quot;</FONT><FONT COLOR=#000000> ); <BR>
+}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="getcategorysymbols.html">GETCATEGORYSYMBOLS()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StrExtract</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1481&hilite=StrExtract' target='_blank'>A simple AFL Revision Control System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1583&hilite=StrExtract' target='_blank'>Add Nifty 50 IB Equity Symbol Automatically</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1165&hilite=StrExtract' target='_blank'>AFL_Glossary_1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=StrExtract' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1568&hilite=StrExtract' target='_blank'>Backup Data of 1min Interval</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=294&hilite=StrExtract' target='_blank'>Baseline Relative Performance Watchlist charts V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1347&hilite=StrExtract' target='_blank'>Basket Trading System T101</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1147&hilite=StrExtract' target='_blank'>BEANS-Summary of Holdings</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=709&hilite=StrExtract' target='_blank'>Calculate composites for tickers in list files</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=422&hilite=StrExtract' target='_blank'>Candle Identification</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=290&hilite=StrExtract' target='_blank'>Count Tickers in Watchlist</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=StrExtract' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1417&hilite=StrExtract' target='_blank'>Expiry day/days - Last thursday of month</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=StrExtract' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1301&hilite=StrExtract' target='_blank'>Graphical sector analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1302&hilite=StrExtract' target='_blank'>Graphical sector stock amalysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=StrExtract' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1296&hilite=StrExtract' target='_blank'>Herman</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1136&hilite=StrExtract' target='_blank'>IB Backfiller</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1421&hilite=StrExtract' target='_blank'>IBD relative strength database ranker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1422&hilite=StrExtract' target='_blank'>IBD relative strength database Viewer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=StrExtract' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1357&hilite=StrExtract' target='_blank'>Optimal Weights</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1572&hilite=StrExtract' target='_blank'>Peter Cooper</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1597&hilite=StrExtract' target='_blank'>Profit Table (Color Coded)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=StrExtract' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=411&hilite=StrExtract' target='_blank'>Ranking Ticker WatchList</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=323&hilite=StrExtract' target='_blank'>Relative Strength</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1089&hilite=StrExtract' target='_blank'>Rene Rijnaars</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1603&hilite=StrExtract' target='_blank'>Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=StrExtract' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=457&hilite=StrExtract' target='_blank'>TWS auto-export Executions-file parser</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1228&hilite=StrExtract' target='_blank'>TWS trade plotter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1465&hilite=StrExtract' target='_blank'>Updated Renko Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=StrExtract' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=710&hilite=StrExtract' target='_blank'>WLBuildProcess</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StrExtract">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

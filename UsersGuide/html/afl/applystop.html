@@ -1,0 +1,191 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - APPLYSTOP</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>ApplyStop</b><br>
+        - apply built-in stop</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 3.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>ApplyStop( <i>type, mode, amount, exitatstop, volatile = False, ReEntryDelay = 0, ValidFrom = 0, ValidTo = -1</i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> Nothing </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> controls built-in stops from the formula level (allows optimization of stops)<p>
+   
+Parameters: <p>
+<i>type</i> =<br> 
+0 = stopTypeLoss - maximum loss stop,<br> 
+1 = stopTypeProfit - profit target stop,<br>
+2 = stopTypeTrailing - trailing stop,<br> 
+3 = stopTypeNBar - N-bar stop <p>
+<i>mode</i> = <br>
+0 - disable stop (stopModeDisable),<br> 
+1 - amount in percent (stopModePercent), or number of bars for N-bar stop (stopModeBars),<br> 
+2 - amount in points (stopModePoint);<br>
+3 - amount in percent of profit (risk)<p>
+<i>amount</i> = <br>
+percent/point loss/profit trigger/risk amount.<br>
+This could  be a number (static stop level) or an array (dynamic stop level)<p>
+  <br>
+    <i>ExitAtStop</i><br> 
+<br>
+ ExitAtStop = 0 - means check stops using only trade price and exit at regular
+      trade price<sup>(1)</sup><br>
+    (if you are trading on close it means that only close price will be checked
+      for exits and exit will be done at close price)<br>
+    ExitAtStop = 1 - check High-Low prices and exit intraday on price equal to
+      stop level on the same bar when stop was triggered<br>
+    ExitAtStop = 2 - check High-Low prices but exit NEXT BAR on regular trade price.<br>
+    <br>
+<i>volatile</i> - <br>
+decides if amount (or distance) (3rd parameter) is sampled at the trade entry and remains fixed during the trade (Volatile = FALSE - old behaviour) or if can vary during the trade (Volatile = TRUE) (allows single line Chandelier exit implementation)<sup>(2)</sup> 
+<p><i>ReEntryDelay</i> - <br> how many bars to wait till entering the same stock is allowed.
+<p><i>ValidFrom</i> - <br> defines first bar since entry when stop can generate an exit. 0 means from the very beginning
+<p><i>ValidTo</i> - <br>defines last bar since entry when stop can generate an exit. -1 means &quot;infinite&quot;. By default stops are valid all the time (0/-1). <p>ValidFrom/ValidTo can be used to create stops that get actived/deactivated in different times.  This setting is independent for each stop type. It also works in conjunction with SetOption(&quot;HoldMinBars&quot;, x ). HoldMinBars affects BOTH regular exits and stops, preventing ALL kind of exits during defined period. ValidFrom/ValidTo works on each stop separately and does not affect regular exits.
+<p>
+<b>Note on using stops:</b><br>
+    <strong>Scenario 1:</strong> <br>
+    you trade on next bar OPEN and want to exit intraday on stop price<br>
+    <br>
+    Correct settings: <br>
+    ActivateStopsImmediately turned ON<br>
+    ExitAtStop = 1<br>
+    Trade delays set to one<br>
+    Trade price set to open<br>
+    <br>
+    <strong> Scenario 2:</strong> <br>
+    you trade on today's close and want to exit
+      intraday on stop price<br>
+    Correct settings: <br>
+    ActivateStopsImmediately turned OFF<br>
+    ExitAtStop = 1<br>
+    Trade delays set to zero<br>
+    Trade price set to close<br>
+    <br>
+    <strong> Scenario 3:</strong> <br>
+    you trade on next day OPEN and want to
+      exit by stop on OPEN price when PREVIOUS day H-L range hits stop<br>
+    Correct settings: <p>
+    ExitAtStop = 2	(NEW)<br>
+  Trade delays set to one<br>
+  Trade price set to open<br>
+    <ul>
+      <li>a) (if you want to have stops executed AFTER regular signals, so cash
+        from stopped out positions is NOT available to enter trades the same
+      day) <br>
+      <b>ActivateStopsImmediately
+            turned ON</b> <br><br>
+      </li>
+      <li>b) (if you want to have stops executed BEFORE regular signals, so
+            cash from stopped out positions IS available to enter new trades
+        the same day)<br>
+      <b>ActivateStopsImmediately turned OFF</B> </li>
+    </ul>
+    <br>
+  <br>
+  <strong> Scenario 4:</strong> <br>
+  you trade on today's close and want to exit
+    only when today's close price hits the stop level<br>
+    <br>
+    Correct settings: <br>
+    ActivateStopsImmediately turned OFF<br>
+    ExitAtStop = 0<br>
+    Trade delays set to zero<br>
+  Trade price set to close<br>
+
+<p>LIMITATIONS:
+<ul>
+<li><sup>(1)</sup> ExitAtStop = 0 uses SellPrice/CoverPrice variables in backtestRegular mode only, in other modes it uses trade prices from the Settings dialog (not overridable via SellPrice/CoverPrice)<br><br>
+<li><sup>(2)</sup> Volatile stops (Volatile=True) work only in backtestRegular mode
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/* max loss stop optimization
+*/</FONT><FONT COLOR=#000000><br> <BR>
+</FONT><FONT COLOR=#0000ff>ApplyStop</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>stopTypeLoss</B></FONT><FONT COLOR=#000000>, <BR>
+         </FONT><FONT COLOR=#000000><B>stopModePercent</B></FONT><FONT COLOR=#000000>, <BR>
+         </FONT><FONT COLOR=#0000ff>Optimize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;max.
+loss stop level&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>30</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ), <BR>
+         </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> );</FONT></CODE>
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/* single-line implementation
+of Chandelier exit */</FONT><FONT COLOR=#000000><br> <BR>
+</FONT><FONT COLOR=#0000ff>ApplyStop</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>stopTypeTrailing</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>stopModePoint</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#0000ff>ATR</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> );</FONT></CODE><p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/* N-bar stop */</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>ApplyStop</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>stopTypeNBar</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>stopModeBars</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000> ); </FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Herman van den Bergen</b><br>psytek [at] magma.ca<br>2003-02-23 09:53:51</td><td valign="top">If you are trading at the Close with zero delays be sure to unmark &quot;Activate Stops Immediately&quot; in Settings. </td></tr><TR bgcolor=#ccccff><td valign="top"><b>Corey Saxe</b><br>csaxe [at] nwi.net<br>2003-03-01 23:33:13</td><td valign="top">For visual conformation of ApplyStop function, add the following lines below your ApplyStop formula in Indicator Builder:<br />
+<br />
+Equity(1); // THIS EVALUATES STOPS<br />
+<br />
+Plot(Sell==4,&quot;ApplyStop Sell&quot;,colorRed,1|styleOwnScale);<br />
+Plot(Cover==4,&quot;ApplyStop Cover&quot;,colorGreen,1|styleOwnScale);</td></tr><TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2004-08-28 03:14:12</td><td valign="top">If two or more different stops are triggered on the VERY SAME bar then they are evaluated in this fixed order:<br />
+<br />
+Fixed Ruin stop (loosing 99.96% of the starting capital)<br />
+Max. loss stop<br />
+Profit target stop<br />
+Trailing stop<br />
+N-bar stop<br />
+</td></tr><TR bgcolor=#ccccff><td valign="top"><b>Graham Kavanagh</b><br>gkavanagh [at] e-wire.net.au<br>2004-09-30 21:55:42</td><td valign="top">from equity comments<br />
+<br />
+Depending on kind of the stop various values<br />
+are written back to sell/cover array to enable you to distinguish if given signal was generated by regular rule or by stop. <br />
+<br />
+1 - regular exit<br />
+2 - max. loss<br />
+3 - profit target<br />
+4 - trailing<br />
+5 - n-bar stop<br />
+6 - ruin stop <br />
+</td></tr><TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2005-03-01 17:10:39</td><td valign="top">ExitAtStop has a new meaning for N-BAR stop type.<br />
+If ExitAtStop = 0 then N-bar stop has the lowest priority (so if for example profit target stop is hit on the same bar then profit target is evaluated first)<br />
+If ExitAtStop = 1 then N-bar stop has highest priority and it is evaluated before all other stops.<br />
+The same effect is obtained by checking &quot;Has priority&quot; box in AA Settings window.</td></tr><TR bgcolor=#ccccff><td valign="top"><b>Tomasz Janeczko</b><br>tj-/nospam/ [at] amibroker.com<br>2006-01-13 11:41:32</td><td valign="top">ApplyStop function is designed to be used to simulate<br />
+stop orders placed at the exchange or simulated by the brokerage<br /><br />
+Please read this how such stops operate:<br />
+<a href='http://www.interactivebrokers.com/en/trading/orders/stop.php?ib_entity=uk'>http://www.interactivebrokers.com/en/trading/orders/stop.php?ib_entity=uk</a><br />
+<a href='http://www.interactivebrokers.com/en/trading/orders/trailingStops.php?ib_entity=uk'>http://www.interactivebrokers.com/en/trading/orders/trailingStops.php?ib_entity=uk</a><br />
+</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>ApplyStop</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=135&hilite=ApplyStop' target='_blank'>ATR Study</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=ApplyStop' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1474&hilite=ApplyStop' target='_blank'>Caleb Lawrence</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=345&hilite=ApplyStop' target='_blank'>danningham penetration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=708&hilite=ApplyStop' target='_blank'>Ed Seykota's TSP: EMA Crossover System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=386&hilite=ApplyStop' target='_blank'>Follow the Leader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1230&hilite=ApplyStop' target='_blank'>Index and ETF trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=307&hilite=ApplyStop' target='_blank'>RUTVOL timing signal with BB Scoring routine</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=187&hilite=ApplyStop' target='_blank'>SectorRSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=289&hilite=ApplyStop' target='_blank'>The D_oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=552&hilite=ApplyStop' target='_blank'>The Three Day Reversal</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=163&hilite=ApplyStop' target='_blank'>Trend Continuation Factor</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1333&hilite=ApplyStop' target='_blank'>Vivek Jain</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=ApplyStop">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

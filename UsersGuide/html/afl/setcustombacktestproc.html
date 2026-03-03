@@ -1,0 +1,71 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SETCUSTOMBACKTESTPROC</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SetCustomBacktestProc</b><br>
+        - define custom backtest procedure formula file</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 4.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SetCustomBacktestProc( filename, enable = True ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function allows changing custom backtest procedure file from AFL formula level.<p>
+To learn more about custom backtester procedures please read
+<a href='/guide/a_custombacktest.html'>this document</a>.<p>
+Parameters<p>
+<ul>
+<li>
+<i>filename</i> parameter instructs backtester to use external formula file as custom backtest procedure,
+if empty - it means use current formula
+<li>
+<i>enable</i> = True (default) - enables custom backtesting procedure (the same as SetOption("UseCustomBacktestProc", True );<br>
+<i>enable</i> = False - disables custom proc
+</ul>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetCustomBacktestProc</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Formulas\MyCustomBacktest.afl"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> );</FONT></CODE>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SetCustomBacktestProc</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=722&hilite=SetCustomBacktestProc' target='_blank'>Customised Avg. Profit %, Avg. Loss % etc</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1311&hilite=SetCustomBacktestProc' target='_blank'>Detailed Equity Curve</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=SetCustomBacktestProc' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1409&hilite=SetCustomBacktestProc' target='_blank'>Rebalancing Backtest avoiding leverage</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SetCustomBacktestProc">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

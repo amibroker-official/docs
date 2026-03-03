@@ -1,0 +1,95 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SETFOREIGN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SetForeign</b><br>
+        - replace current price arrays with those of foreign security</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Referencing other symbol data<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SetForeign( <i>ticker, fixup = True, tradeprices = False </i>) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The <b>SetForeign</b> function replaces current price/volume arrays with those of foreign security, returns True (1) if ticker exists, False (0) otherwise.<p>
+If ticker does not exist (and function returns false) price arrays are not changed at all.<p>
+<i>fixup</i> parameter controls if data holes are filled with previous bar data or not. 
+<ul>
+<li>0 - the holes are not fixed
+<li>1 - default value - missing data bar OHLC fields are all filled using previous bar Close and volume is set to zero. 
+<li>2 - (old pre-4.90 behaviour) - causes filling the holes in the data with previous O, H, L, C, V values
+</ul>
+<p>
+<i>tradeprices</i> parameter controls if trade price arrays should be replaced too. If it is set to TRUE, then not only OHLC, V, OI, Avg arrays are set to foreign symbol values, but also BuyPrice, SellPrice, ShortPrice, CoverPrice, PointValue, TickSize, RoundLotSize, MarginDeposit variables are set to correspond to foreign security. This allows Equity() to work well with SetForeign.
+<p>
+
+Single <b>SetForeign( &quot;ticker&quot; )</b> call is equivalent to the following sequence:
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;ticker&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>&quot;C&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>O</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;ticker&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>&quot;O&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;ticker&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>&quot;H&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;ticker&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>&quot;L&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>V</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;ticker&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>&quot;V&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>OI</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;ticker&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>&quot;I&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Avg</B></FONT><FONT COLOR=#000000> = ( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000> )/</FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000>;</FONT></CODE>
+<p>
+but 6x faster (SetForeign takes about the same time as single foreign). To restore original prices call <b>RestorePriceArrays()</b>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// Example 1: Plot the indicator
+using foreign security data</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetForeign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>&quot;MSFT&quot;</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Ultimate</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#ff00ff>&quot;Ultimate
+from MSFT&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>RestorePriceArrays</FONT><FONT COLOR=#000000>(); </FONT></CODE><p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// Example 2: Use SetForeign with Equity
+function</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>SetForeign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>&quot;MSFT&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>()); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>()); <BR>
+e = </FONT><FONT COLOR=#0000ff>Equity</FONT><FONT COLOR=#000000>(); </FONT><FONT COLOR=#008000>//
+backtest on MSFT</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>RestorePriceArrays</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>// <-
+should match parameter used in SetForeign</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="foreign.html">FOREIGN()</A> function , <A HREF="restorepricearrays.html">RestorePriceArrays()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SetForeign</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=887&hilite=SetForeign' target='_blank'>Bad Tick Trim on 5 sec database</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1147&hilite=SetForeign' target='_blank'>BEANS-Summary of Holdings</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1536&hilite=SetForeign' target='_blank'>Computing Cointegration and ADF Dashboard</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=SetForeign' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1301&hilite=SetForeign' target='_blank'>Graphical sector analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1302&hilite=SetForeign' target='_blank'>Graphical sector stock amalysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=SetForeign' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1421&hilite=SetForeign' target='_blank'>IBD relative strength database ranker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=SetForeign' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=SetForeign' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=411&hilite=SetForeign' target='_blank'>Ranking Ticker WatchList</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=SetForeign' target='_blank'>Stress with SuperSmoother</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=710&hilite=SetForeign' target='_blank'>WLBuildProcess</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SetForeign">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

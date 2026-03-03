@@ -1,0 +1,276 @@
+<html>
+
+<head>
+<title>Portfolio-level Backtesting</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>Pyramiding (scaling in/out) and multiple
+    currencies in the portfolio backtester</b></h2>
+<p><b>IMPORTANT: Please first read the Tutorial: <a href="h_backtest.html">Backtesting Your Trading Ideas</a> and <a href="h_portfolio.html">Portfolio Backtesting</a></b></p>
+<p>Starting from version 4.70, the portfolio backtester allows position scaling and
+  supports multiple currencies. Note that these advanced features are supported
+  by the PORTFOLIO backtester only. The old single-security backtester and single-security
+  equity() function do NOT support these features.</p>
+<h4>Pyramiding / Scaling</h4>
+<p>Two special constants, `sigScaleIn` and `sigScaleOut`, have been added to provide a means to
+  tell the backtester when you want to scale in or out.<br>
+    <br>
+All you have to do to implement pyramiding is to:<br>
+- Assign `sigScaleIn` to the BUY/SHORT variable if you want to scale in (increase the size
+of) a LONG/SHORT position<br>
+- Assign `sigScaleOut` to the BUY/SHORT variable if you want to scale out (decrease the
+size of) a LONG/SHORT position<br>
+  <br>
+Scaling size is defined by the `PositionSize` variable, which in the case of scaling defines
+not the absolute position size, but the dollar increase or decrease.<br>
+  <br>
+IMPORTANT: Please note that the backtester treats a trade that you scale in/out as a
+SINGLE trade (i.e., it will show a single row in the trade list). The only difference versus
+a plain trade is that it will calculate the average entry price (and average entry FX
+rate) based on all partial entries and the average exit price (and average exit FX rate)
+based on all partial exits, and it will show average prices in the entry/exit price field.
+The commission is, of course, applied correctly to each (partial) entry/exit depending
+on the partial buy/sell size.<br>
+  <br>
+If you want to see details about scaling, you have to run the backtest in &quot;DETAIL
+LOG&quot; mode, as only then will you see how scaling in/out works and how average
+prices are calculated.<br>
+  <br>
+Note also that scaling in/out and multiple-currency support is available only
+in the portfolio backtester. The old backtester, as well as the `Equity()` function, do NOT handle
+scaling in/out nor multiple currencies (they simply ignore scaling commands).<br>
+  <br>
+Easy Examples:<br>
+<strong><br>
+Example 1: Dollar-Cost Averaging (each month you buy stocks for a fixed dollar
+amount)</strong></p>
+<p>  <br>
+  <CODE><FONT COLOR=#000000>FixedDollarAmount = </FONT><FONT COLOR=#ff00ff>500</FONT><FONT COLOR=#000000>; <BR>
+MonthBegin = </FONT><FONT COLOR=#0000ff>Month</FONT><FONT COLOR=#000000>() != </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Month</FONT><FONT COLOR=#000000>(),
+-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+FirstPurchase = </FONT><FONT COLOR=#0000ff>Cum</FONT><FONT COLOR=#000000>( MonthBegin
+) == </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; <BR>
+  <BR>
+  </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(
+  FirstPurchase, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#008000>//
+  True (or 1) represents regular buy signal</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IIf</FONT><FONT COLOR=#000000>(
+  MonthBegin, </FONT><FONT COLOR=#000000><B>sigScaleIn</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#008000>//
+  each month increase position</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#ff00ff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</FONT><FONT COLOR=#000000> )
+  ); </FONT><FONT COLOR=#008000>// otherwise no signal</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+  we do not sell</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#000000><B>PositionSize</B></FONT><FONT COLOR=#000000> =
+  FixedDollarAmount;</FONT></CODE><br>
+  <br>
+</p>
+<p><strong>Example 2: Dollar-Cost Averaging <br>
+  (simplified formula because AB treats the first `sigScaleIn` as a buy anyway)</strong><br>
+  <br>
+  <CODE><FONT COLOR=#000000>FixedDollarAmount = </FONT><FONT COLOR=#ff00ff>500</FONT><FONT COLOR=#000000>; <BR>
+  MonthBegin = </FONT><FONT COLOR=#0000ff>Month</FONT><FONT COLOR=#000000>() != </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Month</FONT><FONT COLOR=#000000>(),
+  -</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+  FirstPurchase = </FONT><FONT COLOR=#0000ff>Cum</FONT><FONT COLOR=#000000>( MonthBegin
+  ) == </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; <BR>
+  <BR>
+  </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(
+    MonthBegin, </FONT><FONT COLOR=#000000><B>sigScaleIn</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+    each month increase position</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+    we do not sell</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    </FONT><FONT COLOR=#000000><B>PositionSize</B></FONT><FONT COLOR=#000000> =
+  FixedDollarAmount;</FONT></CODE><br>
+  <br>
+  <strong><br>
+  </strong></p>
+<p><strong>Example 3: Increasing Position When Profit Generated by a Trade Without Pyramiding<br>
+  becomes greater than 5% and Decreasing Position When Loss Is Greater Than -5%</strong><br>
+  <br>
+  <CODE><FONT COLOR=#008000>// percent equity change threshold when pyramiding
+    is performed</FONT><FONT COLOR=#000000> <BR>
+    PyramidThreshold = </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>; <BR>
+    <BR>
+    </FONT><FONT COLOR=#008000>// regular trading rules (no pyramiding)</FONT><FONT COLOR=#000000> <BR>
+    </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>()
+    ); <BR>
+    </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>()
+    ); <BR>
+    <BR>
+    e = </FONT><FONT COLOR=#0000ff>Equity</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+    generate equity without pyramiding effect</FONT><FONT COLOR=#000000> <BR>
+    <BR>
+    PcntProfit = </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> * ( e
+    - </FONT><FONT COLOR=#0000ff>ValueWhen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>,
+    e ) )/</FONT><FONT COLOR=#0000ff>ValueWhen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>,
+    e ); <BR>
+    <BR>
+    InTrade = </FONT><FONT COLOR=#0000ff>Flip</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> ); <BR>
+    <BR>
+    </FONT><FONT COLOR=#008000>// ExRem is used here to ensure that scaling in/out
+    occurs</FONT><FONT COLOR=#000000> <BR>
+    </FONT><FONT COLOR=#008000>// only once since trade entry</FONT><FONT COLOR=#000000> <BR>
+    DoScaleIn = </FONT><FONT COLOR=#0000ff>ExRem</FONT><FONT COLOR=#000000>( InTrade </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> PcntProfit &gt; PyramidThreshold, </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> ); <BR>
+    DoScaleOut = </FONT><FONT COLOR=#0000ff>ExRem</FONT><FONT COLOR=#000000>( InTrade </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> PcntProfit &lt; -PyramidThreshold, </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> ); <BR>
+    <BR>
+    </FONT><FONT COLOR=#008000>// modify rules to handle pyramiding</FONT><FONT COLOR=#000000> <BR>
+    </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>sigScaleIn</B></FONT><FONT COLOR=#000000> *
+    DoScaleIn + </FONT><FONT COLOR=#000000><B>sigScaleOut</B></FONT><FONT COLOR=#000000> *
+    DoScaleOut; <BR>
+    <BR>
+    </FONT><FONT COLOR=#000000><B>PositionSize</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(
+      DoScaleOut, </FONT><FONT COLOR=#ff00ff>500</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1000</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  enter and scale-in size $1000, scale-out size: $500</FONT></CODE></p>
+<p>&nbsp;</p>
+<p><strong>Example 4: Partial Exit (Scaling Out) on Profit Target Stops</strong></p>
+<p>Example of code that exits 50% on the first profit target, 50% on the next profit
+  target, and everything at the trailing stop:<br>
+  <br>
+  <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000> )
+  ); <BR>
+  </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>// the system will exit</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// 50% of position if FIRST PROFIT TARGET stop is
+  hit</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// 50% of position is SECOND PROFIT TARGET stop
+  is hit</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// 100% of position if TRAILING STOP is hit</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+FirstProfitTarget = </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+profit </FONT><FONT COLOR=#000000> <BR>
+SecondProfitTarget = </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+in percent</FONT><FONT COLOR=#000000> <BR>
+TrailingStop = </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+also in percent</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+priceatbuy=</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+highsincebuy = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+exit = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;
+i &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+i++ ) <BR>
+{ <BR>
+&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+priceatbuy == </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>[
+i ] ) <BR>
+&nbsp;&nbsp;&nbsp; { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; priceatbuy = </FONT><FONT COLOR=#000000><B>BuyPrice</B></FONT><FONT COLOR=#000000>[
+i ]; <BR>
+&nbsp;&nbsp;&nbsp; } <BR>
+<BR>
+&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+priceatbuy &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ) <BR>
+&nbsp;&nbsp;&nbsp; { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; highsincebuy = </FONT><FONT COLOR=#0000ff>Max</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>[
+i ], highsincebuy ); <BR>
+  <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+exit == </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>[
+i ] &gt;= ( </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> + FirstProfitTarget
+* </FONT><FONT COLOR=#ff00ff>0.01</FONT><FONT COLOR=#000000> ) * priceatbuy ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+first profit target hit - scale-out</FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>[
+i ] = </FONT><FONT COLOR=#000000><B>sigScaleOut</B></FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+exit == </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>[
+i ] &gt;= ( </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> + SecondProfitTarget
+* </FONT><FONT COLOR=#ff00ff>0.01</FONT><FONT COLOR=#000000> ) * priceatbuy ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+second profit target hit - exit</FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit = </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>SellPrice</B></FONT><FONT COLOR=#000000>[
+i ] = </FONT><FONT COLOR=#0000ff>Max</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>[
+i ], ( </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> + SecondProfitTarget
+* </FONT><FONT COLOR=#ff00ff>0.01</FONT><FONT COLOR=#000000> ) * priceatbuy ); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Low</B></FONT><FONT COLOR=#000000>[
+i ] &lt;= ( </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> - TrailingStop
+* </FONT><FONT COLOR=#ff00ff>0.01</FONT><FONT COLOR=#000000> ) * highsincebuy
+) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>//
+trailing stop hit - exit</FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit = </FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000>;&nbsp;&nbsp;&nbsp; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>SellPrice</B></FONT><FONT COLOR=#000000>[
+i ] = </FONT><FONT COLOR=#0000ff>Min</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Open</B></FONT><FONT COLOR=#000000>[
+i ], ( </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> - TrailingStop
+* </FONT><FONT COLOR=#ff00ff>0.01</FONT><FONT COLOR=#000000> ) * highsincebuy
+); <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+exit &gt;= </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000> ) <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>[
+i ] = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>[
+i ] = exit + </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+mark appropriate exit code</FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;priceatbuy = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+reset price</FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;highsincebuy = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <BR>
+&nbsp;&nbsp;&nbsp; } <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>SetPositionSize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>spsPercentOfEquity</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>SetPositionSize</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>spsPercentOfPosition</B></FONT><FONT COLOR=#000000> *
+( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> == </FONT><FONT COLOR=#000000><B>sigScaleOut</B></FONT><FONT COLOR=#000000> )
+); </FONT><FONT COLOR=#008000>// scale out 50% of position<br>
+<br> 
+</FONT></CODE></p>
+
+<h4>Multiple Currency Support<FONT COLOR=#000000> </FONT></h4>
+<p><br>
+  The portfolio backtester allows backtesting systems on securities denominated
+    in different currencies. It includes the ability to use historical (variable)
+    currency rates.
+      Currency rates are definable in the &quot;Currencies&quot; page in the preferences.
+      The currency in which a given symbol is denominated can be entered in
+      the Symbol->Information page.<br>
+      <br>
+  The &quot;Currencies&quot; page in Preferences allows defining base currency
+      and exchange rates (fixed or dynamic) for different currencies. This allows getting correct backtest results when testing securities denominated in a different currency than your base portfolio
+      currency.<br>
+      <br>
+      How does AB know whether I want the fixed or dynamic quote? <br>
+  <br>
+  There are the following requirements to use currency adjustments:<br>
+  a) The Symbol->Information &quot;Currency&quot; field shows a currency different
+  than the BASE currency<br>
+  b) The appropriate currency (defined in Symbol) has a matching entry in the Preferences->Currencies
+  page<br>
+  c) The dynamic rate &quot;FX SYMBOL&quot; defined in the preferences EXISTS
+in your database and HAS QUOTES for each day within the analysis range. </p>
+<p>What is the &quot;INVERSE&quot; check box for in the preferences?<br>
+  <br>
+  Let's take EURUSD as an example.<br>
+  <br>
+  When &quot;USD&quot; is your BASE currency, then the EUR exchange rate would be a &quot;straight&quot; EURUSD FX (i.e., 1.3).<br>
+  But when &quot;EUR&quot; is your BASE currency, then the USD exchange rate would be the INVERSE of EURUSD (i.e., 1/1.3).<br>
+The opposite would be true with FX rates like USDJPY (which are already &quot;inverse&quot;).</p>
+<p>&nbsp;</p>
+</body>
+</html>

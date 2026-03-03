@@ -1,0 +1,90 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ADDMULTITEXTCOLUMN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>AddMultiTextColumn</b><br>
+        - adds exploration text column based on array</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 6.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>AddMultiTextColumn( ARRAY, ''TextList'', ''Caption'', format = 1.2, fgcolor = colorDefault, bkcolor = colorDefault, width = -1 )  </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Adds a text column to the exploration where text displayed is choosen based on array value.<p>
+
+Parameters:
+<ul>
+<li>ARRAY - parameter decides on bar-by-bar basis which item from TextList is choosen
+<li>TextList - newline-separated list of texts to be displayed depending on ARRAY value. Note: newline is a &quot;\n&quot; symbol
+<br>
+This work so, when ARRAY value is zero, then first item from TextList is choosen and displayed, when ARRAY value is 1 then second item is choosen and so on.
+<br>
+This allows outputting conditional text in the exploration output, like shown in the example.
+<br>
+<li>Caption - defines column caption
+<li>format - defines formatting (minimum number of characters used to display a string)
+<li>fgcolor - defines foreground color
+<li>bgcolor - defines background color
+<li>width - defines column width
+</ol>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><b>Buy</b> = <font color='#0000ff'>Cross</font>( <font color='#0000ff'>MACD</font>(), <font color='#0000ff'>Signal</font>()
+); <br>
+<b>Sell</b> = <font color='#0000ff'>Cross</font>( <font color='#0000ff'>Signal</font>(), <font color='#0000ff'>MACD</font>()
+); <br>
+<br>
+<b>Filter</b> = <font color='#800080'>1</font>; <font color='#008000'>// all
+bars <br>
+</font> <br>
+<font color='#0000ff'>AddColumn</font>( <b>Buy</b>, <font color='#800080'>&quot;Buy&quot;</font> ); <br>
+<font color='#0000ff'>AddColumn</font>( <b>Sell</b>, <font color='#800080'>&quot;Sell&quot;</font> ); <br>
+<br>
+TextList = <font color='#800080'>&quot;No signal\nBuy\nSell\nBuy and Sell&quot;</font>; <br>
+TextSelector = <font color='#800080'>1</font> * <b>Buy</b> + <font color='#800080'>2</font> * <b>Sell</b>; <font color='#008000'>/*
+would give 0 if no signal, 1 if a buy, 2 if a sell, 3 if both buy and sell */</font> <br>
+<font color='#0000ff'>AddMultiTextColumn</font>( TextSelector, TextList, <font color='#800080'>&quot;Which
+signal&quot;</font> );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="addcolumn.html">AddColumn()</A> function , <A HREF="addtextcolumn.html">AddTextColumn()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>AddMultiTextColumn</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=AddMultiTextColumn">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,94 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MXSORT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>MxSort</b><br>
+        - sorts the matrix</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Matrix functions<br>
+        </b>(AmiBroker 6.10)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>MxSort( mx, dim = -1, ascening = True ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> Matrix </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sorts all items in a matrix<p>
+When dim == -1 (the default) it would sort:
+<ul>
+<li>a row if there is only one row (vector is horizontal)
+<li>a column if there is only one column (vector is vertical)
+<li>each column separately if there are more rows and columns than one (so we have actual 2D matrix).
+</ul>
+When dim == 0 the function sorts the items in each row separately<br>
+When dim == 1 the function sorts the items in each column separately  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE>m = <font color='#0000ff'>MxFromString</font>(<font color='#800080'>&quot;[
+9, 5, 6; 8, 7, 3 ]&quot;</font>); <br>
+<br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+m ) + <font color='#800080'>&quot;
+
+&quot;</font> ); <br>
+<br>
+<font color='#0000ff'>printf</font>(<font color='#800080'>&quot;%g, %g
+
+&quot;</font>, <font color='#0000ff'>MxGetSize</font>(
+m, <font color='#800080'>0</font> ), <font color='#0000ff'>MxGetSize</font>(
+m, <font color='#800080'>1</font> ) ); <br>
+<br>
+m2 = <font color='#0000ff'>MxSort</font>( m, <font color='#800080'>0</font> )
+; <br>
+<br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+m2 ) + <font color='#800080'>&quot;
+
+&quot;</font> ); <br>
+<br>
+m3 = <font color='#0000ff'>MxSort</font>( m, <font color='#800080'>1</font> )
+; <br>
+<br>
+<font color='#0000ff'>printf</font>( <font color='#0000ff'>MxToString</font>(
+m3 ) + <font color='#800080'>&quot;
+
+&quot;</font> );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="matrix.html">Matrix()</A> function , <A HREF="mxsortrows.html">MxSortRows()</A> function , <A HREF="mxtranspose.html">MxTranspose()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>MxSort</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=MxSort">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

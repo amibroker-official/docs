@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>while Statement</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><font size=4>while Keyword</font> </h4>
+<p>The <b>while</b> keyword is al part of while (described below) and <a href="do.html">do-while</a> statements.</p>
+<h4><font size="4">while Statement</font>
+</h4>
+<p>The while statement lets you repeat a statement until a specified expression
+  becomes false. </p>
+<p class=label><b>Syntax</b></p>
+<p class=dt><b>while (</b> <i>expression</i> <b>)</b> <i>statement</i></p>
+<p>The <i>expression</i> must have arithmetic&nbsp;(numeric/boolean) type. Execution
+  proceeds as follows:
+<ol>
+  <li>The <i>expression</i> is evaluated.<br>
+      <br>
+  <li>If <i>expression</i> is initially false, the body of the <b>while</b> statement
+    is never executed, and control passes from the <b>while</b> statement to
+    the next statement in the program.
+        <p class=tl>If <i>expression</i> is true (nonzero), the body of the statement
+          is executed and the process is repeated beginning at step 1.</p>
+  </li>
+</ol>
+<p>This is an example of the <b>while</b> statement: </p>
+<pre><CODE><FONT COLOR=#000000>i = </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>;
+</FONT><FONT COLOR=#800000><B>while</B></FONT><FONT COLOR=#000000>( i &lt; </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000> )
+{
+&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, i ), </FONT><FONT COLOR=#ff00ff>"MA"</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>WriteVal</FONT><FONT COLOR=#000000>( i, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#000000><B>colorBlack</B></FONT><FONT COLOR=#000000> + i );
+&nbsp;&nbsp;i = i + </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>;
+}</FONT></CODE></pre>
+<p><font size=2>The example plots&nbsp;10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+    - bar moving averages.</font></p>
+<div></div>
+<div>
+  <h4><font size=2></font>&nbsp;
+  </h4>
+  <h4>&nbsp;</h4>
+</div>
+<div></div>
+</body>
+</html>

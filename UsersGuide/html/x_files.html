@@ -1,0 +1,75 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Files used by AmiBroker</title>
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>Files and directories used by AmiBroker</h2>
+<p><strong>AmiBroker main directory</strong> - the directory where you installed
+  AmiBroker. You can find main AmiBroker executable file (BROKER.EXE) there.</p>
+<p><strong>PROGRAM FILES</strong></p>
+<ul>
+  <li><strong>Broker.exe</strong> - main application file</li>
+  <li><strong>CoolTool.dll</strong>, <strong>MiscTool.dll</strong>, <strong>Brokey.dll</strong> - additional
+    application files required by broker.exe</li>
+  <li><strong>HTMLView.exe</strong> - the report viewer, used to display backtest reports</li>
+  <li><strong>emailer.exe, emailerssl.exe </strong> - a small add-on command
+    line utilities that send user-defined alerts via e-mail</li>
+  <li><strong>DBCAPI.DLL</strong> - (present only if RT version is installed) - eSignal DBCAPI
+    support library</li>
+  <li><strong>Plugins</strong> - the subfolder that contains <a href="w_plugins.html">all plug-in
+  DLLs</a>.</li>
+  <li><strong>unins000.exe and unins000.dat</strong> - uninstaller program.</li>
+  <li><strong>Broker.chm</strong> - compiled help file</li>
+</ul>
+<p><strong>DATA FILES</strong></p>
+<ul>
+  <li><strong>Data</strong> - default database folder, contains <strong>broker.master,</strong>  <strong>broker.workspace</strong>,
+    0-9, A-Z, '_' <strong>symbol data subfolders </strong> and <strong>Layouts </strong>subfolder.
+    <a href="h_workspace.html">Read this</a> to learn more about AmiBroker database concepts.<br>
+  </li>
+  <li><strong>broker.master</strong> - binary data file containing the table
+     of all symbols available in the database. Used for quick loading of symbols.
+    The table of symbols includes information about assignments of symbols to
+    categories (markets, groups, sectors, industries, watch lists, indices and
+    favorites). If you delete this file  AmiBroker will re-create it because
+    this information is available also in the individual symbol data files.</li>
+  <li><strong>broker.workspace</strong> - binary data file containing the information
+    about the database settings (interval, data source used, etc), category names,
+    global advance/decline data, etc. If you delete this file you will lose database
+    settings and category names will be reset to defaults.</li>
+  <li><strong>default.awl, *.awl </strong> - AmiBroker Workspace layout files.
+    Text files that contain the information about the <a href="h_sheets.html">layouts
+    and chart sheets</a>. The default.awl file stored in &quot;Layouts&quot; subfolder
+    inside database folder contains default LOCAL layout for this database. The
+    default.awl file stored in &quot;Layouts&quot; subfolder of AmiBroker main directory
+    contains default GLOBAL layout (used when there is no local layout present).
+    If you delete this file then default layout will be generated based on default.layout
+    file that is supplied with AmiBroker.</li>
+  <li><strong>broker.newcharts</strong> - binary file containing references between
+    chart layouts and formula files used. If you delete it you will see &quot;formula
+    file empty or cannot be found&quot; in your charts because the reference between
+    chart ID and formula is lost. You will NOT however lose your formulas because
+    formulas are separate. You will be able to reinsert them into your charts.</li>
+  <li><strong>broker.layers</strong> - text file that contains information about
+    <a href="h_layers.html">chart layers</a>. If you delete this file, layers will be reset to factory defaults.</li>
+  <li><strong> broker.groups, broker.markets, broker.sectors, broker.industries </strong> -
+    text files that contain default names for groups, markets, sectors and industries.
+    Used only at the database creation time. Later this information is stored
+    per-database in broker.workspace file.<strong> </strong> If you delete them,
+    AmiBroker will default to group <em>n</em>, market <em>n</em>, sector <em>n</em>, industry <em>n</em> names,
+    where <em>n</em> is 1...256</li>
+  <li><strong>broker.prefs </strong>- binary file that contains user preference
+    settings (available from <a href="w_preferences.html">Tools-&gt;Preferences</a>).
+    If you delete this file, AmiBroker will reset to factory default settings</li>
+  <li><strong>broker.params</strong> - text file that contains persistent information
+    about <a href="afl/param.html">user-defined indicator parameters</a>.</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,592 @@
+<html>
+
+<head>
+<title>Understanding categories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+<h2>Understanding categories</h2>
+<p>AmiBroker has the ability to assign symbols to different categories, allowing
+  you (when properly set up) to narrow your analysis searches to symbols meeting
+  certain selection criteria (thanks to the Filter feature available in Quick Review
+  and Automatic Analysis windows). The initial setup of categories may be a
+  little complicated, especially when you want to track several thousand symbols. </p>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top">
+      <p>Categories show up in the <strong>Symbols</strong>   window.
+        The first and foremost thing to remember is that categories do NOT work like folders,
+        and the Workspace window does NOT work like Windows Explorer.</p>
+      <p>The difference is fundamental. In Windows Explorer, a file appears
+        (usually) only once in a given tree leaf.<br>
+In the symbol tree, a given symbol shows up multiple times because it appears in
+every category leaf to which it belongs, even though it exists only as a single entity.</p>      <p>The <strong>Symbols window</strong> is divided into three parts:<br>
+        a) search box
+        <br>
+      b) category tree<br>
+      c) symbol list</p>
+      <p>The <strong>search box</strong> allows you to perform full-text searches
+        (including wildcard matching) against symbol and full name within the selected
+        category. For example, if you select the "Technology" sector and type A* (letter 'A' and
+        wildcard character *), the symbol list will show all symbols belonging
+        to the Technology sector with a symbol or full name beginning with the letter 'A'.
+        Another example would be typing *-A0-FX; this will return all forex symbols
+        in the eSignal database (those ending with the -A0-FX substring).</p>      
+      <p>The <strong>category tree </strong>(see the picture) shows different
+        kinds of categories.<br>
+        <br>
+        The <strong>symbol list</strong> (bottom part) shows the list of symbols
+        belonging to the selected category. The symbol list can be sorted by symbol
+        or by full name. To sort, just click on the header row of the list. Once
+        you choose the desired sorting order, it will be kept for all subsequent category
+        choices and searches. Also, the order of columns can be changed so the Full Name
+        column appears as the first one. To rearrange a column, click on the
+        column header, hold down the mouse button and drag the column to the desired
+        location. Then release the mouse button.<br>
+      </p>
+      <p>A single symbol belongs to many categories at the same time. For example,
+        AAPL (Apple Inc.) will belong to:</p>
+      <ul>
+        <li><em>Stocks</em> group category</li>
+        <li><em>Nasdaq</em> market category</li>
+        <li><em>Information</em> sector category</li>
+        <li><em>Comp-Computer Mfg</em> industry category</li>
+      </ul>
+      <p>and may also belong to several watch lists and favorites categories. All
+        at the same time. That's why a single symbol will appear in many leaves of
+        the workspace symbol tree. Now, if you delete the SYMBOL, it will of course
+        disappear from all categories because you have deleted the symbol itself,
+        not its assignment to a category.</p>
+      <p>&nbsp;</p>
+    </td>
+    <td width="300" valign="top"><p align="right"><img src="gifs/h_categories.gif" width="229" height="752"></p>
+    </td>
+  </tr>
+</table>
+<p>There are two types of categories:</p>
+<ol>
+  <li> with mutually exclusive membership: groups, markets, sectors/industries,
+    GICS - it means that a symbol must belong to a single group, a single market, and
+    a single sector/industry at a time. You can move the symbol from one group/market/sector/industry
+    to another, but you cannot remove this assignment - you should create an "Unassigned" group/market/sector/industry
+    instead and move 'unassigned' symbols there.<br>
+  </li>
+  <li> with free membership: watch lists/favorites/indexes - it means that a symbol
+    may belong to any number (including zero) of watch lists (and to a favorite/index
+    category too). In this case, you can remove this assignment by Watch List->Remove<br>
+              <br>
+    Watch lists are covered in detail in the User's Guide: <a href="h_watchlist.html">Tutorial:
+    Working with Watch Lists. </a></li>
+</ol>
+<p>There is also one special category called "ALL" that shows up in
+  the workspace symbol tree. It simply lists all symbols present in the database.</p>
+<h3>Working with sectors and industries</h3>
+<p><b>Basics - predefined sectors and industries</b></p>
+<p>Now, we will focus on setting up sectors and industries and assigning
+the symbols to them. First, let me discuss some basic ideas.</p>
+<p>AmiBroker comes with an example Dow Jones Industrials database holding all 
+  30 components of this world's most famous market average. They are assigned 
+  to predefined sectors and industries. These sectors and industries are exactly 
+  the same as used on the Yahoo Finance site, and here is a table that shows them 
+  all:</p>
+<table border=2 cellspacing=0 bgcolor="#DDDDFF" bordercolor="#FFFFFF" cellpadding=2 width="100%">
+  <tr height=17 bgcolor="#CCCCFF"> 
+    <th >Sector</th>
+    <th >Industry</th>
+  </tr>
+  <tr height=17> 
+    <td rowspan="11">Basic Materials (0)</td>
+    <td>Chemical Manufacturing</td>
+  </tr>
+  <tr height=17> 
+    <td>Chemicals - Plastics &amp; Rubber</td>
+  </tr>
+  <tr height=17> 
+    <td>Containers &amp; Packaging</td>
+  </tr>
+  <tr height=17> 
+    <td>Fabricated Plastic &amp; Rubber</td>
+  </tr>
+  <tr height=17> 
+    <td>Forestry &amp; Wood Products</td>
+  </tr>
+  <tr height=17> 
+    <td>Gold &amp; Silver</td>
+  </tr>
+  <tr height=17> 
+    <td>Iron &amp; Steel</td>
+  </tr>
+  <tr height=17> 
+    <td>Metal Mining</td>
+  </tr>
+  <tr height=17> 
+    <td>Misc. Fabricated Products</td>
+  </tr>
+  <tr height=17> 
+    <td>Non-Metallic Mining</td>
+  </tr>
+  <tr height=17> 
+    <td>Paper &amp; Paper Products</td>
+  </tr>
+  <tr height=17 bgcolor="#CCCCFF"> 
+    <td rowspan="7">Capital Goods (1)</td>
+    <td>Aerospace &amp; Defense</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Constr. - Supplies &amp; Fixtures</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Constr. &amp; Agric. Machinery</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Construction - Raw Materials</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Construction Services</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Misc. Capital Goods</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Mobile Homes &amp; RVs</td>
+  </tr>
+  <tr height=17> 
+    <td>Conglomerates (2) </td>
+    <td>Conglomerates</td>
+  </tr>
+  <tr height=17 bgcolor="#CCCCFF"> 
+    <td rowspan="12">Consumer Cyclical (3)</td>
+    <td>Apparel/Accessories</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Appliance &amp; Tool</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Audio &amp; Video Equipment</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Auto &amp; Truck Manufacturers</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Auto &amp; Truck Parts</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Footwear</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Furniture &amp; Fixtures</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Jewelry &amp; Silverware</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Photography</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Recreational Products</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Textiles - Non Apparel</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Tires</td>
+  </tr>
+  <tr height=17> 
+    <td rowspan="8">Consumer/Non-Cyclical (4)</td>
+    <td>Beverages (Alcoholic)</td>
+  </tr>
+  <tr height=17> 
+    <td>Beverages (Non-Alcoholic)</td>
+  </tr>
+  <tr height=17> 
+    <td>Crops</td>
+  </tr>
+  <tr height=17> 
+    <td>Fish/Livestock</td>
+  </tr>
+  <tr height=17> 
+    <td>Food Processing</td>
+  </tr>
+  <tr height=17> 
+    <td>Office Supplies</td>
+  </tr>
+  <tr height=17> 
+    <td>Personal &amp; Household Prods.</td>
+  </tr>
+  <tr height=17> 
+    <td>Tobacco</td>
+  </tr>
+  <tr height=17 bgcolor="#CCCCFF"> 
+    <td rowspan="4">Energy (5)</td>
+    <td>Coal</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Oil &amp; Gas - Integrated</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Oil &amp; Gas Operations</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Oil Well Services &amp; Equipment</td>
+  </tr>
+  <tr height=17> 
+    <td rowspan="10">Financial (6)</td>
+    <td>Consumer Financial Services</td>
+  </tr>
+  <tr height=17> 
+    <td>Insurance (Accident &amp; Health)</td>
+  </tr>
+  <tr height=17> 
+    <td>Insurance (Life)</td>
+  </tr>
+  <tr height=17> 
+    <td>Insurance (Miscellaneous)</td>
+  </tr>
+  <tr height=17> 
+    <td>Insurance (Prop. &amp; Casualty)</td>
+  </tr>
+  <tr height=17> 
+    <td>Investment Services</td>
+  </tr>
+  <tr height=17> 
+    <td>Misc. Financial Services</td>
+  </tr>
+  <tr height=17> 
+    <td>Money Center Banks</td>
+  </tr>
+  <tr height=17> 
+    <td>Regional Banks</td>
+  </tr>
+  <tr height=17> 
+    <td>S&amp;Ls/Savings Banks</td>
+  </tr>
+  <tr height=17 bgcolor="#CCCCFF"> 
+    <td rowspan="4">Healthcare (7)</td>
+    <td>Biotechnology &amp; Drugs</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Healthcare Facilities</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Major Drugs</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Medical Equipment &amp; Supplies</td>
+  </tr>
+  <tr height=17> 
+    <td rowspan="25">Services (8)</td>
+    <td>Advertising</td>
+  </tr>
+  <tr height=17> 
+    <td>Broadcasting &amp; Cable TV</td>
+  </tr>
+  <tr height=17> 
+    <td>Business Services</td>
+  </tr>
+  <tr height=17> 
+    <td>Casinos &amp; Gaming</td>
+  </tr>
+  <tr height=17> 
+    <td>Communications Services</td>
+  </tr>
+  <tr height=17> 
+    <td>Hotels &amp; Motels</td>
+  </tr>
+  <tr height=17> 
+    <td>Motion Pictures</td>
+  </tr>
+  <tr height=17> 
+    <td>Personal Services</td>
+  </tr>
+  <tr height=17> 
+    <td>Printing &amp; Publishing</td>
+  </tr>
+  <tr height=17> 
+    <td>Printing Services</td>
+  </tr>
+  <tr height=17> 
+    <td>Real Estate Operations</td>
+  </tr>
+  <tr height=17> 
+    <td>Recreational Activities</td>
+  </tr>
+  <tr height=17> 
+    <td>Rental &amp; Leasing</td>
+  </tr>
+  <tr height=17> 
+    <td>Restaurants</td>
+  </tr>
+  <tr height=17> 
+    <td>Retail (Apparel)</td>
+  </tr>
+  <tr height=17> 
+    <td>Retail (Catalog &amp; Mail Order)</td>
+  </tr>
+  <tr height=17> 
+    <td>Retail (Department &amp; Discount)</td>
+  </tr>
+  <tr height=17> 
+    <td>Retail (Drugs)</td>
+  </tr>
+  <tr height=17> 
+    <td>Retail (Grocery)</td>
+  </tr>
+  <tr height=17> 
+    <td>Retail (Home Improvement)</td>
+  </tr>
+  <tr height=17> 
+    <td>Retail (Specialty)</td>
+  </tr>
+  <tr height=17> 
+    <td>Retail (Technology)</td>
+  </tr>
+  <tr height=17> 
+    <td>Schools</td>
+  </tr>
+  <tr height=17> 
+    <td>Security Systems &amp; Services</td>
+  </tr>
+  <tr height=17> 
+    <td>Waste Management Services</td>
+  </tr>
+  <tr height=17 bgcolor="#CCCCFF"> 
+    <td rowspan="11">Technology (9)</td>
+    <td>Communications Equipment</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Computer Hardware</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Computer Networks</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Computer Peripherals</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Computer Services</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Computer Storage Devices</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Electronic Instruments &amp; Controls</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Office Equipment</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Scientific &amp; Technical Instr.</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Semiconductors</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Software &amp; Programming</td>
+  </tr>
+  <tr height=17> 
+    <td rowspan="6">Transportation (10)</td>
+    <td>Air Courier</td>
+  </tr>
+  <tr height=17> 
+    <td>Airline</td>
+  </tr>
+  <tr height=17> 
+    <td>Misc. Transportation</td>
+  </tr>
+  <tr height=17> 
+    <td>Railroads</td>
+  </tr>
+  <tr height=17> 
+    <td>Trucking</td>
+  </tr>
+  <tr height=17> 
+    <td>Water Transportation</td>
+  </tr>
+  <tr height=17 bgcolor="#CCCCFF"> 
+    <td rowspan="3">Utilities (11)</td>
+    <td>Electric Utilities</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Natural Gas Utilities</td>
+  </tr>
+  <tr height=17> 
+    <td bgcolor="#CCCCFF">Water Utilities</td>
+  </tr>
+  <tr height=0> 
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<p>It is important to understand the difference between a sector and an industry: industries "belong" to sectors. For example, "Air Courier", "Airline", "Railroads", "Trucking" industries belong to the "Transportation" sector. So if a symbol is assigned to a given industry, it is also "automatically" assigned to the corresponding sector. </p>
+<p>In the example DJIA database, each stock is assigned to a specific industry. For example, GM (General Motors) is assigned to the "Auto & Truck Manufacturers" industry, and this implies that GM belongs to the "Consumer/Cyclical" sector. </p>
+<p>AmiBroker can handle up to 32 sectors and up to 256 industries.</p>
+<p><b>How to assign a symbol to an industry?</b></p>
+<p>You can change the industry to which a given symbol is assigned by using the <b><i>Window->Information</i></b> 
+  dialog (Industry combo box) </p>
+<p><img src="gifs/7info.gif" width="229" height="502"></p>
+<p>or using <b><i>Symbol->Organize Assignments</i></b>. </p>
+<p><img src="gifs/7assignments.gif" width="448" height="391"></p>
+<p>The first method is fine if you want to change a single symbol's settings. The latter 
+  is better if you want to move multiple symbols from one category to another.</p>
+<p> <b>How to define your own sectors and industries</b></p>
+<p>Please go to <i><b>Symbol->Categories</b></i> dialog, the last two tabs are 
+  "Sectors" and "Industries". First, switch to the "Sectors" tab, and you will see the list of 32 sector names. You can now select a sector 
+  by clicking once on its name and edit the sector name by pressing ENTER or clicking 
+  the "Edit name" button. Hit ENTER again to accept the name change. </p>
+<p><img src="gifs/7sectors.gif" width="499" height="374"></p>
+<p>After you renamed the sectors, you can switch to the "Industries" 
+  tab. Similarly to the previous tab, you can select an industry in the list and 
+  edit its name in the same manner. Here you can also assign the industry to the 
+  sector using the "Sector" combo. Just select the sector to which you want to assign the currently selected industry.</p>
+<p><img src="gifs/7industries.gif" width="499" height="374"></p>
+<p><b>Where sector and industry information is stored?</b></p>
+<p>Generally speaking, this information is stored in the AmiBroker database. The sector 
+  and industry names and settings are stored in the broker.workspace file (in 
+  the workspace folder), and symbol data files hold only the information about the 
+  assignment of the symbol to a given industry (IndustryID).</p>
+<p>When you create a new workspace (a database), AmiBroker sets up its industries and sectors according to the templates stored in the "broker.sectors" 
+  and "broker.industries" files. These are simple text files that can 
+  be edited with a plain text editor (such as Notepad). These files can also be 
+  used for quick, automatic setup of the sectors and industries. AmiBroker comes 
+  with predefined broker.sectors and broker.industries that follow the convention described above (see the table). You can rewrite the broker.sectors and broker.industries 
+  files to define your own default scheme. So, "broker.sectors" and 
+  "broker.industries" files are used as a template when creating a new workspace. Once a workspace is created, these files are <b>not</b> taken into consideration. 
+  In this way, you may have different categories in each workspace. If you want 
+  AmiBroker to load them into an already existing workspace, please delete the broker.workspace 
+  file <b>before</b> opening the workspace. If you then open the workspace, AmiBroker 
+  will read broker.sectors and broker.industries. </p>
+<p>The layout of the broker.sectors file is very simple: it is a plain text file holding 
+  sector names, written line by line as shown below:<br>
+</p>
+<p><code>Basic Materials<br>
+  Capital Goods<br>
+  Conglomerates<br>
+  Consumer Cyclical<br>
+  Consumer/Non-Cyclical<br>
+  Energy<br>
+  Financial<br>
+  Healthcare<br>
+  Services<br>
+  Technology<br>
+  Transportation<br>
+  Utilities</code></p>
+<p>The layout of the broker.industries file is similar, but in addition to industry names, 
+  there is a number at the beginning of each line:</p>
+<p><code>8 Advertising<br>
+  1 Aerospace &amp; Defense<br>
+  10 Air Courier<br>
+  10 Airline<br>
+  3 Apparel/Accessories<br>
+  3 Appliance &amp; Tool<br>
+  3 Audio &amp; Video Equipment<br>
+  3 Auto &amp; Truck Manufacturers<br>
+  3 Auto &amp; Truck Parts<br>
+  4 Beverages (Alcoholic)<br>
+  4 Beverages (Non-Alcoholic)<br>
+  7 Biotechnology &amp; Drugs<br>
+  8 Broadcasting &amp; Cable TV<br>
+  8 Business Services<br>
+  8 Casinos &amp; Gaming<br>
+  0 Chemical Manufacturing<br>
+  0 Chemicals - Plastics &amp; Rubber<br>
+  5 Coal<br>
+  9 Communications Equipment</code></p>
+<p>The numbers at the front of industry names are "Sector IDs". Those numbers decide 
+  to which sector a given industry belongs. Because several industries may belong 
+  to one sector, you may need to use the same number for the sector ID. Sector IDs 
+  are zero-based, which means that 0 refers to the first line (sector name) of 
+  the "broker.sectors" file, while 7 refers to the eighth line of the file. 
+  In the example above: the "Advertising" industry belongs to the "Services" 
+  sector, while the "Aerospace &amp; Defense" industry belongs to the "Capital 
+  Goods" sector. </p>
+<p>If you don't want to set up detailed industry information and want to assign symbols 
+  only to sectors, you can define a one-to-one relationship between the first 32 industries 
+  so they will be equivalent to sectors. Using the broker.sectors file as shown earlier 
+  in this article, a 1-1 broker.industries file would look like:</p>
+<p><code>0 Basic Materials<br>
+  1 Capital Goods<br>
+  2 Conglomerates<br>
+  3 Consumer Cyclical<br>
+  4 Consumer/Non-Cyclical<br>
+  5 Energy<br>
+  6 Financial<br>
+  7 Healthcare<br>
+  8 Services<br>
+  9 Technology<br>
+  10 Transportation<br>
+  11 Utilities</code></p>
+<p>Note that this file is essentially the same as the broker.sectors file, with the only 
+  difference being that consecutive numbers are prepended to each line. Using this 
+  kind of setup, setting the industry will be equivalent to setting the sector.</p>
+<p><b>Making it automatic</b></p>
+<p>As described above, symbol and industry names and relationships can be easily set up 
+  quickly using "broker.sectors" and "broker.industries" files. It will 
+  save some work needed otherwise to enter this information in the Symbol->Categories window.</p>
+<p>Unfortunately, a lot more work is needed to assign all symbols to the industries
+   even using the <i><b>Symbol->Organize Assignments</b></i> dialog.</p>
+<p>Fortunately, there is a way to set up and update the database automatically.</p>
+<p>In pre-5.60 versions, it still required scripting and lots of work (see <a href="http://www.amibroker.com/newsletter/04-2000.html">4th
+    
+issue of AmiBroker Tips newsletter</a>), but version 5.60 brings completely new
+ways to set up the database automatically.</p>
+<p>The improved ASCII importer in v5.60 allows you to import symbols, sectors,
+  and industry names and build a complete database in just one step.</p>
+<p>Let us say that we have a CSV file that looks as follows:<br>
+"DDD","3D Systems Corporation","Technology","Computer
+  Software: Prepackaged Software"<br>
+"MMM","3M Company","Health Care","Medical/Dental
+  Instruments"<br>
+"SVN","7 Days Group Holdings Limited","Consumer Services","Hotels/Resorts"<br>
+"AHC","A.H. Belo Corporation","Consumer Services","Newspapers/Magazines"<br>
+"AIR","AAR Corp.","Capital Goods","Aerospace"<br>
+"AAN","Aaron's, Inc.","Technology","Diversified
+Commercial Services"</p>
+<p>Now we can import it into AmiBroker and automatically set up all sectors and
+  industries using this
+  format definition:</p>
+<p>$FORMAT Ticker, FullName,SectorName,IndustryName<br>
+  $SEPARATOR ,<br>
+  $AUTOADD 1<br>
+  $NOQUOTES 1<br>
+  $OVERWRITE 1<br>
+  $CLEANSECTORS 1<br>
+  $SORTSECTORS 1</p>
+<p>The last two commands ($CLEANSECTORS and $SORTSECTORS) instruct AmiBroker
+  to
+  clean (wipe) existing sector/industry names before importing and sort newly
+  imported sectors after importing so that they appear alphabetically.</p>
+<p>AmiBroker will read such an ASCII file one by one, then it will check whether a given sector name/industry name
+  already exists; if not, it will create a new sector/industry. Then it will assign the given symbol to the specified
+sector/industry.</p>
+<p>The result will be a database with a new sector/industry structure being set
+  up and symbols assigned to the proper sectors and industries.</p>
+<p>  The described functionality is used to implement the Tools->Update US symbol list
+  and categories tool.</p>
+<p><strong><a name="UPDATE"></a>One-click "Update US symbol list and categories"</strong></p>
+<p> Automatic setup and update of the US stock database is available from the <strong>Tools->Update
+    US symbol list and categories</strong> menu. This is implemented using a new <a href="w_customize.html">#import
+  command</a> and the new <a href="d_ascii.html">ASCII
+importer</a>  commands described above. </p>
+<p>The command  downloads the symbol, sector, and industry list from the amibroker.com
+  website and creates or updates the current database with stocks listed on NYSE,
+  Nasdaq, and AMEX. It  also creates the sector and industry structure and assigns
+  stocks to the proper industries.</p>
+<p>CAVEAT: Be aware that using this tool
+  will wipe (delete) any existing sectors/industries and replace them with the
+  ones
+  imported
+  automatically.</p>
+<p><strong>Note about GICS</strong></p>
+<p>GICS stands for Global Industry Classification Standard (<a href="http://en.wikipedia.org/wiki/Global_Industry_Classification_Standard" target="_blank">http://en.wikipedia.org/wiki/Global_Industry_Classification_Standard</a>).</p>
+<p>AmiBroker also allows for a GICS 4-level classification system, but the demo database
+  does not have symbols classified according to that standard. You can find GICS
+  classification codes in the GICS.txt file inside the AmiBroker folder. </p>
+<p><strong><a name="ICB"></a>Note about ICB</strong></p>
+<p>ICB stands for Industry Classification Benchmark (<a href="http://en.wikipedia.org/wiki/Industry_Classification_Benchmark">http://en.wikipedia.org/wiki/Industry_Classification_Benchmark</a>).</p>
+<p>AmiBroker also allows for an ICB 4-level classification system, but the demo database
+  does not have symbols classified according to that standard. You can find ICB
+  classification codes in the ICB.txt file inside the AmiBroker folder. </p>
+</body>
+</html>

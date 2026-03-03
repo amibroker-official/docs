@@ -1,0 +1,75 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - DATETIME</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>DateTime</b><br>
+        - retrieves encoded date time</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b>(AmiBroker 4.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>DateTime() </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Returns array of encoded date/time values suitable for using with AddColumn and formatDateTime constant
+to produce date time formated according to your system settings.
+<p>
+VERSION 5.27 and above:
+It is important to understand that DateTime is not a simple number but rather bitset and two datetime values can only be reliably compared for equlity or inequality using == or != operators. Any other comparisions (less than/greater then) using normal operators > < can lead to wrong results, therefore to compare two datetime numbers you should use DateTimeDiff( arg1, arg2 ) which will return positive values if arg1 > arg2 and negative values if arg1 < arg2. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> 1. Simple date/time column <p>
+<code>
+AddColumn( DateTime(), "Date / Time", formatDateTime );
+</code><p>
+
+2. Example (produces signal file accepted by various other programs): <p>
+<code>
+Buy=Cross(MACD(),Signal());<br>
+Sell=Cross(Signal(), MACD());<br>
+Filter=Buy OR Sell;<br>
+SetOption("NoDefaultColumns", True );<br>
+AddColumn( DateTime(), "Date", formatDateTime );<br>
+AddColumn( IIf( Buy, 66, 83 ), "Signal", formatChar );<br>
+</code>  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>DateTime</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1165&hilite=DateTime' target='_blank'>AFL_Glossary_1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=DateTime' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1264&hilite=DateTime' target='_blank'>babaloo chapora</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1147&hilite=DateTime' target='_blank'>BEANS-Summary of Holdings</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1215&hilite=DateTime' target='_blank'>Chart Zoom</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=DateTime' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=708&hilite=DateTime' target='_blank'>Ed Seykota's TSP: EMA Crossover System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=735&hilite=DateTime' target='_blank'>Ed Seykota's TSP: Support and Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=DateTime' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=794&hilite=DateTime' target='_blank'>Fast Refreshed KAGI Swing Charts (Price Swing)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=463&hilite=DateTime' target='_blank'>Futures - Dollar Move Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1420&hilite=DateTime' target='_blank'>Gann Swing Charts in 3 modes with text</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=DateTime' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=617&hilite=DateTime' target='_blank'>Gordon Rose</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=DateTime' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1421&hilite=DateTime' target='_blank'>IBD relative strength database ranker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=DateTime' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1263&hilite=DateTime' target='_blank'>Intraday Range and Periods Framer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=DateTime' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=348&hilite=DateTime' target='_blank'>PF Chart - Close - April 2004</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=359&hilite=DateTime' target='_blank'>Pivot Finder</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=DateTime' target='_blank'>Polyfit Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=335&hilite=DateTime' target='_blank'>Relative Strength Multichart of up to 10 tickers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1204&hilite=DateTime' target='_blank'>Scale Out: Futures</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1235&hilite=DateTime' target='_blank'>shailu lunia</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=DateTime' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1512&hilite=DateTime' target='_blank'>Trades per second indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1260&hilite=DateTime' target='_blank'>Trend Exploration: Count Number of New Highs</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1276&hilite=DateTime' target='_blank'>Trend Exploration: Slope Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1228&hilite=DateTime' target='_blank'>TWS trade plotter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1015&hilite=DateTime' target='_blank'>ValueChart</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=DateTime">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,66 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ASC</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Asc</b><br>
+        - get ASCII code of character</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> String manipulation<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Asc( string, pos = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Returns the ANSI character code corresponding to the first letter in a string (if position is not specified) or code of character at specified position. If you don't specify position (pos argument) then first character is used. Negative values of pos reference characters counting from the end of string.
+<p>
+Useful for creation of exploration that displays single letters for signals instead of numbers.
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(),</FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>()); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(),</FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>()); <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>OR</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>Asc</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"B"</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#0000ff>Asc</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"S"</FONT><FONT COLOR=#000000>)), </FONT><FONT COLOR=#ff00ff>"Signal"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>formatChar</B></FONT><FONT COLOR=#000000> );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="addcolumn.html">AddColumn()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Asc</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1165&hilite=Asc' target='_blank'>AFL_Glossary_1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=Asc' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=735&hilite=Asc' target='_blank'>Ed Seykota's TSP: Support and Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=Asc' target='_blank'>New HL Scanner</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Asc">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

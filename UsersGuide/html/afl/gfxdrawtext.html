@@ -1,0 +1,145 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXDRAWTEXT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxDrawText</b><br>
+        - draw a text (clipped to rectangle)</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxDrawText( ''text'', left, top, right, bottom, format = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Formats and draws text in the given rectangle. It formats text by expanding tabs into appropriate spaces, aligning text to the left, right, or center of the given rectangle, and breaking text into lines that fit within the given rectangle. The type of formatting is specified by format argument.
+When format is not specified the text is aligned to the top/left corner.
+<p>
+Parameters:
+<ul>
+<li><b>"text"</b> - string to be drawn
+<li><b>left</b> - x-coordinate of upper left corner of the clipping rectangle
+<li><b>top</b> - y-coordinate of upper left corner of the clipping rectangle
+<li><b>right</b> - x-coordinate of lower right corner of the clipping rectangle
+<li><b>bottom</b> - y-coordinate of lower right corner of the clipping rectangle
+<li><b>format</b> - specifies the method of formatting the text. It can be any combination of the following values (combine using the bitwise OR operator):
+<ul>
+<li>DT_BOTTOM = 8 - Specifies bottom-justified text. This value must be combined with DT_SINGLELINE.
+<li>DT_CENTER = 1 - Centers text horizontally.
+<li>DT_END_ELLIPSIS = 32768 or DT_PATH_ELLIPSIS = 16384 - Replaces part of the given string with ellipses, if necessary, so that the result fits in the specified rectangle. You can specify DT_END_ELLIPSIS to replace characters at the end of the string, or DT_PATH_ELLIPSIS to replace characters in the middle of the string. If the string contains backslash (\) characters, DT_PATH_ELLIPSIS preserves as much as possible of the text after the last backslash.
+<li>DT_EXPANDTABS = 64 -  Expands tab characters. The default number of characters per tab is eight.
+<li>DT_LEFT = 0 - Aligns text flush-left.
+<li>DT_NOCLIP = 256 - Draws without clipping. DrawText is somewhat faster when DT_NOCLIP is used.
+<li>DT_NOPREFIX = 2048 - Turns off processing of prefix characters. Normally, DrawText interprets the ampersand (&) mnemonic-prefix character as a directive to underscore the character that follows, and the two-ampersand (&&) mnemonic-prefix characters as a directive to print a single ampersand. By specifying DT_NOPREFIX, this processing is turned off.
+<li>DT_RIGHT = 2 - Aligns text flush-right.
+<li>DT_SINGLELINE = 32 - Specifies single line only. Carriage returns and linefeeds do not break the line.
+<li>DT_TOP = 0 - Specifies top-justified text (single line only).
+<li>DT_VCENTER = 4 - Specifies vertically centered text (single line only).
+<li>DT_WORDBREAK = 16 - Specifies word-breaking. Lines are automatically broken between words if a word would extend past the edge of the rectangle specified by lpRect. A carriage return–linefeed sequence will also break the line. 
+</ul>
+</ul> 
+
+Note: DT_ constants come from Windows API and are provided here for reference only. They are not defined in AmiBroker therefore you should use numerical values instead.
+
+<p>
+NOTE: This is LOW-LEVEL graphic function. To learn more about low-level
+graphic functions please read <a href='../h_lowlevelgfx.html'>TUTORIAL: Using low-level graphics.</a>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// formatted text output
+sample via low-level gfx functions </FONT><FONT COLOR=#000000> <BR>
+<BR>
+<BR>
+CellHeight = </FONT><FONT COLOR=#800080>20</FONT><FONT COLOR=#000000>; <BR>
+CellWidth = </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectFont</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Tahoma"</FONT><FONT COLOR=#000000>,
+CellHeight/</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> PrintInCell(
+string, row, Col ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>GfxDrawText</FONT><FONT COLOR=#000000>( string, Col
+* CellWidth, row * CellHeight, (Col + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+* CellWidth, (row + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+* CellHeight, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+PrintInCell( </FONT><FONT COLOR=#800080>"Open"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#800080>"High"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#800080>"Low"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#800080>"Close"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#800080>"Volume"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>4</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>;
+i < </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> && i < </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+i++ ) <BR>
+{ <BR>
+PrintInCell( </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"%g"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>O</B></FONT><FONT COLOR=#000000>[
+i ] ), i, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"%g"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>[
+i ] ), i, </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"%g"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>[
+i ] ), i, </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"%g"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[
+i ] ), i, </FONT><FONT COLOR=#800080>3</FONT><FONT COLOR=#000000> ); <BR>
+PrintInCell( </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"%g"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>V</B></FONT><FONT COLOR=#000000>[
+i ] ), i, </FONT><FONT COLOR=#800080>4</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,
+i * CellHeight ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000> *
+CellWidth, i * CellHeight ); <BR>
+} <BR>
+</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,
+i * CellHeight ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000> *
+CellWidth, i * CellHeight ); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( Col = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>;
+Col < </FONT><FONT COLOR=#800080>6</FONT><FONT COLOR=#000000>; Col++ ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>( Col * CellWidth, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>( Col * CellWidth, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> *
+CellHeight ); <BR>
+}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="gfxsettextcolor.html">GfxSetTextColor()</A> function , <A HREF="gfxtextout.html">GfxTextOut()</A> function , <A HREF="gfxsetbkcolor.html">GfxSetBkColor()</A> function , <A HREF="gfxsetbkmode.html">GfxSetBkMode()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxDrawText</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1347&hilite=GfxDrawText' target='_blank'>Basket Trading System T101</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=GfxDrawText' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1147&hilite=GfxDrawText' target='_blank'>BEANS-Summary of Holdings</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=GfxDrawText' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GfxDrawText' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=GfxDrawText' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=GfxDrawText' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=GfxDrawText' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=GfxDrawText' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1224&hilite=GfxDrawText' target='_blank'>Market Breadth Chart-In-Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1218&hilite=GfxDrawText' target='_blank'>Multiple Ribbon Demo</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=GfxDrawText' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=GfxDrawText' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=GfxDrawText' target='_blank'>Visi-Trade</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxDrawText">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

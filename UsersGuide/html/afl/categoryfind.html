@@ -1,0 +1,77 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - CATEGORYFIND</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>CategoryFind</b><br>
+        - search for category by name</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Information / Categories<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>CategoryFind( ''name'', category ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> It allows to search for category by name. It takes category name and kind as parameters and returns INDEX (ordinal number). <p>For example it allows to find watch list index by name.
+<p>
+Supported categories: 
+<ul>
+<li>categoryMarket 
+<li>categoryGroup 
+<li>categorySector 
+<li>categoryIndustry 
+<li>categoryWatchlist 
+<li>categoryFavorite 
+<li>categoryIndex 
+<li>categoryGICS 
+<li>categoryICB
+</ul>
+The index (in the example below watch list number) can be later used in functions that need the index (like CategoryGetSymbols).
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000>wlnumber = </FONT><FONT COLOR=#0000ff>CategoryFind</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"MyWatch
+List 1"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>categoryWatchlist</B></FONT><FONT COLOR=#000000> ); <BR>
+mysymbols = </FONT><FONT COLOR=#0000ff>CategoryGetSymbols</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>categoryWatchlist</B></FONT><FONT COLOR=#000000>,
+wlnumber );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="categoryaddsymbol.html">CategoryAddSymbol()</A> function , <A HREF="categorygetname.html">CategoryGetName()</A> function , <A HREF="categorygetsymbols.html">CategoryGetSymbols()</A> function , <A HREF="categoryremovesymbol.html">CategoryRemoveSymbol()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>CategoryFind</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1583&hilite=CategoryFind' target='_blank'>Add Nifty 50 IB Equity Symbol Automatically</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=CategoryFind">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

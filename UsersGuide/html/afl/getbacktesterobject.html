@@ -1,0 +1,72 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETBACKTESTEROBJECT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetBacktesterObject</b><br>
+        - get the access to backtester object</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Trading system toolbox<br>
+        </b>(AmiBroker 4.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetBacktesterObject() </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> OBJECT </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This funciton is used in custom backtester procedures to get the access to backtester object. Note that GetBacktester method should only be called when Status("action") returns actionPortfolio.
+<p>
+For more details please read <a href='../a_custombacktest.html'>
+Custom Backtester documentation</a>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <code>
+<pre>
+if( Status("action")== actionPortfolio ) 
+{ 
+    // retrieve the interface to portfolio backtester 
+     bo = GetBacktesterObject(); 
+
+     //...here is your custom backtest formula. 
+}
+</pre>
+</code> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="status.html">STATUS()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetBacktesterObject</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=722&hilite=GetBacktesterObject' target='_blank'>Customised Avg. Profit %, Avg. Loss % etc</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1311&hilite=GetBacktesterObject' target='_blank'>Detailed Equity Curve</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=708&hilite=GetBacktesterObject' target='_blank'>Ed Seykota's TSP: EMA Crossover System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=735&hilite=GetBacktesterObject' target='_blank'>Ed Seykota's TSP: Support and Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=GetBacktesterObject' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1478&hilite=GetBacktesterObject' target='_blank'>Periodically ReBalance a BUY & HOLD Portfolio</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1409&hilite=GetBacktesterObject' target='_blank'>Rebalancing Backtest avoiding leverage</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetBacktesterObject">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

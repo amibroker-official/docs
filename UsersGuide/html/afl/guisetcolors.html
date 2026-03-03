@@ -1,0 +1,72 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GUISETCOLORS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GuiSetColors</b><br>
+        - set colors for GUI controls</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>GUI functions<br>
+        </b>(AmiBroker 4.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong> GuiSetColors( idFrom, idTo, border , clrText = -1, clrBack = -1, clrBorder = -1, clrSelText = -1, clrSelBack = -1, clrSelBorder = -1, clrHoverText = -1, clrHoverBack = -1, clrHoverBorder = -1, clrDisText = -1, clrDisBack = -1, clrDisBorder = -1) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function defines custom colors for on-chart GUI controls<p>
+Parameters:
+<ul>
+<li>
+idFrom, idTo - define range of control IDs that will use new colors. To set color for single control use the same value for both idFrom and idTo
+<li>border - defines border width of button (does not affect other control types)
+<li>clrText, clrBack, clrBorder - define colors of control text (fgcolor), background (bgcolor) and border (if border width is > 0 ) in &quot;default&quot; control state (unselected)
+selectfgcolor. -1 means colorDefault and if all colors are set to default then control uses SYSTEM (Windows) look
+<li>clrSelText, clrSelBack, clrSelBorder - define colors in selected state
+<li>clrHoverText, clrHoverBack, clrHoverBorder - define colors in hover (mouse over) state
+<li>clrDisText, clrDisBack, clrDisBorder - define colors in disabled state
+</ul>
+<p>
+Please note that currently only buttons support custom colors and custom border
+As for v6.21 Edit fields always use system look </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="guisetfont.html">GuiSetFont()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GuiSetColors</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1574&hilite=GuiSetColors' target='_blank'>Color Combination</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=GuiSetColors' target='_blank'>Gfx Toolkit</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GuiSetColors">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

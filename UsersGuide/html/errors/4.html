@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error 4. Incorrect type of argument(s). Expecting number here.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4>Error 4. Incorrect type of argument(s). Expecting number here.</h4>
+<p>This occurs in ApplyStop function when Type, Mode, ExitAtStop or Volatile
+  parameter is an array</p>
+<p><CODE><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// wrong - stop mode (precent/point) can not be array</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>ApplyStop</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>stopTypeLoss</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#000000><B>O</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>stopModePercent</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>stopModePoint</B></FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000> ); <BR>
+</FONT></CODE></p>
+
+</body>
+</html>

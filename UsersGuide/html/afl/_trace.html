@@ -1,0 +1,67 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - _TRACE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>_TRACE</b><br>
+        - print text to system debug viewer</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>_TRACE(''string'') </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Write debug messages from AFL code to system debug viewer (it calls internally OutputDebugString Win API function) or to internal Log window (Window->Log)
+To view debug messages sent to system debugger you have to run DebugView freeware program 
+from <a href='https://learn.microsoft.com/en-us/sysinternals/downloads/debugview' target='_blank'>https://learn.microsoft.com/en-us/sysinternals/downloads/debugview</a>
+To view messages sent to internal log window you need to display log window (Window->Log menu)
+<p>
+Note for internal viewer: you can specify _TRACE(&quot;!CLEAR!&quot;); to clear internal log window </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> _TRACE(&quot;This is a test&quot;);
+<br>
+_TRACE(&quot;This is selected value of close: &quot; + Close );
+<br>
+_TRACE(&quot;This is first element of close array: &quot; + Close[ 0 ] ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>_TRACE</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1300&hilite=_TRACE' target='_blank'> 	Pivots And Prices And Swing Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=_TRACE' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=_TRACE' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=_TRACE' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=_TRACE' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1264&hilite=_TRACE' target='_blank'>babaloo chapora</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=_TRACE' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=709&hilite=_TRACE' target='_blank'>Calculate composites for tickers in list files</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=586&hilite=_TRACE' target='_blank'>CCI(20) Divergence Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1379&hilite=_TRACE' target='_blank'>Congestions detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1484&hilite=_TRACE' target='_blank'>Create a list of functions in your program</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1311&hilite=_TRACE' target='_blank'>Detailed Equity Curve</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=708&hilite=_TRACE' target='_blank'>Ed Seykota's TSP: EMA Crossover System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=735&hilite=_TRACE' target='_blank'>Ed Seykota's TSP: Support and Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1498&hilite=_TRACE' target='_blank'>Extract specific lines of code from your program</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=_TRACE' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1296&hilite=_TRACE' target='_blank'>Herman</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=762&hilite=_TRACE' target='_blank'>lastNDaysBeforeDate</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1518&hilite=_TRACE' target='_blank'>Market Meanness Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=934&hilite=_TRACE' target='_blank'>MFE and MAE and plot trades as indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1018&hilite=_TRACE' target='_blank'>Ord Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=359&hilite=_TRACE' target='_blank'>Pivot Finder</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1442&hilite=_TRACE' target='_blank'>Plot visual stop / target ratio.</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1597&hilite=_TRACE' target='_blank'>Profit Table (Color Coded)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1204&hilite=_TRACE' target='_blank'>Scale Out: Futures</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1235&hilite=_TRACE' target='_blank'>shailu lunia</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=_TRACE' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1268&hilite=_TRACE' target='_blank'>Volume Color with Dynamic Limit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=710&hilite=_TRACE' target='_blank'>WLBuildProcess</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=_TRACE">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

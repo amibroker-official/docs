@@ -1,0 +1,75 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXGRADIENTRECT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxGradientRect</b><br>
+        - draw a rectangle with gradient fill</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxGradientRect( x1, y1, x2, y2, fromcolor, tocolor ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Draws a rectangle. The interior of the rectangle is filled using gradient color. 
+<p>
+Parameters
+<ul>
+<li>x1 - x-coordinate of the upper left corner of the rectangle
+<li>y1 - y-coordinate of the upper left corner of the rectangle
+<li>x2 - x-coordinate of the lower right corner of the rectangle
+<li>y2 - y-coordinate of the lower right corner of the rectangle
+<li>fromcolor - the 'upper' color of the gradient fill
+<li>tocolor - the 'lower' color of the gradient fill
+</ul>
+
+The rectangle extends up to, but does not include, the right and bottom coordinates. This means that the height of the rectangle is y2 - y1 and the width of the rectangle is x2 - x1. Both the width and the height of a rectangle must be greater than 2 and less than 32767.
+
+<p>
+NOTE: This is LOW-LEVEL graphic function. To learn more about low-level
+graphic functions please read <a href='../h_lowlevelgfx.html'>TUTORIAL: Using low-level graphics.</a>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> GfxGradientRect( 10, 10, 100, 100, colorWhite, colorGrey50 ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="gfxroundrect.html">GfxRoundRect()</A> function , <A HREF="gfxrectangle.html">GfxRectangle()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxGradientRect</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GfxGradientRect' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=GfxGradientRect' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=GfxGradientRect' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=GfxGradientRect' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1271&hilite=GfxGradientRect' target='_blank'>Probability Density & Gaussian Distribution</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=GfxGradientRect' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=GfxGradientRect' target='_blank'>Visi-Trade</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxGradientRect">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

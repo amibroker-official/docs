@@ -1,0 +1,1197 @@
+<html>
+
+<head>
+<title>AFL Reference Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2>AFL Reference Manual<span class="note"><br>
+  </span></h2>
+  <h2>Introduction</h2>
+<p>AFL is a special programming language used to define and create custom indicators,
+   scans, explorations, back-tests and guru commentaries. </p>
+<h2>Basics</h2>
+<h3>Lexical elements</h3>
+<p>This chapter describes the different categories of word-like units (tokens) 
+  recognized by the AFL language interpreter. </p>
+<h5>Whitespace</h5>
+<p><em>Whitespace</em> is the collective name given to spaces (blanks), tabs, 
+  newline characters and comments. Whitespace can serve to indicate where tokens 
+  start and end, but beyond this function, any surplus whitespace is discarded.</p>
+<h5>Comments</h5>
+<p><em>Comments</em> are pieces of text used to annotate a program. Comments are 
+  for the programmer's use only; they are stripped from the source code before 
+  parsing. There are two ways to delineate comments: C-like comments and C++-like comments. A C-like comment is any sequence of characters placed after the symbol 
+  pair /*. The comment terminates at the first occurrence of the pair */ following 
+  the initial /*. The entire sequence, including the four comment-delimiter symbols, 
+  is replaced by one space. C++-like comments are single-line comments that 
+  start by using two adjacent slashes (//) in any position within the line and 
+  extend until the next newline.<br>
+  <br>
+  AFL does not allow nested comments.</p>
+<h5>Tokens</h5>
+<p>AFL recognizes five classes of tokens:</p>
+<ul>
+  <li>identifiers</li>
+  <li>constants</li>
+  <li>string-literals</li>
+  <li>operators</li>
+  <li>punctuators (also known as separators)</li>
+</ul>
+<p><em>Identifiers</em> are arbitrary names of any length given to functions and 
+  variables. Identifiers can contain the letters (a-z, A-Z), the underscore character 
+  (&quot;_&quot;), and the digits (0-9). The first character must be a letter.<br>
+  AFL identifiers are not case-sensitive.</p>
+<p><em>Constants</em> are tokens representing fixed numeric or character values. 
+  Numeric constants consist of decimal integers and, optionally, a decimal point and 
+  decimal fraction part. Negative numeric constants have a unary minus (-) prefixed. 
+  <br>
+  String constants, also known as <em>string literals</em>, form a special category 
+  of constants used to handle fixed sequences of characters and are written as 
+  a sequence of any number of characters surrounded by double quotes:<br>
+  <br>
+  &quot;<code>This is literally a string&quot;</code></p>
+<p>The null (empty) string is written &quot;&quot;. The characters inside the 
+  double quotes can include escape sequences (&quot;\n&quot; - a newline escape 
+  sequence).</p>
+<p>A constant expression is an expression that always evaluates to a 
+  constant. They are evaluated just as regular expressions are. </p>
+<p>A <em>punctuator</em> (also known as a separator) in AFL is one of the following 
+  characters:<br>
+  ( ) , ; = .<br>
+  <br>
+  <em>Parentheses</em> (open ( and close ) ) group expressions, isolate conditional 
+  expressions, and indicate function calls and function parameters:<br>
+  d = c * ( a + b ) /* override normal precedence */<br>
+  a= (b AND c) OR (d AND e) /* conditional expression */<br>
+  func() /* function call no arguments */<br>
+  <br>
+  The <em>comma</em> (,) separates the elements of a function argument list<br>
+  <br>
+  The <em>semicolon</em> (;) is a statement terminator. Any legal AFL expression 
+  followed by a semicolon is interpreted as a statement, known as an expression statement. 
+  The expression is evaluated and its value<br>
+  is discarded (except Guru Commentaries where string values are written to the output 
+  window)</p>
+<p>The <i>dot </i>(.) is a member access operator. It is used to call COM object 
+  methods. If a myobj variable holds the object, using the dot operator we can call 
+  the methods (functions) of the myobj object:</p>
+<p>myobj.Method();</p>
+<p>The <em>equal sign </em>(<em>=</em>) separates variable declarations from initialization 
+  lists:<br>
+  x = 5;<br>
+  It also indicates the default value for a parameter (see built-in function description):<br>
+  macd( fast = 12; slow = 26 ) /* default values for fast and slow arguments)</p>
+<h3>Language structure</h3>
+<p>Each formula in AFL consists of one or more expression statements. Each statement 
+  MUST be terminated by a semicolon (;). In this way, you are able to break long 
+  expressions into several physical lines (in order to gain clarity), and AmiBroker 
+  will still treat it like a single statement until the terminating semicolon. Examples: 
+</p>
+<pre><CODE><FONT COLOR=#000000>x = ( y + </FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000> );          </FONT><FONT COLOR=#008000>/* x is assigned the value of y + 3  */</FONT><FONT COLOR=#000000>
+<BR>x = y = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>;              </FONT><FONT COLOR=#008000>/* Both x and y are initialized to 0 */</FONT><FONT COLOR=#000000>
+<BR>proc( arg1, arg2 );     </FONT><FONT COLOR=#008000>/* Function call, return value discarded */</FONT><FONT COLOR=#000000>
+<BR>y = z = ( f( x ) + </FONT><FONT COLOR=#ff00ff>3</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>/* A function-call expression  */</FONT><FONT COLOR=#000000>
+<BR>
+<BR>my_indicator = &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>() &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> - </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000>),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000> ) - </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> );&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>/* one statement in several lines */</FONT></CODE></pre>
+<h5>Identifiers</h5>
+<p>Identifiers in AFL are used to identify variables and functions. <br>
+  There are some predefined identifiers referencing built-in arrays and functions.<br>
+  The most important are <em>price array identifiers</em>. They identify specific 
+  price fields that the formula should operate on. The valid price array identifiers 
+  are <strong>open</strong>, <strong>high</strong>, <strong>low</strong>, <strong>close</strong>, 
+  <strong>volume</strong>, <strong>openint</strong>, <strong>average</strong>. 
+  Price array identifiers can be abbreviated as shown in the following table. 
+  Note that these are not case-specific. </p>
+<table border="0" cellpadding="3" cellspacing="3"
+bgcolor="#C0C0C0">
+  <tr> 
+    <td bgcolor="#800000"><font color="#FFFFFF">Long name</font></td>
+    <td bgcolor="#800000"><font color="#FFFFFF">Abbreviation</font></td>
+    <td bgcolor="#800000"><font color="#FFFFFF">Comment</font></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#FFFF00">Open</td>
+    <td bgcolor="#FFFF00">O</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#FFFF00">High</td>
+    <td bgcolor="#FFFF00">H</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#FFFF00">Low</td>
+    <td bgcolor="#FFFF00">L</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#FFFF00">Close</td>
+    <td bgcolor="#FFFF00">C</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#FFFF00">Volume</td>
+    <td bgcolor="#FFFF00">V</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#FFFF00">OpenInt</td>
+    <td bgcolor="#FFFF00">OI</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#FFFF00">Avg</td>
+    <td bgcolor="#FFFF00">&lt;none available&gt;</td>
+    <td>(High+Low+Close)/3 - so called &quot;typical price&quot;</td>
+  </tr>
+</table>
+<p>Examples of the use of price array identifiers in formulas are shown below. 
+</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>,-</FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>)
+      ); </FONT></CODE> 
+</p>
+<h5>Operators</h5>
+<h6>Comparison operators</h6>
+<p>Comparison operators are divided into two types:</p>
+<ul>
+  <li>relational ( &lt;, &gt;, &lt;=, &gt;= )</li>
+  <li>equality ( ==, != )</li>
+</ul>
+<table border="0" cellpadding="3" cellspacing="3"
+bgcolor="#C0C0C0">
+  <tr>
+    <td align="center" bgcolor="#800000"><font
+        color="#FFFFFF">Symbol</font></td>
+    <td bgcolor="#800000"><font color="#FFFFFF">Meaning</font></td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFF00"><strong>&lt;</strong></td>
+    <td>Less than </td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFF00"><strong>&gt;</strong></td>
+    <td>Greater than</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFF00"><strong>&lt;=</strong> </td>
+    <td>Less than or equal to</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFF00"><strong>&gt;=</strong></td>
+    <td>Greater than or equal to</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFF00"><strong>==</strong></td>
+    <td>Equal to</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFF00"><strong>!=</strong></td>
+    <td>Not equal to</td>
+  </tr>
+</table>
+<p>These operators give a true (1) or false (0) value as a result of comparison.</p>
+<h6>Assignment operator</h6>
+<table border="0" cellpadding="3" cellspacing="3"
+bgcolor="#C0C0C0">
+  <tr>
+    <td width="47" align="center" bgcolor="#800000"><font
+        color="#FFFFFF">Symbol</font></td>
+    <td width="507" bgcolor="#800000"><font color="#FFFFFF">Meaning</font></td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFF00">=</td>
+    <td>Store the value of the second operand in the object specified by the
+      first operand (&#8220;simple assignment&#8221;). </td>
+  </tr>
+</table>
+<p>The assignment operator assigns a value to a variable:</p>
+<p><i>result</i> = <i>expression;</i></p>
+<p>where <i>result </i>is a variable identifier and <i>expression </i>is any numerical,
+  array, or text expression.</p>
+<p>As the = operator behaves like other operators, expressions using it have
+  a value in addition to assigning that value to a variable. This means that
+  you can chain assignment operators as follows: <br>
+j = k = l = 0;</p>
+<p>j, k, and l equal zero after the example statement is executed. </p>
+<p>Attention: Please do not confuse assignment operator (=) with equality check
+  (==)</p>
+<p>These are two different operators and you must not use assignment (=) to check
+  for equality.</p>
+<p>if( Name() = &quot;MSFT&quot; ) // WRONG !!! - variable assignment operator
+  used instead of equality check<br>
+{ </p>
+<p>} <br>
+  <br>
+  if( Name() == &quot;MSFT&quot; ) // CORRECT - equality operator used properly<br>
+  {<br>
+  <br>
+  }
+</p>
+<p>This is one of the common coding mistakes listed <a href="a_mistakes.html">here</a>.</p>
+<h6><b>Arithmetic operators</b></h6>
+<p>Formulas can contain the following mathematical operators:</p>
+<table border="0" cellpadding="3" cellspacing="3"
+bgcolor="#C0C0C0">
+  <tr> 
+    <td align="center" bgcolor="#800000"><font
+        color="#FFFFFF">Symbol</font></td>
+    <td bgcolor="#800000"><font color="#FFFFFF">Meaning</font></td>
+  </tr>
+  <tr> 
+    <td align="center" bgcolor="#FFFF00">+</td>
+    <td>Addition</td>
+  </tr>
+  <tr> 
+    <td align="center" bgcolor="#FFFF00">-</td>
+    <td>Subtraction (or negative value) </td>
+  </tr>
+  <tr> 
+    <td align="center" bgcolor="#FFFF00">*</td>
+    <td>Multiplication </td>
+  </tr>
+  <tr> 
+    <td align="center" bgcolor="#FFFF00">/</td>
+    <td>Division </td>
+  </tr>
+  <tr> 
+    <td align="center" bgcolor="#FFFF00">%</td>
+    <td>Modulus (or remainder) (AFL 1.7+)</td>
+  </tr>
+  <tr> 
+    <td align="center" bgcolor="#FFFF00">^</td>
+    <td>Exponentiation (raising to a power) </td>
+  </tr>
+  <tr> 
+    <td align="center" bgcolor="#FFFF00">|</td>
+    <td>Bit-wise &quot;Or&quot; (AFL 2.1+)</td>
+  </tr>
+  <tr> 
+    <td align="center" bgcolor="#FFFF00">&amp;</td>
+    <td>Bit-wise &quot;And&quot; (AFL 2.1+)</td>
+  </tr>
+</table>
+<p>The following formulas illustrate the use of operators in a formula: </p>
+<pre><CODE><FONT COLOR=#000000>var1 = ( </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000> ) / </FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>; 
+<BR>var2 = </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>)-</FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>) / (</FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>); 
+<BR>var3 = </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> + ((</FONT><FONT COLOR=#ff00ff>1.02</FONT><FONT COLOR=#000000> * </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>)-</FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>);&nbsp;&nbsp;&nbsp;&nbsp;</FONT></CODE></pre>
+<h6>Logical operators</h6>
+<table border="0" cellpadding="3" cellspacing="3"
+bgcolor="#C0C0C0">
+  <tr>
+    <td width="47" align="center" bgcolor="#800000"><font
+        color="#FFFFFF">Symbol</font></td>
+    <td width="572" bgcolor="#800000"><font color="#FFFFFF">Meaning</font></td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFF00"><strong>NOT</strong></td>
+    <td>Logical &quot;Not&quot; - gives &quot;True&quot; when an operand is equal to false</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFF00"><strong>AND</strong></td>
+    <td>Logical &quot;And&quot; - gives a &quot;True&quot; result if BOTH operands are true
+      at the same time</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFF00"><strong>OR</strong></td>
+    <td>Logical &quot;Or&quot; - gives a &quot;True&quot; result if ANY  of the
+      operands is true</td>
+  </tr>
+</table>
+<p>If a formula requires multiple conditions, you can combine the conditions with 
+  AND and OR operators. For example, maybe you'd like to plot a +1 when the MACD 
+  is greater than zero and the RSI is greater than 70: </p>
+<pre><CODE><FONT COLOR=#000000>Condition = </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>() &gt; </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>AND</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000>) &gt; </FONT><FONT COLOR=#ff00ff>70</FONT><FONT COLOR=#000000>; </FONT></CODE></pre>
+<p>You can add as many conditions within a formula as you like. </p>
+<h6><b>Compound Assignment Operators</b></h6>
+<p>Introduced in version 5.00, the compound operators are specified in the form
+  of:</p>
+<p><i>destinvar</i> <i>op</i>= <i>expr;</i></p>
+<p>where <i>destinvar</i> is the variable, <i>expr</i> is the expression, and
+  <i>op</i> is one of the following arithmetic operators: +, -, *, /, %, &amp;,
+  |</p>
+<p>The <i>destinvar</i> <i>op</i>= <i>expr</i> form behaves as:</p>
+<p><i>destinvar</i> = <i>destinvar op expr;</i></p>
+<p>This is a shortcut form for common assignment statements like k = k + 2; so
+  you can write it shorter as:</p>
+<p>k += 2;</p>
+<p>and it will work the same but a little faster.</p>
+<p>Full list of available assignment operators is here:</p>
+<table border="0" cellpadding="3" cellspacing="3"
+bgcolor="#C0C0C0">
+  <tr>
+    <td width="17" bgcolor="#800000"><font color="#FFFFFF">No</font></td>
+    <td width="47" align="center" bgcolor="#800000"><font
+        color="#FFFFFF">Symbol</font></td>
+    <td width="507" bgcolor="#800000"><font color="#FFFFFF">Meaning</font></td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td align="center" bgcolor="#FFFF00">=</td>
+    <td>Store the value of the second operand in the object specified by the
+    first operand (&#8220;simple assignment&#8221;). </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td align="center" bgcolor="#FFFF00">*=</td>
+    <td><p>Multiply the value of the first operand by the value of the second
+        operand; store the result in the object specified by the first operand. </p>
+    </td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td align="center" bgcolor="#FFFF00">/= </td>
+    <td>Divide the value of the first operand by the value of the second operand;
+    store the result in the object specified by the first operand. </td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td align="center" bgcolor="#FFFF00">%=</td>
+    <td>Take modulus of the first operand specified by the value of the second
+    operand; store the result in the object specified by the first operand. </td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td align="center" bgcolor="#FFFF00">+=</td>
+    <td>Add the value of the second operand to the value of the first operand;
+    store the result in the object specified by the first operand. </td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td align="center" bgcolor="#FFFF00">&#8211;=</td>
+    <td>Subtract the value of the second operand from the value of the first
+    operand; store the result in the object specified by the first operand. </td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td align="center" bgcolor="#FFFF00">&amp;=</td>
+    <td>Obtain the bitwise AND of the first and second operands; store the result
+    in the object specified by the first operand. </td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td align="center" bgcolor="#FFFF00">|=</td>
+    <td>Obtain the bitwise inclusive OR of the first and second operands; store
+    the result in the object specified by the first operand</td>
+  </tr>
+</table>
+<p><br>
+</p>
+<h5>The typeof() operator</h5>
+<p>The typeof operator is used in the following way: <br>
+  typeof(operand)<br>
+  The typeof operator returns a string indicating the type of the *unevaluated*
+    operand. Operand is the string, variable, function identifier, or object for
+    which the type is to be returned. <br>
+  When supplying an identifier, it should be provided alone, without arithmetic
+    operators, without extra arguments, and without braces. <br>
+  If you want to check the type of value returned by the function, you must first
+    assign the return value to a variable and then use<br>
+  typeof(variable).<br>
+  Possible return values are:</p>
+<ul>
+  <li>&quot;undefined&quot; - identifier is not defined </li>
+  <li>&quot;number&quot; - operand represents a number (scalar)</li>
+  <li>&quot;array&quot; - operand represents an array</li>
+  <li>&quot;string&quot; - operand represents a string</li>
+  <li>&quot;function&quot; - operand is a built-in function identifier</li>
+  <li>&quot;user function&quot; - operand is a user-defined function</li>
+  <li>&quot;object&quot; - operand represents COM object</li>
+  <li>&quot;member&quot; - operand represents member function or property of COM object</li>
+  <li>&quot;handle&quot; - operand represents Windows handle </li>
+  <li>&quot;unknown&quot; - type of operand is unknown (should not happen). The typeof operator
+                          allows, among other things, to detect undefined variables in
+      the following way</li>
+</ul>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>(
+      somevar ) == </FONT><FONT COLOR=#800080>"undefined"</FONT><FONT COLOR=#000000> ) <BR>
+  { <BR>
+</FONT><FONT COLOR=#008000>/// when somevar is undefined the code here will execute</FONT><FONT COLOR=#000000> <BR>
+}</FONT></CODE><br>
+  <br>
+</p>
+<p>The following sample commentary code shows the output of 
+  typeof() in some common situations:<br>
+  <br>
+  <CODE><FONT COLOR=#000000> <BR>
+  x = </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(); <BR>
+  y = </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>( x ); <BR>
+  </FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> testfun()
+  { </FONT><FONT COLOR=#800000><B>return</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>;
+  }; <BR>
+  </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>(
+  test ) + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  the undefined variable</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+  + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+  literal number</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"checking"</FONT><FONT COLOR=#000000> )
+  + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+  literal string</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>(
+  x ) + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+  array variable</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>(
+  y ) + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+  scalar variable</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000> )
+  + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+  function identifier</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>(
+  testfun ) + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  user function identifier</FONT></CODE><br> 
+</p>
+<h5>Operator Precedence and Parentheses</h5>
+<p>AFL supports parentheses in formulas. </p>
+<p>Parentheses can be used to control operator precedence (the order in which 
+  the operators are calculated). AmiBroker always does operations within the innermost 
+  parentheses first. When parentheses are not used, the precedence is as follows 
+  (higher precedence listed first): </p>
+<table border="0" cellpadding="3" cellspacing="3"
+bgcolor="#C0C0C0">
+  <tr> 
+    <td bgcolor="#800000"><font color="#FFFFFF">No</font></td>
+    <td align="center" bgcolor="#800000"><font
+        color="#FFFFFF">Symbol</font></td>
+    <td bgcolor="#800000"><font color="#FFFFFF">Meaning</font></td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td align="center" bgcolor="#FFFF00">++</td>
+    <td>Post-increment/pre-increment<br>
+      (i++ works like i = i + 1)</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td align="center" bgcolor="#FFFF00">--</td>
+    <td><p>Post-decrement/pre-decrement<br>
+      (i-- works like i = i - 1 )</p>
+    </td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td align="center" bgcolor="#FFFF00">[ ]</td>
+    <td>Array element (subscript) operator</td>
+  </tr>
+  <tr> 
+    <td>4</td>
+    <td align="center" bgcolor="#FFFF00">^</td>
+    <td>Exponentiation</td>
+  </tr>
+  <tr> 
+    <td>5</td>
+    <td align="center" bgcolor="#FFFF00"><strong>-</strong></td>
+    <td>Negation - Unary minus</td>
+  </tr>
+  <tr> 
+    <td>6</td>
+    <td align="center" bgcolor="#FFFF00">*</td>
+    <td>Multiplication </td>
+  </tr>
+  <tr> 
+    <td>7</td>
+    <td align="center" bgcolor="#FFFF00">/</td>
+    <td>Division </td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td align="center" bgcolor="#FFFF00">%</td>
+    <td>Remainder (Modulo operator)</td>
+  </tr>
+  <tr> 
+    <td>9</td>
+    <td align="center" bgcolor="#FFFF00">+</td>
+    <td>Addition </td>
+  </tr>
+  <tr> 
+    <td>10</td>
+    <td align="center" bgcolor="#FFFF00"><strong>-</strong></td>
+    <td>Subtraction</td>
+  </tr>
+  <tr> 
+    <td>11</td>
+    <td align="center" bgcolor="#FFFF00"><strong>&lt;</strong></td>
+    <td>Less than </td>
+  </tr>
+  <tr> 
+    <td>12</td>
+    <td align="center" bgcolor="#FFFF00"><strong>&gt;</strong></td>
+    <td>Greater than</td>
+  </tr>
+  <tr> 
+    <td>13</td>
+    <td align="center" bgcolor="#FFFF00"><strong>&lt;=</strong> </td>
+    <td>Less than or equal to</td>
+  </tr>
+  <tr> 
+    <td>14</td>
+    <td align="center" bgcolor="#FFFF00"><strong>&gt;=</strong></td>
+    <td>Greater than or equal to</td>
+  </tr>
+  <tr> 
+    <td>15</td>
+    <td align="center" bgcolor="#FFFF00"><strong>==</strong></td>
+    <td>Equal to</td>
+  </tr>
+  <tr> 
+    <td>16</td>
+    <td align="center" bgcolor="#FFFF00"><strong>!=</strong></td>
+    <td>Not equal to</td>
+  </tr>
+  <tr> 
+    <td>17</td>
+    <td align="center" bgcolor="#FFFF00">&amp;</td>
+    <td>Bit-wise &quot;And&quot; (AFL 2.1+)</td>
+  </tr>
+  <tr> 
+    <td>18</td>
+    <td align="center" bgcolor="#FFFF00">|</td>
+    <td>Bit-wise &quot;Or&quot; (AFL 2.1+)</td>
+  </tr>
+  <tr> 
+    <td>19</td>
+    <td align="center" bgcolor="#FFFF00"><strong>NOT</strong></td>
+    <td>Logical &quot;Not&quot; </td>
+  </tr>
+  <tr> 
+    <td>20</td>
+    <td align="center" bgcolor="#FFFF00"><strong>AND</strong></td>
+    <td>Logical &quot;And&quot; </td>
+  </tr>
+  <tr> 
+    <td>21</td>
+    <td align="center" bgcolor="#FFFF00"><strong>OR</strong></td>
+    <td>Logical &quot;Or&quot;</td>
+  </tr>
+  <tr>
+    <td>22</td>
+    <td align="center" bgcolor="#FFFF00"><strong>=</strong></td>
+    <td>Variable assignment operator</td>
+  </tr>
+  <tr>
+    <td>23</td>
+    <td align="center" bgcolor="#FFFF00"><b>*=<br> 
+      /=<br> 
+      %=<br> 
+      +=<br> 
+      -=<br>
+&amp;      =<br> 
+     |=</b></td>
+    <td>Compound assignment</td>
+  </tr>
+</table>
+<p>The expression </p>
+<pre><code>H + L / 2; </code></pre>
+<p>(without parentheses) would be calculated by AmiBroker as &quot;L / 2&quot; 
+  plus &quot;H&quot;, since division has a higher precedence. This would result 
+  in a much different value than </p>
+<pre><code>(H + L)/2; </code>
+
+</pre>
+<p>A few words about increment/decrement operators. There are two kinds of them:
+postfix and prefix. </p>
+<p>The unary operators (++ and --) are called &#8220;prefix&#8221; increment
+  or decrement operators when the increment or decrement operators appear before
+  the operand. Postfix increment and decrement have higher precedence than prefix
+increment and decrement operators. When the operator appears before its operand,
+the operand is incremented or decremented and its new value is the result of
+the expression.</p>
+<p><CODE><FONT COLOR=#000000>i = </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>; <BR>
+      <BR>
+      j = ++i; </FONT><FONT COLOR=#008000>// i will be incremented first and
+result (number 6) will be assigned to j.</FONT></CODE></p>
+<p>The result of the postfix increment or decrement operation is the value of
+  the postfix-expression before the increment or decrement operator is applied.
+  The type of the result is the same as that of the postfix-expression but is
+  no longer an l-value. After the result is obtained, the value of the operand
+is incremented (or decremented).</p>
+<p><CODE><FONT COLOR=#000000>i = </FONT><FONT COLOR=#ff00ff>5</FONT><FONT COLOR=#000000>; <BR>
+      <BR>
+      j = i++; </FONT><FONT COLOR=#008000>// j will be assigned the value of
+5 (before incrementation) and then i will be incremented to 6.</FONT></CODE></p>
+<h5>Accessing Array Elements: [ ] - Subscript Operator</h5>
+<p> An array identifier followed by an expression in square
+  brackets ([ ]) is a subscripted representation of an element of an array object.</p>
+<p><code>arrayidentifier [ expression ]</code></p>
+<p>It represents the value of the expression-th element of the array. </p>
+<p><strong>BarCount</strong> constant gives the number of bars in an array (such
+  as Close, High,
+Low, Open, Volume, etc). Array elements are numbered from 0 (zero) to BarCount-1.
+BarCount does not change as long as your formula continues execution, but it
+  may change between executions when new bars are added, the zoom factor is changed, or the
+  symbol
+  is changed.</p>
+<p>To get the first bar, you can use array[ 0 ], to get the last bar of the array
+  you can use array[ BarCount - 1 ].</p>
+<p> For example:</p>
+<p><code>Close[ 5 ]</code>;<br>
+Represents the sixth element (bar) of the close array.</p>
+<p><code>Close[ 0 ];<br>
+</code>Represents the very first available bar of the close array.</p>
+<p><code>High[ BarCount - 1 ];</code><br>
+  Represents the last bar of High array.
+</p>
+<p></p>
+<h5><a name="MATRIX"></a>Matrices and Matrix Operators</h5>
+<p>Matrices are two-dimensional arrays of numbers.</p>
+<p>To create a matrix use:<br>
+    <br>
+    <CODE>my_var_name = <font color='#0000ff'>Matrix</font>( rows, cols, initvalue);</CODE></p>
+<p>To access matrix elements, use:<br>
+    <br>
+    <CODE>my_var_name[ row ][ col ];</CODE></p>
+<p>where<br>
+  row is a row index (0...number of rows-1)<br>
+  and <br>
+  col is a column index (0...number of columns-1)</p>
+<p>Matrices and their elements support all scalar (element-wise) arithmetic and
+  logical operations.</p>
+<p> All these standard operators are performed on matrices element-wise. For that reason, for example, to add two matrices they must be the same size (the
+  number of rows and columns must be the same). If they are not the same, it is
+  up to you how to perform calculations on each element via a loop. </p>
+<p>So, for example, you can add, subtract, multiply, divide two matrices if they
+  have the same dimensions with one call.</p>
+<p><CODE>x = <font color='#0000ff'>Matrix</font>( <font color='#800080'>5</font>, <font color='#800080'>6</font>, <font color='#800080'>9</font> ); <font color='#008000'>//
+      matrix 5 rows 6 columns, initial value 9 <br>
+  </font>y = <font color='#0000ff'>Matrix</font>( <font color='#800080'>5</font>, <font color='#800080'>6</font>, <font color='#800080'>10</font> ); <font color='#008000'>//
+  matrix 5 rows 6 columns, initial value 10 <br>
+  </font> <br>
+  z = y - x; <font color='#008000'>// will give you matrix 5 rows and 6 columns
+  filled with elements holding value 1 (difference between 10 and 9).</font></CODE></p>
+<p>All those operations are performed element-wise.</p>
+<p>You can also apply any arithmetic and logical operation on a matrix AND a scalar
+  value. This would perform element-wise<br>
+  operation on each element of source matrix and a given scalar value.</p>
+<p><CODE>m = <font color='#0000ff'>Matrix</font>( <font color='#800080'>10</font>, <font color='#800080'>10</font>, <font color='#800080'>0</font> ); <font color='#008000'>//
+      m will be 10x10 matrix filled with zeros <br>
+  </font>z = m; <font color='#008000'>// z is now also a matrix <br>
+  </font> <br>
+  <font color='#800000'><b>for</b></font>( i = <font color='#800080'>0</font>;
+  i &lt; <font color='#800080'>10</font>; i++ ) <br>
+  { <br>
+&nbsp;&nbsp;z[ i ][ <font color='#800080'>4</font> ] = i; <font color='#008000'>//
+fill z with some other values, note that m will remain unaffected. <br>
+  </font>} <br>
+  <br>
+  <font color='#800000'><b>for</b></font>( i = <font color='#800080'>0</font>;
+  i &lt; <font color='#800080'>10</font>; i++ ) <br>
+  <font color='#0000ff'>&nbsp;_TRACEF</font>( <font color='#800080'>"%g = %g,
+  %g, %g\n"</font>, i, m[i][<font color='#800080'>1</font>], m[ i][<font color='#800080'>4</font>],
+  z[ i][<font color='#800080'>4</font>]); <br>
+  <br>
+  <font color='#008000'>// scalar addition (element wise) <br>
+  </font>z += <font color='#800080'>3</font>; <br>
+  m += <font color='#800080'>5</font>; <br>
+  <br>
+  <font color='#800000'><b>for</b></font>( i = <font color='#800080'>0</font>;
+  i &lt; <font color='#800080'>10</font>; i++ ) <br>
+  <font color='#0000ff'>&nbsp;_TRACEF</font>( <font color='#800080'>"%g = %g,
+  %g, %g\n"</font>, i, m[i][<font color='#800080'>1</font>], m[ i][<font color='#800080'>4</font>],
+  z[ i][<font color='#800080'>4</font>]);</CODE></p>
+<p>There is one special operator that works only on matrices - it is the <strong>matrix
+    product. </strong>The operator for matrix product is<strong> @</strong> (the
+    'at' sign). Matrix product is the linear algebra way to multiply matrices.
+    If you write C = A @ B, it multiplies matrix A(n,k) by matrix B(k,m) to produce
+    matrix C(n,m). So, the number of columns in matrix A must be equal to the number
+    of rows in matrix B. For more info see: <a href="https://en.wikipedia.org/wiki/Matrix_multiplication" target="_blank">https://en.wikipedia.org/wiki/Matrix_multiplication</a> The
+    precedence of the matrix product @ operator is the same as * (so it has higher
+    precedence than addition and subtraction).<br>
+  <br>
+  <CODE>A = <font color='#0000ff'>Matrix</font>( <font color='#800080'>1</font>, <font color='#800080'>3</font> ); <br>
+  B = <font color='#0000ff'>Matrix</font>( <font color='#800080'>3</font>, <font color='#800080'>2</font> ); <br>
+  <br>
+  <font color='#008000'>// matrix A = [ 1, 4, 6 ] <br>
+  </font> <font color='#008000'>// matrix B = <br>
+  // [ 2, 3 ] <br>
+  </font> <font color='#008000'>// [ 5, 8 ] <br>
+  </font> <font color='#008000'>// [ 7, 9 ] <br>
+  </font> <br>
+  A[ <font color='#800080'>0</font> ][ <font color='#800080'>0</font> ] = <font color='#800080'>1</font>;
+  A[ <font color='#800080'>0</font> ][ <font color='#800080'>1</font> ] = <font color='#800080'>4</font>;
+  A[ <font color='#800080'>0</font> ][ <font color='#800080'>2</font> ] = <font color='#800080'>6</font>; <br>
+  <br>
+  B[ <font color='#800080'>0</font> ][ <font color='#800080'>0</font> ] = <font color='#800080'>2</font>;
+  B[ <font color='#800080'>0</font> ][ <font color='#800080'>1</font> ] = <font color='#800080'>3</font>; <br>
+  B[ <font color='#800080'>1</font> ][ <font color='#800080'>0</font> ] = <font color='#800080'>5</font>;
+  B[ <font color='#800080'>1</font> ][ <font color='#800080'>1</font> ] = <font color='#800080'>8</font>; <br>
+  B[ <font color='#800080'>2</font> ][ <font color='#800080'>0</font> ] = <font color='#800080'>7</font>;
+  B[ <font color='#800080'>2</font> ][ <font color='#800080'>1</font> ] = <font color='#800080'>9</font>; <br>
+  <br>
+  X = A @ B; <br>
+  <br>
+  <font color='#0000ff'>_TRACEF</font>(<font color='#800080'>"%g %g"</font>,
+  X[ <font color='#800080'>0</font> ][ <font color='#800080'>0</font> ], X[ <font color='#800080'>0</font> ][ <font color='#800080'>1</font> ]
+  );</CODE></p>
+<h5></h5>
+<h5>Compound statements (Blocks)</h5>
+<p>A compound statement consists of zero or more statements enclosed in curly
+  braces ({ }). A compound statement can be used anywhere a statement is expected.
+Compound statements are commonly called &#8220;blocks.&#8221;</p>
+<p>{</p>
+<blockquote>
+  <p> statement1;</p>
+  <p>....</p>
+  <p>statementN;</p>
+</blockquote>
+<p>}</p>
+<p>(this is 'borrowed' from C language, users of other programming languages
+  are used to using BEGIN for { and END for }.)</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+      Amount &gt; </FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000> ) <BR>
+  { <BR>
+  &nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"Amount
+  above 100"</FONT><FONT COLOR=#000000>); <BR>
+  &nbsp;&nbsp;&nbsp;
+  Balance = Balance + Amount; <BR>
+  } <BR>
+  </FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+  &nbsp;&nbsp;&nbsp;
+Balance = Balance - Amount;</FONT></CODE></p>
+<p></p>
+<h5>Built-in Functions</h5>
+<p>In addition to mathematical operators, AmiBroker contains over 70 built-in 
+  functions that perform mathematical operations. </p>
+<p>The following formula consists of a single function that gives the square roots 
+  of the closing prices: </p>
+<pre><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>sqrt</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> ); </FONT></CODE></pre>
+<p>The following formula consists of a single function that gives a 14-period 
+  RSI indicator: </p>
+<pre><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Graph0</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000>);</FONT></CODE></pre>
+<p>The following formula consists of two functions. The result is the difference 
+  between the MACD indicator and a 9-period exponential moving average of the 
+  MACD:</p>
+<pre><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Graph0</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>() - </FONT><FONT COLOR=#0000ff>EMA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(),</FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000>); </FONT></CODE></pre>
+<p>All function calls must consist of a function identifier (name) followed by a 
+  pair of parentheses. </p>
+<p>As has been alluded to in earlier examples, a function can be &quot;nested&quot; 
+  within a function. The nested function can serve as the main function's data 
+  array parameter. The following examples show functions nested within functions:</p>
+<pre><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ); </FONT></CODE></pre>
+<pre><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>EMA</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>15</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#ff00ff>20</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000> ); </FONT></CODE></pre>
+<p>The first example calculates a 10-period simple moving average of a 15-period 
+  Relative Strength Index (RSI). The second example calculates a 20-period exponential 
+  moving average of a 15-period RSI, and then calculates a 10-period simple moving 
+  average of this moving average. </p>
+<h5>Conditional Function IIF()</h5>
+<p>The iif() function is used to create <strong>conditional assignments</strong>. It contains
+  three parameters as shown in the following example. 
+</p>
+<pre><CODE><FONT COLOR=#000000>dynamicrsi = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> &gt; </FONT><FONT COLOR=#0000ff>MA</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000>) ); </FONT></CODE></pre>
+<p>The above &quot;iif&quot; statement reads (in English) as follows: If today's
+   close is greater than today's 10-day simple moving average of the close, then
+  
+  assign a 9-day RSI to the dynamicrsi variable, otherwise, assign a 14-day RSI.
+  The next formula assigns &#147;positive
+   volume&#148; to the volresult variable if the close is greater than the median
+   price. Otherwise, &quot;negative
+    volume&quot; is assigned. </p>
+<pre><CODE><FONT COLOR=#000000>volresult = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000> &gt; (</FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000>+</FONT><FONT COLOR=#000000><B>Low</B></FONT><FONT COLOR=#000000>)/</FONT><FONT COLOR=#ff00ff>2</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000>, -</FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000> ); </FONT></CODE></pre>
+<p>If you simply want an expression to be evaluated as either true or false, it 
+  can be done without the use of the iif() function. The following formula will 
+  result in either a 1 (true) or a 0 (false):</p>
+<pre><CODE><FONT COLOR=#000000>result = </FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000>) &gt; </FONT><FONT COLOR=#ff00ff>70</FONT><FONT COLOR=#000000>; </FONT></CODE></pre>
+<p>The same, done with iif(), gives the same results, but the formula is longer. 
+</p>
+<pre><CODE><FONT COLOR=#000000>result = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#0000ff>RSI</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>14</FONT><FONT COLOR=#000000>) &gt; </FONT><FONT COLOR=#ff00ff>70</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> ); </FONT></CODE></pre>
+<p>Please note that IIF is a function; so the result of evaluation is returned 
+  by that function and should be assigned to some variable.</p>
+<p>IIf always evaluates both TRUE_PART and FALSE_PART, even though it returns
+  only one of them. Because of this, you should watch for undesirable side effects.
+  <b>IIF function is not a flow-control statement.</b> If you need flow control (conditional
+  execution of some code parts), you should look for the <b>if-else</b> conditional
+  statement described later in this document.</p>
+<p>The following example shows one <b>common error</b> made with the IIF function:</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(
+        condition, result = </FONT><FONT COLOR=#ff00ff>7</FONT><FONT COLOR=#000000>,
+        result = </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  THIS IS WRONG</FONT></CODE></p>
+</blockquote>
+<p>Correct usage is:</p>
+<blockquote>
+  <p><CODE><FONT COLOR=#000000>result = </FONT><FONT COLOR=#0000ff>IIf</FONT><FONT COLOR=#000000>(
+  condition, </FONT><FONT COLOR=#ff00ff>7</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>9</FONT><FONT COLOR=#000000> ); </FONT></CODE></p>
+</blockquote>
+<p>/* 7 or 9 is *returned* and assigned to the result variable depending on condition */</p>
+<p>&nbsp;</p>
+<h5>Variables</h5>
+<p>In order to shorten, simplify, enhance, and make the maintenance of complex
+  formulas easier, you may want to use variables. In fact, using variables, you can significantly improve formula calculation speed. So it is strongly recommended
+  to use variables and there is no limit on the number of variables
+  you can define.</p>
+<p>A variable is an identifier that is assigned to an expression or a constant. 
+  The number of variables used in a formula is not limited. Variables must be 
+  assigned before the variable is used in the formula. Variables cannot be assigned 
+  within a function call. </p>
+<p>User-defined variable names (identifiers) cannot duplicate names already used 
+  by functions (e.g., ma, rsi, cci, iif, etc.) or predefined array identifiers 
+  (e.g., open, high, low, close, simple, o, c, l, h, s, a). </p>
+<h6>Reserved variables</h6>
+<p>AmiBroker uses some reserved variable names in its formulas, for example, in the Auto-Analysis window, you have to assign values to two variables named 'buy' or 
+  'sell' to specify the conditions where &quot;buy&quot; and &quot;sell&quot; 
+  conditions occur. For example (system that buys when MACD rises above the 0 line, 
+  and sells when MACD falls below the 0 line) </p>
+<pre><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000>&nbsp;&nbsp;= </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000> );
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>() ); </FONT></CODE></pre>
+<p>AmiBroker uses the following reserved variable names. Please note that variables
+  marked as obsolete should not be used in new coding. They are left for backward
+  compatibility only, and new formulas should use modern functions like Plot()
+  to plot indicators and AddColumn() to define exploration columns.</p>
+<table width="100%" border="1" cellspacing="0" cellpadding="3" bordercolorlight="#990000" bordercolordark="#990000">
+  <tr bgcolor="#990000"> 
+    <td valign="top"><font color="#FFFFFF">Variable </font></td>
+    <td valign="top"><font color="#FFFFFF">Usage</font></td>
+    <td valign="top"><font color="#FFFFFF">Applies to</font></td>
+  </tr>
+  <tr> 
+    <td valign="top">buy</td>
+    <td valign="top">defines &quot;buy&quot; (enter long position) trading rule</td>
+    <td valign="top">Automatic Analysis, Commentary</td>
+  </tr>
+  <tr> 
+    <td valign="top">sell</td>
+    <td valign="top"> 
+      <p>defines &quot;sell&quot; (close long position) trading rule</p>
+    </td>
+    <td valign="top">Automatic Analysis, Commentary</td>
+  </tr>
+  <tr> 
+    <td valign="top">short</td>
+    <td valign="top">defines &quot;short&quot; (enter short position - short sell) 
+      trading rule</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">cover</td>
+    <td valign="top">defines &quot;cover&quot; (close short position - buy to 
+      cover) trading rule</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">buyprice</td>
+    <td valign="top">defines buying price array (this array is filled in with 
+      the default values according to the Automatic Analyser settings)</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">sellprice</td>
+    <td valign="top">defines selling price array (this array is filled in with 
+      the default values according to the Automatic Analyser settings)</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">shortprice</td>
+    <td valign="top">defines short selling price array (this array is filled in 
+      with the default values according to the Automatic Analyser settings)</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">coverprice</td>
+    <td valign="top">defines buy to cover price array (this array is filled in 
+      with the default values according to the Automatic Analyser settings)</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">title</td>
+    <td valign="top">defines title text (overrides any graph<i>N</i>name)</td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top">tooltip</td>
+    <td valign="top"><p><strong>Obsolete in 5.40</strong>. Use Data window instead
+        or use Plot() with styleHidden if you want to add
+        your
+        custom
+        values
+        to data tooltip.</p>
+    </td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr> 
+    <td valign="top">graphxspace</td>
+    <td valign="top">defines the percentage extra space added at the top and bottom 
+      of the chart</td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr> 
+    <td valign="top">graphzorder</td>
+    <td valign="top">The GraphZOrder variable allows changing the order of plotting 
+      indicator lines. When GraphZOrder is not defined or is zero (false), old 
+      ordering (last to first) is used; when GraphZOrder is 1 (true), reverse 
+      ordering is applied. </td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr> 
+    <td valign="top">exclude</td>
+    <td valign="top">If defined, a true (or 1) value of this variable excludes 
+      the current symbol from a scan/exploration/backtest. They are also not considered 
+      in buy-and-hold calculations. Useful when you want to narrow your analysis 
+      to a certain set of symbols.</td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">roundlotsize</td>
+    <td valign="top">defines round lot sizes used by the backtester (see explanations 
+      below) </td>
+    <td valign="top">Automatic Analysis (new in 4.10)</td>
+  </tr>
+  <tr> 
+    <td valign="top">ticksize</td>
+    <td valign="top">defines the tick size used to align prices generated by <strong>built-in
+        stops</strong>      (see
+      explanations below) (note: it does not affect entry/exit prices specified
+        by buyprice/sellprice/shortprice/coverprice)</td>
+    <td valign="top">Automatic Analysis (new in 4.10)</td>
+  </tr>
+  <tr> 
+    <td valign="top">pointvalue</td>
+    <td valign="top">allows to read and modify future contract point value (see 
+      <a href="h_futbacktest.html">backtesting futures</a>)<br>
+      CAVEAT: this AFL variable is by default set to 1 (one) regardless of the contents
+      of the Information window unless you turn on futures mode (SetOption(&quot;FuturesMode&quot;,
+      True ))</td>
+    <td valign="top">Automatic Analysis (new in 4.10)</td>
+  </tr>
+  <tr> 
+    <td valign="top">margindeposit</td>
+    <td valign="top">allows to read and modify future contract margin (see <a href="h_futbacktest.html">backtesting 
+      futures</a>)</td>
+    <td valign="top">Automatic Analysis (new in 4.10)</td>
+  </tr>
+  <tr>
+    <td valign="top">positionsize</td>
+    <td valign="top">
+      <p>Allows control of the dollar amount or percentage of a portfolio that is invested
+        into the trade (more information available in the &quot;<a href="h_backtest.html">Tutorial:
+        Backtesting your trading ideas</a>&quot;)</p>
+    </td>
+    <td valign="top">Automatic Analysis (new in 3.9)</td>
+  </tr>
+  <tr>
+    <td valign="top">positionscore</td>
+    <td valign="top">Defines the score of the position. More details: &quot;<a href="h_portfolio.html">Tutorial:
+    Portfolio Backtesting</a>&quot;)</td>
+    <td valign="top">Automatic analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">numcolumns</td>
+    <td valign="top">Exploration only: defines the number of your own columns 
+      (excluding predefined ticker and date columns) and assigns the column value 
+      to the variable </td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top">filter</td>
+    <td valign="top">Exploration only: controls which symbols/quotes are accepted. 
+      If &quot;true&quot; (or 1) is assigned to that variable for a given symbol/quote, 
+      it will be displayed in the report. 
+      <p>So, for example, the following formula will accept all symbols with closing 
+        prices greater than 50 :</p>
+      <blockquote> 
+        <p><code>filter = close &gt; 50;</code></p>
+      </blockquote>
+    </td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top"><p>column<i>N</i></p>
+    (obsolete)</td>
+    <td valign="top"> 
+      <p>Exploration only: defines the <i>N</i>th column value. Example:</p>
+      <blockquote> 
+        <p><code>column0 = Close;</code></p>
+      </blockquote>
+    </td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top"><p>column<i>N</i>format</p>
+    <p>(obsolete)</p></td>
+    <td valign="top"> 
+      <p>Exploration only: allows you to define the formatting applied to numbers. 
+        By default, all variables are displayed with 2 decimal digits; but you 
+        can change this by assigning a different value to this variable: 1.5 gives 
+        5 decimal digits; 1.0 gives no decimal digits. So, in our example, typing:</p>
+      <blockquote> 
+        <p><code>column0format = 1.4;</code></p>
+      </blockquote>
+      <p>will give closing prices displayed with 4 decimal digits. <br>
+        (Note for advanced users: the integer part of this number can be used 
+        to pad a formatted number with spaces - 6.0 will give no decimal digits 
+        but a number space-padded up to 6 characters.)</p>
+    </td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr> 
+    <td valign="top"><p>column<i>N</i>name</p>
+    <p>(obsolete)</p></td>
+    <td valign="top"> 
+      <p>Exploration only: allows you to define the header name. Assigning </p>
+      <blockquote> 
+        <p><code>column0name = &quot;Close&quot;;</code></p>
+      </blockquote>
+      <p>will change the name of the first custom column from the default &quot;Column 
+        0&quot; to more appropriate &quot;Close&quot;.</p>
+    </td>
+    <td valign="top">Automatic Analysis</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>maxgraph</p>
+        <p>(obsolete)</p>
+    </td>
+    <td valign="top">specifies maximum number of graphs to be drawn in custom
+      indicator window (default=3)</td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top">graph<i>N<br>
+    (obsolete) </i></td>
+    <td valign="top">defines the formula for the graph number <i>N</i> (where <i>N</i> is
+      a number 0,1,2,..., maxgraph-1)</td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top">graph<i>N</i>name<br>
+    (obsolete)</td>
+    <td valign="top">defines the name of the <i>N</i>th graph line. This will appear
+      in the title of the chart pane.</td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top">graph<i>N</i>color<br>
+    (obsolete)</td>
+    <td valign="top">
+      <p>defines the color index of the <i>N</i>th graph line (color indexes are
+        related to the current palette - see Preferences/Color)</p>
+      <p>colorCustom1 = 0 <br>
+      colorCustom2 = 1 <br>
+      colorCustom3 = 2 <br>
+      colorCustom4 = 3 <br>
+      colorCustom5 = 4 <br>
+      colorCustom6 = 5 <br>
+      colorCustom7 = 6 <br>
+      colorCustom8 = 7 <br>
+      colorCustom9 = 8 <br>
+      colorCustom10 = 9 <br>
+      colorCustom11 = 10 <br>
+      colorCustom12 = 11 <br>
+      colorCustom13 = 12 <br>
+      colorCustom14 = 13 <br>
+      colorCustom15 = 14 <br>
+      colorCustom16 = 15 </p>
+      <p> colorBlack = 16 <br>
+      colorBrown = 17 <br>
+      colorDarkOliveGreen = 18 <br>
+      colorDarkGreen = 19 <br>
+      colorDarkTeal = 20 <br>
+      colorDarkBlue = 21 <br>
+      colorIndigo = 22 <br>
+      colorDarkGrey = 23 </p>
+      <p> colorDarkRed = 24 <br>
+      colorOrange = 25 <br>
+      colorDarkYellow = 26 <br>
+      colorGreen = 27 <br>
+      colorTeal = 28 <br>
+      colorBlue = 29 <br>
+      colorBlueGrey = 30 <br>
+      colorGrey40 = 31 </p>
+      <p> colorRed = 32 <br>
+      colorLightOrange = 33 <br>
+      colorLime = 34 <br>
+      colorSeaGreen = 35 <br>
+      colorAqua = 36<br>
+      colorLightBlue = 37 <br>
+      colorViolet = 38 <br>
+      colorGrey50 = 39 </p>
+      <p> colorPink = 40 <br>
+      colorGold = 41 <br>
+      colorYellow = 42 <br>
+      colorBrightGreen = 43 <br>
+      colorTurquoise = 44 <br>
+      colorSkyblue = 45 <br>
+      colorPlum = 46 <br>
+      colorLightGrey = 47 </p>
+      <p> colorRose = 48 <br>
+      colorTan = 49 <br>
+      colorLightYellow = 50 <br>
+      colorPaleGreen = 51 <br>
+      colorPaleTurquoise = 52 <br>
+      colorPaleBlue = 53 <br>
+      colorLavender = 54 <br>
+      colorWhite = 55 </p>
+    </td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top">graph<i>N</i>barcolor<br>
+    (obsolete)</td>
+    <td valign="top">defines the array that holds palette indexes for each bar
+      drawn </td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top">graph<i>N</i>style<br>
+    (obsolete)</td>
+    <td valign="top">
+      <p>defines the style of the <i>N</i>th graph. Style is defined as a combination
+        (sum) of one or more following flags:</p>
+      <p>styleLine = 1 - normal (line) chart (default)<br>
+      styleHistogram = 2 - histogram chart<br>
+      styleThick =4 - fat (thick)<br>
+      styleDots = 8 - include dots<br>
+      styleNoLine = 16 - no line<br>
+      styleLog = 32 - semi-logarithmic scale<br>
+      styleCandle = 64 - candlestick chart<br>
+      styleBar = 128 - traditional bar chart<br>
+      styleNoDraw = 256 - no draw (perform axis scaling only)<br>
+      styleStaircase = 512 - staircase (square) chart <br>
+      styleSwingDots = 1024 - middle dots for staircase chart <br>
+      styleNoRescale = 2048 - no rescale<br>
+      styleNoLabel = 4096 - no value label<br>
+      stylePointAndFigure = 8192 - point and figure<br>
+      (new in 4.20):<br>
+      styleArea = 16384 - area chart (extra wide histogram)<br>
+      styleOwnScale = 32768 - plot is using independent scaling<br>
+      styleLeftAxisScale = 65536 - plot is using left axis scale (independent
+      from right axis)<br>
+      </p>
+      <p> Not all flag combinations make sense; for example, (64+1) (candlestick
+        + line) will result in a candlestick chart (style=64)<br>
+              <br>
+      Note on candlestick/bar charts: these styles use O, H, L arrays indirectly
+      in addition to graphN. So, an ordinary candlestick price chart formula
+      is graph0=close; graph0style=64;.<br>
+      But if you want to draw something else than the close price, you have to assign
+      new values to predefined O,H,L arrays.</p>
+    </td>
+    <td valign="top">Indicators</td>
+  </tr>
+  <tr>
+    <td valign="top">graph<i>N</i>barcolor<br>
+    (obsolete)</td>
+    <td valign="top">defines the array of color indexes for the bars and candlesticks
+      in the <i>N</i>th graph line (color indexes are related to the current palette
+      - see Preferences/Color)</td>
+    <td valign="top">Indicators</td>
+  </tr>
+</table>
+<p><font face="Arial, Helvetica, sans-serif" size="-1"><b>SEE ALSO:</b></font></p>
+<ul>
+  <li><a href="a_keywords.html"><font face="Arial, Helvetica, sans-serif" size="-1"><b>KEYWORDS</b></font></a><font face="Arial, Helvetica, sans-serif" size="-1"><b><br>
+            <br>
+  </b></font></li>
+  <li><a href="a_userfunctions.html"><b><font size="-1" face="Arial, Helvetica, sans-serif">USER-DEFINABLE PROCEDURES,
+          LOCAL/GLOBAL SCOPE</font></b></a></li>
+</ul>
+<div><font face=Arial size=2></font>
+    <div></div>
+</div>
+</body>
+</html>

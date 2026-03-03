@@ -1,0 +1,49 @@
+<html>
+
+<head>
+<title>Plug-ins in AFL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>Plug-ins in AFL</h2>
+<p>This section describes regular plug-in DLLs. If you are interested in ActiveX
+  plug-ins, check the &quot;<a href="a_aflcom.html">COM support in AFL</a>&quot; section.</p>
+<h4><b>Plug-in interface</b></h4>
+<p>AmiBroker plug-in interface allows calling an external module (DLL library)
+  directly from AFL. Such a library can expose multiple functions that can be
+  used in your trading systems, indicators, commentaries, scans, and explorations.
+  The plug-in DLL can be created using any C/C++ compiler, Delphi, and other languages
+  supporting the creation of regular DLLs. As the code of a plug-in is compiled to
+  native processor machine code, it runs several times faster than AFL. Also,
+  since you can use the full power of C/C++ (or other) language to build the most
+  complex functions with ease.</p>
+<p>In addition to exposing functions to AFL, plug-in DLLs have the ability to call
+  back AFL built-in functions, directly retrieve and set AFL variables, and support
+  automatic syntax colouring of functions exposed by the plug-in. </p>
+<p>A detailed description of the plug-in interface and the sample code of a plug-in DLL
+  are included in the AmiBroker Development Kit (ADK). <b>The ADK is available
+  for registered users only (downloadable from the members area).</b></p>
+<p><b>Getting third-party plug-ins</b></p>
+<p>Freeware third-party plug-ins are available for download from <a href="http://www.amibroker.net/3rdparty.php">http://www.amibroker.net/3rdparty.php</a></p>
+<p><strong>Using third-party plug-ins:</strong></p>
+<p>To use a third-party plug-in DLL, just copy the DLL file to the Plugins folder
+  in the AmiBroker directory. Then run AmiBroker. Then choose the Tools->Plugins
+  menu. In the <a href="w_plugins.html">Plugins window</a>, you should see the
+  list of all loaded plug-in DLLs. If AmiBroker was running when you copied the
+  DLL, you should click on &quot;Unload&quot; and then on the &quot;Load&quot; button.
+  This will force rescanning the Plugins folder and loading the DLLs.</p>
+<p>When the plug-in DLL is loaded, the new functions exposed by this DLL become
+  available to all your AFL formulas. For the list of functions exposed by the
+  plug-in, you should consult the documentation of the plug-in itself.</p>
+<p><strong>IMPORTANT NOTE: AmiBroker makes no representations regarding the features
+  and performance of non-certified third-party plug-ins. Specifically, certain
+  plug-ins can cause instabilities or even crashes. The entire use of non-certified
+  third-party plug-ins is at your own risk.</strong><br>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,84 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - WRITEIF</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>WriteIf</b><br>
+        - commentary conditional text output </li></h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b></p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>WriteIf( EXPRESSION, "TRUE TEXT", "FALSE TEXT"       ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> If EXPRESSION evaluates to "true", then the TRUE 
+      TEXT string is displayed within the commentary. If EXPRESSION evaluates 
+      to "false", then the FALSE TEXT string is displayed. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> writeif( c > mov(c,200,s), "The close is above the 
+      200-period moving average.","The close is below the 200-period 
+      moving average." ) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top"> <a href= </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br>tj --at-- amibroker.com<br>2004-06-12 05:56:01</td><td valign="top">WriteIf in fact does not &quot;write&quot; anything. The name is misleading but it is left<br />
+for easy translation of MS formulas to AmiBroker.<br />
+WriteIf is just &quot;TextIIF&quot; it RETURNS string value depending on condition.<br />
+<br />
+In commentary window, statements evaluating to STRINGS on global level<br />
+are displayed in the output window. However if you do the same inside the FUNCTION<br />
+it is no longer in global level (it is on LOCAL, FUNCTION level).<br />
+<br />
+To display actual string in this case use PRINTF function:<br />
+http://www.amibroker.com/f?printf<br />
+<br />
+<br />
+function comment(indicator)<br />
+{<br />
+   printf( &quot;\nComment...\n&quot; );<br />
+ <br />
+  printf( WriteIf(1, &quot;TrueText&quot;, &quot;FalseText&quot;) );<br />
+  printf( WriteVal(indicator) + &quot;\n&quot; );<br />
+}<br />
+</td></tr><TR bgcolor=#ccccff><td valign="top"><b>Tomasz Janeczko</b><br><br>2005-08-10 06:37:55</td><td valign="top">Please note that WriteIf returns just single string representing current SelectedValue of the EXPRESSION</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>WriteIf</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=413&hilite=WriteIf' target='_blank'>3 Price Break</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=144&hilite=WriteIf' target='_blank'>Adaptave Zones O/B  & O/S Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=WriteIf' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=WriteIf' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=WriteIf' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=WriteIf' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=WriteIf' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=WriteIf' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=299&hilite=WriteIf' target='_blank'>BMTRIX Intermediate Term Market Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=770&hilite=WriteIf' target='_blank'>CandleStick Comentary--Help needed</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=149&hilite=WriteIf' target='_blank'>Candlestick Commentary</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=760&hilite=WriteIf' target='_blank'>Candlestick Commentary Modified</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=228&hilite=WriteIf' target='_blank'>Candlestick Commentary-modified</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1012&hilite=WriteIf' target='_blank'>CCI 14 DrBobStyle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1000&hilite=WriteIf' target='_blank'>CCI 50 DrBob Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=586&hilite=WriteIf' target='_blank'>CCI(20) Divergence Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=314&hilite=WriteIf' target='_blank'>Color Display.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=22&hilite=WriteIf' target='_blank'>Commodity Channel Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1201&hilite=WriteIf' target='_blank'>Coppock Trade Signal on Price Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1286&hilite=WriteIf' target='_blank'>COT REPORT</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=738&hilite=WriteIf' target='_blank'>Cycle Highlighter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=753&hilite=WriteIf' target='_blank'>Cycle Highlighter (auto best-fit)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1560&hilite=WriteIf' target='_blank'>Darvas Amibroker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=19&hilite=WriteIf' target='_blank'>Double top detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=598&hilite=WriteIf' target='_blank'>ekeko price chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=585&hilite=WriteIf' target='_blank'>Elder Impulse Indicator V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=WriteIf' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1454&hilite=WriteIf' target='_blank'>Fre</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1549&hilite=WriteIf' target='_blank'>Geometric Mean of Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=WriteIf' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1301&hilite=WriteIf' target='_blank'>Graphical sector analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1302&hilite=WriteIf' target='_blank'>Graphical sector stock amalysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1576&hilite=WriteIf' target='_blank'>Halftrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=WriteIf' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=WriteIf' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1422&hilite=WriteIf' target='_blank'>IBD relative strength database Viewer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1431&hilite=WriteIf' target='_blank'>ICHIMOKU SIGNAL TRADER</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=WriteIf' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=WriteIf' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=WriteIf' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=WriteIf' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1592&hilite=WriteIf' target='_blank'>Linear Candle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=104&hilite=WriteIf' target='_blank'>MA Difference 20 Period</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=WriteIf' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=21&hilite=WriteIf' target='_blank'>MACD commentary</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=131&hilite=WriteIf' target='_blank'>Main price chart with Rainbow & SAR</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=929&hilite=WriteIf' target='_blank'>Market Facilitation Index  VS Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1190&hilite=WriteIf' target='_blank'>mitalpradip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1101&hilite=WriteIf' target='_blank'>MS Darvas Box with Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=WriteIf' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1096&hilite=WriteIf' target='_blank'>NRx Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1580&hilite=WriteIf' target='_blank'>Open Range Breakout Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=72&hilite=WriteIf' target='_blank'>Performance Check</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=348&hilite=WriteIf' target='_blank'>PF Chart - Close - April 2004</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=231&hilite=WriteIf' target='_blank'>Polarized Fractal Efficiency</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=781&hilite=WriteIf' target='_blank'>prakash</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=233&hilite=WriteIf' target='_blank'>R-Squared</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=WriteIf' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=20&hilite=WriteIf' target='_blank'>Relative Strength Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=335&hilite=WriteIf' target='_blank'>Relative Strength Multichart of up to 10 tickers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=182&hilite=WriteIf' target='_blank'>ROC of MACD Weekly</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=226&hilite=WriteIf' target='_blank'>RSI of Weekly Price Array</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1106&hilite=WriteIf' target='_blank'>Scan New High and New Low</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=WriteIf' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=162&hilite=WriteIf' target='_blank'>STD_STK Multi</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=103&hilite=WriteIf' target='_blank'>Stochastics Trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=161&hilite=WriteIf' target='_blank'>StochD_StochK Single.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=WriteIf' target='_blank'>Stress with SuperSmoother</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=129&hilite=WriteIf' target='_blank'>Sun&Cloud</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1376&hilite=WriteIf' target='_blank'>Super Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=WriteIf' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=560&hilite=WriteIf' target='_blank'>Time Left in Bar</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=818&hilite=WriteIf' target='_blank'>Time Left to Current Bar</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=771&hilite=WriteIf' target='_blank'>Trend Analysis_Comentary</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=724&hilite=WriteIf' target='_blank'>Trend exploration with multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1276&hilite=WriteIf' target='_blank'>Trend Exploration: Slope Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=240&hilite=WriteIf' target='_blank'>Triangular Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=696&hilite=WriteIf' target='_blank'>Triangular Moving Average new</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1589&hilite=WriteIf' target='_blank'>TSV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=229&hilite=WriteIf' target='_blank'>Vertical Horizontal Filter (VHF)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1272&hilite=WriteIf' target='_blank'>Volume Occilator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1602&hilite=WriteIf' target='_blank'>Volume Spread for VSA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=183&hilite=WriteIf' target='_blank'>Weekly Trend in Daily Graph</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1598&hilite=WriteIf' target='_blank'>White Theme</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1104&hilite=WriteIf' target='_blank'>William's Alligator System II</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=100&hilite=WriteIf' target='_blank'>Williams Alligator system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1047&hilite=WriteIf' target='_blank'>Woodie's CCI Panel Basic</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=WriteIf' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1023&hilite=WriteIf' target='_blank'>Woodie's Price Panel With Woodie's Pivots</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=353&hilite=WriteIf' target='_blank'>Zig Zag Indicator with Valid Entry and Exit Points</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=930&hilite=WriteIf' target='_blank'>ZigZag Retracements</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=WriteIf">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

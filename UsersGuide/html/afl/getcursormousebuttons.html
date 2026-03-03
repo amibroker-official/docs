@@ -1,0 +1,290 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETCURSORMOUSEBUTTONS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetCursorMouseButtons</b><br>
+        - get current state of mouse buttons</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetCursorMouseButtons() </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function returns mouse button state at the time when chart formula is executed.<br>
+The state is COMBINATION (bitwise OR) of the following flags:
+<ul>
+<li>
+0 - if no mouse button is down
+<li>
+1 - if left mouse button is down
+<li>
+2 - if right mouse button is down
+<li>
+4 - if middle mouse button is down
+<li>
+8 - if window just received mouse click (version 5.06 and higher only)
+</ul>
+<p>
+So for example the following combinations are possible:
+<ul>
+<li>3 - left + right down
+<li>3 - left + right down
+<li>5 - left + middle down
+<li>6 - right + middle down
+<li>7 - left + right + middle down
+<li>9 - left mouse button just clicked (v.5.06)
+<li>10 - right mouse button just clicked (v.5.06)
+<li>11 - left + right mouse button just clicked (v.5.06)
+</ul>
+
+For example if you click the left mouse button and hold it down, the underlying chart will be refreshed
+and GetCursorMouseButtons will return 9 (8+1) during very first execution since click and 1 in all subsequent executions as long as left mouse button is kept pressed down.
+You need to use bitwise AND (&) to extract these flags as shown in the example. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>GetCursorMouseButtons</FONT><FONT COLOR=#000000>() & </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000> ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"left
+mouse button is pressed down"</FONT><FONT COLOR=#000000> ); <BR>
+}</FONT></CODE>
+
+<p>
+Example 2. Low-level graphic + Interactive GUI control sample
+<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>/////////////////////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// Low-level graphic + Interactive GUI control sample</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// This example shows: </FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>//  1. how to draw "buttons"</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>//  2. how to handle mouse clicks</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>//  3. how to implement event call-backs</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>///////////////////////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>Version</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>5.04</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+  requires 5.04 or higher</FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  </FONT><FONT COLOR=#008000>////////////////////////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>// Part 1: DRAWING TABLE OF BUTTONS</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#008000>//////////////////////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#0000ff>GfxSetOverlayMode</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#008000>// formatted text output sample via low-level gfx
+  functions </FONT><FONT COLOR=#000000> <BR>
+  <BR>
+  CellHeight = </FONT><FONT COLOR=#800080>20</FONT><FONT COLOR=#000000>; <BR>
+  CellWidth = </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000>; <BR>
+  </FONT><FONT COLOR=#0000ff>GfxSelectFont</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"Tahoma"</FONT><FONT COLOR=#000000>,
+  CellHeight/</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>GfxSetBkMode</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+  <BR>
+  </FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> PrintInCell(
+  string, row, Col ) <BR>
+  { <BR>
+  </FONT><FONT COLOR=#0000ff>GfxDrawText</FONT><FONT COLOR=#000000>( string,
+  Col * CellWidth, row * CellHeight, (Col + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+  * CellWidth, (row + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+  * CellHeight, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ); <BR>
+  } <BR>
+  <BR>
+  </FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> ); <BR>
+  </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+  i < </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> && i < </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+  i++ ) <BR>
+  { <BR>
+  </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( k = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+  k < </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000>; k++ ) <BR>
+{ <BR>
+   
+PrintInCell( </FONT><FONT COLOR=#800080>"Button "</FONT><FONT COLOR=#000000> +
+i + </FONT><FONT COLOR=#800080>","</FONT><FONT COLOR=#000000> + k, i, k ); <BR>
+} <BR>
+</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,
+i * CellHeight ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000> *
+CellWidth, i * CellHeight ); <BR>
+} <BR>
+</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>,
+i * CellHeight ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>5</FONT><FONT COLOR=#000000> *
+CellWidth, i * CellHeight ); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( Col = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>;
+Col < </FONT><FONT COLOR=#800080>6</FONT><FONT COLOR=#000000>; Col++ ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#0000ff>GfxMoveTo</FONT><FONT COLOR=#000000>( Col * CellWidth, </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>); <BR>
+</FONT><FONT COLOR=#0000ff>GfxLineTo</FONT><FONT COLOR=#000000>( Col * CellWidth, </FONT><FONT COLOR=#800080>10</FONT><FONT COLOR=#000000> *
+CellHeight ); <BR>
+} <BR>
+<BR>
+<BR>
+</FONT><FONT COLOR=#008000>/////////////////////////////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// Part 2: MOUSE BUTTON CALL BACKS</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>//////////////////////////////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000>=</FONT><FONT COLOR=#800080>""</FONT><FONT COLOR=#000000>; <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> DrawButton(
+px, py, Clr1, Clr2, text ) <BR>
+{ <BR>
+    
+Col = </FONT><FONT COLOR=#0000ff>floor</FONT><FONT COLOR=#000000>( px / CellWidth
+); <BR>
+    
+Row = </FONT><FONT COLOR=#0000ff>floor</FONT><FONT COLOR=#000000>( py / CellHeight
+); <BR>
+<BR>
+    
+<BR>
+   </FONT><FONT COLOR=#0000ff>GfxGradientRect</FONT><FONT COLOR=#000000>(
+Col * CellWidth, row * CellHeight, (Col + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+* CellWidth, (row + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+* CellHeight, <BR>
+                  
+Clr1, Clr2 ); <BR>
+<BR>
+    
+PrintInCell( text + </FONT><FONT COLOR=#800080>" "</FONT><FONT COLOR=#000000> +
+row + </FONT><FONT COLOR=#800080>","</FONT><FONT COLOR=#000000> + Col, row, Col
+); <BR>
+<BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> OnLMouseButton(x,
+y, px, py) <BR>
+{ <BR>
+   </FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"LButton
+x = "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>DateTimeToStr</FONT><FONT COLOR=#000000>(
+x ) + </FONT><FONT COLOR=#800080>" y = "</FONT><FONT COLOR=#000000> + y ); <BR>
+<BR>
+   
+DrawButton( px, py, </FONT><FONT COLOR=#0000ff>ColorHSB</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>50</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#0000ff>ColorHSB</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>90</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#800080>"just
+clicked"</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> OnRMouseButton(x,
+y, px, py) <BR>
+{ <BR>
+   </FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"RButton
+x = "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>DateTimeToStr</FONT><FONT COLOR=#000000>(
+x ) + </FONT><FONT COLOR=#800080>" y = "</FONT><FONT COLOR=#000000> + y ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> OnMMouseButton(x,
+y, px, py) <BR>
+{ <BR>
+   </FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"MButton
+x = "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>DateTimeToStr</FONT><FONT COLOR=#000000>(
+x ) + </FONT><FONT COLOR=#800080>" y = "</FONT><FONT COLOR=#000000> + y ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> OnHoverMouse(x,
+y, px, py) <BR>
+{ <BR>
+   </FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"LButton
+x = "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>DateTimeToStr</FONT><FONT COLOR=#000000>(
+x ) + </FONT><FONT COLOR=#800080>" y = "</FONT><FONT COLOR=#000000> + y ); <BR>
+<BR>
+    
+DrawButton( px, py, </FONT><FONT COLOR=#0000ff>ColorRGB</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>230</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>230</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>230</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#0000ff>ColorRGB</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#800080>"mouse
+over"</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> OnLButtonIsDown(x,
+y, px, py) <BR>
+{ <BR>
+   </FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"LButton
+x = "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>DateTimeToStr</FONT><FONT COLOR=#000000>(
+x ) + </FONT><FONT COLOR=#800080>" y = "</FONT><FONT COLOR=#000000> + y ); <BR>
+<BR>
+    
+DrawButton( px, py, </FONT><FONT COLOR=#0000ff>ColorHSB</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>190</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#0000ff>ColorHSB</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>210</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#800080>"down"</FONT><FONT COLOR=#000000> ); <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#008000>/////////////////////////////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// Part 3: GENERAL PURPOSE EVENT HANDLER (reusable!
+- may be put into "include" file)</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>////////////////////////////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> EventHandler() <BR>
+{ <BR>
+</FONT><FONT COLOR=#800000><B>local</B></FONT><FONT COLOR=#000000> b, x, y, px,
+py; <BR>
+b = </FONT><FONT COLOR=#0000ff>GetCursorMouseButtons</FONT><FONT COLOR=#000000>(); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// retrieve co-ordinates in date/value units</FONT><FONT COLOR=#000000> <BR>
+x = </FONT><FONT COLOR=#0000ff>GetCursorXPosition</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>); <BR>
+y = </FONT><FONT COLOR=#0000ff>GetCursorYPosition</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// retrieve co-ordinates in pixel units</FONT><FONT COLOR=#000000> <BR>
+px = </FONT><FONT COLOR=#0000ff>GetCursorXPosition</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>); <BR>
+py = </FONT><FONT COLOR=#0000ff>GetCursorYPosition</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( b & </FONT><FONT COLOR=#800080>8</FONT><FONT COLOR=#000000> ) </FONT><FONT COLOR=#008000>//
+flag = 8 is set when window just received mouse click</FONT><FONT COLOR=#000000> <BR>
+{ <BR>
+   
+</FONT><FONT COLOR=#008000>// not-null means clicked in THIS (current) window</FONT><FONT COLOR=#000000> <BR>
+   
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( b & </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+OnLMouseButton( x, y, px, py ); <BR>
+   
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( b & </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> )
+OnRMouseButton( x, y, px, py ); <BR>
+   
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( b & </FONT><FONT COLOR=#800080>4</FONT><FONT COLOR=#000000> )
+OnMMouseButton( x, y, px, py ); <BR>
+} <BR>
+</FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+{ <BR>
+  </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+b == </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ) OnHoverMouse(
+x, y, px, py ); </FONT><FONT COLOR=#008000>// no button pressed</FONT><FONT COLOR=#000000> <BR>
+  </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+b == </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ) OnLButtonIsDown(
+x, y, px, py ); </FONT><FONT COLOR=#008000>// button pressed</FONT><FONT COLOR=#000000> <BR>
+} <BR>
+} <BR>
+<BR>
+EventHandler(); <BR>
+</FONT><FONT COLOR=#0000ff>RequestTimedRefresh</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="getcursorxposition.html">GetCursorXPosition()</A> function , <A HREF="getcursoryposition.html">GetCursorYPosition()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetCursorMouseButtons</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GetCursorMouseButtons' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=GetCursorMouseButtons' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=GetCursorMouseButtons' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=GetCursorMouseButtons' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=GetCursorMouseButtons' target='_blank'>Visi-Trade</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetCursorMouseButtons">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

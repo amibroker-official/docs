@@ -1,0 +1,373 @@
+<html>
+<head>
+<title>Preferences window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3><a name="PreferencesWindow"></a>Preferences window </h3>
+<p><img src="gifs/pref4.gif"></p>
+<p><b>Charting tab</b> - allows you to modify charting options</p>
+<ul>
+  <li><b>Default number of quotations in a chart - </b>this sets the number of
+    bars initially displayed in the chart. (In other words, it defines &quot;normal&quot;
+    zoom range)</li>
+  <li><b>Blank bars in right margin</b> - defines how many blank bars are added in the
+    right margin (past the last available quote). This blank margin allows you
+    to project studies (trend lines, for example) into the future</li>
+  <li><b>Quote selection only by CTRL+LMB</b> - this decides how the vertical selection
+    line is invoked. When this box is unchecked, a single click on the chart causes
+    the display of the selection line; when this box is checked, you have to hold
+    down the CTRL key while clicking to get the selection line</li>
+  <li><b>Show vertical line between days (intraday)/years(EOD)</b> - this decides
+    if a dotted vertical line is displayed on the chart to mark day (in intraday
+    mode) or year (in EOD mode) boundaries</li>
+  <li><b>Show value labels - </b>this decides if value labels for indicator /
+    price chart lines should be displayed. See <a href="h_charting.html">basic
+    charting guide</a> for an explanation of what a value label is.<br>
+  </li>
+  <li><b>Candlesticks -</b> this setting provides detailed control over the appearance
+    of candlesticks. A distinct color may be used to draw part of the candlestick,
+    or the entire candle may be drawn in the same color as its interior.<br>
+  </li>
+  <li><b>Drawing</b>
+    <ul>
+      <li><b>Return to select mode after drawing</b> - when checked, the current tool
+        is deactivated after drawing and select mode is entered; when unchecked,
+        the currently selected drawing tool remains active after drawing (allows
+        you to plot one study after another; note that the same effect can be achieved
+        even if this box is checked, it is enough to hold down the SHIFT key while
+        drawing and the tool will remain active)</li>
+      <li><b>Auto-select last drawn object</b> - this useful feature automatically
+        selects the recently drawn object. This allows you to hit ALT+ENTER to display
+        the properties box immediately without the need to click on the study, and
+        allows you to copy the study via CTRL+C also without an additional click</li>
+      <li><b>Snap to price % threshold</b> - defines how far the price 'magnet' works;
+        it will snap to price when the mouse is nearer than the % threshold from
+        the H/L/C price</li>
+    </ul>
+  </li>
+  <li><b>Miscellaneous</b>
+    <ul>
+      <li><b>Ask for parameters of newly inserted indicators</b> - when checked,
+         AmiBroker will automatically display the <a href="w_param.html">Parameters</a> window
+        each time you insert a new indicator or overlay one indicator over another.</li>
+      <li><strong>Ask for confirmation when deleting indicator sections</strong> - when checked,
+        AmiBroker will ask you to confirm the deletion of any overlaid indicator
+        section (applies to indicators created via drag-and-drop). Please note
+        that the deletion of an indicator section modifies the underlying formula. More
+        on this in <a href="h_dragdrop.html">Tutorial: Drag-and-drop</a></li>
+      <li><strong>Maximum number of chart sheets </strong>- defines how many chart sheets (tabs) should
+        be available. More information on chart sheets is in the <a href="h_sheets.html">Tutorial
+        section here</a>. Note that this setting will take effect after a restart.</li>
+    </ul>
+  </li>
+  <li>  </li>
+</ul>
+<p><img src="gifs/pref5.gif"></p>
+<p><b>Color tab </b> - allows you to define colors for a particular chart element.</p>
+<p>The controls provide user-definable color selection for charts, grid &amp; background.</p>
+<p><b>Palette editor - </b>allows you to modify custom colors that can be referenced
+    later via colorCustom0..colorCustom15 constants</p>
+<p><img src="gifs/pref6.gif"></p>
+<p><b>Editor tab</b> - controls the appearance and features of the <a href="w_afledit.html">AFL
+editor</a>.</p>
+<ul>
+  <li><b>Use syntax highlighting</b> - when checked, the editor automatically colorizes
+    your code (different colors/styles for functions, constants, numbers, etc)</li>
+  <li><b>Auto-change case - </b>when checked, the function and reserved variable
+    names are automatically capitalized, so if you type bARSSince, the editor will
+    change it to BarsSince</li>
+  <li><b>Auto-complete </b> - when checked, you will be able to use the<a href="w_afledit.html"> auto-completion
+    feature</a> (CTRL+SPACE will auto-complete the word)</li>
+  <li><b>Parameter info</b> - when checked, the editor will display a <a href="w_afledit.html">parameter
+    information tooltip</a> when you type a function name and an opening brace</li>
+  <li><strong>Highlight error line</strong> - when checked, the formula editor marks the line of
+    code that contains an error with a yellow background (Windows 2000 and XP
+    only)</li>
+  <li><strong>Copy As HTML </strong>- when checked, the AFL editor on Edit-&gt;Copy
+    / Cut command puts not only plain text and RTF formats onto the clipboard, but
+    also HTML and DwHTML (Dreamweaver HTML) formats, allowing pasting syntax-colorized
+    code to Macromedia Dreamweaver and other HTML-aware applications.
+    Note: rarely (on very few machines), turning this on may cause problems with
+    pasting to Outlook.</li>
+  <li>Move edited files from Drag-drop to Custom folder - when checked, the editor
+    will automatically move manually edited formulas created by the drag-and-drop
+    mechanism from the hidden 'Drag-and-drop' subfolder to the 'Custom' subfolder.</li>
+  <li><b>Font settings </b> - allows you to define the AFL editor's font face and size</li>
+  <li><b>Colors and styles</b> - allows you to define what colors and styles
+    will be used to mark certain language elements when syntax highlighting is
+    ON.</li>
+</ul>
+<p><img src="gifs/pref7.gif"></p>
+<p><b>Data tab</b> - allows you to define default, global values for all databases. </p>
+<p><b>IMPORTANT</b>: some of these settings may <b>be overwritten by PER-DATABASE settings
+  in the File-&gt;Database Settings window</b>. See explanation in <a href="h_workspace.html">Tutorial:
+  Understanding database concepts</a>.</p>
+<ul>
+  <li><b>Data source: </b> defines the default data source (for databases that do
+    not specify another source in the File-&gt;Database Settings)</li>
+  <li><b>Local data storage: </b> default setting for <b>external</b> databases
+  (this setting is overwritten by the File-&gt;Database Settings).
+  If &quot;Enabled,&quot; external data is cached in local files. If &quot;Disabled,&quot; local
+  files do not store external data.</li>
+  <li><b>In-memory cache (max. symbols)</b> - defines how much symbol data should
+    be kept in RAM (for very fast access); this works together with the next
+    setting</li>
+  <li><b>In-memory cache (max. megabytes)</b> - defines how many megabytes of RAM should
+    be used for temporary data cache (for very
+    fast access)</li>
+  <li><b>Number of bars to load - </b> default setting for <b>external</b> databases
+  (this setting is overwritten by the File-&gt;Database Settings). Defines how
+  many bars should be loaded from the external data source and kept in AmiBroker.
+   Examples: 10-year EOD: 2,600, 60-day intraday 1-minute: 30,000 (approximate)</li>
+  <li><b>Limit number of saved quotations </b>-     if this option is ON, AmiBroker
+    will save the database with a limited number of quotations. This prevents the database
+  from growing too much </li>
+  <li><b>Max. number of saved quotations </b> - this is the limit itself. Preferably,
+    300 or higher for EOD databases; 3,000 or higher for intraday</li>
+  <li><b>Default database path </b>- this defines the path to the <b>database
+      that is loaded on startup. If such a database does not exist, it will be recreated
+      at startup time.</b></li>
+</ul>
+<p><img src="gifs/pref8.gif"></p>
+<p><b>Intraday tab</b> - provides settings for intraday charting</p>
+<ul>
+  <li><b>Custom time intervals</b> - allow you to define your own N-minute or N-hour
+    intervals (available later from View-&gt;Intraday menu)</li>
+  <li><b>Custom N-tick chart settings</b> - allow you to define your own N-tick charts
+    (available later from View-&gt;Intraday menu)</li>
+  <li><b>Align custom minute bars to regular market hours</b> - when checked,
+    AmiBroker will trim pre-market custom interval bars so a new bar will begin
+    exactly when trading hours start. Trading hours can be set per-database in
+    File-&gt;Database Settings-&gt;Intraday settings. Let's say that we have 45-minute
+    bars. Without this setting, we would get bars starting at 9:00, 9:45, 10:30,
+    11:15 etc. When this is turned on and trading starts at 9:30, we have a guarantee
+    that bars will be aligned to 9:30: 8:45, 9:30, 10:15, 11:00</li>
+  <li><b>Time compressed bars show:</b>
+    <ul>
+      <li><b>time of FIRST tick inside bar </b> - when selected, the bar gets
+        the time stamp of the very first trade inside a given time slot (bar)</li>
+      <li><strong>time of the LAST tick inside bar</strong> - when selected, the bar gets
+        the time stamp of the very last trade inside a given time slot (bar)</li>
+      <li><strong>START time of the interval - </strong>when selected, the bar
+        is time-stamped with the start time of the time slot (bar).
+        Let's say that a 30-minute
+            bar covers 9:00:00..9:29:59. When this is selected, AmiBroker will
+        display the time of this bar as 9:00</li>
+      <li> <strong>END time of the interval - </strong>when selected, the bar
+        is time-stamped with the start time of the time slot (bar). Let's say that
+        a 30-minute bar covers 9:00:00..9:29:59. When this is selected, AmiBroker
+      will display the time of this bar as 9:29:59</li>
+    </ul>
+  </li>
+  <li><a name="EVERYTICK"></a><b>Realtime chart refresh interval</b> - defines the interval between automatic
+    chart refreshes in real-time mode. By default, charts are refreshed every
+    3 seconds, but in a very volatile market, you may prefer to set it to 1, so charts
+    are refreshed every second in real-time mode.<br>
+    <br>
+    <b>New in 4.90</b>: To enable 'every tick' chart refresh in <b>Professional</b>    Edition, go to Tools-&gt;Preferences, Intraday tab and enter ZERO (0) into &quot;Intraday
+    chart refresh interval&quot; field. (Note: Standard Edition won't allow you to
+    do that).
+    <p>Once you enter zero, AmiBroker will refresh all charts with every new
+      trade arriving, provided that the formulas you use execute fast enough. If
+      not, it will dynamically adjust the refresh rate to maintain the maximum possible
+      refresh rate without consuming more than 50% of CPU (on average). So, for example,
+      if your charts take 0.2 sec to execute, AmiBroker will refresh them on average
+      2.5 times per second.</p>
+    <p>Note: built-in Windows Performance chart shows cumulative CPU consumption
+      for all processes; to display PER-PROCESS CPU load, use a SysInternals free
+      software <a href="http://www.sysinternals.com/Utilities/ProcessExplorer.html" target="_blank">http://www.sysinternals.com/Utilities/ProcessExplorer.html</a></p>
+    <p></p>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<p><img src="gifs/pref9.gif"></p>
+<ul><li><b>Price data tooltips</b><br>
+    if checked, small tooltips will appear when you hover over the chart, displaying
+      the selected bar date, prices / indicator values</li>
+  <li><b>Show interpretation in tooltip</b> <br>
+    if checked, data tooltips will also include interpretation text that is normally
+      displayed in the <a href="h_interpret.html">Interpretation window</a>.</li>
+  <li><b>Data tip auto-hide timeout</b> <br>
+    defines how many seconds a data tooltip should remain on the screen if you
+      don't move your mouse.</li>
+  <li><b>Add full name to ticker in the ticker box</b><br>
+    when checked, the ticker box displays not only the symbol but also the full name of
+  the issue</li>
+  <li><b>Add full name to ticker in the tree</b><br>
+    when checked, the workspace tree displays not only the symbol but also the full name
+    of the issue </li>
+  <li><strong>Full-name tooltips in symbol tree</strong> <br>
+    when checked, then the full
+    name of a symbol is displayed in the tooltip that appears when you move your
+    mouse over a symbol
+    in the symbol tree.</li>
+  <li><strong>Data-tip auto-hide timeout </strong><br>
+    defines the time in seconds how long a data tooltip (that shows the values of indicators)
+      will be displayed when the mouse cursor does not move</li>
+  <li><b>Thousand separator<br>
+    </b>defines the thousand separator for numbers displayed on charts and all list-views. </li>
+  <li><b>Decimal places in RT quote window<br>
+    </b>defines how many decimal places should be displayed in the Real-Time Quote
+    window.</li>
+  <li><b>Axis font </b> <br>
+    defines the font face and size to be used for the chart axis and text tool</li>
+  <li><b>No minimum size for resizing dialogs<br>
+    </b>when checked, it allows you to size dialogs below the minimum size (so some
+    controls become invisible)</li>
+  <li><b>Display plugin activity</b><br>
+    when checked, AmiBroker displays information about accessing the data
+  plugin in the status bar</li>
+  <li><b>Case sensitive ticker symbols</b><br>
+    when checked, ticker symbols are case-sensitive. In other words, INTC, Intc,
+      and iNTc are considered DIFFERENT. This is required for some Canadian symbols,
+      for example. Please use with caution. If your exchange does not use case-sensitive
+      tickers, please make sure it is UNCHECKED.</li>
+  <li><b>Auto-arrange charts </b><br>
+if this option is on, chart windows are scaled and arranged to fit the screen
+  after every opening/closing chart window. </li>
+  <li><b>Auto-tile multiple chart windows</b><br>
+    when checked, multiple chart windows are always tiled <b>vertically </b> on
+    every resize of the main application window.</li>
+  <li><b>Ask to save changed data<br>
+    </b>when checked, AmiBroker asks if you want to save modified data upon exit.
+    When unchecked, AmiBroker saves modified data without asking.</li>
+  <li><b>Save on exit: Preferences, Templates, Layouts</b><br>
+    controls which settings should be saved automatically on exit
+  </li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img src="gifs/pref10.gif"></p>
+<p><b>Alerts tab - </b>It allows you to define e-mail account settings, test sound
+  output, and define
+which parts of AmiBroker can generate alerts via the AlertIF function. </p>
+<p><b>E-mail settings</b> page now allows you to choose among the most popular authorization
+  schemes, such as: AUTH LOGIN (most popular), POP3-before-SMTP (popular), CRAM-MD5,
+  LOGIN PLAIN. Version 5.30 also allows you to use SSL (secure connection), used by
+  GMail, for example. For more information about setting up with GMail, see <a href="h_alerts.html">Tutorial:
+  Formula-based alerts</a>.</p>
+<p><b>Enable alerts from</b> checkboxes allow you to selectively enable/disable
+  alerts generated by Automatic analysis, Commentary/Interpretation, and custom
+  indicators. </p>
+<p><b>Keyboard tab</b></p>
+<p>- keyboard tab has been moved to <a href="w_customize.html">Tools-&gt;Customize</a> dialog</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img src="gifs/pref12.gif" width="459" height="502"></p>
+<p><b>AFL tab</b><br>
+</p>
+<ul>
+  <li><strong>Multi-threaded charts - </strong>enables multi-threaded execution
+    of AFL in charts/indicators. Multi-threading allows you to maximize speed and utilization
+    of modern multi-core / multi-CPU computers.
+    For example,
+    on an
+    8-core
+    Intel
+    i7 CPU, your charts will run up to 8 times faster than in version 5.30. In
+    version 5.40, the AFL engine has been completely rewritten from the ground up
+    to allow multiple instances of the engine running simultaneously. This enables
+    not
+    only multithreading but also enhances the responsiveness of the entire application,
+    as even a badly written user formula used in a chart is not able to lock up or
+    slow down the rest of the program. Multi-threading is ON by default. It
+    can be turned off by unchecking this box, but it is strongly discouraged.
+  Multi-threading should be turned ON if you want AmiBroker to operate at full
+    speed.</li>
+  <li><strong>Catch system exceptions in Indicators and commentaries</strong> -
+    when checked, all exceptions (run-time errors) are caught by the indicator
+    drawing code, so
+    no <a href="x_bugrecovery.html">Bug Recovery</a> window appears. Instead,
+    exception information is displayed inside the chart pane. It is recommended to
+    have this turned ON, especially when you use real-time data</li>
+  <li><strong>Stop parsing on first error </strong> - when checked, the parser stops
+    further code analysis on the first encountered error, so only one (first) error
+    is displayed in the <a href="w_afledit.html">formula editor</a> error list.
+    If it is unchecked, then the parser will list all errors found. It is recommended
+    to turn it off.</li>
+  <li><strong>Enable loop termination by Shift-BREAK</strong> - when checked,
+    AmiBroker will allow you to break any for(), while(), and do-while() loops by pressing
+    and holding down the SHIFT and BREAK(PAUSE) keys on your keyboard.</li>
+  <li><strong>Check Shift+BREAK key every </strong>- defines how often the keyboard
+    state should be checked when a loop is executed. Note that specifying small
+    values
+      will make loop execution slower. </li>
+  <li><strong>Endless loop detection threshold</strong> - defines the number
+    of loop iterations after which AmiBroker will terminate the loop with a &quot;Possible
+    Endless loop
+    detected&quot; error message. This is useful in situations when the code has an infinite
+    loop (due to a mistake by the formula author) because it won't allow AmiBroker
+    to hang due to infinite looping</li>
+  <li><strong>Standard include path</strong> - the default path to use when #include
+    statement uses &lt; &gt; braces instead of &quot;&quot;</li>
+  <li><strong>Formula tree root path</strong> - the root path of the Formula
+    file/directory tree displayed in the Charts tab of the Workspace window</li>
+  <li><strong>Show hidden folders </strong>- determines if the formula tree should
+    show subfolders with the &quot;hidden&quot; attribute (the drag-and-drop folder is created as &quot;hidden&quot;
+    by the
+      setup program)</li>
+</ul>
+<p>&nbsp;</p>
+<p><img src="gifs/pref13.gif"></p>
+<p><b>Debugger tab</b></p>
+<p><img src="gifs/prefs_debug.gif" width="459" height="502"></p>
+<p>The Debugger settings are as follows:</p>
+<ul>
+  <li><strong>Limit BarCount to</strong> - defines the maximum number of bars in
+    arrays (BarCount) used during debugging (<strong>by default, it is 200 bars</strong>)</li>
+  <li><strong>Bar interval </strong>- decides if the debugger uses the Base time interval
+    or the current Chart interval. The default is &quot;<strong>Use base time interval</strong>&quot; because
+    there can be no chart open at all!</li>
+  <li><strong>Auto-scroll to first changed item</strong> - when this is ON, the &quot;Arrays&quot; list
+    in the Watch window is scrolled automatically to the first array item that has
+    changed (so you don't need to locate elements that changed manually)</li>
+  <li><strong>Keep debugging state</strong> - when this is ON, the AFL editor saves
+    the debug state (breakpoints and watches) and bookmarks in the .dbg file
+    along with the formula when closing the editor and restores the state when
+    the formula is reopened. Note that the .dbg file is automatically deleted by AmiBroker
+    when there are no breakpoints, no bookmarks, and no watches.</li>
+</ul>
+<p><strong>Currencies tab</strong></p>
+<p><br>
+This page allows you to define a base currency and
+exchange rates (fixed or dynamic)
+for different currencies. This allows you to get correct backtest results when testing
+securities denominated in a different currency than your base portfolio currency. For
+more details, please refer to <a href="h_pyramid.html">Tutorial: Pyramiding and multiple-currency support
+in the backtester.</a><br>
+      <br>
+How does AB know whether I want the fixed or dynamic quote? <br>
+<br>
+There are the following requirements to use currency adjustments:<br>
+a) Symbol-&gt;Information, &quot;Currency&quot; field shows a currency different
+from the base currency<br>
+b) The appropriate currency (defined in Symbol) has a matching entry in Preferences-&gt;Currencies
+page<br>
+c) the dynamic rate &quot;FX SYMBOL&quot; defined in the preferences EXISTS in
+your database and HAS QUOTES for each day within the analysis range. </p>
+<p>What is the &quot;INVERSE&quot; checkbox for in the preferences?<br>
+    <br>
+  For example, let's take EURUSD.<br>
+  <br>
+  When &quot;USD&quot; is your base currency, then the EUR exchange rate would be &quot;straight&quot; EURUSD
+  FX (i.e., 1.3).<br>
+  But when &quot;EUR&quot; is your base currency, then the USD exchange rate would
+  be the INVERSE of EURUSD (i.e., 1/1.3).<br>
+  The opposite would be true with FX rates like USDJPY (which are already &quot;inverse&quot;).</p>
+<p>Currency tab,  option <strong>&quot;Trade using FX cash conversion&quot;</strong>
+  allows to handle different ways to calculate profits depending on whenever
+    foreign currency
+is borrowed or cash actualy exchanged</p>
+<p>When you actually exchange the cash when entering a trade on security traded
+  in foreign currency then you should have this option turned ON<br>
+  when you use a loan in a foreign currency, turn this option OFF (the pre 5.71-behavior)<br>
+  See this for more info:<br>
+  https://www.interactivebrokers.com/images/flash/tours/MechanicsOfForeignTransaction/index.html </p>
+<p>&nbsp; </p>
+</body>
+</html>

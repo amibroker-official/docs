@@ -1,0 +1,247 @@
+<html>
+
+<head>
+<title>How to download quotes manually using AmiQuote</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h2>How to download quotes manually using AmiQuote</h2>
+<h5>Introduction</h5>
+<p>The purpose of this document is to explain how to use AmiQuote and AmiBroker
+   in order to obtain quotes from Yahoo Finance and Quote.com.</p>
+<p>AmiQuote
+  is 
+  a companion program to AmiBroker charting/analysis software. The main
+   purpose of AmiQuote is to simplify and automate downloading daily and historical
+  
+  quotation data from free Yahoo! Finance (USA, major European exchanges and
+  some  other countries), Quote.com (USA only), MSN (USA and some European
+  exchanges), Integratir (US stocks), Forex (Finam's free site)</p>
+<p>Yahoo provides data in &quot;Historical&quot; and &quot;Current&quot; modes 
+  of AmiQuote. Quote.com provides data in &quot;Intraday&quot; mode of AmiQuote.</p>
+<h5>Preparing ticker list</h5>
+<p>A ticker list is a simple text file which lists line by line the tickers you 
+  want to import. The AmiQuote ticker list file has the .TLS extension. AmiQuote comes 
+  with pre-written ticker lists for components of the main NYSE and NASDAQ indices 
+  and a number of European indices/markets. Additional ticker lists are available 
+  on the starter page at: <a href="http://www.amibroker.com/starter/">http://www.amibroker.com/starter/</a>. 
+  You can use those pre-written ticker lists, or you can customize them or write 
+  your own. In order to edit an existing .TLS file or write a completely new one, 
+  all you need is a plain text editor such as Notepad or any other plain ASCII editor 
+  (not MS Word!). All you have to do is to write tickers you want to import line 
+  by line (single ticker in single line) and save the file. Please make sure that 
+  you are saving the file with the .TLS extension. Otherwise, AmiQuote will not load 
+  this file.</p>
+<p>Please note that Yahoo uses suffixes for non-US stocks. So, in order to get 
+  quotes for non-US symbols, you would need to add the appropriate suffix to the ticker 
+  symbol. The suffixes in alphabetical order are (click on a link to get the symbol list for each exchange): <a href="http://finance.yahoo.com/l?s=.AS&t=S&m=%27%27" target="_blank">.AS 
+  - Amsterdam</a>, <a href="http://finance.yahoo.com/l?s=.AX&t=S&m=%27%27" target="_blank">.AX 
+  - Australia</a> (ASX), <a href="http://finance.yahoo.com/l?s=.BC&t=S&m=%27%27" target="_blank">.BC 
+  - Barcelona</a>, <a href="http://finance.yahoo.com/l?s=.BE&t=S&m=%27%27" target="_blank">.BE 
+  - Berlin</a>, <a href="http://finance.yahoo.com/l?s=.BO&t=S&m=%27%27" target="_blank">.BO 
+  - Bombay</a>, <a href="http://finance.yahoo.com/l?s=.BM&t=S&m=%27%27" target="_blank">.BM 
+  - Bremen</a>, <a href="http://finance.yahoo.com/l?s=.BR&t=S&m=%27%27" target="_blank">.BR 
+  - Brussels</a>, <a href="http://finance.yahoo.com/l?s=.BA&t=S&m=%27%27" target="_blank">.BA 
+  - Buenos Aires</a>, <a href="http://finance.yahoo.com/l?s=.CL&t=S&m=%27%27" target="_blank">.CL 
+  - Calcutta</a>, <a href="http://finance.yahoo.com/l?s=.CR&t=S&m=%27%27" target="_blank">.CR 
+  - Caracas</a>, <a href="http://finance.yahoo.com/l?s=.V&t=S&m=%27%27" target="_blank">.V 
+  - CDNX</a>, <a href="http://finance.yahoo.com/l?s=.CO&t=S&m=%27%27" target="_blank">.CO 
+  - Copenhagen</a>, <a href="http://finance.yahoo.com/l?s=.D&t=S&m=%27%27" target="_blank">.D 
+  - Dusseldorf</a>, <a href="http://finance.yahoo.com/l?s=.F&t=S&m=%27%27" target="_blank">.F 
+  - Frankfurt</a>, <a href="http://finance.yahoo.com/l?s=.H&t=S&m=%27%27" target="_blank">.H 
+  - Hamburg</a>, <a href="http://finance.yahoo.com/l?s=.HA&t=S&m=%27%27" target="_blank">.HA 
+  - Hanover</a>, <a href="http://finance.yahoo.com/l?s=.HK&t=S&m=%27%27" target="_blank">.HK 
+  - Hong Kong</a>, <a href="http://finance.yahoo.com/l?s=.I&t=S&m=%27%27" target="_blank">.I 
+  - Ireland</a>, <a href="http://finance.yahoo.com/l?s=.JK&t=S&m=%27%27" target="_blank">.JK 
+  - Jakarta</a>, <a href="http://finance.yahoo.com/l?s=.KA&t=S&m=%27%27" target="_blank">.KA 
+  - Karachi</a>, <a href="http://finance.yahoo.com/l?s=.KQ&t=S&m=%27%27" target="_blank">.KQ 
+  - Kosdaq</a>, <a href="http://finance.yahoo.com/l?s=.KS&t=S&m=%27%27" target="_blank">.KS 
+  - KSE</a>, <a href="http://finance.yahoo.com/l?s=.KL&t=S&m=%27%27" target="_blank">.KL 
+  - Kuala Lumpur</a>, <a href="http://finance.yahoo.com/l?s=.L&t=S&m=%27%27" target="_blank">.L 
+  - London</a>, <a href="http://finance.yahoo.com/l?s=.LM&t=S&m=%27%27" target="_blank">.LM 
+  - Lima</a>, <a href="http://finance.yahoo.com/l?s=.LS&t=S&m=%27%27" target="_blank">.LS 
+  - Lisbon</a>, <a href="http://finance.yahoo.com/l?s=.MA&t=S&m=%27%27" target="_blank">.MA 
+  - Madrid</a>, <a href="http://finance.yahoo.com/l?s=.MX&t=S&m=%27%27" target="_blank">.MX 
+  - Mexico</a>, <a href="http://finance.yahoo.com/l?s=.MI&t=S&m=%27%27" target="_blank">.MI 
+  - Milan</a>, <a href="http://finance.yahoo.com/l?s=.MU&t=S&m=%27%27" target="_blank">.MU 
+  - Munich</a>, <a href="http://finance.yahoo.com/l?s=.NS&t=S&m=%27%27" target="_blank">.NS 
+  - NSE</a>, <a href="http://finance.yahoo.com/l?s=.NZ&t=S&m=%27%27" target="_blank">.NZ 
+  - New Zealand</a>, <a href="http://finance.yahoo.com/l?s=.OL&t=S&m=%27%27" target="_blank">.OL 
+  - Oslo</a>, <a href="http://finance.yahoo.com/l?s=.PA&t=S&m=%27%27" target="_blank">.PA 
+  - Paris,</a> <a href="http://finance.yahoo.com/l?s=.SN&t=S&m=%27%27" target="_blank">.SN 
+  - Santiago</a>, <a href="http://finance.yahoo.com/l?s=.SS&t=S&m=%27%27" target="_blank">.SS 
+  - Shanghai</a>, <a href="http://finance.yahoo.com/l?s=.SZ&t=S&m=%27%27" target="_blank">.SZ 
+  - Shenzhen</a>, <a href="http://finance.yahoo.com/l?s=.ST&t=S&m=%27%27" target="_blank">.ST 
+  - Stockholm</a>, <a href="http://finance.yahoo.com/l?s=.SG&t=S&m=%27%27" target="_blank">.SG 
+  - Stuttgart</a>, <a href="http://finance.yahoo.com/l?s=.TW&t=S&m=%27%27" target="_blank">.TW 
+  - Taiwan</a>, <a href="http://finance.yahoo.com/l?s=.TA&t=S&m=%27%27" target="_blank">.TA 
+  - Tel Aviv</a>, <a href="http://finance.yahoo.com/l?s=.TO&t=S&m=%27%27" target="_blank">.TO 
+  - Toronto</a>, <a href="http://finance.yahoo.com/l?s=.VA&t=S&m=%27%27" target="_blank">.VA 
+  - Valencia</a>, <a href="http://finance.yahoo.com/l?s=.VI&t=S&m=%27%27" target="_blank">.VI 
+  - Vienna</a>, <a href="http://finance.yahoo.com/l?s=.DE&t=S&m=%27%27" target="_blank">.DE 
+  - XETRA</a>, <a href="http://finance.yahoo.com/l?s=.S&t=S&m=%27%27" target="_blank">.S - Zurich</a>. </p>
+<p>Please note that Yahoo and Quote.com also use different symbols for indices. 
+  The main difference is that Yahoo uses ^ (dash) prefix and Quote.com uses $ 
+(dollar) prefix. </p>
+<p>For a list of indices provided by <strong>Yahoo</strong> please <a href="http://finance.yahoo.com/m1?u" target="_blank">click 
+  here</a>. </p>
+<p>For a list of indices provided by <strong>Lycos/Quote.com</strong> please <a href="http://finance.lycos.com/home/misc/symbol_search.asp?options=i" target="_blank">click
+     here</a>. Please note that recently Lycos/Quote.com stopped delivering free
+     quotes and you need to have a Livecharts subscription ($9.95/month) in order
+     to use it. For more details, see <a href="http://www.amibroker.com/kb/2006/03/04/how-to-use-your-livecharts-account-with-amiquote/" target="_blank">this
+     Knowledge Base article</a>.</p>
+<p>For a list of symbols provided by <strong>MSN</strong> please <a href="http://moneycentral.msn.com/investor/common/find.asp" target="_blank">click
+here</a>.</p>
+<p><br>
+</p>
+<h5>Downloading data</h5>
+<table width="591" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td valign="top" width="500"> 
+      <p>In order to download the data, please launch AmiQuote. Then, please click 
+        on the &quot;Open&quot; button in the toolbar (or choose <i><b>File</b></i>-&gt;<i><b>Open</b></i> 
+        menu) as shown in the picture on the right.<img src="gifs/arrow_right.gif"></p>
+      <p>From the file dialog, please choose a .TLS file (for example DIJA.TLS) 
+        and click the <b><i>Open</i></b> button. Then you will see the main screen 
+        of AmiQuote filled with the list of tickers loaded, as shown in the picture 
+        below.<br>
+        <img src="gifs/arrow_down.gif"></p>
+    </td>
+    <td width="91" valign="top"> 
+      <div align="right"><img src="gifs/aqopen.gif"></div>
+    </td>
+  </tr>
+</table>
+<table width="591" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td width="499" valign="top"><img src="gifs/aqmain1.gif"></td>
+    <td valign="top" width="92"> 
+      <p align="left">&nbsp;</p>
+    </td>
+  </tr>
+</table>
+<p>Choose the appropriate Data Source </p>
+<p>- <b>Yahoo Historical </b>- allows you to download end-of-day histories up to
+  the current day (current day data appear a few hours after session end)<br>
+  - <b>Yahoo Current</b> - allows you to download current day quotes (15-min
+  delayed) during the trading session<br>
+  - <b>Lycos/Quote.com Intraday </b>- allows you to download intraday and daily
+  historical data (1-min bars and up) - for US stocks/futures only. If you have
+  chosen
+    this mode,
+  you should also select the bar interval (see the limitations described below)
+  - requires a Livecharts subscription ($9.95/month)<br>
+  - <b>MSN Historical </b>- allows you to download end-of-day histories up to
+  the current day (current day data appear a few hours after session end)<br>
+  - <b>Forex </b>- allows you to download end-of-day and intraday (registered
+  version) histories for the following currency pairs: EURCHF, EURGBP, EURJPY,
+  EURUSD, GBPUSD, USDCHF, USDJPY<br>
+</p>
+<p>After choosing the correct options, please click on the green arrow (or use <i><b>File</b></i> 
+  -&gt; <i><b>Start Download</b></i> menu). The download process will begin. AmiQuote 
+  will display progress messages and status information, including the number of completed 
+  downloads and the number of files left. At any time, you can stop the download process 
+  with the &quot;Stop&quot; button (red box). After the download finishes, <b>AmiQuote 
+  will automatically update the quotes in AmiBroker </b>(provided AmiBroker is 
+  running in parallel and the &quot;automatic import&quot; checkbox in AmiQuote is checked).</p>
+<h5>Limitations</h5>
+<p>Intraday interval bar data (1-min, 5-min, 15-min, 60-min and 120-min) is available 
+  for US securities only. Historical data for international exchanges is usually 
+  much shorter than for US markets.</p>
+<p>Because intraday bar data is downloaded from Quote.com servers, the ticker 
+  symbols for indices are different from those used by Yahoo. For a complete reference, 
+  please check http://finance.lycos.com/home/misc/symbol_search.asp?options=i</p>
+<p>Intraday bar data is limited to 500 bars regardless of bar interval. In other
+   words, you always get 500 bars of data, whether these are 1-min, 5-min, 15-min,
+  
+  60-min or 120-min data - so by choosing a bigger interval, you get data from more
+   days. This is the limitation imposed by the Livecharts server.</p>
+<h5></h5>
+<h5>Importing quotes into AmiBroker</h5>
+<p><b><font color="#CC0000">NOTE: This step is no longer necessary if you are 
+  using the &quot;automatic import&quot; feature in AmiQuote. The explanations are 
+  provided only for users who want to import selectively or re-import files downloaded 
+  in the past.</font></b></p>
+<p>First, please launch AmiBroker. From the <i><b>File</b></i> menu, please select 
+  <i><b>Import From ASCII</b></i> option. You will see the following file dialog:</p>
+<p><img src="gifs/abfile2.gif"></p>
+<p>In this picture, I have marked the most important items for easy identification.
+   Marked in red is the type selector combo-box (&quot;<i><b>Files of type</b></i>&quot;).
+    In order to import AmiQuote files (those with .AQH and .AQD extensions), you
+   should 
+  choose <i><b>AmiQuote Historical </b></i>or <i> <b>AmiQuote Daily, </b></i>or<i><b> AmiQuote
+  Intraday (.AQI), </b></i>or <i><b>AmiQuote MSN (.AQM), </b></i>or<i><b> AmiQuote eSignalCentral
+  (.AQE) </b></i>from
+   the combo box (the red arrow shows these options). </p>
+<p> After choosing the right type, you will see only files of the appropriate type in
+  the file list (the blue arrow shows this). Now you can select one or more files
+  from
+  the
+  
+  list. Multiple selection is possible by holding the CTRL key depressed while selecting
+   the items with a mouse (you can also press SHIFT to choose a range of files
+  
+  with a single click). Now, when you are done choosing the files you want to
+  import, just click the &quot;<i><b>Open</b></i>&quot; button. The import process
+  will start  and you will see a progress bar showing that AmiBroker is importing
+  the data. After 
+  finishing the import, AmiBroker will automatically refresh the symbol list and you
+   will see updated tickers and charts. If anything goes wrong with the import
+  
+  process, AmiBroker writes a log file called &quot;import.log&quot;, which is located
+   in AmiBroker's main directory. You can examine this log file if you want to
+  find 
+  out what went wrong (since import.log is a simple text file, you can open it with
+   any text editor)</p>
+<h5>Common questions</h5>
+<table border="1" cellspacing="0" cellpadding="3" bordercolor="#E3E3E3" bgcolor="#CCFFCC">
+  <tr> 
+    <th width="18%" class="smalltable">
+      <p>Question</p>
+    </th>
+    <th width="82%" class="smalltable">Answer</th>
+  </tr>
+  <tr> 
+    <td width="18%" class="smalltable">How can I edit my own ticker list (.TLS) 
+      file?</td>
+    <td width="82%" class="smalltable"> 
+      <p>You can create or edit .TLS files using Windows Notepad. When saving a file, 
+        simply give the file a .TLS extension (instead of the default .TXT extension) </p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="18%" class="smalltable">What about ready-to-use complete ticker 
+      lists for NYSE, NASDAQ, AMEX?</td>
+    <td width="82%" class="smalltable"> 
+      <p>The following ready-to-use ticker lists are available for download:</p>
+      <ul>
+        <li><a href="http://www.amibroker.com/starter/tls/Djia.tls" target="_blank">DJIA.TLS</a> 
+          (30 stocks)</li>
+        <li><a href="http://www.amibroker.com/starter/tls/Djta.tls" target="_blank">DJTA.TLS</a> 
+          (20 stocks)</li>
+        <li><a href="http://www.amibroker.com/starter/tls/DJUA.TLS" target="_blank">DJUA.TLS</a> 
+          (15 stocks)</li>
+        <li><a href="http://www.amibroker.com/starter/tls/Nasdaq100.tls" target="_blank">NASDAQ100.TLS</a> 
+          (100 stocks)</li>
+        <li><a href="http://www.amibroker.com/starter/tls/Nyse.tls" target="_blank">NYSE.TLS</a> 
+          (2612 stocks)</li>
+        <li><a href="http://www.amibroker.com/starter/tls/Nasdaq.TLS" target="_blank">NASDAQ.TLS</a> 
+          (4464 stocks)</li>
+        <li><a href="http://www.amibroker.com/starter/tls/Amex.TLS" target="_blank">AMEX.TLS</a> 
+          (794 stocks)</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+<h5>Further information</h5>
+<p>For further information, please consult AmiBroker User's Guide section &quot;<i>Data 
+  management - Importing data from ASCII file&quot;.</i> In case of any further
+  questions, comments, or suggestions, please use the customer
+  support page at <a href="http://www.amibroker.com/support.html">http://www.amibroker.com/support.html</a></p>
+<blockquote>&nbsp;</blockquote>
+</body>
+</html>

@@ -1,0 +1,112 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STATICVARGET</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StaticVarGet</b><br>
+        - gets the value of static variable</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StaticVarGet( ''varname', align = True' ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Gets the value of static variable.
+<p>
+<i>Static variable</i> - the variable has static duration (it is allocated when the program begins and deallocated when the program ends)
+and initializes it to Null unless another value is specified. Static variables allow to share values between various formulas.
+ARRAY static variables are now supported (version 5.30 and above).<p>
+Please note that static array variable will consume 8 * (number_of_bars) bytes of memory and it won't be released until program is closed or variable is removed using StaticVarRemove().
+<p>
+Static arrays can be even 100 faster than AddToComposite/Foreign, however these two are not strictly equivalent.<p>
+There are following limitations / differences of static arrays as compared to Foreign/AddToComposite:
+<br>a) static array variables store only as many bars as there are currently in use by given chart 
+(so they do not affect QuickAFL in any way). This is different that AddToComposite that forces usage and store of all bars.
+<br>b) static array variables work best if you read them using the same interval as they were written to. I.e when you create static array variables using 5-minute chart, for best results read them in some other 5-minute chart. Reading in different intervals is possible, but subject to limitations
+of timestamping (see below)
+<br>c) when you read static variable in a different interval that it was originally stored, 
+static variables perform padding/synchronization and time compression/decompression automatically in a similar way as foreign,
+however Foreign compresses data always from base-time interval, while static variables operate on previously stored interval,
+hence result may differ. For example, if previously stored data was in daily interval, and you read such static variable in intraday
+chart, you will see essentially flat lines for each day, representing static data from daily interval. 
+<br>d) static array variables do not work well for non-time based intervals (tick/n-volume/n-tick) because timestamps in those intervals
+may not be unique (i.e. several bars may have same time stamp), so time synchronization is not reliable.
+<br>e) static array variables are little slower than normal AFL variables, so for best performance, use read-once, write-once paradigm, using
+temporary normal variable for any processing during formula execution, like this:
+
+The new <i>align</i> parameter (default = true) decides whenever AmiBroker performs timestamp synchronization/alignment or not.<p>The default value is True and it means that values stored in static variables
+are retrieved and aligned to currently selected symbol data/timestamp
+on each bar basis so data for corresponding date/time stamps match.
+This is recommended setting and this is the way it worked in previous versions.
+<p>
+When align is switched to False - it means that AmiBroker does not perform
+any checks nor any alignment and will fill the array with consecutive values
+stored in static array regardless of their timestamps.
+If there are less bars in the static array than in the current arrays, the last
+value of static array will be propagated till BarCount - 1.
+<p>
+It is advised NOT to use align=False, unless you know exactly what you are doing
+and you are aware that date/time stamps have no meaning in particular variable
+or in case when date/time stamps are are aligned using your own method.
+<p>
+Note that speed difference between align 'on' and 'off' is usually negligible
+because alignment algorithm is very fast and has similar complexity as plain
+memory copy.
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#008000>//
+start of the formula: </FONT><FONT COLOR=#000000> <BR>
+temp = </FONT><FONT COLOR=#0000ff>StaticVarGet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"mystaticarray"</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// now perform all necessary calculations using temp
+variable </FONT><FONT COLOR=#000000> <BR>
+<BR>
+temp = </FONT><FONT COLOR=#0000ff>Nz</FONT><FONT COLOR=#000000>(temp) + </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>/</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>; <BR>
+... <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// at the end of the formula store to static </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"mystaticarray"</FONT><FONT COLOR=#000000>,
+temp );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="staticvarset.html">StaticVarSet()</A> function , <A HREF="staticvarsettext.html">StaticVarSetText()</A> function , <A HREF="staticvargettext.html">StaticVarGetText()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StaticVarGet</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1539&hilite=StaticVarGet' target='_blank'>3 ways to use RMI in one script</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1481&hilite=StaticVarGet' target='_blank'>A simple AFL Revision Control System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=431&hilite=StaticVarGet' target='_blank'>AFL Timing functions</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=StaticVarGet' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=StaticVarGet' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=StaticVarGet' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=StaticVarGet' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=StaticVarGet' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=StaticVarGet' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=StaticVarGet' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=StaticVarGet' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=StaticVarGet' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=StaticVarGet' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=794&hilite=StaticVarGet' target='_blank'>Fast Refreshed KAGI Swing Charts (Price Swing)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=StaticVarGet' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=StaticVarGet' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=StaticVarGet' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1296&hilite=StaticVarGet' target='_blank'>Herman</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1217&hilite=StaticVarGet' target='_blank'>interactively test discretionary trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=StaticVarGet' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1180&hilite=StaticVarGet' target='_blank'>Manual Bracket Order Trader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1429&hilite=StaticVarGet' target='_blank'>Non-repaitning Zigzag line</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1450&hilite=StaticVarGet' target='_blank'>Now Send Push Notifications From Amibroker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1409&hilite=StaticVarGet' target='_blank'>Rebalancing Backtest avoiding leverage</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1566&hilite=StaticVarGet' target='_blank'>Reconnect TWS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=StaticVarGet' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=StaticVarGet' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=StaticVarGet' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=StaticVarGet' target='_blank'>Woodie's CCI Panel Full Stats</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StaticVarGet">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

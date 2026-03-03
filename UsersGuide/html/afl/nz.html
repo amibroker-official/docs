@@ -1,0 +1,77 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - NZ</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Nz</b><br>
+        - Null (Null/Nan/Infinity) to zero</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Nz( x, valueifnull = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER, ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Converts Null/Nan/Infinity values to zero (or user defined value)<p>
+
+x can be number or array.<p>
+
+You can use the Nz function to return zero, or another specified value when argument x is Null or Nan or Infinite. <p>
+For example, you can use this function to convert a Null (empty) value to another value and prevent it from propagating through an expression. If the optional valueifnull argument is included, 
+then the Nz function will return the value specified by that argument if the x argument is Null (or Nan or Infinity). <p>Since AmiBroker 6.90 valueifnull argument can be an array.
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> You can use the Nz function as an alternative to the IIf function. 
+<p>
+Instead of:<p>
+<code>
+varTemp = IIf( IsFinite( (H-L)/(C-L) ), (H-L)/(C-L), 0 );
+</code>
+<p>
+You can write:<p>
+<code>
+varTemp = Nz( (H-L)/(C-L) );
+</code>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Nz</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1539&hilite=Nz' target='_blank'>3 ways to use RMI in one script</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1481&hilite=Nz' target='_blank'>A simple AFL Revision Control System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1600&hilite=Nz' target='_blank'>ADXVMA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1064&hilite=Nz' target='_blank'>AFL to Python COM Link</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1579&hilite=Nz' target='_blank'>Alphatrend</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=Nz' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=Nz' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=Nz' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=Nz' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=Nz' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=Nz' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=423&hilite=Nz' target='_blank'>Candle Stick Analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=Nz' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1389&hilite=Nz' target='_blank'>Cycle Period</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1390&hilite=Nz' target='_blank'>Dominant Cycle Phase</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=295&hilite=Nz' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=296&hilite=Nz' target='_blank'>Dynamic Momentum Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1528&hilite=Nz' target='_blank'>Ehlers Reflex Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1529&hilite=Nz' target='_blank'>Ehlers Trendflex Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=Nz' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=Nz' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=Nz' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=Nz' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=Nz' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=Nz' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1382&hilite=Nz' target='_blank'>Hilbert Sine Wave</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1396&hilite=Nz' target='_blank'>Hilbert Sine Wave Support & Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1395&hilite=Nz' target='_blank'>Hilbert Sine Wave with Hull Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1217&hilite=Nz' target='_blank'>interactively test discretionary trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1304&hilite=Nz' target='_blank'>John Ehler</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=Nz' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1299&hilite=Nz' target='_blank'>Price Chart - Fundamental</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1597&hilite=Nz' target='_blank'>Profit Table (Color Coded)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=Nz' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1399&hilite=Nz' target='_blank'>Signal to Noise</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1404&hilite=Nz' target='_blank'>Stochastic RSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=Nz' target='_blank'>Stress with SuperSmoother</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=Nz' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=775&hilite=Nz' target='_blank'>Trigonometric Fit - TrigFit with AR for cos / sin</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1538&hilite=Nz' target='_blank'>VolumeDivAvgV3_Study_BrS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=Nz' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1548&hilite=Nz' target='_blank'>ZigZag - Days, Avg (Ord) Volume and Channels</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Nz">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

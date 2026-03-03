@@ -1,0 +1,113 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETEXTRADATA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetExtraData</b><br>
+        - get extra data from external data source</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 3.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetExtraData(''fieldname'') </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or ARRAY or STRING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Retrieves data-source specific data. <br>
+        Currently only Quotes Plus and TC2000 plug-isn support this function.<br>
+      
+      The list of fields available via QP2 plug-in:
+<ul>
+<li>"AnnDividend" 
+<li>"Shares"
+<li>"SharesFloat"
+<li>"IssueType" (string) 
+<li>"SharesOut"
+<li>"SharesShort" 
+<li>"TTMsales"
+<li>"Beta"
+<li>"TTMEps" 
+<li>"HiPERange" 
+<li>"LoPERange" 
+<li>"PEG"
+<li>"InstHolds" 
+<li>"LTDebtToEq" 
+<li>"CashFlowPerShare" 
+<li>"ROE"
+<li>"TTMSales"
+<li>"Yr1EPSGrowth" 
+<li>"Yr5EPSGrowth" 
+<li>"Yr1ProjEPSGrowth" 
+<li>"Yr2ProjEPSGrowth" 
+<li>"Yr3to5ProjEPSGrowth" 
+<li>"BookValuePerShare" 
+<li>"Briefing" (string) 
+<li>"QRS" (array)
+<li>"HasOptions"
+<li>"EPSRank" (array) - requires QP plugin 1.4.3
+<li>"Sales" (array) - requires QP plugin 1.5.0
+<li>"EPS" (array) - requires QP plugin 1.5.0
+<li>"LastMainDate" - (number) date of last update of given symbol in
+YYYYMMDD format - requires QP plugin 1.5.1
+<li>"Exchange" - (string) - exchange code - requires QP plugin 1.5.1
+<li>"ExchangeSub" - (string) exchange sub-code - requires QP plugin 1.5.1
+<li>"Flags" - (string) - requires QP plugin 1.5.1
+<li>"MarginFlag" - (string)- requires QP plugin 1.5.1
+<li>"CUSIP" - (string) - requires QP plugin 1.5.1
+<li>"SIC" - (string) - requires QP plugin 1.5.1
+<li>"IssueStatus" - (string) - with default settings all symbols should have
+issue status = 0
+other possible values: 0 = actively trading; 1, P = trading on a when
+issued basis, 5, 6, 7, A, B, C, D, E, M = not trading
+4, N = new symbol, G, K, X, R, Z = changes to symbol, cusip, name, etc. - requires QP plugin 1.5.1
+</ul>
+The list of fields available via TC2000 plug-in:<br>
+<ul>
+<li> "BOP" - balance of power indicator
+<li>"MoneyStream" - money stream indicator
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> GetExtraData("briefing"); /* gives briefing text (STRING) */ 
+        <br>
+        graph0 = GetExtraData("QRS"); /*gives Quotes Plus relative strength 
+        (ARRAY) */ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetExtraData</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=203&hilite=GetExtraData' target='_blank'>Steve Woods' Cum. Vol. Float + Cum. Vol. Channels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=202&hilite=GetExtraData' target='_blank'>Steve Woods' Cumulative Vol. Percentage Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=145&hilite=GetExtraData' target='_blank'>Steve Woods' Float Channel Lines</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetExtraData">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

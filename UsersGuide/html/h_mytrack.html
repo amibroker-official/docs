@@ -1,0 +1,55 @@
+<html>
+
+<head>
+<title>How to use AmiBroker with myTrack feed</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>How to set up AmiBroker with myTrack feed (RT version only)</h2>
+<p><em>Note: The most recent version of this document can be found at: <a href="http://www.amibroker.com/mytrack.html" target="_blank">http://www.amibroker.com/mytrack.html</a>.
+Please check this page for updates.</em></p>
+<H4>Requirements</H4>
+<P><font color="#990000"><strong>IMPORTANT:</strong> <B>You must have a myTrack 
+  subscription with the SDK feature enabled.</B></font><B> <br>
+  To make the SDK work, run the myTrack program, click on CHAT, then on Entitlements, 
+  and then on Features, and check the SDK box. </B><B><br>
+  </B></P>
+<H4>One-time setup </H4>
+<P>To use AmiBroker with&nbsp;myTrack feed, you will need to perform a one-time 
+  setup described below:</P>
+<UL>
+  <LI>Run AmiBroker 
+  <LI>Choose <B>File-&gt;New database</B> 
+  <LI>Type a new folder name (for example: C:\Program Files\AmiBroker\myTrack) and click <B>Create</B> as shown in the picture below:<BR>
+    &nbsp;<img src="gifs/mytrack1.gif"><BR>
+    <BR>
+    <BR>
+  <LI>Choose&nbsp;<STRONG>myTrack RT data Plug-in</STRONG> from the Data source combo 
+    and "<B>Enable</B>" from <B>Local data storage</B> 
+  <LI>Click the <B>Configure</B> button to show the plugin configuration dialog as 
+    shown below<BR>
+    &nbsp;<img src="gifs/mytrack2.gif"><BR>
+    <BR>
+    Enter your myTrack username and password here. You may also adjust <B>Number 
+    of symbols</B>. This should not exceed your account limit.<BR>
+    <BR>
+    Click OK 
+  <LI>Now choose the Base time interval. Note that supported&nbsp;bar intervals&nbsp;are<strong> 
+    1 minute</strong> and<strong> daily (end-of-day)</strong>.<BR>
+    <BR>
+    If you want to have long daily histories AND intraday charts, you should consider 
+    running TWO instances of AmiBroker. One for EOD charts and the second for intraday 
+    charting. Both instances may use&nbsp;myTrack as a data source.<BR>
+    <BR>
+  <LI>Click OK.<BR>
+  </LI>
+</UL>
+<P>From now on, your AmiBroker reads quotes directly from myTrack. </P>
+<P>To learn how to use AmiBroker in Real Time mode, read <a href="h_rtsource.html">this
+tutorial article</a>.</P>
+<H4>&nbsp;</H4>
+</body>
+</html>

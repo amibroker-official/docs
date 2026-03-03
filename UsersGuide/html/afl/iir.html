@@ -1,0 +1,125 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - IIR</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>IIR</b><br>
+        - infinite impulse response filter</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Moving averages, summation<br>
+        </b>(AmiBroker 60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>IIR( input, b0 = 1, a1 = 0, b1 = 0, a2 = 0, b2 = 0, a3 = 0, b3 = 0, a4 = 0, b4 = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function implements fast 4th-order infinite impulse response filter.<p>
+Analytically it is:<p>
+y[ n ] = b0 * x[ n ] + b1 * x[ n - 1 ] + b2 * x[ n - 2 ] + b3 * x[ n - 3 ] + b4 * x[ n - 4 ]
+ + a1 * y[ n - 1 ] + a2 * y[ n - 2 ] + a3 * y[ n - 4 ] + a4 * y[ n -4 ];
+<p>
+AFL equivalent:
+<p>
+<CODE>y = x; <font color='#008000'>// init so no glitches at the beginning appear <br>
+</font><font color='#800000'><b>for</b></font>( n = <font color='#800080'>4</font>;
+n < <b>BarCount</b>; n++ ) <br>
+{ <br>
+y[ n ] = b0 * x[ n ] + <br>
+          
+b1 * x[ n - <font color='#800080'>1</font> ] + <br>
+          
+b2 * x[ n - <font color='#800080'>2</font> ] + <br>
+          
+b3 * x[ n - <font color='#800080'>3</font> ] + <br>
+          
+b4 * x[ n - <font color='#800080'>4</font> ] + <br>
+          
+a1 * y[ n - <font color='#800080'>1</font> ] + <br>
+          
+a2 * y[ n - <font color='#800080'>2</font> ] + <br>
+          
+a3 * y[ n - <font color='#800080'>4</font> ] + <br>
+          
+a4 * y[ n - <font color='#800080'>4</font> ]; <br>
+}</CODE>
+<p>
+Filters of orders 3 and 2 can be implemented by leaving unneeded arguments at default value of zero.
+<p>
+Coefficients b0, b1, b2, b3, b4 multiply the input signal x[n] and are referred to as the feedforward coefficients. Coefficients a1, a2, a3, a4 multiply the output signal y[n] and are referred to as the feedback coefficients. Pay careful attention to the sign of the feedback coefficients. Some design tools flip the sign of the feedback coefficients. In this case the feedback coefficients must be negated.
+<p>
+This convention is used so feedback coefficients work the same as in AMA2 in case of first order filter, so 
+<p>
+IIR( array, factor, 1-factor )
+<p>
+is the same as
+<p>
+AMA2( array, factor, 1-factor )
+<p>
+(with very minor difference is that IIR uses internally double precision arithmetic while AMA2 uses single precision)
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><font color='#008000'>// simple ema: <br>
+</font>factor = <font color='#800080'>2</font>/(period+<font color='#800080'>1</font>); <br>
+y = <font color='#0000ff'>IIR</font>( input, factor, <font color='#800080'>1</font>-
+factor ); <br>
+<br>
+<font color='#008000'>// wilders: <br>
+</font>factor = <font color='#800080'>1</font>/period <br>
+z = <font color='#0000ff'>IIR</font>( input, factor, <font color='#800080'>1</font>-factor
+); <br>
+<br>
+<font color='#008000'>// Ehlers Supersmoother <br>
+</font> <br>
+Periods = <font color='#800080'>10</font>; <br>
+<br>
+c1 = <font color='#800080'>1.41421</font> * <font color='#800080'>3.14159</font> /
+Periods; <br>
+c2 = <font color='#800080'>2.71828</font>^-c1; <br>
+a1 = <font color='#800080'>2</font> * c2 * <font color='#0000ff'>cos</font>(
+c1 ); <br>
+a2 = -c2^<font color='#800080'>2</font>; <br>
+b0 = (<font color='#800080'>1</font> - a1 - a2)/<font color='#800080'>2</font>; <br>
+b1 = b0; <br>
+<br>
+x = <font color='#0000ff'>IIR</font>( <b>Close</b>, b0, a1, b1, a2 ); <br>
+<font color='#0000ff'>Plot</font>( x, <font color='#800080'>&quot;Super Smoother&quot;</font>, <b>colorRed</b> );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="ama.html">AMA()</A> function , <A HREF="ama2.html">AMA2()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>IIR</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1472&hilite=IIR' target='_blank'>Ehlers Hilbert Transformer Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1471&hilite=IIR' target='_blank'>Even Better Sinewave Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1503&hilite=IIR' target='_blank'>Forward/Reverse EMA by John Ehlers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1524&hilite=IIR' target='_blank'>Voss Predictive Filter (A Peek Into the Future)</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=IIR">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

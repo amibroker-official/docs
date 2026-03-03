@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>Using Fundamental data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+
+<h3>Bar Replay window</h3>
+<p>Bar Replay tool is available from <b>Tools-&gt;Bar Replay</b> menu. Bar Replay
+  feature <b>plays back data for all symbols at once</b> with user-defined speed.
+  It means that data for all symbols will end at specified &quot;playback position&quot;.
+  This affects all formulas (no matter if they are used in charts (indicators)
+  or auto-analysis).</p>
+<p><img name="" src="gifs/w_barreplay.gif" alt=""> </p>
+<h4>Control descriptions</h4>
+<p>Navigation bar:</p>
+<ul>
+  <li><img src="gifs/w_br_1.gif" align="absmiddle"> -
+  <b>Rewind</b> to the beginning</li>
+  <li><img src="gifs/w_br_2.gif" align="absmiddle"> -
+  one <b>Step</b> <b>Back</b></li>
+  <li><img src="gifs/w_br_3.gif" align="absmiddle"> -
+    <b>Stop</b> - turns bar replay OFF (charts are not affected by bar replay)</li>
+  <li><img src="gifs/w_br_4.gif" align="absmiddle"> -
+    <b>Pause</b> - pauses current playback or enters pause mode that allows to manually
+    drag the slider bar
+     and affect chart display - in PAUSE mode data are internally
+    modified so quotes past selected &quot;playback&quot; position are invisible
+    to any part of AmiBroker (charts/automatic analysis), except quotation
+  editor</li>
+  <li><img src="gifs/w_br_5.gif" align="absmiddle"> -
+  <b>Play</b> - Plays back bar history</li>
+  <li><img src="gifs/w_br_6.gif" align="absmiddle"> -
+  one <b>Step Forward</b></li>
+  <li><img src="gifs/w_br_7.gif" align="absmiddle"> -  <b>Forward</b> to
+  end of selected range</li>
+</ul>
+<p><b>Slider bar</b> - allows to see the playback progress as well as MANUALLY move
+  back and forward by dragging the slider thumb.</p>
+<p><b>Start/End</b> - controls provide start and end simulation dates. The playback
+  works so that all data up to currently selected &quot;Playback position&quot; are
+  visible. Data past this position are invisible. &quot;Playback position&quot; can
+  change from user-defined &quot;Start&quot; to &quot;End dates&quot;. The small
+  ^ buttons on the right side of Start/End date fields allow to set Start/End
+  to currently selected date on the chart.</p>
+<p><b>Step interval</b> - defines the interval of the step. The recommended setting is the base
+  interval of your database. So if you have a 1-minute database, the step interval
+  should be 1 minute. If you have an EOD database, the step interval should be daily;
+  however, it is allowed to select higher step intervals. Note that chart viewing
+  interval is independent of that. So you can play back a 1-minute database and
+  watch 15-minute bars (they will look real - building the last &quot;ghost&quot; bar
+  as new data come in)</p>
+<p><b>Speed</b> parameter defines step frequency. It means how many steps will be played
+  back within one second. Default is 1. Maximum is 5; minimum is 0.1. If you select
+  3, for example, AmiBroker will play one step every 0.333 sec, giving a total of
+  3 steps per second. </p>
+<p><b>Skip after-hours</b> - when turned on, playback skips hours outside regular trading
+  hours as defined in File-&gt;Database Settings-&gt;Intraday Settings</p>
+<p><b>Skip weekends</b> - when turned on, playback skips Saturdays and Sundays</p>
+<h4>Usage</h4>
+<p>To enter Playback mode - press PLAY <img src="gifs/w_br_5.gif" align="absmiddle"> or
+  PAUSE <img src="gifs/w_br_4.gif" align="absmiddle"> buttons
+  - then data are truncated at current &quot;playback position&quot;.</p>
+<p>To exit Playback mode - press STOP <img src="gifs/w_br_3.gif" align="absmiddle"> button
+  or close Bar Replay dialog - the full data set will be restored.</p>
+<p>Note that playback simulation is done internally and the database is kept
+  untouched in fact (all data are still visible in Quote Editor), so there is
+  no risk in using Bar Replay. <br>
+</p>
+</body>
+</html>

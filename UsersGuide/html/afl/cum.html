@@ -1,0 +1,90 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - CUM</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Cum</b><br>
+        - cumulative sum</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Moving averages, summation<br>
+        </b></p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Cum( ARRAY )<br>Cum( Value ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Calculates a cumulative sum of the ARRAY from the first period in the chart.
+<p>Note: Starting from AmiBroker 5.30, the Cum() function does NOT force using all bars. In the past versions Cum() functions effectively turned OFF QuickAFL feature by requesting all bars to be processed.
+Since Cum() function was popular it caused that many legacy formulas that used it were not benefiting from QuickAFL.<p>
+To enable QuickAFL with such formulas now Cum() function does NOT affect required bars count (previously it forced all bars).<p> 
+This change may lead to different results when comparing with old versions. If you are interested in getting old behaviour and use all bars just add:
+<p>
+SetBarsRequired( sbrAll ) 
+<p>anywhere in your formula.
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> The formula cum( 1) calculates an indicator that rises one point for 
+        each day since the beginning of the chart - this is an equivalent of bar 
+        number - especially useful if you want to detect the last bar:
+      ThisIsLastBar = cum( 1 ) == lastvalue( cum( 1 ) ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="sum.html">SUM()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Graham Kavanagh</b><br>gkavanagh [at] e-wire.net.au<br>2004-08-09 07:49:35</td><td valign="top">Sum adds up the last &quot;n&quot; number of bars. It sums whatever you put into the first part of the sum formula.<br />
+<br />
+Cum(1) adds 1 to the previous value of Cum, so the first bar is 1 and it just keeps adding one to the last bar value of cum(1). <br />
+You can use Cum to add anything, like how many times you get rising days in the entire chart:<br />
+<br />
+Rise = C&gt;O; //this gives results of 0 or 1<br />
+TotalRise = Cum(Rise);<br />
+<br />
+You could limit this as well to time periods, or any other condition Example would be one for total rise days since 1995:<br />
+<br />
+RecentRise = C&gt;O and Year()&gt;=1995; //this gives results of 0 or 1 <br />
+TotalRise = Cum(RecentRise);<br />
+<br />
+<br />
+If you wanted to know how many rising days in the last 12 bars you would use:<br />
+<br />
+LastRises = Sum(Rise,12);<br />
+<br />
+Hope this helps</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>Cum</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=Cum' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=Cum' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1405&hilite=Cum' target='_blank'>Automatic Linear Trend Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1351&hilite=Cum' target='_blank'>Automatic Linear Trend Channel 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=3&hilite=Cum' target='_blank'>Automatic Trend-line</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1324&hilite=Cum' target='_blank'>automatic trendlines using fractal patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=294&hilite=Cum' target='_blank'>Baseline Relative Performance Watchlist charts V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=680&hilite=Cum' target='_blank'>Buff Volume Weighted Moving Averages</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=251&hilite=Cum' target='_blank'>Bullish Percent Index 2 files combined</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=423&hilite=Cum' target='_blank'>Candle Stick Analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=314&hilite=Cum' target='_blank'>Color Display.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=738&hilite=Cum' target='_blank'>Cycle Highlighter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=753&hilite=Cum' target='_blank'>Cycle Highlighter (auto best-fit)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=531&hilite=Cum' target='_blank'>Dave Landry PullBack Scan</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=58&hilite=Cum' target='_blank'>Demand Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=19&hilite=Cum' target='_blank'>Double top detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=598&hilite=Cum' target='_blank'>ekeko price chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=794&hilite=Cum' target='_blank'>Fast Refreshed KAGI Swing Charts (Price Swing)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1412&hilite=Cum' target='_blank'>Fib Fan Based on ZZ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1084&hilite=Cum' target='_blank'>Fibonacci Internal and External Retracements</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1454&hilite=Cum' target='_blank'>Fre</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=125&hilite=Cum' target='_blank'>Fund Screener</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=35&hilite=Cum' target='_blank'>Gann Swing Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=166&hilite=Cum' target='_blank'>Head & Shoulders Pattern</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=65&hilite=Cum' target='_blank'>Hurst Constant</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=Cum' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1449&hilite=Cum' target='_blank'>Last Five Trades Result Dashboard &#8211; AFL code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=193&hilite=Cum' target='_blank'>Linear Regression Line & Bands</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=438&hilite=Cum' target='_blank'>Linear Regression Line w/ Std Deviation Channels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=13&hilite=Cum' target='_blank'>McClellan Summation Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=884&hilite=Cum' target='_blank'>Modified Head & Shoulder Pattern</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=147&hilite=Cum' target='_blank'>Modified Momentum Finder DDT-NB</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1139&hilite=Cum' target='_blank'>Modified-DVI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=249&hilite=Cum' target='_blank'>Monthly bar chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=116&hilite=Cum' target='_blank'>Moving Average "Crash" Test</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=765&hilite=Cum' target='_blank'>Multiple sinus noised</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=244&hilite=Cum' target='_blank'>N-period candlesticks (time compression)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=731&hilite=Cum' target='_blank'>nth ( 1 - 8 ) Order Polynomial Fit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=105&hilite=Cum' target='_blank'>Pattern Recognition Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1478&hilite=Cum' target='_blank'>Periodically ReBalance a BUY & HOLD Portfolio</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1031&hilite=Cum' target='_blank'>Prashanth</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=245&hilite=Cum' target='_blank'>Price Persistency</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=344&hilite=Cum' target='_blank'>Projection Oscillator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1445&hilite=Cum' target='_blank'>PVT Trend Decider</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=99&hilite=Cum' target='_blank'>QP2 Float Analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=233&hilite=Cum' target='_blank'>R-Squared</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=777&hilite=Cum' target='_blank'>Random Walk</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=106&hilite=Cum' target='_blank'>Regression Analysis Line</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=288&hilite=Cum' target='_blank'>RSI Trendlines and Wedges</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=153&hilite=Cum' target='_blank'>RSIS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=Cum' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=203&hilite=Cum' target='_blank'>Steve Woods' Cum. Vol. Float + Cum. Vol. Channels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=202&hilite=Cum' target='_blank'>Steve Woods' Cumulative Vol. Percentage Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=103&hilite=Cum' target='_blank'>Stochastics Trendlines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=Cum' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1260&hilite=Cum' target='_blank'>Trend Exploration: Count Number of New Highs</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=237&hilite=Cum' target='_blank'>Triangle exploration using P&F Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=240&hilite=Cum' target='_blank'>Triangular Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=696&hilite=Cum' target='_blank'>Triangular Moving Average new</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=775&hilite=Cum' target='_blank'>Trigonometric Fit - TrigFit with AR for cos / sin</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=205&hilite=Cum' target='_blank'>Volatility Quality Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=248&hilite=Cum' target='_blank'>Weekly chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=100&hilite=Cum' target='_blank'>Williams Alligator system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1548&hilite=Cum' target='_blank'>ZigZag - Days, Avg (Ord) Volume and Channels</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Cum">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,78 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - AMA2</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>AMA2</b><br>
+        - adaptive moving average</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Moving averages, summation<br>
+        </b>(AmiBroker 3.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong></b>    <b>ama2</b>( ARRAY, SMOOTHINGFACTOR, FEEDBACKFACTOR )         <b> </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> </b>    ARRAY         <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> </b>
+     
+      calculates adaptive moving average - simliar to EMA() but smoothing factor 
+        could be time-variant (array).<br>
+        AMA2 has a separate control of feedbackfactor which is normally (1-SMOOTHINGGFACTOR).
+      Internally this function works like this:
+      today_ama = SMOOTHINGFACTOR * array + FEEDBACKFACTOR * yesterday_ama
+    
+  
+   
+    <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> </b>
+     
+      The example of volatility-weighted adaptive moving average formula:
+      graph0 = ema( close, 15 );<br>
+        fast = 2/(2+1);<br>
+        slow = 2/(30+1);<br>
+        dir=abs(close-ref(close,-10));<br>
+        vol=sum(abs(close-ref(close,-1)),10);<br>
+        ER=dir/vol;<br>
+        sc =( ER*(fast-slow)+slow)^2;
+      graph0 = <b>ama2</b>( close, sc, 1-sc); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>AMA2</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=423&hilite=AMA2' target='_blank'>Candle Stick Analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1531&hilite=AMA2' target='_blank'>Coral Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1389&hilite=AMA2' target='_blank'>Cycle Period</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1406&hilite=AMA2' target='_blank'>Intraday Volume EMA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1190&hilite=AMA2' target='_blank'>mitalpradip</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=AMA2">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

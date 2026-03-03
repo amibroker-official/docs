@@ -1,0 +1,103 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETPERFORMANCECOUNTER</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetPerformanceCounter</b><br>
+        - retrieves the current value of the high-resolution performance counter</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetPerformanceCounter( bReset = False ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> GetPerformanceCounter retrieves the current value of the high-resolution performance counter. Returned value is in milliseconds. Resolution is upto 0.001 ms (1 microsecond). The value of high-resolution counter represents number of milliseconds from either system start (boot) or from last counter reset. To reset the counter you need to call GetPerformanceCounter function with bReset parameter set to True.
+<p>Note that reseting counters inside one formula does not affect counters in other formulas. Since returned values are very large (time in milliseconds since system start is usually quite large), for precise measurements of single function or small function block execution times it is strongly recommended to reset counter at the beginning of the block so floating point resolution (7 digits) does not affect the precision of measurement.
+
+<p>GetPerformanceCounter function can be also used in trading system automation to measure time in milliseconds between various events (just subtract values returned by GetPerformanceCounter() during two different events)
+<p>
+Caveat: this function relies on Windows API QueryPerformanceCounter function and CPU RTDSC instruction and it may yield to inaccurrate results if you have multiple-core processor and AMD's "Cool and Quiet" enabled in BIOS or other CPU clock stepping technologies enabled. If this applies to you, you may check Microsoft hotfix to this problem at: <a href='http://support.microsoft.com/?id=896256'>http://support.microsoft.com/?id=896256</a>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// EXAMPLE 1</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// The code shows that 1000 iterations of sin() calculation </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// takes about 1.7 milliseconds. </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// Note that call to the GetPerformanceCounter() </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// has overhead of about 0.015 ms (15 microseconds) </FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>GetPerformanceCounter</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+reset counter to zero </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i &lt; </FONT><FONT COLOR=#800080>1000</FONT><FONT COLOR=#000000>; i++ ) <BR>
+{ <BR>
+&nbsp;&nbsp; 
+k = </FONT><FONT COLOR=#0000ff>sin</FONT><FONT COLOR=#000000>( i ); <BR>
+} <BR>
+<BR>
+elapsed=</FONT><FONT COLOR=#0000ff>GetPerformanceCounter</FONT><FONT COLOR=#000000>(); <BR>
+<BR>
+</FONT><FONT COLOR=#800080>"Time [ms] = "</FONT><FONT COLOR=#000000>+elapsed; <BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</FONT><FONT COLOR=#008000>////////////////////////////////</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// EXAMPLE 2</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// GetPerformanceCounter function </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// may also be used to report time since system start. </FONT><FONT COLOR=#000000> <BR>
+<BR>
+elapsed=</FONT><FONT COLOR=#0000ff>GetPerformanceCounter</FONT><FONT COLOR=#000000>(); <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Time
+since system start %.0f days, %.0f hours, %.0f minutes, %.0f seconds, %.0f milliseconds "</FONT><FONT COLOR=#000000>, <BR>
+</FONT><FONT COLOR=#0000ff>floor</FONT><FONT COLOR=#000000>(elapsed/(</FONT><FONT COLOR=#800080>24</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#800080>60</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#800080>60</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#800080>1000</FONT><FONT COLOR=#000000>)), <BR>
+</FONT><FONT COLOR=#0000ff>floor</FONT><FONT COLOR=#000000>( elapsed/(</FONT><FONT COLOR=#800080>60</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#800080>60</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#800080>1000</FONT><FONT COLOR=#000000>)
+) % </FONT><FONT COLOR=#800080>24</FONT><FONT COLOR=#000000>, <BR>
+</FONT><FONT COLOR=#0000ff>floor</FONT><FONT COLOR=#000000>( elapsed/(</FONT><FONT COLOR=#800080>60</FONT><FONT COLOR=#000000>*</FONT><FONT COLOR=#800080>1000</FONT><FONT COLOR=#000000>)
+) % </FONT><FONT COLOR=#800080>60</FONT><FONT COLOR=#000000>, <BR>
+</FONT><FONT COLOR=#0000ff>floor</FONT><FONT COLOR=#000000>( elapsed/</FONT><FONT COLOR=#800080>1000</FONT><FONT COLOR=#000000> )
+% </FONT><FONT COLOR=#800080>60</FONT><FONT COLOR=#000000>, <BR>
+elapsed % </FONT><FONT COLOR=#800080>1000</FONT><FONT COLOR=#000000> );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetPerformanceCounter</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1178&hilite=GetPerformanceCounter' target='_blank'>Animated BackGround</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1185&hilite=GetPerformanceCounter' target='_blank'>Animated BackGround 1.1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=GetPerformanceCounter' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=GetPerformanceCounter' target='_blank'>Heatmap V1</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetPerformanceCounter">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

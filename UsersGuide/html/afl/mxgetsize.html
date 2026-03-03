@@ -1,0 +1,64 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MXGETSIZE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>MxGetSize</b><br>
+        - get size of the matrix</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Matrix functions<br>
+        </b>(AmiBroker 60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>MxGetSize( matrix, dim ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> Number </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function retrieves the matrix size in given dimension.
+<ul>
+<li><i>matrix</i> is the matrix variable to query for size
+<li><i>dim</i> is the dimension to query - 0 means rows, 1 means columns </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE>my_matrix = <font color='#0000ff'>Matrix</font>( <font color='#800080'>9</font>, <font color='#800080'>3</font> ); <br>
+<br>
+rows = <font color=&quot;#0000FF&quot;>MxGetSize</font>( my_matrix, <font color='#800080'>0</font> ); <br>
+columns = <font color=&quot;#0000FF&quot;>MxGetSize</font>( my_matrix, <font color='#800080'>1</font> );</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="matrix.html">Matrix()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>MxGetSize</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=MxGetSize' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1475&hilite=MxGetSize' target='_blank'>Multi-color Volume At Price (VAP)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=MxGetSize' target='_blank'>Polyfit Lines</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=MxGetSize">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

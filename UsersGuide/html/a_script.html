@@ -1,0 +1,263 @@
+<html>
+
+<head>
+<title>AFL Scripting Host</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>AFL Scripting Host </h2>
+<p><strong>IMPORTANT NOTE</strong>: Since the introduction of native looping and flow control
+  statements like <em>if-else</em> and <em>while</em> in version 4.40, the significance
+  of scripting has been greatly reduced. Currently, most of the tasks requiring
+  scripting in previous versions could be handled in native AFL. What's more,
+  AFL loops are 3-6 times faster than JScript/VBScript.</p>
+<h3>Basics</h3>
+<blockquote> 
+  <p>AFL scripting host is an interface between AFL engine and JScript/VBScript
+     engines (a.k.a. Active Scripting technologies) available as part of the Internet
+    Tools &amp; Technologies
+     platform provided by Microsoft. <br>
+    It allows you to build formulas that have parts in AFL code and parts 
+    in JScript/VBScript.</p>
+  <p></p>
+</blockquote>
+<h3>Requirements</h3>
+<ul>
+  <li> AmiBroker 3.59 or higher</li>
+  <li>Microsoft JScript/VBScript engines installed</li>
+</ul>
+<blockquote> 
+  <p>Microsoft JScript/VBScript engines come installed with Windows.</p>
+  <p>JScript/VBScript documentation can be found on the official scripting page at:<br>
+    <a href="http://msdn.microsoft.com/scripting/">http://msdn.microsoft.com/scripting/</a><br>
+  </p>
+</blockquote>
+<h3>Enabling AFL Scripting Host</h3>
+<blockquote>If you want to use scripts within your formulas, you have to call EnableScript() 
+  function<br>
+  at the beginning of your formula. The function takes one input parameter: engine 
+  name: 
+  <blockquote> 
+    <p><code>EnableScript(&quot;jscript&quot;);</code></p>
+  </blockquote>
+  <p>or</p>
+  <blockquote> 
+    <p><code>EnableScript(&quot;vbscript&quot;);</code></p>
+  </blockquote>
+  <p>From then on, you will be able to embody parts written in scripting language 
+    in your formulas. The beginning and the end of the script must be marked with 
+    &lt;% and %&gt; sequences, as shown in the example below:</p>
+  <blockquote> 
+    <p><code>EnableScript(&quot;vbscript&quot;);</code></p>
+    <p><code>// &quot;normal&quot; AFL statements<br>
+      buy = cross( macd(), 0 );<br>
+      sell = cross( 0, macd() );</code></p>
+    <p><code>&lt;%<br>
+      ..... your script code here.....<br>
+      %&gt;</code></p>
+    <p><code>// &quot;normal&quot; AFL statements<br>
+      buy = ExRem( buy, sell );</code></p>
+  </blockquote>
+</blockquote>
+<p><b>Using variables</b></p>
+<blockquote> 
+  <p>Currently, the only way to exchange information between the &quot;normal&quot; 
+    AFL part and the script part is to use variables. AFL scripting host exposes one 
+    object (predefined, no creation/initialization needed)<br>
+    called <b>AFL</b>.</p>
+  <p>The AFL object has one (default) parameterized property called Var( varname 
+    ) that can be used to access AFL variables from the script side:</p>
+  <blockquote> 
+    <pre><code>// example in VBScript
+       &lt;%</code></pre>
+    <pre><code>buyarrayfromscript = AFL.Var(&quot;buy&quot;) 
+       ' get the buy array from AFL to the script-defined variable</code></pre>
+    <pre><code>AFL.Var(&quot;buy&quot;) = buyarrayfromscript 
+       ' set the buy array in AFL from the script-defined variable</code></pre>
+    <pre><code>%&gt;</code></pre>
+  </blockquote>
+  <p><br>
+    Since Var is a default property you can omit its name and write simply AFL( 
+    varname ) as shown in the example below:</p>
+  <blockquote> 
+    <pre><code>&lt;%</code></pre>
+    <pre><code>buyarrayfromscript = AFL(&quot;buy&quot;) 
+       ' gets the buy array from AFL to the script-defined variable</code></pre>
+    <pre><code>AFL(&quot;buy&quot;) = buyarrayfromscript 
+       ' sets the buy array in AFL from the script-defined variable</code></pre>
+    <pre><code>%&gt;</code></pre>
+  </blockquote>
+  <p>In AFL there are three possible data types: array (of floating point numbers), 
+    a number (floating point) and a string. The VBScript and JScript engines use 
+    a variant data type that can hold any type of variable, including the three used 
+    by AFL. As in AFL, you don't declare variables in scripting languages; the 
+    type is determined by the first assignment. In the case of VBScript, you can get/set 
+    AFL variables of any supported type using syntax shown above. But in JScript, 
+    due to the fundamental difference in handling arrays in JScript (array elements 
+    in JScript are implemented as dynamic properties of an array object) you need 
+    to use the following code to get the value of an AFL array into a JScript array:</p>
+  <blockquote> 
+    <pre><code>// example in JScript
+&lt;%
+function GetArray( name )
+{
+   return VBArray( AFL( name ) ).toArray();
+}</code></pre>
+    <pre><code>myJScriptArray = GetArray( &quot;close&quot; );
+%&gt;</code></pre>
+  </blockquote>
+  <p>The GetArray() function shown above makes it easy to convert an automation-type 
+    safe array into a JScript array. This example also shows how to define and use 
+    functions in JScript.</p>
+  <p>Assigning AFL variables from script-side arrays is much simpler; AFL 
+    scripting host detects JScript arrays and can get their contents directly:</p>
+  <blockquote> 
+    <pre><code>// example in JScript
+&lt;%
+   AFL(&quot;buy&quot;) = myJScriptBuyArray;
+%&gt;</code></pre>
+  </blockquote>
+  <p>All other data types are handled the same way in JScript and VBScript.</p>
+  <blockquote> 
+    <pre><code>// example in VBScript
+ticker = name();
+&lt;%
+  tickerstring = AFL(&quot;ticker&quot;)
+  AFL(&quot;ticker&quot;) = &quot;new name&quot;
+%&gt;</code></pre>
+  </blockquote>
+  <p>or in JScript:</p>
+  <blockquote> 
+    <pre><code>// example in JScript
+ticker = name();
+&lt;%
+   tickerstring = AFL(&quot;ticker&quot;);
+   AFL(&quot;ticker&quot;) = &quot;new name&quot;;
+%&gt;</code></pre>
+  </blockquote>
+</blockquote>
+<p><b>Iterating through arrays</b></p>
+<blockquote> 
+  <p>One of the most basic tasks that everyone would probably do is to iterate 
+    through an array. In VBScript, this can be done using For..To..Next statement; 
+    in JScript, using for(;;) statement. Both these constructs need to know the array 
+    size or number of elements in the array. In VBScript, you should use UBound( 
+    array) function to get the upper bound of the array; in JScript, you just 
+    use the length property of the array. The following examples show this. (Please 
+    remember that in both VBScript and JScript, arrays are zero-based.)</p>
+  <blockquote> 
+    <pre><code>// example in VBScript
+&lt;%
+myArray = AFL(&quot;close&quot;)</code></pre>
+    <pre><code>sum = 0<br></code><code>for i = 0 to UBound( myArray )<br>
+	</code><code>sum = sum + myArray( i )</code></pre>
+    <pre><code>next</code></pre>
+    <pre><code>%&gt;</code></pre>
+  </blockquote>
+  <p>or in JScript:</p>
+  <blockquote> 
+    <pre><code>// example in JScript
+&lt;%
+function GetArray( name )
+{
+   return VBArray( AFL( name ) ).toArray();
+}</code></pre>
+    <pre><code>myArray = GetArray( &quot;close&quot; );</code></pre>
+    <pre><code>sum = 0;</code></pre>
+    <pre><code>for( i = 0; i &lt; myArray.length; i++ )
+{
+       sum += myArray[ i ];
+}</code></pre>
+    <pre><code>%&gt;</code></pre>
+  </blockquote>
+</blockquote>
+<p><b>Examples</b></p>
+<blockquote> 
+  <p>a) Indicator example - Exponential moving average:<br>
+  </p>
+  <blockquote> 
+    <pre><code>EnableScript(&quot;jscript&quot;);
+&lt;%
+<br>close = VBArray( AFL( &quot;close&quot; ) ).toArray();</code></pre>
+    <pre><code>output = new Array();</code></pre>
+    <pre><code>// initialize first element
+output[ 0 ] = close[ 0 ];</code></pre>
+    <pre><code>// perform the loop that calculates exponential moving average
+factor = 0.05;
+
+for( i = 1; i &lt; close.length; i++ )
+{
+  output[ i ] = factor * close[ i ] + (1 - factor) * output[ i - 1 ];
+}</code></pre>
+    <pre><code>
+AFL.Var(&quot;graph0&quot;) = close;
+AFL.Var(&quot;graph1&quot;) = output;</code></pre>
+    <pre><code>%&gt;
+WriteVal( graph1 );</code></pre>
+    <pre>&nbsp;</pre>
+  </blockquote>
+  <p>b) Profit-target stop example</p>
+  <p>Here comes the example of the formula that realizes a profit-target stop at 
+    a fixed 10% from the buy price. Note that a buy condition is met 
+    when the price reaches a new high, so it happens multiple times after an initial 
+    buy. Therefore ValueWhen( buy, close ) cannot give you the initial buy price 
+    and that kind of trading rule could not be implemented in AFL itself. But with 
+    scripting, there is no problem...</p>
+  </blockquote> 
+  <blockquote> 
+    <pre><code>EnableScript(&quot;VBScript&quot;);</code></pre>
+    <pre><code>hh = HHV( close, 250 );</code></pre>
+    <pre><code>// buy when prices reaches a new high
+buy = Close == HHV( close, 250 ); 
+
+// ensure that sell is an array, 
+// sell = 0 would set the type to number<br></code><code>sell = buy; 
+</code><code>
+&lt;%
+	close = AFL(&quot;close&quot;)
+    buy = AFL( &quot;buy&quot; )
+    sell = AFL(&quot;sell&quot;)</code></pre>
+    <pre><code> 	' this variable holds last buying price
+    ' if it is zero it means that no trade is open
+    lastbuyprice = 0</code></pre>
+    <pre><code> 	' iterate along the array
+    for i = 0 to UBound( close )
+       sell( i ) = 0</code></pre>
+    <pre><code>       ' Remove Buy signals if trade was already initiated
+       if( lastbuyprice &gt; 0 ) then
+       	  buy( i ) = 0
+       end if</code></pre>
+    <pre><code>       ' if there is no open trade and buy signal occurs 
+	   ' get the buying price
+       if ( lastbuyprice = 0 ) AND (buy( i ) = 1) then
+          lastbuyprice = close( i )
+       end if</code></pre>
+    <pre><code>       ' if trade is open and sell condition is valid 
+       ' generate sell signal
+       ' and close the trade
+       if (lastbuyprice &gt;0 ) AND ( close( i ) &gt; ( 1.1 * lastbuyprice ) ) then
+       	  sell( i ) = 1
+          lastbuyprice = 0
+       end if
+    next</code></pre>
+    <pre><code>    AFL(&quot;buy&quot;) = buy
+    AFL(&quot;sell&quot;) = sell</code></pre>
+    <pre><code>%&gt;</code></pre>
+    <pre><code>buy = buy;</code></pre>
+  </blockquote>
+  <p></p>
+</blockquote>
+<h3>Further information</h3>
+<blockquote>
+  <p>More scripting samples are available at the AFL online library at: <a href="http://www.amibroker.com/library/list.php" target="_blank">http://www.amibroker.com/library/list.php</a></p> 
+  <p>In case of any further questions, comments, and suggestions, please use the customer
+    support page at <a href="http://www.amibroker.com/support.html">http://www.amibroker.com/support.html</a>. Please note that
+    AFL scripting is a fairly advanced topic and you should play
+     a little 
+    with AFL first before going too deep into scripting.</p>
+</blockquote>
+</body>
+</html>

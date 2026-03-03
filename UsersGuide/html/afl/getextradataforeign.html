@@ -1,0 +1,112 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETEXTRADATAFOREIGN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetExtraDataForeign</b><br>
+        - get extra data from external data source for specified symbol</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 6.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetExtraData(''fieldname'', ''symbol'') </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Retrieves data-source specific data for specified (non-current) symbol <br>
+Currently only Quotes Plus and TC2000 plug-isn support this function.<br>
+      
+The list of fields available via QP2 plug-in:
+<ul>
+<li>&quot;AnnDividend&quot; 
+<li>&quot;Shares&quot;
+<li>&quot;SharesFloat&quot;
+<li>&quot;IssueType&quot; (string) 
+<li>&quot;SharesOut&quot;
+<li>&quot;SharesShort&quot; 
+<li>&quot;TTMsales&quot;
+<li>&quot;Beta&quot;
+<li>&quot;TTMEps&quot; 
+<li>&quot;HiPERange&quot; 
+<li>&quot;LoPERange&quot; 
+<li>&quot;PEG&quot;
+<li>&quot;InstHolds&quot; 
+<li>&quot;LTDebtToEq&quot; 
+<li>&quot;CashFlowPerShare&quot; 
+<li>&quot;ROE&quot;
+<li>&quot;TTMSales&quot;
+<li>&quot;Yr1EPSGrowth&quot; 
+<li>&quot;Yr5EPSGrowth&quot; 
+<li>&quot;Yr1ProjEPSGrowth&quot; 
+<li>&quot;Yr2ProjEPSGrowth&quot; 
+<li>&quot;Yr3to5ProjEPSGrowth&quot; 
+<li>&quot;BookValuePerShare&quot; 
+<li>&quot;Briefing&quot; (string) 
+<li>&quot;QRS&quot; (array)
+<li>&quot;HasOptions&quot;
+<li>&quot;EPSRank&quot; (array) - requires QP plugin 1.4.3
+<li>&quot;Sales&quot; (array) - requires QP plugin 1.5.0
+<li>&quot;EPS&quot; (array) - requires QP plugin 1.5.0
+<li>&quot;LastMainDate&quot; - (number) date of last update of given symbol in
+YYYYMMDD format - requires QP plugin 1.5.1
+<li>&quot;Exchange&quot; - (string) - exchange code - requires QP plugin 1.5.1
+<li>&quot;ExchangeSub&quot; - (string) exchange sub-code - requires QP plugin 1.5.1
+<li>&quot;Flags&quot; - (string) - requires QP plugin 1.5.1
+<li>&quot;MarginFlag&quot; - (string)- requires QP plugin 1.5.1
+<li>&quot;CUSIP&quot; - (string) - requires QP plugin 1.5.1
+<li>&quot;SIC&quot; - (string) - requires QP plugin 1.5.1
+<li>&quot;IssueStatus&quot; - (string) - with default settings all symbols should have
+issue status = 0
+other possible values: 0 = actively trading; 1, P = trading on a when
+issued basis, 5, 6, 7, A, B, C, D, E, M = not trading
+4, N = new symbol, G, K, X, R, Z = changes to symbol, cusip, name, etc. - requires QP plugin 1.5.1
+</ul>
+The list of fields available via TC2000 plug-in:<br>
+<ul>
+<li> &quot;BOP&quot; - balance of power indicator
+<li>&quot;MoneyStream&quot; - money stream indicator
+</ul> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> GetExtraDataForeign(&quot;briefing&quot;, &quot;MSFT&quot;); /* gives briefing text (STRING) */ 
+<br>
+graph0 = GetExtraDataForeign(&quot;QRS&quot;, &quot;MSFT&quot;); /*gives Quotes Plus relative strength  (ARRAY) */ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="getextradata.html">GetExtraData()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetExtraDataForeign</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetExtraDataForeign">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>typeof Operator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h4><font size=4>typeof Keyword</font> </h4>
+<p>The <b>typeof</b> keyword is a operator that returns the string describing
+  the type of operand .</p>
+<h4><b>Syntax</b></h4>
+<p>The typeof operator is used in the following way: <br>
+  <br>
+  <strong>typeof</strong> (<em>operand</em> )<br>
+  <br>
+  The typeof operator returns a string indicating the type of the *unevaluated*
+  <em>operand</em>. The <em>operand</em> is the string, variable, function identifier,
+  or object for which the type is to be returned. 
+  When supplying identifier, it should be provided alone, without arithmetic
+  operators, without extra arguments and without braces. 
+  If you want to check the type of value returned by the function, you must first
+  assign the return value to a variable and then use:<br>
+  <br>
+  <strong>typeof</strong>( variable )<br>
+  <br>
+  Possible return values are:</p>
+<ul>
+  <li>&quot;undefined&quot; - identifier is not defined </li>
+  <li>&quot;number&quot; - operand represents a number (scalar)</li>
+  <li>&quot;array&quot; - operand represents an array</li>
+  <li>&quot;string&quot; - operand represents a string</li>
+  <li>&quot;matrix&quot; - operand represents a matrix</li>
+  <li>&quot;function&quot; - operand is a built-in function identifier</li>
+  <li>&quot;user function&quot; - operand is a user-defined function</li>
+  <li>&quot;object&quot; - operand represents COM object</li>
+  <li>&quot;member&quot; - operand represents member function or property of
+    COM object</li>
+  <li>&quot;handle&quot; - operand represents Windows handle </li>
+  <li>&quot;unknown&quot; - type of operand is unknown (should not happen)typeof
+    operator allows among other things to detect undefined variables in the following
+    way</li>
+</ul>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>(
+      somevar ) == </FONT><FONT COLOR=#800080>"undefined"</FONT><FONT COLOR=#000000> ) <BR>
+  { <BR>
+        </FONT><FONT COLOR=#008000>/// when somevar is undefined the code here
+        will execute</FONT><FONT COLOR=#000000> <BR>
+  }</FONT></CODE><br>
+  <br>
+</p>
+<p>The following sample COMMENTARY code shows the output of typeof() in some
+  common situations:<br>
+    <br>
+    <CODE><FONT COLOR=#000000> <BR>
+  x = </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(); <BR>
+  y = </FONT><FONT COLOR=#0000ff>LastValue</FONT><FONT COLOR=#000000>( x ); <BR>
+  </FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> testfun()
+  { </FONT><FONT COLOR=#800000><B>return</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>;
+  }; <BR>
+    </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>(
+    test ) + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+    the undefined variable</FONT><FONT COLOR=#000000> <BR>
+    </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> )
+    + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+    literal number</FONT><FONT COLOR=#000000> <BR>
+    </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"checking"</FONT><FONT COLOR=#000000> )
+    + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+    literal string</FONT><FONT COLOR=#000000> <BR>
+    </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>(
+    x ) + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+    array variable</FONT><FONT COLOR=#000000> <BR>
+    </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>(
+    y ) + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+    scalar variable</FONT><FONT COLOR=#000000> <BR>
+    </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000> )
+    + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+    function identifier</FONT><FONT COLOR=#000000> <BR>
+    </FONT><FONT COLOR=#0000ff>printf</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800000><B>typeof</B></FONT><FONT COLOR=#000000>(
+    testfun ) + </FONT><FONT COLOR=#800080>"\n"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+    user function identifier</FONT></CODE><br>
+</p>
+<h5></h5>
+<p class=dt>&nbsp;</p>
+</body>
+</html>

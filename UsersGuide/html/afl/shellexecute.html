@@ -1,0 +1,73 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SHELLEXECUTE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>ShellExecute</b><br>
+        - execute a file</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Basic price pattern detection<br>
+        </b>(AmiBroker 5.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>ShellExecute( ''filepath'', ''arguments'', ''parameters'', showcmd = 1 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function opens a file or runs executable. 
+<p>
+It is equivalent of Windows API ShellExecute, with one difference, it always uses &quot;open&quot; verb.
+ This allows running executables, scripts, opening document files using their associated editors, etc.
+<p>
+If the function succeeds, it returns a value greater than 32. If the function fails, it returns an error value that indicates the cause of the failure. 
+<p>For possible error codes, consult Microsoft documentation:
+ <a href='http://msdn.microsoft.com/en-us/library/bb762153(VS.85).aspx'>http://msdn.microsoft.com/en-us/library/bb762153(VS.85).aspx</a>
+<p>
+In AmiBroker version 6.20 this function provides special feature that allows to run batches. If you use &quot;runbatch&quot; in first parameter you can specify the batch (.abb) file in 2nd argument and it will start a batch.
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> // run notepad<br>
+ShellExecute(&quot;notepad.exe&quot;, &quot;&quot;, &quot;&quot; );<br>
+<br>
+// run batch<br>
+ShellExecute(&quot;runbatch&quot;, &quot;path_to_batch_file.abb&quot;, &quot;&quot; );<br> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>ShellExecute</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=ShellExecute">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

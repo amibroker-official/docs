@@ -1,0 +1,70 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - TEMA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>TEMA</b><br>
+        - triple exponential moving average</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Moving averages, summation<br>
+        </b>(AmiBroker 40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>tema( ARRAY, <i>periods</i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Calculates triple exponentially smoothed average - TEMA. The function 
+        accepts time-variable <i>periods.<b> </b></i> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> TEMA( Close, 5 ) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top"> MA(), EMA(), WMA(), DEMA() </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Graham Walker</b><br>helpman [at] dodo.com.au<br>2005-02-18 04:51:33</td><td valign="top">//TEMA can be implemented via EMA:<br />
+<br />
+Len=10;<br />
+MyTEMA = 3 * EMA(Close,len) - 3 * EMA(EMA(Close,len),Len) + EMA(EMA(EMA(Close,len),len),len);<br />
+<br />
+Plot(MyTEMA,&quot;MyTEMA&quot;,colorBlue);<br />
+<br />
+// for comparison only<br />
+Plot( TEMA( Close, Len ), &quot;Built-in TEMA&quot;, colorRed );</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>TEMA</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=TEMA' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=816&hilite=TEMA' target='_blank'>Average Price Crossover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1264&hilite=TEMA' target='_blank'>babaloo chapora</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=887&hilite=TEMA' target='_blank'>Bad Tick Trim on 5 sec database</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=462&hilite=TEMA' target='_blank'>Balance of Power</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=571&hilite=TEMA' target='_blank'>balance of power</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=TEMA' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=299&hilite=TEMA' target='_blank'>BMTRIX Intermediate Term Market Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=382&hilite=TEMA' target='_blank'>Bull/Bear Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=380&hilite=TEMA' target='_blank'>Dahl Oscillator modified</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=919&hilite=TEMA' target='_blank'>DEBAJ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=585&hilite=TEMA' target='_blank'>Elder Impulse Indicator V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=TEMA' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1139&hilite=TEMA' target='_blank'>Modified-DVI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1272&hilite=TEMA' target='_blank'>Volume Occilator</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=TEMA">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

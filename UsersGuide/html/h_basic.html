@@ -1,0 +1,74 @@
+<html>
+
+<head>
+<title>Basic operations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>Basic operations</b></h2>
+<h3><a name="DMAddingStock"></a>Adding a new symbol</h3>
+<p>In order to add a new symbol into the database, you can use <i>Symbol-&gt;New</i> 
+  menu item or Add symbol toolbar button. </p>
+<p>After selecting this function, you will be prompted for a new ticker symbol.
+   The maximum ticker symbol length is 48 characters. For
+  proper
+  import functionality, you should enter the symbol in CAPITALS. </p>
+<h3><a name="DMRemovingStock"></a>Removing a symbol </h3>
+<p>In order to remove an existing symbol from the database, you can use Symbol-&gt;Remove
+   menu item or Remove symbol toolbar button. After choosing this function, you
+  will 
+  be asked for confirmation of symbol removal. Note well that this operation
+  cannot be undone !!! </p>
+<p>Removing multiple symbols at once is possible using the <a href="w_organizer.html">Assignment 
+  organizer</a>. </p>
+<h3><a name="DMSplittingStock"></a>Splitting a stock</h3>
+<p>To perform a stock split, use <i>Symbol-&gt;Split</i> menu item or Split toolbar 
+  button. </p>
+<p>AmiBroker provides an easy way of handling stock splits. The program will try to guess 
+  the split date and ratio by analyzing the quotations. If there is just a single quotation 
+  after the split, this should work; if not, you will be asked for the split date and ratio. 
+  Note well that this operation cannot be undone!!! </p>
+<p>From version 2.0 and up, the split function offers more functionality: you can 
+  use the old-style ratio or you can specify a split using the following expression: </p>
+<p>x-&gt;y </p>
+<p>which means that x shares before the split become y after it. For example, 2-&gt;3 
+  means that 2 shares become 3 after the split. So an ordinary split into five pieces 
+  will be 1-&gt;5. </p>
+<p>As you have probably guessed, it is possible now to perform a reverse-split, for 
+  example 2-&gt;1, which means that 2 shares are joined together into one share. 
+</p>
+<h3>Deleting a quotation</h3>
+<p>To delete a quotation, simply select the quote you want to delete by clicking 
+  on the chart (a vertical line will appear showing the selected date and quote). 
+  Then choose <i>Edit-&gt;Delete quotation</i> menu option.</p>
+<p>To delete quotations of all stocks from a given day, you should use <i>Edit-&gt;Delete 
+  session</i>. </p>
+<p>You can also use the <a href="w_manualentry.html">Quote Editor</a> to delete quotes.</p>
+<h3>Adding/Removing Symbols from Favorites</h3>
+<p>To add the symbol to your favorites, you should check the Favorites box in the <a href="w_information.html">Information</a> 
+  window. To remove it from favorites, simply uncheck that box. Alternatively, 
+  you can click on the tree with the right-mouse button and select &quot;Add to 
+  Favorites&quot; and &quot;Remove from Favorites&quot; options from the context 
+  menu. </p>
+<h3>Merging quotations of two symbols</h3>
+<p>It sometimes happens that when a symbol's ticker is changed, you may 
+  get two tickers in your database - one holding historical quotes and the second 
+  one holding the latest quotes (after a name change). In order to put all quotes into 
+  a single ticker, you should use the <i>Symbol-&gt;Merge</i> feature. You should 
+  just select the new ticker (after the name change) and choose <i>Symbol-&gt;Merge</i>. 
+  Then from the combo, you should choose the original ticker (&quot;merge with&quot;) 
+  and optionally check the following fields:</p>
+<ul>
+  <li>overwrite duplicate quotes - checking this option will overwrite the quotes 
+    already existing in the &quot;new&quot; ticker with those present in the &quot;old&quot; 
+    ticker (this should generally not be the case, but may happen).</li>
+  <li>delete &quot;merge with&quot; afterwards - checking this option will delete 
+    the &quot;old&quot; ticker after merging</li>
+  <li>assign alias name - checking this option will copy the &quot;old&quot; ticker 
+    to the alias field of the &quot;new&quot; ticker</li>
+</ul>
+</body>
+</html>

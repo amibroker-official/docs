@@ -1,0 +1,74 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - INTERNETCLOSE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>InternetClose</b><br>
+        - close Internet file handle</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>File Input/Output functions<br>
+        </b>(AmiBroker 6.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>InternetClose( handle ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function closes Internet file handle that was open by InternetOpenURL </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE>ih = <font color='#0000ff'>InternetOpenURL</font>( <font color='#800080'>&quot;https://www.quandl.com/api/v3/datasets/SEC/AAPL_SALESREVENUENET_Q.csv?api_key=&quot;</font> ); <br>
+<font color='#0000ff'>printf</font>( <font color='#800080'>&quot;AAPL Revenue:
+&quot;</font> ); <br>
+<font color='#800000'><b>if</b></font>( ih ) <br>
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color='#800000'><b>while</b></font>( ( str = <font color='#0000ff'>InternetReadString</font>(
+ih ) ) != <font color='#800080'>&quot;&quot;</font> ) <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+{ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color='#0000ff'>printf</font>( <font color='#800080'>&quot;%s&quot;</font>, str ); <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+} <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color='#0000ff'>InternetClose</font>( ih ); <br>
+}</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>InternetClose</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=InternetClose' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1515&hilite=InternetClose' target='_blank'>Get Moneycontrol News Snippets into Amiboker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1523&hilite=InternetClose' target='_blank'>Send Alerts from Amibroker to Telgram</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=InternetClose">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

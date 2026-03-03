@@ -1,0 +1,105 @@
+<html>
+
+<head>
+<title>How to set up the Profile View</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2><b>How to set up the Profile View</b></h2>
+<p><font color="#FF0000"><b>IMPORTANT: This document describes functionality that is PHASED OUT in version
+  4.90 and is now replaced by a superior <a href="h_webresearch.html">WEB RESEARCH
+  page</a>.</b></font></p>
+<p>AmiBroker has an embedded web browser allowing you to display company profiles
+   from both local files and remote web pages providing appropriate information.
+  
+  The profiles are available from the <i>Window-&gt;Profile</i> menu and the toolbar.
+   The example DJIA database supplied with AmiBroker is set up so the profile view
+  
+  displays the Yahoo Finance's profile web page for currently selected ticker.
+   If you have, for example, selected 'KO' (Coca Cola Company) the <a href="http://biz.yahoo.com/p/K/KO.html">http://biz.yahoo.com/p/K/KO.html</a> 
+  profile web page will be displayed as shown in the picture below:</p>
+<p><img src="/gifs/full4.gif"></p>
+<p>If you want to use this feature for non-US markets, additional steps are necessary 
+  to direct AmiBroker to the appropriate page. This article will describe how to do 
+  that.</p>
+<p><b>Setting Profile URLs in Categories</b></p>
+<p>Please go to the <i>Symbol-&gt;Categories</i> menu. After choosing this option 
+  you will see the window like this:</p>
+<p><img src="gifs/8categories.gif"></p>
+<p>Please take a look at the <b>URLs - Profile</b> edit box. Here you can enter the 
+  URL template for viewing on-line (or off-line) company profiles. These URL templates 
+  are market-based, which means you can have different templates for each market. 
+  The template is then parsed to make the actual URL for the web page. For example, to see Yahoo's profiles page, you can use the following URL template: </p>
+<p>http://biz.yahoo.com/p/<b>{t0}</b>/<b>{t}</b>.html. </p>
+<p>Symbols enclosed in brackets <b>{}</b> define fields that are evaluated at execution time. The<b> {t0}</b> symbol is evaluated to the first character of the 
+  ticker name and <b>{t}</b> is evaluated to the whole ticker name. So if AAPL 
+  is selected, AmiBroker will generate the following URL from the above template: </p>
+<p>http://biz.yahoo.com/p/a/aapl.html </p>
+<p>Then AmiBroker uses its built-in web browser to display the contents of the page. 
+</p>
+<p><b>Special fields encoding scheme </b></p>
+<p>As shown in the above example, the template URL can contain special fields that are 
+  substituted at run time by values corresponding to the currently selected symbol. 
+  The format of the special field is {<i>x</i>} where <i>x</i> describes the field 
+  type. Currently there are five allowable field types: ticker symbol in original 
+  case <b>{t}</b>, ticker symbol in lowercase <b>{s}</b>, ticker symbol in UPPERCASE 
+  <b>{S}</b>, alias <b>{a}</b>, web ID <b>{i}</b>. You can specify those fields 
+  anywhere within the URL, and AmiBroker will replace them with appropriate values 
+  entered in the Information window. You can also reference single characters 
+  of a ticker, alias, or web ID. This is useful when a given web site uses the first characters 
+  of, for example, a ticker to group the HTML files (Yahoo Finance site does that), 
+  so you have files for tickers beginning with 'a' stored in subdirectory 'a'. 
+  To reference a single character of the field, use the second format style {<i>xn</i>} 
+  where <i>x</i> is the field type described above and <i>n</i> is zero-based index 
+  of the character. So <b>{a0}</b> will evaluate to the first character of the 
+  alias string. To get the first two characters of a ticker, write simply <b>{t0}{t1}</b>. 
+  A note about the web ID field: this new field in the Information window was added to handle 
+  situations where web sites do not use ticker names for storing profile files. 
+  I found some sites that use their own numbering system, so they assign a unique number 
+  to each symbol. AmiBroker allows you to use this nonstandard coding for 
+  viewing profiles. All you have to do is to enter the correct IDs in the Web ID field 
+  and use an appropriate template URL with the <b>{i}</b> keyword. </p>
+<p> <b>Profiles stored locally</b></p>
+<p>You may want to have all profiles stored on your local hard disk. This has the advantage that profiles are accessible instantly, but they can take a significant 
+  amount of storage space, and you will need to update them from time to time. 
+  To access locally stored files, use the following template URL (example: C: denotes 
+  drive): file://C:\the_folder_with_profile_files\{t}.html. You are not limited 
+  to HTML files; you can use simple .TXT files instead. Then create (or download) 
+  the .html (or .txt) files for each symbol in the portfolio. These files should 
+  obey the following naming convention: &lt;ticker&gt;.html. So, for example, for 
+  APPLE (ticker AAPL), the profile file should have the name AAPL.html (or AAPL.txt)</p>
+<p><b>Web-based profiles</b></p>
+<p>If you want to display the profiles from remote web pages, you will need to find out how they are accessible (the URL to the web page) and how the data 
+  for different symbols is accessible. I will describe the problem using the example 
+  of the Sharenet (<a href="http://www.sharenet.co.za">www.sharenet.co.za</a>) 
+  site, which provides data for companies listed on the Johannesburg Stock Exchange. 
+  Sharenet provides company information that is accessible at the following address (URL):</p>
+<p>http://www.sharenet.co.za/free/free_company_na.phtml?code=<b>JSECODE</b>&scheme=default</p>
+<p>The problem is that the database provided by Sharenet uses long ticker names, and 
+  <b>JSECODE</b> is a short symbol code. For example, for the &quot;Accord Technologies&quot; 
+  company, the ticker in the Sharenet database is ACCORD, but the code is ACR. To solve 
+  the problem, we will need to use the <b>Web ID</b> field in the symbol Information 
+  window. If you have the Sharenet database, just choose ACCORD from the ticker 
+  list, open the <i>Symbol-&gt;Information</i> window and enter ACR into the <b>Web ID</b> 
+  edit box, and click OK. Then please open the <i>Symbol-&gt;Categories</i> window and 
+  enter the following URL template into the Profile URL edit box:</p>
+<p>http://www.sharenet.co.za/free/free_company_na.phtml?code={i}&scheme=default</p>
+<p>To be 100% sure, please select the text above with a mouse. Then copy it to 
+  the clipboard (Edit->Copy, CTRL-C). Then switch to AmiBroker and click on the 
+  Profile URL edit box. Delete everything from it and press CTRL-V (this will 
+  paste the text). </p>
+<p>Please note that we have used the<b> {i}</b> special field in the template, which
+   will be replaced by AmiBroker with the text entered in the Web ID field of
+  the 
+  symbol Information window. Now, please select <i>Window-&gt;Profile</i>, and
+  you should see the profile for the ACCORD company in the bottom part of the AmiBroker
+  screen.</p>
+<p>Now, when the profile view for ACCORD is working correctly, all you have to do is enter JSE short codes into the Web ID field of the symbol Information window to enable 
+  profiles for all other symbols. It is easy to say, but much harder to do - with 
+  thousands of symbols, it is very time-consuming work; however, this task can be automated 
+  completely by using scripting and AmiBroker's OLE automation interface. </p>
+</body>
+</html>

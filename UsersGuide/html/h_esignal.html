@@ -1,0 +1,70 @@
+<html>
+
+<head>
+<title>How to use AmiBroker with eSignal feed</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>How to set up AmiBroker with eSignal feed (RT version only)</h2>
+<h4>Requirements</h4>
+<p>IMPORTANT: <b>You must have the eSignal application installed on your machine 
+  and a valid eSignal subscription</b>.</p>
+<h4>One-time setup </h4>
+<p>To use AmiBroker with eSignal feed you will need to perform a one-time setup 
+  described below:</p>
+<ul>
+  <li>Run AmiBroker </li>
+  <li>Choose <b>File-&gt;New database</b> </li>
+  <li>Type a new folder name (for example: C:\Program Files\AmiBroker\eSignal 
+    ) and click <b>Create</b> as shown in the picture below:<br>
+    <img src="gifs/dbsettings.gif"> <br>
+    <br>
+    <br>
+  </li>
+  <li>Choose <b>eSignal RT Data Plug-in</b> from the 'Data source' combo and "<b>Enable</b>" 
+    from '<b>Local data storage</b>'</li>
+  <li><font size="-1">Enter appropriate<strong> number of bars to load:<br>
+    90000 for 1-minute database combined with long history daily database</strong></font><font size="-1"><strong><br>
+    </strong></font></li>
+  <li>Click the <b>Configure</b> button to show the plug-in configuration dialog as 
+    shown below<br>
+    <img src="gifs/config.gif"> <br>
+    <br>
+    Enter your eSignal username and password here (if you have eSignal properly installed, 
+    AmiBroker will pre-set these fields to the username and password entered in the eSignal software). 
+    You may also adjust the <b>Number of symbols</b>. This should not exceed your 
+    account limit, and you may consider lowering this value if you want to use 
+    AmiBroker in parallel with another data manager client application. (If you 
+    exceed the limit of your subscription, AmiBroker will re-adjust this number 
+    down.)<br>
+    <br>
+    Click OK </li>
+  <li>Now, choose <b>Base periodicity</b>. Note that the <strong>recommended periodicity
+      is 1 minute</strong>,
+    but you can select all base periods starting from 'tick' up to hourly.<br>
+    Note that selecting 'tick', 1-second, 5-second, or 15-second periodicities
+    will cause the transmission of huge amounts of data from eSignal servers (for
+    an actively
+    traded 
+    security, it can be several megabytes for just one symbol and very few days
+    of history). If you have a modem connection, this setting is highly discouraged.
+     You should also consider using 1-second bars instead of pure 'ticks', since
+    
+  this mode is faster.<br>
+  <br>
+  Also, note that to get long end-of-day histories together with intraday data,
+  you should go to File-&gt;Database Settings-&gt;Intraday Settings and turn ON "<strong>Allow
+  mixed EOD/intraday data</strong>" option.<br>
+    <br>
+  </li>
+  <li>Click OK.<br>
+  </li>
+</ul>
+<p>From now on, your AmiBroker reads quotes directly from eSignal. </p>
+<p>To learn how to use AmiBroker in real-time mode, read <a href="h_rtsource.html">this
+tutorial article</a>.</p>
+</body>
+</html>

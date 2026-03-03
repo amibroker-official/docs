@@ -1,0 +1,86 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GUITOGGLE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GuiToggle</b><br>
+        - create on-chart toggle button control</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>GUI functions<br>
+        </b>(AmiBroker 6.30)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GuiToggle( ''text'', id, x, y, width, height, notifyflags) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function creates on-chart GUI toggle button control.<p>
+Parameters:
+<ul>
+<li>&quot;text&quot; - specifies button text
+<li>id - unique control ID (must be integer greater than zero)
+<li>x, y - coordinates of top left corner of the control
+<li>width, height - dimensions of the control
+<li>notifyflags - define which user actions cause formula to be notified
+</ul>
+<p>
+Possible notify flags are:
+<ul>
+  <li>notifyClicked - when button/toggle/checkbox/radio is clicked</li>
+  <li>notifySetFocus
+    - when control gets input focus (via mouse or keyboard)</li>
+  <li>notifyKillFocus -
+    when control loses input focus (via mouse or keyboard)</li>
+  <li>notifyHitReturn -
+    when ENTER/RETURN key was pressed in edit field</li>
+  <li>notifyEditChange - when
+      control value changes (text inside edit field, date inside date/time, slider
+      is moved to new position)</li>
+  <li>notifyMouseEnter - when mouse hovers over the control</li>
+  <li>notifyMouseLeave - when mouse leaves control area</li>
+</ul>
+
+The function returns <b>guiNew</b> when control was actually created (wasn't already present in the chart) or <b>guiExisting</b> when control already exists in given chart
+
+<p>For more information about using GUI controls see <a href='../h_gui.html'>Tutorial: Using on-chart GUI controls</a> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GuiToggle</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GuiToggle">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

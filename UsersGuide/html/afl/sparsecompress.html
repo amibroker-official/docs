@@ -1,0 +1,123 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SPARSECOMPRESS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>SparseCompress</b><br>
+        - compress sparse array</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>SparseCompress( query_points, data ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function gets values from 'data' array at points defined by non-zero values of 'query_points' array and compresses them so they are squeezed at the end of resulting array </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE>only_when = ( <font color='#0000ff'>Month</font>() % <font color='#800080'>2</font> )
+== <font color='#800080'>0</font>; <font color='#008000'>// even months only <br>
+</font> <br>
+x = <font color='#0000ff'>SparseCompress</font>( only_when, <b>Close</b> ); <font color='#008000'>//
+compact sparse data <br>
+</font> <br>
+y = <font color='#0000ff'>MA</font>( x, <font color='#800080'>10</font> ); <font color='#008000'>//
+regular calculation <br>
+</font> <br>
+y = <font color='#0000ff'>SparseExpand</font>( only_when, y ); <font color='#008000'>//
+expand sparse data <br>
+</font> <br>
+<font color='#0000ff'>Plot</font>( <b>C</b>, <font color='#800080'>&quot;Price&quot;</font>, <b>colorDefault</b>, <b>styleBar</b> ); <br>
+<font color='#0000ff'>Plot</font>( y, <font color='#800080'>&quot;Sparse MA from even
+months&quot;</font>, <b>colorRed</b> ); <br>
+<br>
+<br>
+<font color='#800000'><b>function</b></font> SparseCompressEquiv( sparse_array,
+data_array ) <br>
+{ <br>
+    
+result = <b>Null</b>; <br>
+     
+<br>
+    
+j = <b>BarCount</b> - <font color='#800080'>1</font>; <br>
+    
+<font color='#800000'><b>for</b></font>( i = <b>BarCount</b> - <font color='#800080'>1</font>;
+i >= <font color='#800080'>0</font>; i-- ) <br>
+    
+{ <br>
+      
+<font color='#800000'><b>if</b></font>( sparse_array[ i ] ) result[ j-- ] = data_array[
+i ]; <br>
+    
+} <br>
+     
+<br>
+    
+<font color='#800000'><b>return</b></font> result; <br>
+} <br>
+<br>
+<font color='#800000'><b>function</b></font> SparseExpandEquiv( sparse_array,
+data_array ) <br>
+{ <br>
+    
+result = <b>Null</b>; <br>
+     
+<br>
+    
+j = <b>BarCount</b> - <font color='#800080'>1</font>; <br>
+    
+<font color='#800000'><b>for</b></font>( i = <b>BarCount</b> - <font color='#800080'>1</font>;
+i >= <font color='#800080'>0</font>; i-- ) <br>
+    
+{ <br>
+      
+<font color='#800000'><b>if</b></font>( sparse_array[ i ] ) result[ i ] = data_array[
+j-- ]; <br>
+    
+} <br>
+     
+<br>
+    
+<font color='#800000'><b>return</b></font> result; <br>
+}</CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="sparseexpand.html">SparseExpand()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>SparseCompress</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=SparseCompress' target='_blank'>Polyfit Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=SparseCompress' target='_blank'>TAPE READING</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=SparseCompress">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

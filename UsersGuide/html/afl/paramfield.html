@@ -1,0 +1,72 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PARAMFIELD</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>ParamField</b><br>
+        - creates price field parameter</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 4.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>ParamField(''name'', field = 3 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Allows to pick the <B>Price field</B> for the indicator (field which is used to calculate values of the indicator). Function returns the array defined by <I>field</I> parameter. Default value = 3 returns Close array. The possible values of <I>field</I> parameter are: 
+<UL>
+<LI> <B>-1</B> - ParamField returns the values of the indicator that was inserted as a first one into the pane, or Close if no indicator was present
+<LI>  <B>0</B> - returns <B>Open</B> array
+<LI>  <B>1</B> - returns <B>High</B> array
+<LI>  <B>2</B> - returns <B>Low</B> array
+<LI>  <B>3</B> - returns <B>Close</B> array (default)  
+<LI>  <B>4</B> - returns <B>Average </B> array = (H+L+C)/3
+<LI>  <B>5</B> - returns <B>Volume</B> array
+<LI>  <B>6</B> - returns <B>Open Interest</B> array
+<LI>  <B>7,8,9,....</B> - return values of indicators inserted into the pane.
+
+<p>IMPORTANT: Parameter names and values must NOT contain non-printable characters (ASCII codes < 32). Since  ParamField uses names passed to Plot(), it means that Plot() calls must not contain non-printable characters too (ASCII codes < 32), so control characters such as new lines are NOT allowed.
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="param.html">PARAM()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>ParamField</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=772&hilite=ParamField' target='_blank'>Adaptive Laguerre Filter, from John Ehlers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=925&hilite=ParamField' target='_blank'>Advanced MA system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1064&hilite=ParamField' target='_blank'>AFL to Python COM Link</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1115&hilite=ParamField' target='_blank'>AO+Momentum</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1332&hilite=ParamField' target='_blank'>Arnaud Legoux Moving Average (ALMA)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=ParamField' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=816&hilite=ParamField' target='_blank'>Average Price Crossover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1520&hilite=ParamField' target='_blank'>B-Xtrender</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1264&hilite=ParamField' target='_blank'>babaloo chapora</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=ParamField' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=805&hilite=ParamField' target='_blank'>Bman's HaDiffCO</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1265&hilite=ParamField' target='_blank'>bolingerbands</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1469&hilite=ParamField' target='_blank'>Bollinger Band Squeeze</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1266&hilite=ParamField' target='_blank'>bonlinger bands</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1531&hilite=ParamField' target='_blank'>Coral Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=531&hilite=ParamField' target='_blank'>Dave Landry PullBack Scan</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=919&hilite=ParamField' target='_blank'>DEBAJ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=ParamField' target='_blank'>Elder Triple Screen Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=594&hilite=ParamField' target='_blank'>Elder's Market Thermometer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=612&hilite=ParamField' target='_blank'>Fibonacci Moving averages</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1509&hilite=ParamField' target='_blank'>Guppy Cloud</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1464&hilite=ParamField' target='_blank'>Historical Volatility Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=ParamField' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=714&hilite=ParamField' target='_blank'>INTRADAY HEIKIN ASHI  new</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1320&hilite=ParamField' target='_blank'>Kairi Relative Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=438&hilite=ParamField' target='_blank'>Linear Regression Line w/ Std Deviation Channels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=ParamField' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=593&hilite=ParamField' target='_blank'>Noor_Doodie</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=781&hilite=ParamField' target='_blank'>prakash</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1577&hilite=ParamField' target='_blank'>Range Filter - Trading Strategy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1436&hilite=ParamField' target='_blank'>regavg</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=ParamField' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1133&hilite=ParamField' target='_blank'>Stops on percentages</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=757&hilite=ParamField' target='_blank'>tomy_frenchy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1339&hilite=ParamField' target='_blank'>Tracking Error</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1340&hilite=ParamField' target='_blank'>Tracking Error</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=775&hilite=ParamField' target='_blank'>Trigonometric Fit - TrigFit with AR for cos / sin</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1170&hilite=ParamField' target='_blank'>Vikram's Floor Pivot Intraday System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1482&hilite=ParamField' target='_blank'>visual turtle trading system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1548&hilite=ParamField' target='_blank'>ZigZag - Days, Avg (Ord) Volume and Channels</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=ParamField">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

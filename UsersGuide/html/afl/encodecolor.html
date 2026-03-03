@@ -1,0 +1,77 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ENCODECOLOR</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>EncodeColor</b><br>
+        - encodes color for indicator title</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 4.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong></b>     <b>EncodeColor</b>( <em>colorIndex </em>)         <b> </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> </b>    STRING         <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> </b> 
+    
+      Converts color index to string escape sequence that changes color of 
+        text output in chart title. Color escape sequence uses cXX sequence 
+        where XX is 2 digit number specifying color index c38 - defines violet, 
+        there is a special sequence c-1 that resets to default axis color. 
+      
+  
+   
+    <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> </b>
+     
+      Title = "This is written in " + <b>EncodeColor</b>( colorViolet 
+        ) + "violet color " + <b>EncodeColor</b>( colorGreen ) + "and 
+        this in green"; 
+    
+  
+   
+    <b>SEE</b> <b>ALSO</b>
+    <a href="../h_indbuilder2.html">Using colors in Indicator 
+      Builder</a> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>EncodeColor</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=325&hilite=EncodeColor' target='_blank'>'R' Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=420&hilite=EncodeColor' target='_blank'>ADX Indicator - Colored</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=706&hilite=EncodeColor' target='_blank'>Andrews PitchforkV3.3</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=584&hilite=EncodeColor' target='_blank'>Another FIb Level</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1324&hilite=EncodeColor' target='_blank'>automatic trendlines using fractal patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1012&hilite=EncodeColor' target='_blank'>CCI 14 DrBobStyle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1000&hilite=EncodeColor' target='_blank'>CCI 50 DrBob Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=405&hilite=EncodeColor' target='_blank'>CCI Woodies Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=EncodeColor' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=314&hilite=EncodeColor' target='_blank'>Color Display.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1201&hilite=EncodeColor' target='_blank'>Coppock Trade Signal on Price Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=738&hilite=EncodeColor' target='_blank'>Cycle Highlighter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=753&hilite=EncodeColor' target='_blank'>Cycle Highlighter (auto best-fit)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=546&hilite=EncodeColor' target='_blank'>EMA Crossover Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=761&hilite=EncodeColor' target='_blank'>FastStochK FullStochK-D</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1084&hilite=EncodeColor' target='_blank'>Fibonacci Internal and External Retracements</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=EncodeColor' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1454&hilite=EncodeColor' target='_blank'>Fre</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1256&hilite=EncodeColor' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1257&hilite=EncodeColor' target='_blank'>Future Plotting of Time and Price</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=463&hilite=EncodeColor' target='_blank'>Futures - Dollar Move Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=464&hilite=EncodeColor' target='_blank'>Futures - Dollar Move Today Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1301&hilite=EncodeColor' target='_blank'>Graphical sector analysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1302&hilite=EncodeColor' target='_blank'>Graphical sector stock amalysis</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=EncodeColor' target='_blank'>High Low Detection code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=EncodeColor' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=741&hilite=EncodeColor' target='_blank'>Hurst "Like" DE</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1422&hilite=EncodeColor' target='_blank'>IBD relative strength database Viewer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1372&hilite=EncodeColor' target='_blank'>Improved NH-NH scan / indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=EncodeColor' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=EncodeColor' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=EncodeColor' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1449&hilite=EncodeColor' target='_blank'>Last Five Trades Result Dashboard &#8211; AFL code</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=EncodeColor' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1592&hilite=EncodeColor' target='_blank'>Linear Candle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1596&hilite=EncodeColor' target='_blank'>MACD BB Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1190&hilite=EncodeColor' target='_blank'>mitalpradip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1331&hilite=EncodeColor' target='_blank'>N Line Break  Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=EncodeColor' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=257&hilite=EncodeColor' target='_blank'>P&F chart with range box sizes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=408&hilite=EncodeColor' target='_blank'>Position Sizing and Risk Price Graph</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=459&hilite=EncodeColor' target='_blank'>Position Sizing and Risk Price Graph - 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=406&hilite=EncodeColor' target='_blank'>Price with Woodies Pivots</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=335&hilite=EncodeColor' target='_blank'>Relative Strength Multichart of up to 10 tickers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1188&hilite=EncodeColor' target='_blank'>Robert Antony</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=226&hilite=EncodeColor' target='_blank'>RSI of Weekly Price Array</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=307&hilite=EncodeColor' target='_blank'>RUTVOL timing signal with BB Scoring routine</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=707&hilite=EncodeColor' target='_blank'>Schiff Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=409&hilite=EncodeColor' target='_blank'>Shares To Buy Price Graph</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1076&hilite=EncodeColor' target='_blank'>Square of Nine Roadmap Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=225&hilite=EncodeColor' target='_blank'>Stochastic of Weekly Price Array</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1376&hilite=EncodeColor' target='_blank'>Super Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=282&hilite=EncodeColor' target='_blank'>Support Resistance levels</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=931&hilite=EncodeColor' target='_blank'>TD Sequential</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=437&hilite=EncodeColor' target='_blank'>Trading ATR 10-1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=240&hilite=EncodeColor' target='_blank'>Triangular Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=696&hilite=EncodeColor' target='_blank'>Triangular Moving Average new</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1589&hilite=EncodeColor' target='_blank'>TSV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=229&hilite=EncodeColor' target='_blank'>Vertical Horizontal Filter (VHF)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1272&hilite=EncodeColor' target='_blank'>Volume Occilator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1602&hilite=EncodeColor' target='_blank'>Volume Spread for VSA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1047&hilite=EncodeColor' target='_blank'>Woodie's CCI Panel Basic</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=EncodeColor' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1023&hilite=EncodeColor' target='_blank'>Woodie's Price Panel With Woodie's Pivots</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1353&hilite=EncodeColor' target='_blank'>ZigZag Hi Lo Barcount</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=EncodeColor">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

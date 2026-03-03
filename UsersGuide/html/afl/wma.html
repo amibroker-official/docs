@@ -1,0 +1,61 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - WMA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>WMA</b><br>
+        - weighted moving average</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Moving averages, summation<br>
+        </b>(AmiBroker 40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>wma( ARRAY, <i>periods</i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Calculates weighted average. 5 day weighted average gives weight of 5 
+        to the most recent quote, 4 to the previous quote, downto 1 for the 5-bar 
+        back quote. The function accepts time-variable <i>periods.<b><br>
+        </b></i> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> WMA( Close, 5 ) </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top"> MA(), EMA(), WMA(), DEMA() </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>WMA</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1437&hilite=WMA' target='_blank'>Adverse Move Ratio</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1405&hilite=WMA' target='_blank'>Automatic Linear Trend Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1351&hilite=WMA' target='_blank'>Automatic Linear Trend Channel 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=WMA' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=WMA' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=816&hilite=WMA' target='_blank'>Average Price Crossover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1264&hilite=WMA' target='_blank'>babaloo chapora</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=805&hilite=WMA' target='_blank'>Bman's HaDiffCO</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=436&hilite=WMA' target='_blank'>Chande's Trend Score</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=720&hilite=WMA' target='_blank'>Chandelier Exit or Advanced Trailing Stop</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1201&hilite=WMA' target='_blank'>Coppock Trade Signal on Price Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1200&hilite=WMA' target='_blank'>Coppock Trade Signal v1.1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=919&hilite=WMA' target='_blank'>DEBAJ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1390&hilite=WMA' target='_blank'>Dominant Cycle Phase</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1458&hilite=WMA' target='_blank'>Gabriel Linear Regression Angle Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1382&hilite=WMA' target='_blank'>Hilbert Sine Wave</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1396&hilite=WMA' target='_blank'>Hilbert Sine Wave Support & Resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1395&hilite=WMA' target='_blank'>Hilbert Sine Wave with Hull Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=785&hilite=WMA' target='_blank'>Hull Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1304&hilite=WMA' target='_blank'>John Ehler</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1501&hilite=WMA' target='_blank'>MAVG</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=369&hilite=WMA' target='_blank'>MultiCycle 1.0</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1582&hilite=WMA' target='_blank'>Nadaraya-Watson Envelope</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1316&hilite=WMA' target='_blank'>Neural Network Powered Smooth/Predictive RSI V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1354&hilite=WMA' target='_blank'>Parametric Chande Trendscore</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=322&hilite=WMA' target='_blank'>Relative strength comparison with moving average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1399&hilite=WMA' target='_blank'>Signal to Noise</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1404&hilite=WMA' target='_blank'>Stochastic RSI</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1272&hilite=WMA' target='_blank'>Volume Occilator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1602&hilite=WMA' target='_blank'>Volume Spread for VSA</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=WMA">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

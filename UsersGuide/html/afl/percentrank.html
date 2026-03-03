@@ -1,0 +1,90 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PERCENTRANK</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>PercentRank</b><br>
+        - calculate percent rank</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 5.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>PercentRank( array, range ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> INPUTS:
+<ul>
+<li>array - input data 
+<li>range - lookback range 
+</ul>
+<p>
+Returns percent rank (0...100) of the current element of the array within all elements over the specified range. 
+<p>
+A value of 100 indicates that the current element of the array is the highest for the given lookback range, while a value of 0 indicates that the current value is the lowest for the given lookback range.
+<p>
+It is equivalent (but 2x faster) to:
+<p>
+
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>function</B></FONT><FONT COLOR=#000000> PercentRank2(
+Data, Periods) <BR>
+{ <BR>
+&nbsp;&nbsp;
+Count = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>; <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000> (
+i = </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; i &lt;= Periods
+; i++ ) <BR>
+&nbsp;&nbsp;
+{ <BR>
+&nbsp;&nbsp; 
+Count += Data &gt; </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>(
+Data, -i ); <BR>
+&nbsp;&nbsp;
+} <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>return</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> *
+Count / Periods; <BR>
+} <BR>
+</FONT></CODE>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>PercentRank</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1469&hilite=PercentRank' target='_blank'>Bollinger Band Squeeze</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1418&hilite=PercentRank' target='_blank'>ConnorsRSI</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=PercentRank">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

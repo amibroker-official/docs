@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Line study properties window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Line study properties window</h3>
+<p><img src="gifs/line_prop.gif" width="357" height="489"></p>
+
+<p>In the study properties window you can select start and end coordinates as 
+  well as line colors and styles. You can also enable automatic left- or right-line 
+  extension so that the line will be extended when new quotes become available.</p>
+  
+<P> The following fields are available:
+<UL>
+	<LI><B>Start X, Start Y, End X, End Y</B> - study start and end coordinates.
+    <LI><strong>Third X, Third Y - </strong>visible only for TRI-POINT studies
+      like triangle or pitchfork; these are the coordinates of the third control point of the
+      study.
+    <LI><B>Lock position</B> - if this field is marked, it's impossible to change
+      the position of the study using the mouse.
+	<LI><B>Color</B> - allows you to change the study's color.
+	<LI><B>StudyID</B> - defines the Study ID, which allows you to refer to the study
+	  from an AFL formula.<BR>
+	 Detailed information is available in the <a href="h_studies.html">Using studies
+	 in your AFL formulas</a> chapter.
+	<LI><B>Layer</B> - indicates the layer on which the study is placed. <BR>
+	To learn more about layers, read <a href="h_layers.html">Working with layers</a>.
+	<LI><strong>Z-order</strong> - defines the Z-order of the line. Lines, plots,
+	  and graphics can be ordered in the &quot;Z&quot; direction using Z-order. Learn
+	  more about this in the <a href="h_zorder.html">Using Z-order tutorial</a>.	    
+	<LI><strong>Line width</strong> - (new in 5.90) specifies line width in pixels.
+  Default line width is 1 pixel.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       	  <LI><B>Thick
+      - </B>doubles the width of the line. The width is defined by the <strong>Line
+	  width</strong> parameter. Turning this on makes the line twice as wide, so
+	  the actual pixel width would be 2 * lineWidth.
+	<LI><B>Left / Right Extend</B> - you can choose whether the line is extended.
+<LI><strong>Extension factor - </strong>(new in 5.90) - decides how far the line
+      is extended to the left/right. Lines are extended in the direction of &quot;X-axis&quot;
+      (i.e. date/time axis). 0 (zero) means infinite extension; one unit represents
+      the X-axis distance between the study's end and start points. Fractional values are
+  allowed. The allowable range is <strong>0</strong> to <strong>25.5</strong>.
+</UL>
+
+
+<p>Line study properties window is accessible from a chart window's right mouse 
+  button menu. When you click on a study line with the right mouse button, the following 
+  menu appears:</p>
+<p><img src="gifs/rmbmenu2.gif"></p>
+<p>Simply choose <b>Properties</b> to display the line study window.</p>
+
+
+</body>
+</html>

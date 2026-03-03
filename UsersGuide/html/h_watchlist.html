@@ -1,0 +1,176 @@
+<html>
+<head>
+
+<title>Working with watch lists</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>Working with watch lists</h2>
+<p>AmiBroker 5.00 now uses a new watch
+   list system. Watch lists differ from other kinds of categories (such as groups,
+  markets, 
+  industries, or sectors) in that you can assign a single symbol to more than
+   one watch list. </p>
+<p>You can use an UNLIMITED number of watch lists, with their names definable in <i><b>Symbol->Categories</b></i> 
+  window. The members of each watch list are shown in the symbol tree under &quot;Watch
+   lists&quot; leaf. </p>
+<p>Watch lists are now stored as text files inside the &quot;Watchlists&quot; folder
+  within the database. The folder contains any number of .TLS files with the watch
+  lists themselves, and index.txt defines the order of watch lists. You can
+  add your own .tls file (one symbol per line), and AmiBroker will update index.txt
+  automatically (adding any new watch lists at the end). The .TLS files can also
+be opened in AmiQuote. </p>
+<p>Watch lists remember the order in which symbols were added, so for example,
+  if you sort an AA result list in some order and then you &quot;add symbols to watch
+  list,&quot; the order will be kept in the watch list.<br>
+</p>
+<p><i>Adding / removing watch lists</i></p>
+<p>You can now add/delete watch lists using <b>Symbol->Watch List->New
+    Watchlist</b>  and <b>Symbol->Watch List->Delete Watchlist</b> menu, or from the watch
+    list context menu. Note that if you have done any customization to the menu,
+    you
+    may need
+    to
+    go to
+    Tools->Customize,
+    select &quot;Menu Bar,&quot; and
+press &quot;Reset&quot; button for these new menu items to appear.</p>
+<p><img src="gifs/symbolwlmenu.gif"></p>
+<p><i>Adding tickers to watch lists</i></p>
+<p>You can easily add a ticker to the watch list by simply clicking the right
+   mouse button over the item in the symbol tree and choosing <i><b>Watch List->Add
+   selected symbol</b></i> option:</p>
+<p><img src="gifs/19tree.gif"></p>
+<p>After choosing this option, a watch list selector window will appear:</p>
+<p><img src="gifs/19watchsel.gif"></p>
+<p>Here you should select the list you want to add the symbol to. Note that you 
+  can add one symbol to multiple lists at once by holding the CTRL key while clicking 
+  on the list items. After clicking OK, the selected symbol (MSFT) appears in the watch 
+  list of your choice:</p>
+<p><img src="gifs/19treeafter.gif"></p>
+<p>You can also type-in symbols directly into the watch list using <strong>Symbol->Watch
+    List->Type-in option.</strong> Symbols should be comma-separated. You
+    can also right-click over the watch list name in the workspace tree to type
+    in symbols directly into the watch list.</p>
+<p><i>Sorting tickers in a watch list</i></p>
+<p>You can now alphabetically sort the symbols in the watch list - right-click on the
+  watch list and select <b>&quot;Sort Alphabetically&quot;</b></p>
+<p><i>Removing tickers from watch lists</i></p>
+<p>Removing symbols from the watch list is as easy as adding them. Just right-click on 
+  the list member and select <b><i>Remove from watch 
+  list(s)</i></b>. Then a similar list selector window will appear, showing only 
+  those lists that the currently selected symbol belongs to. You can now select one 
+  or more lists, and the symbol will be removed from the list(s).</p>
+<p><i>Erasing watch lists</i></p>
+<p>Sometimes you may want to clear (or erase) the whole watch list. Then just
+   select <b><i>Symbol->Watch List->Erase (empty)</i></b> option.
+   In the watch list selector window, mark the list(s) you want to clear and click
+   OK.
+   This
+   way,
+   selected 
+  watch list(s) become empty.</p>
+<p><i>Hiding/Unhiding empty watch lists</i></p>
+<p>By default, empty watch lists are shown in the symbol tree, but you can hide
+  them by right-clicking on a watch list in the symbol tree and selecting the <b>&quot;Hide Empty
+  Watchlists&quot;</b> menu option. To unhide, select this option again.</p>
+<p><i>Using watch lists in Automatic Analysis window</i></p>
+<p>AmiBroker gives you a very easy way to store the results of scanning, backtesting, 
+  and exploration into a watch list with a single mouse click - just run your 
+  favorite AFL formula over the whole database and right-click on the results list 
+  to see the following menu:</p>
+<p><img src="gifs/19analysis.gif"></p>
+<p>When you choose <b><i>Add all/selected results to watch list</i></b><i></i>, a
+  watch list selector will appear where you select the list to which symbols should
+  be
+  added.
+  
+  Then, after clicking OK, all symbols filtered by your trading rules will automatically
+   appear in the watch list of your choice.</p>
+<p>You can also use the option <b>Replace watch list with the results/selected results</b><br>
+  This new option empties the watch list before adding results. The order of
+    symbols in the result list is preserved in the watch list.<br>
+</p>
+<hr>
+<p><strong>How to import/export a watch list from/to a file<br>
+  </strong><br>
+    <strong>IMPORT WATCHLIST FROM FILE </strong><br>
+    <br>
+  1. Choose Symbol->Watch List->Import menu, or right-click over a watch
+  list in the tree and choose Import.<br>
+    <img src="gifs/family1.gif"> </p>
+<p> <br>
+  2. Choose a destination watch list <br>
+  <br>
+3. In the file dialog that will appear, pick a .TLS, .LST, .TXT, or .CSV file</p>
+<p>.TLS, .CSV, .TXT files should have <strong>one ticker symbol per line and
+    no other
+fields</strong>.<br>
+.LST files are Quotes-Plus standard, comma-separated list files that have the
+ticker
+symbol
+in
+the
+first
+column
+and some additional data in remaining columns. AmiBroker reads just the first column
+and ignores the rest.<br>
+<br>
+  4. Click OK.<br>
+  <br>
+  <br>
+  <br>
+  <strong>EXPORT WATCHLIST TO FILE</strong><br>
+  <br>
+  1. Choose Symbol->Watch List->Export menu.<br>
+  or right-click over a watch list in the tree and choose Export.<br>
+  <br>
+  2. Choose a source watch list and switch to &quot;External data source&quot; <br>
+  <br>
+  3. In the file dialog, choose the file to export to. The generated file will be
+  a simple ASCII file with one ticker symbol per line.<br>
+</p>
+<hr>
+<p><strong>How to import/export a watch list from/to an external database<br>
+  </strong><br>
+  <strong>ATTENTION</strong>: It works ONLY if you have the &quot;Data source&quot; 
+  set to the &quot;Fast Track&quot; plugin in File->Database Settings (and if you 
+  have a FastTrack database installed, of course). <br>
+  <br>
+  <strong>IMPORT FAMILY FROM FASTTRACK</strong><br>
+  <br>
+  1. Choose Symbol->Watch List->Import menu, or right-click over a watch list 
+  in the tree and choose Import.<br>
+  <img src="gifs/family1.gif"> </p>
+<p> <br>
+  2. Choose a destination watch list and switch to &quot;External data source&quot;<br>
+  <img src="gifs/family2.gif"> </p>
+<p> <br>
+  3. In the dialog that will appear, unfold a category and select the family 
+  you want to import symbols from:<br>
+  <img src="gifs/family3.gif"> </p>
+<p> <br>
+  4. Click OK.<br>
+  <br>
+  <br>
+  <br>
+  <strong>EXPORT A WATCHLIST TO A FASTTRACK FAMILY</strong><br>
+  <br>
+  1. Choose Symbol->Watch List->Export menu.<br>
+  or right-click over a watch list in the tree and choose Export.<br>
+  <br>
+  2. Choose a source watch list and switch to &quot;External data source&quot; <br>
+  <img src="gifs/family2.gif"> </p>
+<p> <br>
+  3. Now either type in the new personal family name in &quot;New user family&quot; 
+  (and the description in the field next to it) OR choose an existing 
+  personal family from the list.<br>
+  <img src="gifs/family4.gif"> </p>
+<p></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

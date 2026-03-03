@@ -1,0 +1,66 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - FRMDIR</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>frmdir</b><br>
+        - removes a directory</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>File Input/Output functions<br>
+        </b>(AmiBroker 4.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>frmdir(''dirname'') </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function removes a directory<p>
+"dirname" specifies path of the directory to be removed. Please note that this function removes only ONE directory at a time.
+So if you want to remove nested directory tree you have to call it multiple times, for example:<p>
+<CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>frmdir</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"C:\\MyDirectory\\MySubDirectory"</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+delete nested subdir first</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>frmdir</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>"C:\\MyDirectory"</FONT><FONT COLOR=#000000> );</FONT></CODE>
+<p>
+Note that directory must be empty before removing it otherwise it will not be possible to remove it.<p>
+Returns TRUE if directory successfully removed, FALSE otherwise </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>frmdir</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=frmdir">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

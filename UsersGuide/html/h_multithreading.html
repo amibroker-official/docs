@@ -1,0 +1,388 @@
+<html>
+<head>
+<title>Efficient use of multithreading</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><!-- PAGE BREAK -->
+<h2>Efficient use of multithreading</h2>
+<p>AmiBroker 5.50 fully supports multi-threading (parallel execution on all CPU
+  cores) in both charting and <a href="h_newanalysis.html">New Analysis</a> window. This greatly enhances the speed
+  of operation and improves the responsiveness of the application, as worker AFL execution
+  threads do not block the user interface. For example, on a 4-core Intel i7 that
+  can run up to 8 threads, it can run up to 8 times faster than the old Analysis window.
+  Exact speed-up depends on the complexity of the formula (the more complex it is,
+  the more speed-up is possible), and the amount of data processed (RAM access may be
+not as fast as the CPU, thus limiting possible speed gains).</p>
+<p>This chapter describes how to avoid pitfalls that can affect multi-threaded
+performance.</p>
+<p><em>Understanding how multi-threading is implemented</em></p>
+<p>It is important to understand one simple rule first - in
+  AmiBroker one thread
+can run one operation on one symbol's data:</p>
+<blockquote>
+  <p><strong>1 operation *  1 symbol = 1 thread</strong></p>
+</blockquote>
+<p>The operation is displaying a single chart pane, scan, exploration, backtest,
+  or optimization. The consequences are as follows: a single chart pane always uses
+  one thread. Also, a single backtest or optimization running on one symbol uses
+  one thread only.</p>
+<p>But a chart
+    that consists of 3 panes uses 3 threads, even though they all operate on
+  the same
+    symbol.
+    So
+    we
+    can
+    also
+    write:</p>
+<blockquote>
+  <p> <strong>N operations * 1 symbol = N threads</strong></p>
+</blockquote>
+<p>We can also run a single operation (like scan/exploration/backtest/optimization)
+  on multiple symbols; then,</p>
+<blockquote>
+  <p><strong>1 operation * N symbols = N threads</strong></p>
+</blockquote>
+<p>Of course, you can also run multiple Analysis windows, each running multiple
+  symbols, or run multiple charts on multiple symbols; then,</p>
+<blockquote>
+  <p><strong>P  operations * N symbols = ( P * N ) threads</strong></p>
+</blockquote>
+<p>It is also important to understand that some operations consist of not only
+  an AFL execution part but some extra processing and/or user-interface work. In
+  such cases, only AFL execution can be done with multiple threads. This has consequences
+  for Individual Backtest mode, which will be described in detail further.</p>
+<p><em>Note: In version 5.70, there is one exception to this rule: <a href="h_optimization.html#INDIVIDUAL">new
+    multi-threaded individual optimization</a>, that allows to run single-symbol
+    optimization using multiple threads.</em></p>
+<p><em>Limits</em></p>
+<p>The number of threads that are actually launched depends on your CPU and the
+  version of AmiBroker you are using. <strong>Standard Edition</strong> has a
+  limit of <strong>  2 (two) threads</strong> per Analysis window. <strong>Professional
+  Edition</strong> has
+  a limit of <strong>32 threads per Analysis</strong> window. In addition to
+  this limit, AmiBroker will detect how many logical processors are reported
+  by Windows (for example, a single Intel i7 920 CPU is recognized as 8 logical
+  processors (4 cores x 2 hyperthreading)) and will not run more threads per
+  single Analysis window than the number of logical processors. </p>
+<p><em>Common pitfalls</em></p>
+<p>There are following areas of AFL programming that require some attention if
+  you want to write multi-threading-friendly AFL formulas:</p>
+<ol>
+  <li>Avoiding the use of OLE / CreateObject</li>
+  <li>Reducing the use of AddToComposite / Foreign to a minimum</li>
+  <li>Efficient and correct use of static variables</li>
+  <li>Implementing pre-processing / initialization in the Analysis window</li>
+  <li>Accessing the ~~~Equity symbol</li>
+</ol>
+<p>Generally speaking, the AFL formula can run at full speed only if it does not
+  access any shared resources. Any attempt to access a shared resource may result
+  in formula execution waiting for
+  the semaphore or critical
+  section that protects the shared resource from simultaneous modification.</p>
+<p>1. Avoiding the use of OLE / CreateObject</p>
+<p>AmiBroker fully supports calling OLE objects from the AFL formula level, and it
+  is still safe to use, but there are technical reasons to advocate against
+  using OLE. The foremost reason is that OLE is slow, especially when called not
+  from the "owner" thread. </p>
+<p>OLE was developed by Microsoft back in the 1990s in the 16-bit days; it is old
+  technology and it effectively prevents threads from running at full speed,
+  as all OLE calls must be served by one and only user-interface thread. For
+  more details, see this article: <a href="http://blogs.msdn.com/b/oldnewthing/archive/2008/04/24/8420242.aspx">http://blogs.msdn.com/b/oldnewthing/archive/2008/04/24/8420242.aspx</a></p>
+<p>For this reason, if only possible, you should strictly<strong> avoid using
+  OLE / CreateObject </strong>in your formulas.</p>
+<p>If you fail to do so, performance will suffer. Any call to OLE from a
+  worker thread causes a message to be posted to the OLE hidden window, waiting for
+  the main
+  application
+  UI
+  thread to handle the request. If multiple threads do the same, performance
+    would easily degrade to single-thread level, because all OLE calls are handled
+  by the main UI thread anyway.</p>
+<p>Not only that. Threads waiting for OLE can easily
+    deadlock when the OLE server is busy with other work. AmiBroker contains
+  some hi-tech patented code that checks for such an OLE deadlock condition and
+  is able
+    to unlock from
+    it, but it may take up to 10 seconds to unlock. Even worse. OLE calls
+    made from a non-UI thread suffer from the overhead of messaging
+    and marshaling and can be as much as 30 times slower compared to when they are
+  called from the same
+    process
+    main
+    UI
+    thread.
+    To avoid all these troubles, avoid using
+OLE if only possible. </p>
+<p>For example, instead of using OLE to do RefreshAll
+    like this:</p>
+<p>AB = CreateObject(&quot;Broker.Application&quot;); // AVOID THIS<br>
+  AB.RefreshAll(); // AVOID THIS</p>
+<p>Use AmiBroker's native <a href="afl/requesttimedrefresh.html">RequestTimedRefresh</a> function,
+  which is orders of magnitude faster and does not cause any problems. If you
+  want to refresh the UI after Scan/Analysis/Backtest, use <a href="afl/setoption.html">SetOption(&quot;RefreshWhenCompleted&quot;,
+  True )</a></p>
+<p>Keep in mind that in most cases the refresh is completely automatic (for example,
+  after AddToComposite) and does not require any extra coding at all.</p>
+<p>If you use OLE to read Analysis filter settings (such as watch list number),
+  like this:</p>
+<p>AB = CreateObject(&quot;Broker.Application&quot;); // AVOID THIS<br>
+AA = AB.Analysis; // AVOID THIS<br>
+wlnum = AA.Filter( 0, &quot;watchlist&quot; );
+// AVOID THIS</p>
+<p>you should replace OLE calls by a simple, native call to <a href="afl/getoption.html">GetOption</a> that
+    allows to read analysis formula filter settings in a multi-threading friendly
+    manner. For example, to read Filter Include watch list number, use:</p>
+<p><CODE><FONT COLOR=#000000>wlnum = </FONT><FONT COLOR=#0000ff>GetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"FilterIncludeWatchlist"</FONT><FONT COLOR=#000000>); </FONT><FONT COLOR=#008000>//
+PROPER WAY</FONT></CODE></p>
+<p>For more information about supported filter settings fields, see the <a href="afl/getoption.html">GetOption</a> function
+  reference page.</p>
+<p>Also note that AB.Analysis OLE object <u>always</u> refers to the OLD automatic analysis
+  window. This has the side effect of launching/displaying the old automatic analysis
+  whenever you use AB.Analysis in your code. As explained above, all calls to
+  OLE should be removed from your formulas if you want to run in the New multi-threaded
+  Analysis window. It is only allowed to access the new Analysis via OLE from external
+  programs/scripts.
+  To access the new Analysis from an external program, you need to use AnalysisDocs/AnalysisDoc
+  objects as described
+  in the <a href="objects.html">OLE
+  Automation Interface</a> document.</p>
+<p>2. Reducing the use of AddToComposite / Foreign to a minimum</p>
+<p>Any access to other than the "current" symbol from the formula level involves
+  a global lock (critical section) and therefore may impact performance. For
+  this reason, it is recommended to reduce the use of AddToComposite/Foreign functions
+  and use static variables wherever possible.</p>
+<p>3. Efficient and correct use of static
+variables</p>
+<p>The access to static variables is fast, thread-safe, and atomic at the single StaticVarSet/StaticVarGet
+  call level. This means that it reads/writes an entire array in an atomic way, so no
+  other thread will read/write that array in the middle of another thread updating
+  it.</p>
+<p>However, care must be taken if you write multiple static variables at once.
+  Generally speaking, when you write static variables as part of a multi-symbol
+  Analysis scan/exploration/backtest, optimization, you should do the writing
+  (StaticVarSet) on the very first step using Status(&quot;stocknum&quot;)==0 as
+  described below. This is the recommended way of doing things:</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"stocknum"</FONT><FONT COLOR=#000000>)
+      == </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ) <BR>
+  { <BR>
+</FONT><FONT COLOR=#008000> // do all static variable writing/initialization
+here</FONT><FONT COLOR=#000000> <BR>
+}</FONT></CODE></p>
+<p>Doing all initialization/writes to static variables that way provides the best
+  performance, and subsequent reads (StaticVarGet) are perfectly safe and fast.
+  You should avoid making things complex when it is possible to follow the simple
+  and effective rule of one writer-multiple readers. As long as only one thread
+  writes and many threads just read static variables, you are safe and don't
+  need to worry about synchronization. </p>
+<p><em>For advanced formula writers only: </em><br>
+  If you, for some reason, need to write multiple
+  static variables that are shared and accessed from multiple threads at the
+    same time, and you must ensure that all updates are atomic, then you
+    need to protect regions of your formula that update multiple static
+    variables
+  with a semaphore or critical section. For best performance, you should group
+  all reads/writes in one section like this:<br>
+  <br>
+  <CODE><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+  _TryEnterCS( </FONT><FONT COLOR=#800080>"mysemaphore"</FONT><FONT COLOR=#000000> )
+  ) </FONT><FONT COLOR=#008000>// see StaticVarCompareExchange function for implementation</FONT><FONT COLOR=#000000> <BR>
+  { <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// you are inside critical section now </FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// do all static var writing/reading
+  here - no other thread will interfere here</FONT><FONT COLOR=#000000><BR>
+&nbsp; _LeaveCS(); <BR>
+  } <BR>
+  </FONT><FONT COLOR=#800000><B>else</B></FONT><FONT COLOR=#000000> <BR>
+  { <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#0000ff>_TRACE</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"Unable
+  to enter CS"</FONT><FONT COLOR=#000000>); <BR>
+}</FONT></CODE></p>
+<p>The implementation of both a semaphore
+    and critical section in AFL is shown in the
+    examples to the <a href="afl/staticvarcompareexchange.html">StaticVarCompareExchange</a> function.</p>
+<p>4. Implementing pre-processing / initialization in the Analysis window</p>
+<p>Sometimes there is a need to do some initialization or a time-consuming
+  calculation before all the other work is done. To allow for that processing
+  without other threads interfering with the outcome, you can use the following
+  if clause:</p>
+<p><CODE><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"stocknum"</FONT><FONT COLOR=#000000>)
+      == </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000> ) <BR>
+{ <BR>
+      </FONT><FONT COLOR=#008000> // initialization / pre-processing code</FONT><FONT COLOR=#000000><BR>
+}</FONT></CODE></p>
+<p>AmiBroker detects such a statement and runs the very first symbol in one
+    thread only, waits
+        for completion,
+        and only after completion does it launch all other threads. This allows
+  things like setting up static variables for use in further processing, etc. <em>Caveat:
+  The above statement must NOT be placed inside #include.</em></p>
+<p>5. Accessing the ~~~Equity symbol</p>
+<p>Using Foreign(&quot;~~~Equity&quot;, &quot;C&quot; ) makes sense only to display
+  a chart of the equity of a backtest that <strong>has completed</strong>. It
+  is important to understand
+  that the new Analysis window supports multiple instances, and therefore it cannot
+  use any shared equity symbol, because if it did, multiple running backtests
+  would interfere with each other. So New Analysis has a local, private instance
+  of all equity data that is used during backtesting, and only AFTER backtesting
+  is complete does it copy ready-to-use equity data to the ~~~Equity symbol. This means
+  that if you call Foreign(&quot;~~~Equity&quot;, &quot;C&quot; ) from within
+  a formula that is currently being backtested, you will receive the <strong>previous
+  backtest</strong>  equity, not the current one.</p>
+<p>To access current equity, you need to use the custom backtester interface. It
+  has an &quot;Equity&quot; property in the backtester object that holds the current
+  account equity. If you need equity as an array, there are two choices, either
+  collect values this way:<br>
+</p>
+<p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>SetOption</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"UseCustomBacktestProc"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>True</B></FONT><FONT COLOR=#000000> ); <BR>
+      <BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"action"</FONT><FONT COLOR=#000000>)
+== </FONT><FONT COLOR=#000000><B>actionPortfolio</B></FONT><FONT COLOR=#000000> ) <BR>
+{ <BR>
+&nbsp;&nbsp;bo = </FONT><FONT COLOR=#0000ff>GetBacktesterObject</FONT><FONT COLOR=#000000>(); <BR>
+<BR>
+&nbsp;&nbsp;bo.PreProcess(); </FONT><FONT COLOR=#008000>// Initialize backtester</FONT><FONT COLOR=#000000> <BR>
+<BR>
+&nbsp;&nbsp;PortEquity = </FONT><FONT COLOR=#000000><B>Null</B></FONT><FONT COLOR=#000000>; </FONT><FONT COLOR=#008000>//
+will keep portfolio equity values</FONT><FONT COLOR=#000000> <BR>
+<BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>(bar=</FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+bar &lt; </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+bar++) <BR>
+&nbsp;&nbsp;{ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;bo.ProcessTradeSignals( bar ); <BR>
+&nbsp;&nbsp; 
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// store current equity value
+into array element</FONT><FONT COLOR=#000000> <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;PortEquity[ i ] = bo.Equity; <BR>
+&nbsp;&nbsp;} <BR>
+<BR>
+&nbsp;&nbsp;
+bo.PostProcess(); </FONT><FONT COLOR=#008000>// Finalize backtester</FONT><FONT COLOR=#000000> <BR>
+<BR>
+&nbsp;&nbsp;</FONT><FONT COLOR=#008000>// AT THIS POINT, PortEquity contains an ARRAY of equity values</FONT><FONT COLOR=#000000> <BR>
+<BR>
+}</FONT></CODE> </p>
+<p>Or you can use the EquityArray property added to the Backtester object in v5.50.1</p>
+<p><CODE><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>"action"</FONT><FONT COLOR=#000000>)
+      == <B>actionPortfolio</B> ) <BR>
+  { <BR>
+&nbsp;bo = </FONT><FONT COLOR=#0000ff>GetBacktesterObject</FONT><FONT COLOR=#000000>(); <BR>
+&nbsp;bo.Backtest(); <BR>
+</FONT><FONT COLOR=#0000ff>&nbsp;AddToComposite</FONT><FONT COLOR=#000000>( bo.EquityArray, </FONT><FONT COLOR=#008000>//
+get portfolio Equity array in one call</FONT><FONT COLOR=#000000><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</FONT><FONT COLOR=#800080>"~~~MY_EQUITY_COPY"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>"X"</FONT><FONT COLOR=#000000>, <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<B>atcFlagDeleteValues</B> | <B>atcFlagEnableInPortfolio</B> ); <BR>
+}</FONT></CODE></p>
+<p>Please note that values are filled during backtest, and all values are valid
+  only after the backtest is complete (as in the above example). If you call it in the
+  middle of a backtest,
+  it
+  will contain
+  equity only up to the given bar. Avoid abusing this function; it
+is costly in terms of RAM/CPU (however, it is less costly than Foreign). </p>
+<p>Both ways presented will access a local, current copy of equity in New Analysis
+  (unlike Foreign, which accesses
+global symbol values from a previous backtest).</p>
+<p><em>Single-symbol operations run in one thread</em></p>
+<p>As explained at the beginning of the article, any operation such as scan,
+  exploration, backtest, optimization, or walk forward test that is done on a <strong>single
+  symbol</strong> can only use <strong>one thread</strong>. For that reason, there
+  is almost no speed advantage compared to running the same code in old versions
+  of AmiBroker. </p>
+<p>Update as of 5.70: This version has a new <a href="h_optimization.html#INDIVIDUAL">&quot;Individual Optimize</a>&quot; functionality
+  that allows to run single-symbol optimization using multiple threads, albeit
+  with some limitations: only exhaustive optimization is supported, and no custom backtester
+  is supported. This is for two reasons: a) smart optimization engines need the
+  result of the previous step to decide what parameter combination to choose for the
+  next step; b) the second phase of backtest talks to UI and OLE (custom backtester)
+and as such cannot be run from a non-UI thread (see below for details). </p>
+<p><em>Individual Backtest Can Only Be Run in One Thread</em></p>
+<p>The most important thing to understand is that the Individual backtest is
+a portfolio-level backtest run on just ONE symbol. Even if you run it on a watch
+  list, it still executes things sequentially, running a single backtest
+  on a single symbol at once, then moving to the next symbol in the watch list. Why
+  this is so is described below.</p>
+<p>Both portfolio level and individual backtests consist of the very same two
+  phases:<br>
+  I. running your formula and collecting signals<br>
+II. actual backtest that may involve a second run of your formula (custom backtester)</p>
+<p>Phase I runs the formula on each symbol in the list, and it can be multi-threaded
+  (if there is more than one symbol in the list).</p>
+<p>Phase II, which processes the signals collected in Phase I, generates a report
+  and displays results, is done only once per backtest.<br>
+  It cannot be multi-threaded because:<br>
+  a) it talks to the User Interface (UI)<br>
+  b) it uses OLE/COM to allow you to run a custom backtester.</p>
+<p>Both OLE and UI access cannot be done from a worker (non user-interface)
+  thread. Even worse, OLE/UI with multi-threading equals death, see:<br>
+  <a href="http://blogs.msdn.com/b/oldnewthing/archive/2008/04/24/8420242.aspx" target="_blank">http://blogs.msdn.com/b/oldnewthing/archive/2008/04/24/8420242.aspx</a></p>
+<p>Usually, in case of multi-symbol portfolios, Phase I takes 95% of the time needed
+  to run a portfolio backtest,
+  so once you run Phase I in multiple threads, you get very good scalability,
+  as only 5% is not multi-threaded.</p>
+<p>Since individual backtest runs on ONE symbol, then the only phase that can
+  be run in multiple threads,
+  i.e., Phase I, consists of just one run, and as such is run in one thread.</p>
+<p>To be able to run Phase II from multiple threads, you would NOT be able to
+  talk to the UI and would NOT be able to use
+  COM/OLE (no custom backtester).</p>
+<p>This means that Individual Backtest cannot be any
+  faster
+than in the old Automatic Analysis.</p>
+<p><em>Doing the Math & Reasonable Expectations</em></p>
+<p>Some users live in a fantasy land and think that they can throw, say, 100GB of data,
+  and the data will be processed fast because "they have the latest hardware".
+  This
+  is dead wrong. What you will get is a crash. While 64-bit Windows removes the 2GB
+  per-application virtual address space barrier, it is not true that there are
+  no limits anymore.</p>
+<p>Unfortunately, even people with a technical background forget
+    to do the basic math and have some unreasonable expectations. First and foremost,
+    people are missing the huge difference in access speeds due to data size. The term "Random Access Memory" in the past
+    (like back in 1990) meant that accessing data took the same amount of time,
+    regardless
+    of location. That is NO LONGER the case. There are huge differences in access
+    speeds depending on where data is located. For example, an Intel i7 920, with a triple
+  channel configuration, accesses L1
+    cached data with a 52GB/second speed, L2 cached data at 30GB/second (2x slower!),
+    L3 cached data at 24GB/second, and regular RAM at 11GB/second. This means that
+     cached data access is 5 times faster than RAM access. Things get even more
+    dramatic if you run out of RAM and the system has to go to disk. With most
+    modern SSD disks, we speak about just 200MB/sec (0.2GB/sec). That is two orders
+    (100x) of magnitude slower than RAM and three orders of magnitude slower
+  than cache. That assumes zero latency (seek). In the real world, disk access can
+  be
+    10000 times slower than RAM. <br>
+  Now do yourself a favor and do the math. Divide 100GB by 0.2GB/second SSD
+    disk speed. What will you get? 500 seconds - almost ten minutes just to
+  read the data. Now, are you aware that if an application does not process messages
+  for
+  just 1 second, it is considered "not responding" by Windows? What does that
+  mean? It means that even in the 64-bit world, any Windows application will have
+  trouble processing data sets that exceed 5GB just because of raw disk read
+  speed that,
+  in the best
+  case,
+  does not exceed 200MB/sec (usually much worse). Attempting to backtest
+  such absurd amounts of data on a high-end PC will
+  just lead to a crash,
+  because
+  
+  timeouts
+  will
+  be
+  reached, Windows will struggle processing messages, and
+  you will
+  overrun
+  system buffers. And it has nothing to do with software. It is
+  just a brutal math lesson that some forgot. First and most important rule for
+  getting more speed is to limit your data size so it at least fits in RAM.</p>
+<p>&nbsp;</p>
+</body>
+</html>

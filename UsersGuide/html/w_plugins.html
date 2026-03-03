@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>Plugins window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Plugins window</h3>
+<p>Plugins window lists all loaded plug-in DLLs. It is useful for inspecting which 
+plug-ins are active.</p>
+<p>  <img src="gifs/w_plugins.gif" width="570" height="275"></p>
+<p>In addition to just showing the list of plug-ins, you can unload all DLLs by 
+  pressing the &quot;Unload&quot; button and load them back by pressing the &quot;Load&quot; 
+  button. Please note that a DLL <b>must</b> be placed in the &quot;Plugins&quot; 
+  subfolder of the AmiBroker main directory to be seen.</p>
+<p>At startup, AmiBroker scans the &quot;Plugins&quot; folder and loads the DLLs 
+  that follow the specifications of an AmiBroker plug-in. If a DLL is loaded, it is 
+  &quot;locked&quot; for writing, so it cannot be overwritten or modified.</p>
+<p>During the development process, it is necessary to overwrite/modify the DLL 
+  code because when you apply changes to the source code, these changes must 
+  be recompiled and stored into a DLL file. To allow the developer to overwrite 
+  the DLL used by AmiBroker, the &quot;Unload&quot; function is available in this 
+  window. Unloading releases the DLL so it can be overwritten without the need 
+  to restart AmiBroker. Then, after modifying the DLL code, you can load the DLL 
+  back using the &quot;Load&quot; function.</p>
+<p>IMPORTANT NOTE: AmiBroker makes no representations regarding the features and performance
+  of non-certified third-party plug-ins. Specifically, certain plug-ins can cause
+  instabilities or even crashes. The entire use of non-certified third-party plug-ins
+  is at your own risk.</p>
+</body>
+</html>

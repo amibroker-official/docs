@@ -1,0 +1,68 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - VARSET</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>VarSet</b><br>
+        - sets the value of dynamic variable</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>VarSet( ''varname'', value ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sets the value of dynamic variable. Returns 1 on success, 0 on failure.
+<p>
+<i>Dynamic variables</i> are variables that are named dynamically, typically by creating a variable name from a static part and a variable part. The following example dynamically constructs the variable name from a variable prefix and a static suffix. Dynamic variables are always global. Starting from version 6.10 the function accept matrix variables in addition to numbers and arrays.
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>1</FONT><FONT COLOR=#000000>; i < </FONT><FONT COLOR=#ff00ff>10</FONT><FONT COLOR=#000000>; i++ ) 
+<BR>{ 
+<BR></FONT><FONT COLOR=#0000ff>VarSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>&quot;C&quot;</FONT><FONT COLOR=#000000>+i, </FONT><FONT COLOR=#0000ff>Ref</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>, -i ) ); 
+<BR>} 
+<BR>
+<BR></FONT><FONT COLOR=#008000>// creates variables C1, C2, C3, C4, ...., C10 equal to Ref( C, -1 ), Ref( C, -2 ),   ..., Ref( C, -10 ) </FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#008000>// respectively</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="varget.html">VarGet()</A> function , <A HREF="vargettext.html">VarGetText()</A> function , <A HREF="varsettext.html">VarSetText()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>VarSet</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=VarSet' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1539&hilite=VarSet' target='_blank'>3 ways to use RMI in one script</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=431&hilite=VarSet' target='_blank'>AFL Timing functions</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=VarSet' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=VarSet' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=VarSet' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=VarSet' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=VarSet' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=VarSet' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1347&hilite=VarSet' target='_blank'>Basket Trading System T101</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=VarSet' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=422&hilite=VarSet' target='_blank'>Candle Identification</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=VarSet' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=VarSet' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1531&hilite=VarSet' target='_blank'>Coral Trend Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1389&hilite=VarSet' target='_blank'>Cycle Period</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1311&hilite=VarSet' target='_blank'>Detailed Equity Curve</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=VarSet' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=794&hilite=VarSet' target='_blank'>Fast Refreshed KAGI Swing Charts (Price Swing)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=VarSet' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=VarSet' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1496&hilite=VarSet' target='_blank'>Harmonic Pattern Detection</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=VarSet' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1296&hilite=VarSet' target='_blank'>Herman</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1217&hilite=VarSet' target='_blank'>interactively test discretionary trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1135&hilite=VarSet' target='_blank'>Intraday Average Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1406&hilite=VarSet' target='_blank'>Intraday Volume EMA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=VarSet' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1180&hilite=VarSet' target='_blank'>Manual Bracket Order Trader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1429&hilite=VarSet' target='_blank'>Non-repaitning Zigzag line</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1450&hilite=VarSet' target='_blank'>Now Send Push Notifications From Amibroker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1547&hilite=VarSet' target='_blank'>Polyfit Lines</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1597&hilite=VarSet' target='_blank'>Profit Table (Color Coded)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=VarSet' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=411&hilite=VarSet' target='_blank'>Ranking Ticker WatchList</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1409&hilite=VarSet' target='_blank'>Rebalancing Backtest avoiding leverage</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1566&hilite=VarSet' target='_blank'>Reconnect TWS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=VarSet' target='_blank'>Stress with SuperSmoother</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1535&hilite=VarSet' target='_blank'>Support and resistance</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=VarSet' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=VarSet' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=457&hilite=VarSet' target='_blank'>TWS auto-export Executions-file parser</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=VarSet' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=VarSet' target='_blank'>Woodie's CCI Panel Full Stats</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=VarSet">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

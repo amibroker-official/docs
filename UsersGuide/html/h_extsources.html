@@ -1,0 +1,118 @@
+<html>
+
+<head>
+<title>How to use AmiBroker with external data source (Quotes Plus, TC2000, Metastock)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>How to use AmiBroker with external data source (Quotes Plus, TC2000/TCNet/TC2005,
+   FastTrack, Metastock)</h2>
+<p>One of the new features introduced in AmiBroker version 3.90 is the ability 
+  to read directly from external databases. This is achieved by means of data plug-in 
+  DLLs that allow linking AmiBroker's database with an external source. Please note 
+  that although you will be using an external database, you will still need an AmiBroker 
+  database for storing additional information that is not supported by the external 
+  source such as hand-drawn studies, assignments to groups, watch lists, composites, 
+  and so on. You can find more information on AmiBroker database handling <a href="h_workspace.html">here</a>.</p>
+<h4>One-time setup</h4>
+<p>To use an external data source with AmiBroker you will need to perform a one-time 
+  setup described below:</p>
+<ul>
+  <li>Run AmiBroker </li>
+  <li>Choose <b>File-&gt;New database</b> </li>
+  <li>Type a new folder name (for example: C:\Program Files\AmiBroker\NewData) 
+    ) and click <b>Create</b> as shown in the picture below:<br>
+    <img src="gifs/h_extdata1.gif"> <br>
+    <br>
+    <br>
+  </li>
+  <li>Choose appropriate entry from Data source combo: 
+    <ul>
+      <li><b><font color="#0000FF">Quotes Plus users</font></b> select &quot;<b>Quotes 
+        Plus plug-in</b>&quot; as a <b>Data Source</b> and &quot;<b>Disable</b>&quot; 
+        for <b>Local data storage</b> </li>
+      <li><b><font color="#0000FF">TC2000/TCNet users</font></b> select &quot;<b>TC2000/TCNet
+           plug-in</b>&quot; as a <b>Data Source</b> and &quot;<b>Enable</b>&quot; 
+        for <b>Local data storage</b></li>
+      <li><b><font color="#0000FF">TC2000 Mutual Funds users</font></b> select &quot;<b>TC2000
+          Mutual Funds plug-in</b>&quot; as a <b>Data Source</b> and &quot;<b>Enable</b>&quot; for <b>Local
+      data storage</b></li>
+      <li><b><font color="#0000FF">TC2005 users</font></b> select &quot;<b>TC2000/TCNet
+          plug-in</b>&quot; as a <b>Data Source</b> and &quot;<b>Enable</b>&quot; for <b>Local
+      data storage<br>
+      <br>
+      </b>Note: TC2005 users may need to <a href="http://www.amibroker.com/tc2005.html" target="_blank">follow
+      these instructions (click here)</a> if the TC2000 plugin
+      does not show up.<b><br>
+      </b></li>
+      <li><b><font color="#0000FF">FastTrack users</font></b> select &quot;<b>FastTrack 
+        plug-in</b>&quot; as a <b>Data Source</b> and &quot;<b>Disable</b>&quot; 
+        for<b> Local data storage<br>
+        </b></li>
+      <li><b><font color="#0000FF">Metastock users</font></b> select &quot;<b>Metastock 
+        plug-in</b>&quot; as a <b>Data Source</b> and &quot;<b>Disable</b>&quot; 
+        for <b>Local data storage</b></li>
+    </ul>
+  </li>
+  <li>Click on <b>Configure</b> button to show the plugin configuration dialog as 
+    shown below<br>
+    <img src="gifs/h_extdata2.gif"> <br>
+    <br>
+    <br>
+  </li>
+  <li><u><b>Metastock plug-in only</b></u> <i>(skip this point in case of TC2000, 
+    Quotes Plus, FastTrack)</i>: <br>
+    Click on the &quot;Add folder&quot; button to add a Metastock database directory 
+    as your data source (browse for Metastock MASTER file and click OK) as shown 
+    below:<br>
+    <br>
+    <img src="gifs/h_extdata4.gif"><br>
+    <br>
+    - you can add unlimited number of Metastock directories effectively overcoming 
+    MS 4096 symbol limitation. <br>
+    <br>
+  </li>
+  <li>Click <b>Retrieve</b> button - this will set up a new database with all symbols 
+    and full names. Quotes Plus and TC2000 plug-ins will also set up your sector/industry 
+    names and assignments, as shown below (in case of Quotes Plus plug-in):<br>
+    <img src="gifs/h_extdata3.gif"> <br>
+  </li>
+</ul>
+<p>From now on, your AmiBroker reads quotes directly from the external data source.
+   No need to import or update quotes anymore. <strong>All new quotes will appear
+  automatically without user intervention</strong>.</p>
+<p>IMPORTANT: If there are <strong>new symbols </strong>added or <strong>old
+    symbols </strong>deleted from the external data source, you will need to go to File-&gt;Database
+    Settings-&gt;Configure and click &quot;RETRIEVE&quot; again to get new symbols.</p>
+<h4>Plug-in performance notes</h4>
+<p>Using AmiBroker native database gives absolutely the best performance (it takes 
+  less than 2 milliseconds to retrieve 1000 data bars).<br>
+  Metastock plug-in is also quite fast, as it can retrieve 1000 bars in about 6-7 
+  milliseconds (including looking up for symbol in 5 different directories). In 
+  fact AmiBroker can access Metastock data faster than Metastock itself :-)<br>
+  Quotes Plus performance depends on various factors - first access can be much 
+  slower (0.1-0.2 sec for 1000 bars) but subsequent accesses are faster (down to 
+  5 milliseconds). FastTrack plug-in is as fast as Quotes Plus plug-in.<br>
+  TC2000 is not as fast, especially if you are using data only on CD. So, it is advised 
+  to copy your database to a hard disk for better performance. But still, 
+  even when using CD-only data, AmiBroker can access 1000 bars from TC2000 in about 
+  0.25 sec (first access) and 0.015 sec (subsequent accesses). Also it is advised 
+  to enable &quot;<b>Local data storage</b>&quot; when using TC2000 plug-in because 
+  it gives tremendous (&gt;10 times) speedup (once you access the TC2000 data, 
+  AmiBroker caches it in its own native database for fast retrieval).</p>
+<p>Times are approximate and do not include one-time plug-in initialization process. 
+  Measurements were done on fairly low-end Celeron 600-based computer with 196KB 
+  RAM and 24x CD-ROM</p>
+<h4>In-memory caching</h4>
+<p>By default AmiBroker holds data for only the 10 most recently accessed symbols. This takes up about 320 KB (yes, kilobytes) of memory for 1000 bars 
+  per symbol. You can enlarge &quot;<b>In-memory cache</b>&quot; (<b>Tools-&gt;Preferences</b> 
+  : &quot;<b>Data</b>&quot; tab) to 100 (approx. 3.2MB additional RAM consumption) 
+  or 1000 (approx. 32MB additional RAM consumption) or even more to get much 
+  better performance for subsequent data access (once data is in RAM, AmiBroker 
+  does not need to ask the plug-in again and again)</p>
+<p></p>
+</body>
+</html>

@@ -1,0 +1,66 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - _TRACEF</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>_TRACEF</b><br>
+        - print formatted text to system debug viewer</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>_TRACEF(''format string'', arg1, .... ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> This function is the same as _TRACE but the very first argument is printf-style formatting string and it allows
+to output formatted numbers like combination of _TRACE and StrFormat.<p>
+
+The function writes debug messages from AFL code to system debug viewer (it calls internally OutputDebugString Win API function) or to internal Log window (Window->Log)<p>
+To view debug messages sent to system debugger you have to run DebugView freeware program 
+from <a href='https://learn.microsoft.com/en-us/sysinternals/downloads/debugview' target='_blank'>https://learn.microsoft.com/en-us/sysinternals/downloads/debugview</a><p>
+To view messages sent to internal log window you need to display log window (Window->Log menu)
+<p>
+Note for internal viewer: you can specify _TRACE(&quot;!CLEAR!&quot;); to clear internal log window </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> _TRACEF(&quot;Close price is = %g&quot;, Close ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="_trace.html">_TRACE()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>_TRACEF</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=_TRACEF">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

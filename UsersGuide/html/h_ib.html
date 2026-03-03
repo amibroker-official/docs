@@ -1,0 +1,425 @@
+<html>
+
+<head>
+<title>How to use AmiBroker with Interactive Brokers TWS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<div align="center">
+  <h2 align="left">How to use AmiBroker with Interactive
+    Brokers TWS</h2>
+  <p align="left"><em>Note: the most recent version of this document can be found
+      at: <a href="http://www.amibroker.com/ib.html">http://www.amibroker.com/ib.html</a>.
+  Please check this page for updates.</em></p>
+  <p align="left"><b>IB PLUGIN FEATURES SUMMARY:</b></p>
+  <div align="left">
+    <ul><li>
+      <p>supports
+                up to 100 streaming symbols in real time (equal to IB TWS limit)</p>
+    </li>
+      <li> 
+        <p>automatic connection
+              (no need to manually &quot;accept incoming connection&quot; in
+            TWS)</p>
+        </li>
+        <li>
+          <p>supports up to <strong>30
+                DAYS intraday data BACKFILL in 1-minute bar interval</strong> </p>
+        </li>
+        <li>
+          <p>up to 2000 bars
+              backfill using 1-second/5-second/15-second bar intervals</p>
+        </li>
+    </ul>
+  </div>
+  <p align="left"><b>INSTRUCTIONS:</b></p>
+  <p align="left"><em>NOTE: Interactive
+        Brokers TWS is a CPU-hungry application; therefore, for best results, we
+        recommend using a machine with a 1GHz processor or faster.<br>
+        <br>
+        NOTE 2: There is a <b>VIDEO tutorial </b>showing how to set it up at <a href="http://www.amibroker.com/video/ib.html" target="_blank">http://www.amibroker.com/video/ib.html</a></em></p>
+  <p align="left"><br>
+    To use Interactive Brokers
+      data plugin with AmiBroker, you need to:  </p>
+  <div align="left"></div>
+  <ol><li> 
+      <p align="left">run <a href="http://www.interactivebrokers.com/cgi-pub/loginControl.pl" target="_blank">web-based
+            TWS or download standalone TWS</a></p>
+    </li>
+    <li> 
+      <p align="left">In TWS, select <strong>Configure
+            -&gt; API -&gt; Enable ActiveX and Socket clients<br>
+        </strong>Also, <b>enter 127.0.0.1 in TWS, Configure-&gt;API-&gt;Trusted
+        IP addresses </b>menu to prevent &quot;Allow incoming connection?&quot; dialog.</p>
+    </li>
+    <li> 
+      <p align="left">Run AmiBroker and
+          create a new database with the Interactive Brokers plugin as a data source,
+          following these steps:</p>
+    </li>
+  </ol>
+  <div align="left"></div>
+  <UL><LI><p align="left">Run AmiBroker  </p>
+    <LI>
+      <p align="left">Choose <B>File-&gt;New
+            database</B>  </p>
+    <LI>
+      <p align="left">Type a new folder
+          name (for example: C:\Program Files\AmiBroker\IB) and click <B>Create</B> as
+          shown in the picture below:<BR>
+&nbsp;<BR>
+      <BR>
+      <img src="gifs/ib1.gif"><BR>
+      </p>
+    <LI>
+      <p align="left">Choose&nbsp;<STRONG>Interactive Brokers®
+            data Plug-in</STRONG> from the Data source combo box and select "<B>Enable</B>" from <B>Local
+            data storage </B>  </p>
+    <LI>
+      <p align="left">Enter 30000 or more
+          into &quot;<strong>Number of bars to load</strong>&quot; field </p>
+    <LI>
+      <p align="left">Now choose a Base
+          time interval. <strong>Supported intervals are: EOD, hourly, 15-minute,
+          5-minute, 1-minute. The Professional Edition of AmiBroker also allows selecting
+          Tick, 5-second, 15-second intervals.</strong><BR>
+        <br>
+      Note that backfill is limited to a bar interval of 1-minute or less (TWS limitation).<br>
+        <BR>
+        If you want to have long daily histories AND intraday charts,
+                      you should consider running TWO instances of AmiBroker.
+                      One for EOD charts and a second
+      for intraday charting. Both instances may use&nbsp;IB as a data source. </p>
+    <LI>
+      <p align="left">Click OK.</p>
+    </LI>
+  </UL>
+  <p align="left">From now on, your AmiBroker
+      reads quotes directly from Interactive Brokers. </p>
+  <p align="left"><br>
+    <br>
+    
+  </p>
+  <hr align="left">
+  <p align="left"><strong><a name="BACKFILL"></a>HOW
+        TO USE BACKFILL FEATURE</strong></p>
+  <p align="left">The backfill feature in
+      plugin 1.3.7 allows downloading 24 units of intraday historical data to fill in
+      gaps that may have occurred when AmiBroker / TWS is not running.</p>
+  <p align="left">The IB Backfill feature
+      is configurable from <strong>File-&gt;Database Settings</strong>, <strong>Configure:</strong></p>
+  <p align="left"><img src="gifs/ib2.gif"></p>
+  <p align="left">Two main backfill-related
+      settings are:</p>
+  <p align="left">1. request length<br>
+  2. automatic backfill</p>
+  <p align="left">When request length
+      is considered, as explained in TWS API Release Notes at: <a href="http://www.interactivebrokers.com/en/software/apiReleaseNotes/apiBetanotes.php">http://www.interactivebrokers.com/en/software/apiReleaseNotes/apiBetanotes.php</a>, currently, the IB backfill feature is limited to some fixed duration / bar interval ranges.
+      For example, you can get a maximum of 2000 1-second ticks, a maximum of 10000 seconds
+      in a 5-second interval (2000 bars), a maximum of 30000 seconds in a 15-second interval
+      (also 2000 bars), and a <strong>maximum of 5 DAYS of 1-minute bars</strong>. </p>
+  <p align="left">By default, AmiBroker
+      uses the maximum allowable amounts. </p>
+  <p align="left">As for &quot;automatic
+      backfill on first data access&quot; - when it is checked, AmiBroker attempts
+      to backfill a symbol when you display a chart for a given symbol (or perform
+      a backtest or scan). Please note that the TWS API currently allows only one backfill
+      at a time, so when there is a backfill already running in the background,
+      an automatic backfill request for the next symbol will be ignored until the
+      previous backfill is complete.</p>
+  <p align="left">It is convenient to
+      have this option turned on; however, it can cause additional load on your
+      internet connection because data needs to be downloaded during the backfill
+      process.</p>
+  <p align="left">If you switch &quot;automatic
+      backfill on first data access&quot; option off, you will still be able
+      to backfill data for the current symbol or all symbols in the real-time quote
+      window list using appropriate menu options from the plugin's status menu.</p>
+  <p align="left"><img src="gifs/ib3.gif"></p>
+  <p align="left"><strong>Backfill Current</strong> option
+      allows forcing a backfill of the currently selected symbol, while <strong>Backfill
+      All RT quote window symbols</strong> allows forcing a backfill of all symbols
+      listed in the Real-Time Quote window. The backfill of multiple symbols is performed
+      sequentially
+      (one at a time) due to limitations of TWS.</p>
+  <p align="left"><b>Backfill length </b>submenu
+      allows selecting the desired backfill length. </p>
+  <p align="left">During backfilling, a
+      tooltip pops up, informing the user about the symbol currently being backfilled,
+      and the plugin status color changes to light blue (turquoise) as shown below:</p>
+  <p align="left"><img src="gifs/ib4.gif"></p>
+  <p align="left"><br>
+    <strong><a name="BACKFILLALL"></a>BACKFILLING ALL SYMBOLS AT ONCE</strong></p>
+  <p align="left">To backfill all symbols at once, do the following:</p>
+  <p align="left">1. Open the <strong>Realtime Quote</strong> window (by selecting
+    <strong>Window-&gt;Realtime Quote</strong> menu)</p>
+  <p align="left">2. Right-click on the <strong>Realtime Quote</strong> window
+    and choose<strong> Add
+    symbol / Add watch list</strong> / <strong>Type-in symbol</strong> to add
+    any symbols you want to backfill.</p>
+  <p align="left"><img src="gifs/w_rtquote.gif" width="663" height="291"></p>
+  <p align="left">3. Right-click on the <strong>plugin status indicator</strong> and
+    select the desired <strong>Backfill length</strong></p>
+  <p align="left"><img src="gifs/ib3.gif"></p>
+  <p align="left">4. Choose <strong>Backfill All RT quote window symbols</strong> option    from
+    the same menu.</p>
+  <p align="left">Since Interactive Brokers severely limits the number of backfills
+    that a customer may request within a given time, it is advised to use a backfill
+    length as short as possible (e.g., 1-day or 5-day) and avoid
+  long ranges like 30 days.</p>
+  <hr align="left">
+  <p align="left"><strong>SYMBOLOGY</strong></p>
+  <p align="left">Symbol format now uses
+      the symbol mode of TWS, not the underlying mode. The symbol mode in TWS
+      can be seen in the '<strong>View-&gt;Symbol Mode</strong>' menu option
+      in TWS.</p>
+  <p align="left">The format is: <em>SYMBOL</em>-<em>EXCHANGE</em>-<em>TYPE</em> </p>
+  <p align="left">where</p>
+  <p align="left"><em>SYMBOL</em> is the
+      same as the symbol column as displayed in TWS when in symbol mode</p>
+  <p align="left"><em>EXCHANGE</em> (optional)
+      is the exchange displayed in TWS when in symbol mode</p>
+  <p align="left"><em>TYPE</em> (optional)
+      is one of the following: </p>
+  <p align="left">STK - stocks, FUT -
+      futures, FOP - options on futures, OPT - options, IND - indexes, CASH - Cash
+      (Ideal FX)<br>
+  Note that for stocks, only the <em>EXCHANGE</em> and <em>TYPE</em> fields are
+  optional. The exchange will be set to BEST (SMART) and the TYPE will be set
+  to STK.</p>
+  <p align="left">Please take special
+      care when typing symbols, as some of them (futures) have MULTIPLE SPACES
+      in the symbol name. You have to type EXACTLY THE SAME number of spaces
+      as provided in the examples below<br>
+  (see the dashes below the symbol name that make it easier to see the number of
+  characters)</p>
+  <p align="left">Examples:</p>
+  <div align="left">
+    <table width="100%" border="1" cellspacing="2" cellpadding="2">
+      <tr>
+        <td width="36%">IB
+            SYMBOL </td>
+        <td width="12%">Type</td>
+        <td width="52%">Description</td>
+      </tr>
+      <tr>
+        <td><pre>CSCO</pre>
+        </td>
+        <td>Stock</td>
+        <td> Cisco Corporation,
+            Nasdaq</td>
+      </tr>
+      <tr>
+        <td><pre>GE</pre>
+        </td>
+        <td>Stock</td>
+        <td>General Electric,
+            NYSE</td>
+      </tr>
+      <tr>
+        <td><pre>VOD-LSE</pre>
+        </td>
+        <td>Stock</td>
+        <td>VODAFONE GROUP,
+            London Stock Exchange</td>
+      </tr>
+      <tr>
+        <td><pre>ESM4-GLOBEX-FUT</pre>
+        </td>
+        <td><p>Future</p>
+        </td>
+        <td>Emini ES Jun04
+            futures, Globex</td>
+      </tr>
+      <tr>
+        <td><pre>QQQFJ-CBOE-OPT</pre>
+        </td>
+        <td>Option</td>
+        <td>Jun 04, 36.0 CALL
+            option QQQFJ</td>
+      </tr>
+      <tr>
+        <td><pre>INDU-NYSE-IND</pre>
+        </td>
+        <td>Index</td>
+        <td>Dow Jones Industrials
+            Index</td>
+      </tr>
+      <tr>
+        <td><pre>YM   JUN 04-ECBOT-FUT
+  ---   -  </pre>
+        </td>
+        <td>Future</td>
+        <td>YM Jun 04 future,
+            ECBOT<br>
+        (Note 3 spaces between symbol and month and one space between month and year)</td>
+      </tr>
+      <tr>
+        <td><pre>QMN5-NYMEX-FUT</pre>
+        </td>
+        <td>Future</td>
+        <td>QM (Crude) June
+            2005 future contract, NYMEX</td>
+      </tr>
+      <tr bordercolor="#CCCC00">
+        <td><pre>XAUUSD-SMART-CMDTY</pre></td>
+        <td><font size="-1">Commodity</font></td>
+        <td><font size="-1">London Gold Spot</font></td>
+      </tr>
+      <tr bordercolor="#CCCC00">
+        <td><pre>IBUS500-SMART-CFD-USD
+         </pre></td>
+        <td><font size="-1">CFD (contract
+            for difference)</font></td>
+        <td><font size="-1">IB US500 contract
+            for difference</font></td>
+      </tr>
+      <tr>
+        <td><pre>EUR.USD-IDEAL-CASH
+EUR.USD-IDEALPRO-CASH</pre>
+        </td>
+        <td>Cash Forex</td>
+        <td>EURUSD currency
+            pair, IDEAL<br>
+        EURUSD currency pair, IDEALPRO</td>
+      </tr>
+    </table>
+  </div>
+  <p align="left">Again:</p>
+  <p align="left">ECBOT futures symbols
+      have a length of 21 characters, with 3 spaces between the contract symbol and
+      month name, and one space between the month and 2-digit year</p>
+  <div align="left">
+    <table width="100%" border="1" cellspacing="2" cellpadding="2">
+      <tr>
+        <td colspan="2">Contract</td>
+        <td colspan="3">3 spaces </td>
+        <td colspan="3">Month</td>
+        <td width="5%">spa<br>
+        ce</td>
+        <td colspan="2">Year</td>
+        <td width="5%">-</td>
+        <td width="5%">E</td>
+        <td width="5%">C</td>
+        <td width="5%">B</td>
+        <td width="5%">O</td>
+        <td width="5%">T</td>
+        <td width="5%">-</td>
+        <td width="5%">F</td>
+        <td width="5%">U</td>
+        <td width="5%">T</td>
+      </tr>
+      <tr>
+        <td width="5%">Z</td>
+        <td width="5%">B</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">J</td>
+        <td width="5%">U</td>
+        <td width="5%">N</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">0</td>
+        <td width="5%">4</td>
+        <td width="5%">-</td>
+        <td width="5%">E</td>
+        <td width="5%">C</td>
+        <td width="5%">B</td>
+        <td width="5%">O</td>
+        <td width="5%">T</td>
+        <td width="5%">-</td>
+        <td width="5%">F</td>
+        <td width="5%">U</td>
+        <td width="5%">T</td>
+      </tr>
+      <tr>
+        <td width="5%">Z</td>
+        <td width="5%">F</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">J</td>
+        <td width="5%">U</td>
+        <td width="5%">N</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">0</td>
+        <td width="5%">4</td>
+        <td width="5%">-</td>
+        <td width="5%">E</td>
+        <td width="5%">C</td>
+        <td width="5%">B</td>
+        <td width="5%">O</td>
+        <td width="5%">T</td>
+        <td width="5%">-</td>
+        <td width="5%">F</td>
+        <td width="5%">U</td>
+        <td width="5%">T</td>
+      </tr>
+      <tr>
+        <td width="5%">Z</td>
+        <td width="5%">N</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">J</td>
+        <td width="5%">U</td>
+        <td width="5%">N</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">0</td>
+        <td width="5%">4</td>
+        <td width="5%">-</td>
+        <td width="5%">E</td>
+        <td width="5%">C</td>
+        <td width="5%">B</td>
+        <td width="5%">O</td>
+        <td width="5%">T</td>
+        <td width="5%">-</td>
+        <td width="5%">F</td>
+        <td width="5%">U</td>
+        <td width="5%">T</td>
+      </tr>
+      <tr>
+        <td width="5%">Y</td>
+        <td width="5%">M</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">J</td>
+        <td width="5%">U</td>
+        <td width="5%">N</td>
+        <td width="5%">&nbsp;</td>
+        <td width="5%">0</td>
+        <td width="5%">4</td>
+        <td width="5%">-</td>
+        <td width="5%">E</td>
+        <td width="5%">C</td>
+        <td width="5%">B</td>
+        <td width="5%">O</td>
+        <td width="5%">T</td>
+        <td width="5%">-</td>
+        <td width="5%">F</td>
+        <td width="5%">U</td>
+        <td width="5%">T</td>
+      </tr>
+    </table>
+  </div>
+  <p align="left"><strong>NOTES ON IB
+        API LIMITATIONS:</strong></p>
+  <p align="left">1. Backfill
+        is available for real IB accounts only (not for demo accounts)</p>
+  <p align="left">2. <strong>Open</strong> price
+      is NOT provided by IB. For that reason, the Open field is empty in the real-time
+      quote window</p>
+  <p align="left">3. The data from IB
+      does not include a timestamp on the trades. The current system time is
+      used to timestamp each tick. </p>
+  <p align="left">4.<b> IB TWS streaming
+        data is NOT tick-by-tick, but rather 0.2-0.3-second snapshots. Read this for details: <a href="http://www.interactivebrokers.com/cgi-bin/discus/board-auth.pl?file=/2/37364.html">http://www.amibroker.com/cgi-bin/discus/board-auth.pl?file=/2/37364.html</a></b></p>
+  <p align="left">&nbsp;</p>
+</div>
+<p>&nbsp;</p>
+</body>
+</html>

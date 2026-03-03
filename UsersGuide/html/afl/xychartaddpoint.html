@@ -1,0 +1,166 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - XYCHARTADDPOINT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>XYChartAddPoint</b><br>
+        - add point to exploration scatter (XY) chart</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 5.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>XYChartAddPoint( ''chartname'', ''text'', x, y, color, linecolor = colorDefault ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function adds a data point with specified x,y co-ordinates, text description and point color
+to the exploration (XY) scatter chart defined by ''chartname'' parameter.<p>
+If chart with given name does not exists already it creates a scatter chart tab in the New Analysis Exploration output window.
+<p>
+Returns 1 (true) on success (when point was added), or 0 (false) on failure - for example when x or y arguments were Null
+<p>
+More on XY charts in explorations can be read in the <a href='../h_exploration.html'>Tutorial: How to create your own exploration</a>
+
+
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// XY chart coding example </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// This formula generates 2 X-Y scatter charts that
+display relationship between </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// final trade profit and MFE and MAE </FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>()); <BR>
+</FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#0000ff>Cross</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Signal</FONT><FONT COLOR=#000000>(), </FONT><FONT COLOR=#0000ff>MACD</FONT><FONT COLOR=#000000>()
+); <BR>
+</FONT><FONT COLOR=#000000><B>Short</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#000000><B>False</B></FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#000000><B>Cover</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#000000><B>False</B></FONT><FONT COLOR=#000000>; <BR>
+<BR>
+Eq = </FONT><FONT COLOR=#0000ff>Equity</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); </FONT><FONT COLOR=#008000>//
+single-security equity  this evaluates stops (if you use them) and
+removes extra signals </FONT><FONT COLOR=#000000> <BR>
+<BR>
+Entry = </FONT><FONT COLOR=#000000><B>Buy</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>OR</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>Short</B></FONT><FONT COLOR=#000000>; <BR>
+EqAtEntry = </FONT><FONT COLOR=#0000ff>ValueWhen</FONT><FONT COLOR=#000000>(
+Entry, Eq ); <BR>
+Profit = </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> * ( Eq - EqAtEntry
+) / EqAtEntry; </FONT><FONT COLOR=#008000>// percent profit </FONT><FONT COLOR=#000000> <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// MAE and MFE below use CLOSING equity, MAE and MFE
+in the report use high/low price </FONT><FONT COLOR=#000000> <BR>
+MAE = </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> * ( </FONT><FONT COLOR=#0000ff>LowestSince</FONT><FONT COLOR=#000000>(
+Entry, Eq ) - EqAtEntry ) / EqAtEntry; </FONT><FONT COLOR=#008000>// percent
+MAE </FONT><FONT COLOR=#000000> <BR>
+MFE = </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> * ( </FONT><FONT COLOR=#0000ff>HighestSince</FONT><FONT COLOR=#000000>(
+Entry, Eq ) - EqAtEntry ) / EqAtEntry; </FONT><FONT COLOR=#008000>// percent
+MAE </FONT><FONT COLOR=#000000> <BR>
+<BR>
+bi = </FONT><FONT COLOR=#0000ff>BarIndex</FONT><FONT COLOR=#000000>(); <BR>
+<BR>
+Len = bi - </FONT><FONT COLOR=#0000ff>ValueWhen</FONT><FONT COLOR=#000000>( Entry,
+bi ); <BR>
+<BR>
+EntryPrice = </FONT><FONT COLOR=#0000ff>ValueWhen</FONT><FONT COLOR=#000000>(
+Entry, </FONT><FONT COLOR=#000000><B>BuyPrice</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#008000>// if you prefer MAE/MFE using high/low price </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// uncomment the lines below (long only Version) </FONT><FONT COLOR=#000000> <BR>
+MAE = </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> * ( </FONT><FONT COLOR=#0000ff>LowestSince</FONT><FONT COLOR=#000000>(
+Entry, </FONT><FONT COLOR=#000000><B>Low</B></FONT><FONT COLOR=#000000> ) - EntryPrice
+) / EntryPrice ; </FONT><FONT COLOR=#008000>// percent MAE using low </FONT><FONT COLOR=#000000> <BR>
+MFE = </FONT><FONT COLOR=#800080>100</FONT><FONT COLOR=#000000> * ( </FONT><FONT COLOR=#0000ff>HighestSince</FONT><FONT COLOR=#000000>(
+Entry, </FONT><FONT COLOR=#000000><B>High</B></FONT><FONT COLOR=#000000> ) -
+EntryPrice ) / EntryPrice ; </FONT><FONT COLOR=#008000>// percent MAE using high </FONT><FONT COLOR=#000000> <BR>
+<BR>
+Exit = </FONT><FONT COLOR=#000000><B>Sell</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>OR</B></FONT><FONT COLOR=#000000> </FONT><FONT COLOR=#000000><B>Cover</B></FONT><FONT COLOR=#000000>; <BR>
+dt = </FONT><FONT COLOR=#0000ff>DateTime</FONT><FONT COLOR=#000000>(); <BR>
+Clr = </FONT><FONT COLOR=#0000ff>ColorHSB</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Status</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;stocknum&quot;</FONT><FONT COLOR=#000000>), </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>255</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( bar = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+bar < </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>;
+bar++ ) <BR>
+{ <BR>
+    </FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>(
+Exit[ bar ] ) <BR>
+    
+{ <BR>
+       
+</FONT><FONT COLOR=#008000>// item text consists of two parts </FONT><FONT COLOR=#000000> <BR>
+       
+</FONT><FONT COLOR=#008000>// first part (before t) is a item name displayed
+immediatelly on XY chart </FONT><FONT COLOR=#000000> <BR>
+       
+</FONT><FONT COLOR=#008000>// second part (after t) is a tooltip hint text that
+is displayed in the tooltip </FONT><FONT COLOR=#000000> <BR>
+       
+</FONT><FONT COLOR=#008000>// when you hover on given item </FONT><FONT COLOR=#000000> <BR>
+       
+</FONT><FONT COLOR=#008000>// here we will only use hint text </FONT><FONT COLOR=#000000> <BR>
+        
+HintText = </FONT><FONT COLOR=#800080>&quot;t&quot;</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>Name</FONT><FONT COLOR=#000000>()+</FONT><FONT COLOR=#800080>&quot;@&quot;</FONT><FONT COLOR=#000000>+ </FONT><FONT COLOR=#0000ff>DateTimeToStr</FONT><FONT COLOR=#000000>(
+dt[ bar ] ); <BR>
+<BR>
+        </FONT><FONT COLOR=#0000ff>XYChartAddPoint</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;Profit
+vs MAE&quot;</FONT><FONT COLOR=#000000>, HintText, MAE[ bar ], Profit[ bar ],Clr ); <BR>
+        </FONT><FONT COLOR=#0000ff>XYChartAddPoint</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;Profit
+vs MFE&quot;</FONT><FONT COLOR=#000000>, HintText, MFE[ bar ], Profit[ bar ], Clr
+); <BR>
+        </FONT><FONT COLOR=#0000ff>XYChartAddPoint</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;Profit
+vs trade length&quot;</FONT><FONT COLOR=#000000>, HintText, Len[ bar ], Profit[ bar
+], Clr ); <BR>
+     
+} <BR>
+} <BR>
+<BR>
+</FONT><FONT COLOR=#0000ff>XYChartSetAxis</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;Profit
+vs MAE&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;[MAE]&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;[Profit]&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>XYChartSetAxis</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;Profit
+vs MFE&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;[MFE]&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;[Profit]&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>XYChartSetAxis</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#800080>&quot;Profit
+vs trade length&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;[Length]&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;[Profit]&quot;</FONT><FONT COLOR=#000000>  ); <BR>
+<BR>
+<BR>
+</FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000> = Exit; <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( Eq, </FONT><FONT COLOR=#800080>&quot;Equity&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( Profit, </FONT><FONT COLOR=#800080>&quot;Profit&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( MAE, </FONT><FONT COLOR=#800080>&quot;MAE&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( MFE, </FONT><FONT COLOR=#800080>&quot;MFE&quot;</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( Len, </FONT><FONT COLOR=#800080>&quot;trade
+length&quot;</FONT><FONT COLOR=#000000> );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="xychartsetaxis.html">XYChartSetAxis()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>XYChartAddPoint</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=XYChartAddPoint">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

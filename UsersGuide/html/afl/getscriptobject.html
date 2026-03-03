@@ -1,0 +1,67 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETSCRIPTOBJECT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetScriptObject</b><br>
+        - get access to script COM object</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 3.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>getscriptobject( ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> OBJECT </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Retrieves AFL host's script object. This allows to call functions 
+      defined in JScript/VBScript directly from AFL. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> EnableScript("jscript")<br>
+        <%<br>
+      function MyAdd(x, y)<br>
+        {<br>
+        return x+y;<br>
+        }<br>
+        %> <br>
+      script = GetScriptObject();<br>
+        WriteVal( script.MyAdd( 7, 9 ) ); // call the function defined in JScript </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetScriptObject</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=209&hilite=GetScriptObject' target='_blank'>accum/dist mov avg crossover SAR</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=GetScriptObject' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=GetScriptObject' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=GetScriptObject' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1450&hilite=GetScriptObject' target='_blank'>Now Send Push Notifications From Amibroker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=731&hilite=GetScriptObject' target='_blank'>nth ( 1 - 8 ) Order Polynomial Fit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=165&hilite=GetScriptObject' target='_blank'>Polarized Fractal Efficiency</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=164&hilite=GetScriptObject' target='_blank'>Standard Error Bands</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=757&hilite=GetScriptObject' target='_blank'>tomy_frenchy</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=775&hilite=GetScriptObject' target='_blank'>Trigonometric Fit - TrigFit with AR for cos / sin</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetScriptObject">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

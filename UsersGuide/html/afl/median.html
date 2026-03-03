@@ -1,0 +1,63 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - MEDIAN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Median</b><br>
+        - calculate median (middle element)</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Statistical functions<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Median( <i>array, period</i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The Median function - finds median (middle element) value of the <i>array</i> over <i>period</i> elements.
+Note that LOWER median is returned when 'period' is an even number. If you want to get average of upper and lower median for even 'periods' you need to use Percentile( array, period, 50 ) instead. It will do the averaging for you but runs slower. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>// list only symbols which
+volume is greater than </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#008000>// median Volume from past 50 days</FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#000000><B>Filter</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000> > </FONT><FONT COLOR=#0000ff>Median</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Volume</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>AddColumn</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>V</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Volume"</FONT><FONT COLOR=#000000> );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="percentile.html">Percentile()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Median</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=772&hilite=Median' target='_blank'>Adaptive Laguerre Filter, from John Ehlers</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=764&hilite=Median' target='_blank'>AR_Prediction.afl</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=887&hilite=Median' target='_blank'>Bad Tick Trim on 5 sec database</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1389&hilite=Median' target='_blank'>Cycle Period</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=594&hilite=Median' target='_blank'>Elder's Market Thermometer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1518&hilite=Median' target='_blank'>Market Meanness Index</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=593&hilite=Median' target='_blank'>Noor_Doodie</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=775&hilite=Median' target='_blank'>Trigonometric Fit - TrigFit with AR for cos / sin</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=472&hilite=Median' target='_blank'>Zig Zag</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Median">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

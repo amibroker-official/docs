@@ -1,0 +1,81 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GFXPIE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GfxPie</b><br>
+        - draw a pie</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Low-level graphics<br>
+        </b>(AmiBroker 50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GfxPie( x1, y1, x2, y2, x3, y3, x4, y4 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Draws a pie-shaped wedge by drawing an elliptical arc whose center and two endpoints are joined by lines. The center of the arc is the center of the bounding rectangle specified by x1, y1, x2, and y2. The starting and ending points of the arc are specified by x3, y3, x4, and y4.
+<p>
+The arc is drawn with the selected pen, moving in a counterclockwise direction. Two additional lines are drawn from each endpoint to the arc's center. The pie-shaped area is filled with the current brush. If x3 equals x4 and y3 equals y4, the result is an ellipse with a single line from the center of the ellipse to the point (x3, y3) or (x4, y4). 
+<p>
+Parameters
+<ul>
+<li>x1 - x-coordinate of the upper left corner of the bounding rectangle
+<li>y1 - y-coordinate of the upper left corner of the bounding rectangle
+<li>x2 - x-coordinate of the lower right corner of the bounding rectangle
+<li>y2 - y-coordinate of the lower right corner of the bounding rectangle
+<li>x3 - x-coordinate of the arc's starting point. This point does not have to lie exactly on the arc.
+<li>y3 - y-coordinate of the arc's starting point. This point does not have to lie exactly on the arc.
+<li>x4 - x-coordinate of the arc's ending point. This point does not have to lie exactly on the arc.
+<li>y4 - y-coordinate of the arc's ending point. This point does not have to lie exactly on the arc.
+</ul>
+
+<p>
+NOTE: This is LOW-LEVEL graphic function. To learn more about low-level
+graphic functions please read <a href='../h_lowlevelgfx.html'>TUTORIAL: Using low-level graphics.</a>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>GfxSelectPen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#0000ff>GfxSelectSolidBrush</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>colorBlue</B></FONT><FONT COLOR=#000000> ); <BR>
+</FONT><FONT COLOR=#000000>
+</FONT><FONT COLOR=#0000ff>GfxPie</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>100</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>150</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>200</FONT><FONT COLOR=#000000>,</FONT><FONT COLOR=#ff00ff>50</FONT><FONT COLOR=#000000>); <BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="gfxselectpen.html">GfxSelectPen()</A> function , <A HREF="gfxselectsolidbrush.html">GfxSelectSolidBrush()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GfxPie</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GfxPie">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

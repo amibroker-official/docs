@@ -1,0 +1,65 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ADDTEXTCOLUMN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>AddTextColumn</b><br>
+        - add text exploration column</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 3.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>AddTextColumn( string, name, format = 1.2, textColor = colorDefault, bkgndColor = colorDefault, width = -1  ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Adds a new text column to the exploration result list. The 
+ column shows <i>text </i>and has a caption of <i>name. </i>
+<br>
+Next two parameters allow to modify text and background color.<br>
+Width parameter allows to control pixel width of the column </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> addtextcolumn( GroupID( 1 ), "The name of the group"); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="addcolumn.html">ADDCOLUMN()</A> function </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br><br>2005-08-10 06:35:35</td><td valign="top">Please note that AddTextColumn takes single string as a parameter, so you can only display text that does NOT vary on bar-by-bar basis.</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>AddTextColumn</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1483&hilite=AddTextColumn' target='_blank'>Advanced Search and Find </A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=545&hilite=AddTextColumn' target='_blank'>AFL Example</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=547&hilite=AddTextColumn' target='_blank'>AFL Example - Enhanced</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=270&hilite=AddTextColumn' target='_blank'>Alert Output As Quick Rewiev</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=AddTextColumn' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1065&hilite=AddTextColumn' target='_blank'>Average Dollar Price Volatility Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1568&hilite=AddTextColumn' target='_blank'>Backup Data of 1min Interval</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1066&hilite=AddTextColumn' target='_blank'>Bottom Fisher Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1560&hilite=AddTextColumn' target='_blank'>Darvas Amibroker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=531&hilite=AddTextColumn' target='_blank'>Dave Landry PullBack Scan</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=585&hilite=AddTextColumn' target='_blank'>Elder Impulse Indicator V2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=922&hilite=AddTextColumn' target='_blank'>Elder Triple Screen Trading System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1421&hilite=AddTextColumn' target='_blank'>IBD relative strength database ranker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1431&hilite=AddTextColumn' target='_blank'>ICHIMOKU SIGNAL TRADER</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1328&hilite=AddTextColumn' target='_blank'>Intraday Fibonacii Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1305&hilite=AddTextColumn' target='_blank'>Intraday Trend Break System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=929&hilite=AddTextColumn' target='_blank'>Market Facilitation Index  VS Volume</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1101&hilite=AddTextColumn' target='_blank'>MS Darvas Box with Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1564&hilite=AddTextColumn' target='_blank'>New HL Scanner</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1096&hilite=AddTextColumn' target='_blank'>NRx Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=323&hilite=AddTextColumn' target='_blank'>Relative Strength</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1106&hilite=AddTextColumn' target='_blank'>Scan New High and New Low</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1456&hilite=AddTextColumn' target='_blank'>Stress with SuperSmoother</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=724&hilite=AddTextColumn' target='_blank'>Trend exploration with multiple timeframes</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1260&hilite=AddTextColumn' target='_blank'>Trend Exploration: Count Number of New Highs</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1276&hilite=AddTextColumn' target='_blank'>Trend Exploration: Slope Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=696&hilite=AddTextColumn' target='_blank'>Triangular Moving Average new</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1104&hilite=AddTextColumn' target='_blank'>William's Alligator System II</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=710&hilite=AddTextColumn' target='_blank'>WLBuildProcess</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=AddTextColumn">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

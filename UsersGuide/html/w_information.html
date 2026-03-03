@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>Information window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>Information window </h3>
+<p><img src="gifs/fund_info.gif"></p>
+<p>This window allows you to display and edit the symbol's preferences. </p>
+<ul>
+  <li><B>Symbol </B><br>
+    The short name, used in &#145;Select&#146; window and with quotation import 
+    functions. If you use them, please check if the ticker given in this field is 
+    the same as that used in your quotation data source. </li>
+  <li><B>Alias</B><br>
+    The alternative ticker name. It will be useful if you, e.g., get real-time quotes and backfill from two separate data sources that use different ticker names.</li>
+
+  <li><B>Full name </B><br>
+    Official name of the firm. </li>
+  <li><B>Code </B><br>
+    Symbol code number. </li>
+  <li><B>Web ID</B><br>
+    Symbol Web ID - can be used when you define <a href="w_profile.html">Profile view</a></li>
+  <li><B>Address </B><br>
+    Corporation's address. </li>
+  <li><B>Issue </B><br>
+    Total number of shares. </li>
+  <li><B>Nominal value</B>. </li>
+  <li><B>Book value</B>. </li>
+    <li><B>Currency</B>. </li><BR><BR>
+
+
+  <li><B>Market</B> <br>
+    Indicates which market the symbol belongs to. </li>
+  <li><B>Industry</B> <br>
+    Indicates which industry the symbol belongs to. </li>
+  <li><B>Group</B> <br>
+    Indicates which group the symbol belongs to. </li><BR><BR>
+
+
+	
+  <li><i><B>Round lot size</B></i><br>
+    Various instruments are traded with various &quot;trading units&quot; or &quot;blocks&quot;. 
+    For example, you can purchase a fractional number of units of a mutual fund, but 
+    you cannot purchase fractional numbers of shares. Sometimes you have to buy 
+    in lots of 10s or 100s. AmiBroker now allows you to specify the block size at 
+    a global and per-symbol level. <br>
+    You can define per-symbol round lot size in the Symbol-&gt;Information page. 
+    The value of zero means that the symbol has no special round lot size and 
+    will use &quot;Default round lot size&quot; (global setting) from the Automatic 
+    Analysis settings page. If the default size is also set to zero, it means that 
+    fractional numbers of shares/contracts are allowed.<br>
+
+  </li>
+  <li><B>Tick size</B><br>
+    This setting controls the minimum price move for a given symbol. You can define 
+    it at a global and per-symbol level. As with round lot size, you can define 
+    per-symbol tick size in the Symbol-&gt;Information page (pic. 3). The value 
+    of zero instructs AmiBroker to use &quot;default tick size&quot; defined in 
+    the Settings page (pic. 1) of Automatic Analysis window. If the default tick size 
+    is also set to zero, it means that there is no minimum price move.<br>
+    Note that the tick size setting affects ONLY trades exited by built-in stops 
+    and/or ApplyStop(). The backtester assumes that price data follow tick size 
+    requirements and it does not change the price arrays supplied by the user.<br>
+    So, specifying tick size makes sense only if you are using built-in stops, so exit points are generated at &quot;allowed&quot; price levels instead of calculated 
+    ones. For example, in Japan, you cannot have fractional parts of a yen, so you 
+    should define the global tick size to 1, which means built-in stops exit trades 
+    at integer levels.</li>
+  <li><B>Margin deposit</B> - explained in <a href="h_futbacktest.html">Backtesting systems 
+    for futures contracts</a></li>
+  <li><B>Point value</B> - explained in <a href="h_futbacktest.html">Backtesting systems 
+    for futures contracts</a></li><BR><BR>
+
+  <li><B>Continuous quotations </B><br>
+    Enables continuous trading for this symbol (this enables manual entry open/high/low/volume controls and candlestick charts), otherwise, the symbol is traded with price fixing. </li>
+  <li><B>Index </B><br>
+	Specifies if the symbol belongs to <I>Indexes</I> category.
+  <li><B>Favourites </B><br>
+	Specifies if the symbol belongs to <I>Favourites</I> category.
+  <li><B>Use only local database for this symbol</B><br>
+	Indicates that the symbol is not updated via the plugin in real-time database. This field is checked by default if the symbol is added into the real-time database as a result of an import from an ASCII file (including AmiQuote downloads). This setting allows you to keep additional symbols in the database and prevent the plugin from overwriting the imported data.
+  </ul>
+<p>For an explanation of fundamental data fields, please read &quot;<a href="h_fundamental.html">Tutorial:
+  Using fundamental data</a>&quot; chapter of this guide.</p>
+</body>
+</html>

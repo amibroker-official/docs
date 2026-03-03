@@ -1,0 +1,83 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - AMA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>AMA</b><br>
+        - adaptive moving average</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Moving averages, summation<br>
+        </b>(AmiBroker 3.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong></b>    <b>ama</b>( ARRAY, SMOOTHINGFACTOR )         <b> </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> </b>    ARRAY         <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> </b>
+    calculates adaptive moving average - simliar to EMA() but 
+      smoothing factor could be time-variant (array).
+  
+   
+    <b> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> </b>
+     
+      The example of volatility-weighted adaptive moving average formula:
+      graph0 = ema( close, 15 );<br>
+        fast = 2/(2+1);<br>
+        slow = 2/(30+1);<br>
+        dir=abs(close-ref(close,-10));<br>
+        vol=sum(abs(close-ref(close,-1)),10);<br>
+        ER=dir/vol;<br>
+        sc =( ER*(fast-slow)+slow)^2;
+      graph0 = <b>ama</b>( close, sc ); </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Tomasz Janeczko</b><br><br>2006-04-26 20:13:15</td><td valign="top">output = AMA( input, factor )<br />
+<br />
+is equivalent to the following looping code:<br />
+<br />
+for( i = 1; i &lt; BarCount; i++ )<br />
+{<br />
+   output[ i ] = factor[ i ] * input[ i ] + ( 1 - factor[ i ] ) * output[ i - 1 ];<br />
+}</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>AMA</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=320&hilite=AMA' target='_blank'>Application of Ehler filter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=304&hilite=AMA' target='_blank'>Auto-Optimization Framework</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1405&hilite=AMA' target='_blank'>Automatic Linear Trend Channel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1351&hilite=AMA' target='_blank'>Automatic Linear Trend Channel 2</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1324&hilite=AMA' target='_blank'>automatic trendlines using fractal patterns</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1502&hilite=AMA' target='_blank'>BBAreacolor&TGLCROSSNEW</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1205&hilite=AMA' target='_blank'>Better Bollinger Bands</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=805&hilite=AMA' target='_blank'>Bman's HaDiffCO</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1337&hilite=AMA' target='_blank'>candlestick chart for Volume/RSI/OBV</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1012&hilite=AMA' target='_blank'>CCI 14 DrBobStyle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1000&hilite=AMA' target='_blank'>CCI 50 DrBob Style</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=826&hilite=AMA' target='_blank'>com-out</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=AMA' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1415&hilite=AMA' target='_blank'>Heikin Ashi Candles</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1121&hilite=AMA' target='_blank'>Heikin-Ashi(Koma-Ashi) with Moving Average</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=865&hilite=AMA' target='_blank'>Heinkin-Ashi</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=66&hilite=AMA' target='_blank'>Hilbert Study</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=375&hilite=AMA' target='_blank'>IFT of RSI - Multiple TimeFrames</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=714&hilite=AMA' target='_blank'>INTRADAY HEIKIN ASHI  new</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1406&hilite=AMA' target='_blank'>Intraday Volume EMA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1592&hilite=AMA' target='_blank'>Linear Candle</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=440&hilite=AMA' target='_blank'>Pivots for Intraday Forex Charts</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1235&hilite=AMA' target='_blank'>shailu lunia</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1170&hilite=AMA' target='_blank'>Vikram's Floor Pivot Intraday System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=AMA' target='_blank'>Woodie's CCI Panel Full Stats</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1024&hilite=AMA' target='_blank'>Woodie's Heikin-Ashi Panel</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1443&hilite=AMA' target='_blank'>ZLEMA ATR Long Only Trading System</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=AMA">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

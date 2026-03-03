@@ -1,0 +1,69 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - PARAMTRIGGER</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>ParamTrigger</b><br>
+        - creates a trigger (button) in the parameter dialog</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>Exploration / Indicators<br>
+        </b>(AmiBroker 4.70)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>ParamTrigger( ''Name'', ''Button text'') </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Creates trigger (button) in the Parameter dialog.
+<p>
+If you place ParamTrigger in the indicator code it will create a &quot;button&quot; in Parameter dialog that can be pressed.
+Normally ParamTrigger will return zero (0) but when button in the param window is pressed then it will refresh the chart and ParamTrigger will return 1 (one) for this single execution (further refreshes will return zero, until the button is pressed again)
+<p>IMPORTANT: Parameter names and values must NOT contain non-printable characters (ASCII codes < 32). </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000>trigger = </FONT><FONT COLOR=#0000ff>ParamTrigger</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;Place
+Order&quot;</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#800080>&quot;Click here to
+place order&quot;</FONT><FONT COLOR=#000000>); <BR>
+<BR>
+</FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( trigger ) <BR>
+{ <BR>
+</FONT><FONT COLOR=#008000>// your one-shot code here</FONT><FONT COLOR=#000000> <BR>
+} </FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>ParamTrigger</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1583&hilite=ParamTrigger' target='_blank'>Add Nifty 50 IB Equity Symbol Automatically</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=431&hilite=ParamTrigger' target='_blank'>AFL Timing functions</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=ParamTrigger' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=ParamTrigger' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=ParamTrigger' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=ParamTrigger' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=ParamTrigger' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=ParamTrigger' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1215&hilite=ParamTrigger' target='_blank'>Chart Zoom</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=ParamTrigger' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1484&hilite=ParamTrigger' target='_blank'>Create a list of functions in your program</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=ParamTrigger' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1498&hilite=ParamTrigger' target='_blank'>Extract specific lines of code from your program</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=ParamTrigger' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=ParamTrigger' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1570&hilite=ParamTrigger' target='_blank'>How to add IB Option Symbols</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1217&hilite=ParamTrigger' target='_blank'>interactively test discretionary trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=ParamTrigger' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1180&hilite=ParamTrigger' target='_blank'>Manual Bracket Order Trader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1566&hilite=ParamTrigger' target='_blank'>Reconnect TWS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1523&hilite=ParamTrigger' target='_blank'>Send Alerts from Amibroker to Telgram</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=ParamTrigger' target='_blank'>TAPE READING</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=ParamTrigger">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

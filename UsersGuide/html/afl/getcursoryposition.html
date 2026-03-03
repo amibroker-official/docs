@@ -1,0 +1,74 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - GETCURSORYPOSITION</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>GetCursorYPosition</b><br>
+        - get current Y position of mouse pointer</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Indicators<br>
+        </b>(AmiBroker 4.80)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>GetCursorYPosition() </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Retrieves current mouse pointer Y co-ordinate (i.e. value in dollars or other Y-axis unit).
+The functions now (v5.10 and up) by default return NULL (empty value) if mouse is OUTSIDE the current window
+<p>Parameters:
+<ul>
+<li>mode = -1 - (old compatibility mode) - x - value gives X-coordinate in DateTime format. y - value gives PRICE. Values are reported no matter where is the mouse (i.e. may refer to window different than current if mouse is outside current window).
+<li>mode = 0 - (default) x - value gives X-coordinate in DateTime format. y - value gives PRICE. Returns NULL if mouse is outside current window
+<li>mode = 1 - x, y - are mouse coordinates expressed in screen PIXELS. Returns NULL if mouse is outside current window
+</ul>
+<p>
+Values returned are equal to those visible in the status bar, and these functions require status bar to be visible. Returned values represent cursor position at the formula execution time (or few milliseconds before it) and accurracy is subject to pixel resolution of the screen (first cursor position is read in screen pixels (integer) and then converted to actual value therefore for example when screen resolution is 1024x768 maximum obtainable resolution in X direction is 0.1% and in Y direction 0.13%), also X values are snap to datetime of nearest data bar.
+<p>
+It only makes sense to use these functions in indicator/interpretation code. 
+<p>
+Using them in AA window may yield random values.GetCursorXPosition() function returns X position in DateTime format (the same as used by DateTime() function). You can convert it to string using DateTimeToStr() function.GetCursorYPosition() returns Y position (as displayed in Y axis of the chart).  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000><B>ToolTip</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#ff00ff>"X="</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>DateTimeToStr</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>GetCursorXPosition</FONT><FONT COLOR=#000000>()
+) + <BR>
+          </FONT><FONT COLOR=#ff00ff>"nY="</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>GetCursorYPosition</FONT><FONT COLOR=#000000>();</FONT></CODE>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="getcursorxposition.html">GetCursorXPosition()</A> function , <A HREF="getcursormousebuttons.html">GetCursorMouseButtons()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>GetCursorYPosition</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=GetCursorYPosition' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=GetCursorYPosition' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=GetCursorYPosition' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=GetCursorYPosition' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=GetCursorYPosition' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=660&hilite=GetCursorYPosition' target='_blank'>Visualization of stoploses and profit in chart</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=GetCursorYPosition">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

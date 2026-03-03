@@ -1,0 +1,219 @@
+<html>
+
+<head>
+<title>Equity function and chart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h2>Equity function, Individual and Portfolio Equity Charts</h2>
+<p><b>Introduction</b></p>
+<p>The equity line is probably the best diagnostic tool for trading system developers. 
+  In one graph it shows the sum total of the success or failure of the system 
+  being tested, and the resulting effect on your equity.<br>
+  <br>
+  Numbers from <a href="w_report.html">the Report</a> telling of a drawdown are nice, 
+  but with a graph, one can see how things were going before, during, and after 
+  a drawdown.<br>
+</p>
+<p>The line produced by the equity function tracks the amount of equity in your 
+  account. So, for example, if you backtest a system over the last year, you should 
+  see that, at the beginning of that year, the line starts at the amount of your 
+  initial equity, and then rises and falls because, as each trade makes or 
+  loses money, the equity in your account will rise and fall. It shows how much 
+  money is in your account throughout the backtest period, so you can visually 
+  see how your system performed.<br>
+  <br>
+  So, clearly you don't want to see the line go down - that means you lost money. 
+  It is generally accepted that you want to revise your system test parameters 
+  in order to get as close as possible to a smooth, straight, rising line. This 
+  means that your system has performed consistently over time, and presumably 
+  over different market conditions. A line that goes up and down frequently means 
+  that your system works well only under certain conditions, and poorly under 
+  other conditions. </p>
+<p><b>Individual (single-security) Equity chart</b></p>
+<p>To display a single-security Equity chart, it is enough to click on the drop-down arrow on the &quot;Equity&quot; 
+  button and choose &quot;Individual Equity&quot; from the menu in the <a href="w_analysis.html">Automatic
+  Analysis window</a> AFTER
+   running a backtest.</p>
+<p><img src="gifs/a_equity_1.gif"></p>
+<p>This will plot the equity for the currently active symbol and the recently backtested 
+  system. If you want to see the Equity curve for another symbol, just switch 
+  to this symbol and the Equity line will be recalculated automatically.</p>
+<p>You can also choose a symbol that was not included in the original backtest set 
+  and AmiBroker will calculate the correct equity curve as it would look if a real backtest 
+  was performed on it.</p>
+<p>IMPORTANT: an individual equity chart is a single-security equity representation that does not
+  show portfolio-level effects like skipping some trades due to reaching the maximum
+  open position limit or funds being allocated to other securities. It also does
+  not use some advanced functionality offered only by the portfolio-level backtester.
+  For more information, <a href="w_report.html">see this</a>.</p>
+<p><b>Portfolio-level Equity chart</b></p>
+<p>To display a portfolio-level equity chart, it is enough to double click on the &quot;Equity&quot;
+  button in the Automatic Analysis window or click on the drop-down arrow on
+  the &quot;Equity&quot; button
+  and choose &quot;Portfolio
+  Equity&quot; from
+  the menu AFTER
+running a backtest.</p>
+<p><img src="gifs/a_equity_2.gif"></p>
+<p>Portfolio-level equity represents the equity of your entire portfolio and reflects
+  all real-world effects like skipping trades due to insufficient funds or reaching
+  the maximum number of open positions. It also reflects all scaling
+  in/out, the HoldMinBars effect, early exit fees and any other feature that you
+  may have been using in your formula. Portfolio-level equity also by default
+  shows the remaining cash in the portfolio. Using <a href="w_param.html">the Parameters
+  window</a> (click with right mouse button over equity chart and select &quot;Parameters&quot;
+  from the menu) you can turn on the display of drawdown (underwater equity curve),
+  number of bars
+  since
+  last equity high and linear regression of the equity.</p>
+<p><img src="gifs/a_equity_3.gif"></p>
+<p><b>Equity function</b></p>
+<p>The Equity() function is a single-security backtester-in-a-box. It has many interesting
+  applications that will be outlined here. Let's look at the definition of the Equity
+  function:</p>
+<table
+        border="0" width="90%" bgcolor="#C0C0C0">
+  <tr> 
+    <td width="20%"><b>SYNTAX</b> </td>
+    <td width="80%"><b>equity</b>( <i>Flags</i> = 0, <i>RangeType</i> = -1, <i>From</i> 
+      = 0, <i>To</i> = 0 )</td>
+  </tr>
+  <tr> 
+    <td><b>RETURNS</b></td>
+    <td>ARRAY</td>
+  </tr>
+  <tr> 
+    <td valign="top"><b>FUNCTION</b> </td>
+    <td width="80%"> 
+      <p>Returns the Equity line based on buy/sell/short/cover rules, buy/sell/short/cover price 
+        arrays, all applied stops, and all other backtester settings.</p>
+      <p><i>Flags</i> - defines the behavior of the Equity function<br>
+      </p>
+      <blockquote> 
+        <p> <b>0</b> : (default) Equity works as in 3.98 - just calculates the 
+          equity array<br>
+          <b> 1</b> : works as 0 but additionally updates buy/sell/short/cover 
+          arrays so all redundant signals are removed exactly as it is done internally 
+          by the backtester plus all exits by stops are applied so it is now possible 
+          to visualize ApplyStop() stops.<br>
+          <b>2</b> : (advanced) works as 1 but updated signals are not moved back 
+          to their original positions if buy/sell/short/cover delays set in preferences 
+          are non-zero.</p>
+      </blockquote>
+      <p>Note: this flag value is documented, but in 99% of cases, it should not be used in your formula. Other values are reserved for the 
+        future.</p>
+      <p><i>RangeType</i> - defines the quotations range being used:</p>
+      <blockquote> 
+        <p><b>-1</b> : (default) use range set in the Automatic analysis window<br>
+          <b>0</b> : all quotes<br>
+          <b>1</b> : n last quotes (n defined by 'From' parameter)<br>
+          <b>2</b> : n last days (n defined by 'From' parameter)<br>
+          <b>3</b> : From/To dates<br>
+        </p>
+      </blockquote>
+      <p><i>From </i>: defines the start date (datenum) (when RangeType == 3) or the &quot;n&quot; 
+        parameter (when RangeType == 1 or 2)<br>
+      </p>
+      <p><i>To</i>: defines the end date (datenum) (when RangeType == 3) otherwise 
+        ignored<br>
+        <br>
+        datenum defines a date in the same way as DateNum() function as YYYMMDD<br>
+        where YYY is (year - 1900), MM is month, DD is day<br>
+        <br>
+        December 31st, 1999 has a datenum of 991231<br>
+        May 21st, 2001 has a datenum of 1010521</p>
+      <p>All these parameters are evaluated at the time of the call of the Equity 
+        function. The complete equity array is generated at once. Changes to buy/sell/short/cover 
+        rules made after the call have no effect. The Equity function can be called 
+        multiple times in a single formula.</p>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top"><b>EXAMPLE</b></td>
+    <td valign="top">buy = your buy rule;<br>
+      sell = your sell rule;<br>
+      graph0 = Equity();</td>
+  </tr>
+  <tr> 
+    <td valign="top"><b>SEE ALSO</b></td>
+    <td valign="top">&nbsp;</td>
+  </tr>
+</table>
+<p><br>
+  Using the Equity function, we can build an Equity &quot;indicator&quot; that will
+   work without the need to run the backtester. Just type the following formula in
+  
+  the Formula Editor and press Apply:</p>
+<blockquote>
+  <p><code>buy = ... your buy rule ...<br>
+    sell = .... your sell rule ...</code></p>
+  <p><code>graph0 = Equity();</code><br>
+  </p>
+</blockquote>
+<p>Equity() function uses the buy/sell/short/cover rules that are defined BEFORE 
+  this function is called. The whole backtesting procedure is done inside the Equity 
+  function that generates the equity line.<br>
+</p>
+<p>Notes: </p>
+<ol>
+  <li>The Equity line is dependent on the parameters in the Automatic Analysis settings.</li>
+  <li>Equity traces interest earnings when you are out of the market.<br>
+    If you don't want this, just enter 0 into &quot;Annual interest rate&quot; 
+    field in the settings.</li>
+  <li>Equity also traces commissions. If commissions are not zero, entry commission 
+    is taken using the position size of the entry and exit commission is taken for 
+    each point to simulate how much money would you have if you closed position 
+    at a given bar.</li>
+  <li>AmiBroker uses SellPrice array for long trades and CoverPrice array for 
+      short trades to calculate the current equity value.</li>
+  <li>Equity() function is single-security and does not reflect portfolio-level
+    effects like skipping trades. It does not handle some advanced functionality
+    offered only by the portfolio-backtester. For more information, see <a href="w_report.html">this
+  table</a>.</li>
+</ol>
+<p><b>Portfolio Equity special symbol</b></p>
+<p>After running a portfolio-level backtest, AmiBroker writes the values of the
+    portfolio equity to a special symbol &quot;~~~EQUITY&quot;. This allows you to access
+    portfolio-level equity of the last backtest inside your formula. To do so, use
+    Foreign function:</p>
+<p><CODE><FONT COLOR=#000000>PortEquity = </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"~~~EQUITY"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"C"</FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+<p>This is exactly what, for example, the built-in portfolio equity chart formula is
+  doing.</p>
+<p></p>
+<p><b>Can I calculate system statistics using Equity function?</b></p>
+<p>Yes, you can. Here are a couple of example calculations kindly provided by Herman 
+  van den Bergen:</p>
+<blockquote> 
+  <p><code>E = Equity();</code></p>
+  <p><code>//How rich you were :-)<br>
+    Plot(Highest(E,&quot;I should have sold&quot;,1,3);</code></p>
+  <p><code>//Your Current Drawdown:<br>
+    Plot(Highest(E) - E,&quot;Current DrawDown&quot;,4,1);</code></p>
+  <p><code>//Trade profits:<br>
+    LongProfit = IIf(Sell,E - ValueWhen(Buy,E),0);<br>
+    ShortProfit = IIf(Cover,ValueWhen(Short,E)-E,0);<br>
+    Plot(IIf(Sell,LongProfit,0),&quot;LProfit&quot;,8,2+4);<br>
+    Plot(IIf(Cover,ShortProfit,0),&quot;SProfit&quot;,4,2+4);</code></p>
+  <p><code>//Current Trade Profit:<br>
+    Lastbar = Cum(1) == LastValue( Cum(1) );<br>
+    Plot(IIf(LastBar AND pos,E-ValueWhen(Buy,E),ValueWhen(Short,E) - E),&quot;Current 
+    Profit&quot;,9,2+4);</code></p>
+  <p><code>//DailyProfits:<br>
+    Plot(IIf(pos,E-Ref(E,-1),Ref(E,-1)-E),&quot;Daily Profits&quot;,7,2);</code></p>
+</blockquote>
+<p><b>How do you plot a composite Equity Curve? I don't want the whole database, 
+  but would like to see the curve based on the watchlist I use for the backtesting.</b></p>
+<p>Just use the Portfolio-Level equity chart (see above). It represents the actual portfolio
+  backtest equity, so if you run your backtest on the watchlist it will represent
+  what you need. You can also write your own formula that does the same thing:</p>
+<p><CODE><FONT COLOR=#0000ff>Plot</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#0000ff>Foreign</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"~~~EQUITY"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"C"</FONT><FONT COLOR=#000000> ), </FONT><FONT COLOR=#ff00ff>"PL
+Equity"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#000000><B>colorRed</B></FONT><FONT COLOR=#000000> );</FONT></CODE></p>
+<p>&nbsp;</p>
+<blockquote>&nbsp;</blockquote>
+<p>&nbsp;</p>
+</body>
+</html>

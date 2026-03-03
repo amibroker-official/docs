@@ -1,0 +1,111 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - STATICVARSET</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>StaticVarSet</b><br>
+        - sets the value of static variable</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 4.60)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>StaticVarSet( ''varname'', value, persistent = False, compressionMode = cmDefault ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sets the value of static variable. Returns 1 on success 0 on failure.
+<p>
+<i>Static variable</i>  - the variable has static duration (it is allocated when the program begins and deallocated when the program ends)
+and initializes it to Null unless another value is specified. Static variables allow to share values between various formulas.
+ARRAY static variables are supported from version 5.30 and MATRIX static variables are supported from version 6.10<p>
+Please note that static array variable will consume 8 * (number_of_bars) bytes of memory and it won't be released until program is closed or variable is removed using StaticVarRemove().
+<p>
+<i>Persistency</i>
+<p>
+Starting from version 5.80 there is a new parameter <i>persist</i>. If it is set to True then static variable will be stored in PersistVars.bin file when AmiBroker is closing and reloaded automatically on next startup, preserving the values of static variables between application runs). In addition to saving them automatically on exit, persistent static variables can be auto-saved at user-specified intervals using SetOption(&quot;StaticVarAutoSave&quot;, interval );
+<p>
+<i>Compression</i>
+<p>
+Starting from version 6.10 there is a new parameter <i>compressionMode</i> that decides whenever given variable will be compressed or not.By default only persistent static variables will be compressed (cmDefault).
+You can turn it off completely compressionMode = cmNever, or turn it on for persitent and non-persistent variables using
+compressionMode = cmAlways
+<p>
+Compression is done by removing repeated values from the sequence as repeated values
+are restored when doing StaticVarGet.
+Compression is NOT compatible with non-aligned mode of StaticVarGet.
+If compressed array is retrieved by StaticVarGet with align=False, then repeated values found in original array would not be retrieved. Turning compression on slows down StaticVarSet (as it needs to do some extra processing), but does not affect performance of other functions, so StaticVarGet is equally fast with or without compression..
+<p>
+<i>Static variables vs composites</i>
+<p>
+Static arrays can be even 100 faster than AddToComposite/Foreign, however these two are not strictly equivalent.<p>
+There are following limitations / differences of static arrays as compared to Foreign/AddToComposite:
+<ul>
+<li>static array variables store only as many bars as there are currently in use by given chart 
+(so they do not affect QuickAFL in any way). This is different that AddToComposite that forces usage and store of all bars. This limitation applies to StaticVarSet but does NOT apply to StaticVarAdd (new in 6.10) which is designed to be functional equivalent of AddToComposite
+<br><li>static array variables work best if you read them using the same interval as they were written to. I.e when you create static array variables using 5-minute chart, for best results read them in some other 5-minute chart. Reading in different intervals is possible, but subject to limitations
+of timestamping (see below)
+<li>when you read static variable in a different interval that it was originally stored, 
+static variables perform padding/synchronization and time compression/decompression automatically in a similar way as foreign,
+however Foreign compresses data always from base-time interval, while static variables operate on previously stored interval,
+hence result may differ. For example, if previously stored data was in daily interval, and you read such static variable in intraday
+chart, you will see essentially flat lines for each day, representing static data from daily interval. 
+<li>static array variables do not work well for non-time based intervals (tick/n-volume/n-tick) because timestamps in those intervals
+may not be unique (i.e. several bars may have same time stamp), so time synchronization is not reliable.
+<li>static array variables are little slower than normal AFL variables, so for best performance, use read-once, write-once paradigm, using
+temporary normal variable for any processing during formula execution, like this:
+</ul>
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#000000></FONT><FONT COLOR=#008000>//
+start of the formula: </FONT><FONT COLOR=#000000> <BR>
+temp = </FONT><FONT COLOR=#0000ff>StaticVarGet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;mystaticarray&quot;</FONT><FONT COLOR=#000000> ); <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// now perform all necessary calculations using temp
+variable </FONT><FONT COLOR=#000000> <BR>
+<BR>
+temp = </FONT><FONT COLOR=#0000ff>Nz</FONT><FONT COLOR=#000000>(temp) + </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>/</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>; <BR>
+... <BR>
+<BR>
+</FONT><FONT COLOR=#008000>// at the end of the formula store to static </FONT><FONT COLOR=#000000> <BR>
+</FONT><FONT COLOR=#0000ff>StaticVarSet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#800080>&quot;mystaticarray&quot;</FONT><FONT COLOR=#000000>,
+temp );</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="staticvarsettext.html">StaticVarSetText()</A> function , <A HREF="staticvarget.html">StaticVarGet()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>StaticVarSet</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1259&hilite=StaticVarSet' target='_blank'>2 Timeframes Candlestick Bar Chart</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=431&hilite=StaticVarSet' target='_blank'>AFL Timing functions</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=StaticVarSet' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1578&hilite=StaticVarSet' target='_blank'>AllinOneAlerts - Module</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=StaticVarSet' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=StaticVarSet' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1225&hilite=StaticVarSet' target='_blank'>AutoTrader Basic Flow - updated April 15, 2009</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1182&hilite=StaticVarSet' target='_blank'>AutoTrader Basic Flow - updated Nov 18, 2008</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1119&hilite=StaticVarSet' target='_blank'>Button trading using AB auto trading interface</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1467&hilite=StaticVarSet' target='_blank'>channel indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=StaticVarSet' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=StaticVarSet' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=794&hilite=StaticVarSet' target='_blank'>Fast Refreshed KAGI Swing Charts (Price Swing)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1534&hilite=StaticVarSet' target='_blank'>For Auto Trading Setup</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1533&hilite=StaticVarSet' target='_blank'>Gfx Toolkit</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1213&hilite=StaticVarSet' target='_blank'>Heatmap V1</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1296&hilite=StaticVarSet' target='_blank'>Herman</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1217&hilite=StaticVarSet' target='_blank'>interactively test discretionary trading</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1468&hilite=StaticVarSet' target='_blank'>Least Squares Channel Indicator</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1180&hilite=StaticVarSet' target='_blank'>Manual Bracket Order Trader</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1429&hilite=StaticVarSet' target='_blank'>Non-repaitning Zigzag line</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1450&hilite=StaticVarSet' target='_blank'>Now Send Push Notifications From Amibroker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=434&hilite=StaticVarSet' target='_blank'>Ranking and sorting stocks</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1409&hilite=StaticVarSet' target='_blank'>Rebalancing Backtest avoiding leverage</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1566&hilite=StaticVarSet' target='_blank'>Reconnect TWS</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1123&hilite=StaticVarSet' target='_blank'>suresh</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1601&hilite=StaticVarSet' target='_blank'>TAPE READING</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1175&hilite=StaticVarSet' target='_blank'>Visi-Trade</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1171&hilite=StaticVarSet' target='_blank'>Woodie's CCI Panel Full Stats</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=StaticVarSet">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

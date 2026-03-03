@@ -1,0 +1,75 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - TSF</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>TSF</b><br>
+        - time series forecast</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Statistical functions<br>
+        </b>(AmiBroker 4.20)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>TSF(ARRAY,<em> periods</em>) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Calculates time series forecast indicator (similar to LinearReg 
+      but differs by<br>
+      the value of lin reg slope)
+<p>
+The function accepts periods parameter that can be constant as well as time-variant (array). </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> Plot( Close, "Price", colorBlue, styleCandle );<br>
+        Plot( TSF(close,5), "Time Series Forecast", colorRed );
+        </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+		
+			<h3>Comments:</h3>
+			<TABLE border=1 width='100%' cellspacing=0 cellpadding=4>
+		<TR bgcolor=#eeeeff><td valign="top"><b>Nigel Rowe</b><br><br>2003-04-30 06:03:00</td><td valign="top">TSF is exactly the estimate of LinearReg for the NEXT DAY.<br />
+<br />
+(it is calculated as LinearReg PLUS LinRegSlope * 1 (bar))<br />
+<br />
+Plot(LinearReg(Close, 10 )+LinRegSlope(Close, 10), &quot;Forecast for tommorrow&quot;, colorRed );<br />
+<br />
+Plot(TSF(Close, 10 ), &quot;Forecast for tommorrow 2&quot;, colorBlue );<br />
+<br />
+</td></tr></table>
+		
+
+<h4>References:    </h4>
+	<p>The <b>TSF</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=925&hilite=TSF' target='_blank'>Advanced MA system</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=919&hilite=TSF' target='_blank'>DEBAJ</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=266&hilite=TSF' target='_blank'>Moving Trend Bands (MTB)</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=TSF">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

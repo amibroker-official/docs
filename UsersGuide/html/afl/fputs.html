@@ -1,0 +1,89 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - FPUTS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>fputs</b><br>
+        - write a string to a file</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b>File Input/Output functions<br>
+        </b>(AmiBroker 4.50)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>fputs( <i>string</i>, <i>filehandle</i> ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NOTHING </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Writes (puts) the <i>string</i> to the file.
+<p>The <i>filehandle</i> must be a number returned by <b>fopen</b> function used to open the file. The file has to be open for writing or appending ("w" or "a") for this fputs to work.  </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#008000>//</FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#008000>// The following code exports quotes</FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#008000>// of current stock to quotes.csv </FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#008000>// comma separated file</FONT><FONT COLOR=#000000>
+<BR></FONT><FONT COLOR=#008000>// </FONT><FONT COLOR=#000000>
+<BR>
+<BR>fh = </FONT><FONT COLOR=#0000ff>fopen</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"quotes.csv"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"w"</FONT><FONT COLOR=#000000>);
+<BR></FONT><FONT COLOR=#800000><B>if</B></FONT><FONT COLOR=#000000>( fh )
+<BR>{
+<BR>   </FONT><FONT COLOR=#0000ff>fputs</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Date,Open,High,Low,Close,Volume\n"</FONT><FONT COLOR=#000000>, fh );
+<BR>
+<BR>   y = </FONT><FONT COLOR=#0000ff>Year</FONT><FONT COLOR=#000000>();
+<BR>   m = </FONT><FONT COLOR=#0000ff>Month</FONT><FONT COLOR=#000000>();
+<BR>   d = </FONT><FONT COLOR=#0000ff>Day</FONT><FONT COLOR=#000000>();
+<BR>
+<BR>   </FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#ff00ff>0</FONT><FONT COLOR=#000000>; i < </FONT><FONT COLOR=#000000><B>BarCount</B></FONT><FONT COLOR=#000000>; i++ )
+<BR>   {
+<BR>      ds = </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"%02.0f-%02.0f-%02.0f,"</FONT><FONT COLOR=#000000>, 
+<BR>                     y[ i ], m[ i ], d[ i ] );
+<BR>      </FONT><FONT COLOR=#0000ff>fputs</FONT><FONT COLOR=#000000>( ds, fh );
+<BR>     
+<BR>      qs = </FONT><FONT COLOR=#0000ff>StrFormat</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"%.4f, %.4f, %.4f, %.4f, %.0f\n"</FONT><FONT COLOR=#000000>, 
+<BR>                     </FONT><FONT COLOR=#000000><B>O</B></FONT><FONT COLOR=#000000>[ i ], </FONT><FONT COLOR=#000000><B>H</B></FONT><FONT COLOR=#000000>[ i ], </FONT><FONT COLOR=#000000><B>L</B></FONT><FONT COLOR=#000000>[ i ], </FONT><FONT COLOR=#000000><B>C</B></FONT><FONT COLOR=#000000>[ i ], </FONT><FONT COLOR=#000000><B>V</B></FONT><FONT COLOR=#000000>[ i ] );
+<BR>      </FONT><FONT COLOR=#0000ff>fputs</FONT><FONT COLOR=#000000>( qs, fh );
+<BR>   }
+<BR>
+<BR>   </FONT><FONT COLOR=#0000ff>fclose</FONT><FONT COLOR=#000000>( fh );
+<BR>}
+<BR>
+<BR>
+<BR></FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="fopen.html">fopen()</A> function , <A HREF="fclose.html">fclose()</A> function , <A HREF="fgets.html">fgets()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>fputs</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1481&hilite=fputs' target='_blank'>A simple AFL Revision Control System</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1483&hilite=fputs' target='_blank'>Advanced Search and Find </A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1164&hilite=fputs' target='_blank'>AFL_Glossary_Converter</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1162&hilite=fputs' target='_blank'>Auto Trade Step by Step</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1186&hilite=fputs' target='_blank'>AutoTrade using an Exploration</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1568&hilite=fputs' target='_blank'>Backup Data of 1min Interval</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1114&hilite=fputs' target='_blank'>Continuous Contract Rollover</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=fputs' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1044&hilite=fputs' target='_blank'>Export All Daily Data to TXT with MS import format</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1129&hilite=fputs' target='_blank'>Export EOD or Intraday to .csv file</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=327&hilite=fputs' target='_blank'>Export Intraday Data</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=794&hilite=fputs' target='_blank'>Fast Refreshed KAGI Swing Charts (Price Swing)</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1296&hilite=fputs' target='_blank'>Herman</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1421&hilite=fputs' target='_blank'>IBD relative strength database ranker</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=457&hilite=fputs' target='_blank'>TWS auto-export Executions-file parser</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=fputs">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

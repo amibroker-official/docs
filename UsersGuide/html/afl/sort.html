@@ -1,0 +1,68 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - SORT</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Sort</b><br>
+        - performs a quick sort of the array</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Miscellaneous functions<br>
+        </b>(AmiBroker 5.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Sort( array, first = 0, last = -1, indexmode = False ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> Sorts a numerical array in ascending order starting from <b>first</b> element ending at <b>last</b> element. If <b>last</b> is not specified or negative then AmiBroker will use BarCount - 1.<p>If <b>indexmode = 0</b> then returned array holds actual sorted values, if <b>indexmode = 1</b> the function returns array of indexes to the sorted values instead of values themselves. So if first returned value is 2923 it means that input array[ 2923 ] is the smallest element. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><b>Filter</b> = <font color='#800080'>1</font>; <br>
+<font color='#0000ff'>AddColumn</font>( <font color='#0000ff'>BarIndex</font>(), <font color='#800080'>&quot;Bar
+Index&quot;</font>, <font color='#800080'>1.0</font> ); <br>
+<font color='#0000ff'>AddColumn</font>( <b>Close</b>, <font color='#800080'>&quot;Close&quot;</font> ); <br>
+<font color='#008000'>// normal mode <br>
+</font><font color='#0000ff'>AddColumn</font>( <font color='#0000ff'>Sort</font>( <b>Close</b> ), <font color='#800080'>&quot;Sorted
+Close&quot;</font> ); <br>
+<font color='#008000'>// index mode <br>
+</font><font color='#0000ff'>AddColumn</font>( <font color='#0000ff'>Sort</font>( <b>Close</b>, <font color='#800080'>0</font>,
+-<font color='#800080'>1</font>, <b>True</b> ), <font color='#800080'>&quot;Index
+of sorted item&quot;</font>, <font color='#800080'>1.0</font> ); </CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Sort</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1422&hilite=Sort' target='_blank'>IBD relative strength database Viewer</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1229&hilite=Sort' target='_blank'>JEEVAN'S SRI CHAKRA</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=283&hilite=Sort' target='_blank'>sort function</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Sort">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

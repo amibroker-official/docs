@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Notepad window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3><a name="PreferencesWindow"></a>Notepad window</h3>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top"><p>Notepad window (that you can show/hide using <strong>Window-&gt;Notepad</strong> menu)
+        that allows you to store free-text notes about a particular security. Just
+        type any
+        text
+        and
+        it will
+        be automatically
+        saved/read back as you browse through symbols. Notes are global and
+        are saved in the &quot;Notes&quot; subfolder as ordinary<br>
+    text files. </p>
+      <p>Notes can also be read and written to using AFL language NoteGet and
+        NoteSet functions.</p>
+      <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>NoteGet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Symbol"</FONT><FONT COLOR=#000000> );</FONT></CODE><br>
+        - retrieves the note linked to &quot;symbol&quot;. If the symbol is &quot;&quot; (empty
+      string), then the current symbol is used</p>
+      <p><CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>NoteSet</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#ff00ff>"Symbol"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Text..."</FONT><FONT COLOR=#000000> );</FONT></CODE><br>
+        - sets the text of the note linked to &quot;symbol&quot;. <br>
+        If the symbol is &quot;&quot; (empty string), then the current symbol is used. </p>
+      <p>If you overwrite the note from the AFL level that is opened at the same time
+        in the Notepad editor, the editor will ask you (when you switch the focus
+        to it) if it should reload the new text or allow you to save your manually entered
+        text. </p>
+      <p>Example:<br>
+        <CODE><FONT COLOR=#000000></FONT><FONT COLOR=#0000ff>NoteSet</FONT><FONT COLOR=#000000>(</FONT><FONT COLOR=#ff00ff>"AMD"</FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#ff00ff>"Jun
+        15, 2004: AMD will deliver its first multi-core processors next year"</FONT><FONT COLOR=#000000>);</FONT></CODE></p>
+    <p>&nbsp;</p></td>
+    <td><img src="gifs/w_notepad.gif"></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

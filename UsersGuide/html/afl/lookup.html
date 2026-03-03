@@ -1,0 +1,78 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - LOOKUP</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>Lookup</b><br>
+        - search the array for bar with specified date/time</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Date/Time<br>
+        </b>(AmiBroker 5.40)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>Lookup( array, datetime, mode = 0 ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> The function searches for the bar with specified datetime and returns the value from the same position of the input array.<p>
+Parameter 'mode' decides how search is performed in case when exact match is not found:
+<ul>
+<li>mode = 0 - find exact match, otherwise return Null
+<li>mode = -1 - find exact match, otherwise return nearest predecesor (if datetime is past last bar it will return last bar value)
+<li>mode = -2 - find exact match, otherwise return nearest predecessor EXCEPT the very last bar (if searched datetime is past last bar it will return Null)
+<li>mode = 1 - find exact match, otherwise return nearest successor (if datetime is before first bar it will return first bar value)
+<li>mode = 2 - find exact match, otherwise return nearest successor EXCEPT the very first bar (if searched datetime is before first bar it will return Null)
+</ul>
+
+<p>This function uses very fast binary search and it is many times faster than previous AFL-based methods
+ such as FindValueAtDateTime() presented in the past. Any call to FindValueAtDateTime ( input, dt, value ) can be now replaced with Lookup( input, value )
+ (here is no need to pass dt- datetime).
+<p>
+NOTE: This function does not affect QuickAFL required bars, therefore it will only search bars that are actually
+ loaded in arrays. For indicators it may mean that it won't be able to find value if it is invisible, unless you
+ use SetBarsRequired() function to ensure that more bars are loaded. </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000>InputDate = </FONT><FONT COLOR=#800080>"2011-04-05"</FONT><FONT COLOR=#000000>; <BR>
+</FONT><FONT COLOR=#000000><B>Title</B></FONT><FONT COLOR=#000000> = </FONT><FONT COLOR=#800080>"Close
+value at (or before) "</FONT><FONT COLOR=#000000> + InputDate + </FONT><FONT COLOR=#800080>" is "</FONT><FONT COLOR=#000000> + </FONT><FONT COLOR=#0000ff>Lookup</FONT><FONT COLOR=#000000>( </FONT><FONT COLOR=#000000><B>Close</B></FONT><FONT COLOR=#000000>, </FONT><FONT COLOR=#0000ff>_DT</FONT><FONT COLOR=#000000>(
+InputDate ), -</FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ); <BR>
+</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="datetime.html">DateTime()</A> function , <A HREF="strtodatetime.html">StrToDateTime()</A> function , <A HREF="_dt.html">_DT()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>Lookup</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul><LI><A href='http://www.amibroker.com/library/detail.php?id=1497&hilite=Lookup' target='_blank'>elliott wave manual labelling</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1352&hilite=Lookup' target='_blank'>GFX ToolTip</A></LI><LI><A href='http://www.amibroker.com/library/detail.php?id=1567&hilite=Lookup' target='_blank'>High Low Detection code</A></LI></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=Lookup">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

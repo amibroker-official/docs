@@ -1,0 +1,71 @@
+
+<html>
+<!-- PAGE BREAK -->
+<head>
+	<title>AFL Function Reference - ATAN2</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="../guide.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table width="100%" border="0">
+	  <tr> 
+    <td valign="top">
+<h3><b>atan2</b><br>
+        - calculates arctangent of y/x</h3>
+	    </td>
+    <td align="right" valign="top"> 
+      <p><b> Math functions<br>
+        </b>(AmiBroker 4.90)</p></td>
+	  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellpadding="4" cellspacing="4">
+  <tr> 
+    <td width="13%" valign="top"><strong>SYNTAX</strong> </td>
+    <td width="87%" valign="top"> <strong>atan2( y, x ) </strong></td>
+  </tr>
+	  <tr> 
+    <td valign="top"><strong>RETURNS</strong></td>
+    <td valign="top"> NUMBER or ARRAY </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>FUNCTION</strong> </td>
+    <td valign="top"> atan2 returns the arctangent of y/x. If x is 0, atan2 returns 0. If both parameters of atan2 are 0, the function returns 0. atan2 returns a value in the range -PI to +PI radians, using the signs of both parameters to determine the quadrant of the return value. 
+ </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>EXAMPLE</strong></td>
+    <td valign="top"> <CODE><FONT COLOR=#000000>ffc = </FONT><FONT COLOR=#0000ff>FFT</FONT><FONT COLOR=#000000>(data,Len); <BR>
+</FONT><FONT COLOR=#800000><B>for</B></FONT><FONT COLOR=#000000>( i = </FONT><FONT COLOR=#800080>0</FONT><FONT COLOR=#000000>;
+i < Len - </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>; i = i + </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000> ) <BR>
+{ <BR>
+   
+amp[ i ] = amp[ i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ]
+= </FONT><FONT COLOR=#0000ff>sqrt</FONT><FONT COLOR=#000000>(ffc[ i ]^ </FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>  +  ffc[
+i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ]^</FONT><FONT COLOR=#800080>2</FONT><FONT COLOR=#000000>);   <BR>
+   
+phase[ i ] = phase[ i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000> ]
+= </FONT><FONT COLOR=#0000ff>atan2</FONT><FONT COLOR=#000000>( ffc[ i + </FONT><FONT COLOR=#800080>1</FONT><FONT COLOR=#000000>],
+ffc[ i ] ); <BR>
+}</FONT></CODE> </td>
+	  </tr>
+	  <tr> 
+    <td valign="top"><strong>SEE ALSO</strong></td>
+    <td valign="top">  <A HREF="atan.html">atan()</A> function </td>
+	  </tr>
+</table>
+
+
+		
+
+<h4>References:    </h4>
+	<p>The <b>atan2</b> function is used in the following formulas
+	  in AFL on-line library:
+<ul></ul>
+<h4>More information:</h4>
+<p>  
+  <P><A target='_blank' HREF="http://www.amibroker.com/guide/afl/afl_view.php?name=atan2">See updated/extended version on-line.</A></P></p>
+<p>&nbsp;</p>
+</body>
+</html>

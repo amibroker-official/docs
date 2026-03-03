@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>Import Wizard</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="guide.css" rel="stylesheet" type="text/css">
+</head><body><!-- PAGE BREAK -->
+
+
+
+<h3>ASCII Import Wizard </h3>
+<p>ASCII Import Wizard provides an easy way to import your quotation data files 
+  as well as define your own import formats for future use. Note that the wizard offers 
+  only a subset of features available in <a href="d_ascii.html">ASCII importer</a>, 
+  so it is provided for novice users only. </p>
+<p>The wizard guides you through three simple steps </p>
+<ol>
+  <li>Picking the files to import</li>
+  <li>Defining fields </li>
+  <li>Additional settings</li>
+</ol>
+<p>Step 1. Picking the files</p>
+<p><img src="gifs/impwizardpick.gif"></p>
+<p>In this step, you select the files you want to import. Just click the <b>Pick 
+  files</b> button and you will see a file dialog box. Browse to the folder where 
+  your data files are located and select the file(s). Please note that you can 
+  select multiple files by holding the CTRL or SHIFT key while clicking on the files. 
+  After making your selection, please click <b>Open</b>.</p>
+<p>A complete list of files that you have selected will be displayed in the field 
+  at the bottom of the wizard window. Please check if the list is correct; if 
+  not, click &quot;Pick files&quot; to correct your choice.</p>
+<p>Step 2. Defining fields</p>
+<p><img src="gifs/impwizard.gif"></p>
+<p>In this step, you define the types of fields in the data file. For your convenience, 
+  a data file sample is shown (the first few lines of the first selected file) at 
+  the bottom of the window.</p>
+<p>To define fields, please select appropriate field types from <b>Column <i>N</i></b> 
+  combo-boxes. For example, if the first field (column) in your data file is a 
+  symbol ticker, please select &quot;Ticker&quot; from <b>Column 1</b> combo-box. 
+  If the second field in your data file is a date in Year-Month-Day format, please 
+  select &quot;YMD&quot; from the second combo-box. You can also select DMY for 
+  Day-Month-Year dates, MDY for Month-Day-Year dates. Other field types available 
+  from the wizard are: &quot;Open&quot;, &quot;Close&quot;, &quot;High&quot;, 
+  &quot;Low&quot; (for prices), and &quot;Volume&quot;.</p>
+<p>Note about the dates: AmiBroker recognizes both 4-digit and 2-digit year dates. 
+  As for months, both numbers and three-letter codes (&quot;Jan&quot;, &quot;Feb&quot;, 
+  ...) are allowed. Also, day, month and year may be separated by any of the following 
+  characters: / (slash), \ (backslash), - (minus sign) or may not be separated 
+  at all. All you have to do is to specify the order: DMY, MDY, YMD. For example, 
+  valid YMD dates are (31st December 2000):</p>
+<p>20001231,<br>
+  001231,<br>
+  2000-12-31<br>
+  2000/12/31<br>
+  2000-Dec-31<br>
+  00-12-31<br>
+  00/12/31<br>
+  00\12\31</p>
+<p>If your file has more than seven columns, please check <b>More columns</b> box and 
+  you will see additional combo-boxes.</p>
+<p>The remaining controls here are:</p>
+<p><b>Group</b>: Here you should select to which group new symbols are added</p>
+<p><b>Watch list</b>: Here you should select to which watch list new symbols are 
+  added (if empty, they are not added to any watch list)</p>
+<p><b>Separator</b>: Here you should select the character used as a field separator 
+  (comma is the most common)</p>
+<p><b>Skip lines</b>: This tells AmiBroker how many initial lines should be skipped 
+  (ignored); for example, the first few lines of the file should contain a comment 
+  or other information that should be ignored, and this is the place to define it</p>
+<p><b>Log errors</b>: This tells AmiBroker that it should log all errors to the 
+  file (import.log). In case of any errors, this log will be displayed to the user 
+  after the import process has finished.</p>
+<p><b>Automatically add new symbols</b>: This tells AmiBroker to add the symbols 
+  that appear in the data file but do not exist yet in the AmiBroker database.</p>
+<p><b>Calculate composites</b>: This tells AmiBroker to calculate advance/decline 
+  figures and volume for indexes after import (this requires composites to be 
+  set up properly before importing)</p>
+<p><b>Allow negative prices</b>: This tells AmiBroker to allow negative numbers 
+  in close, open, high, and low fields. By default, zero and negative values are NOT 
+  allowed. </p>
+<p><b>No quotation data: </b>Allows you to import data that do not contain prices.
+  For example, ticker lists and/or categories.</p>
+<p>Step 3. Additional settings</p>
+<p><img src="gifs/impwizardadd.gif"></p>
+<p>By default, the format you have defined is for single-use only. It is okay for 
+  novice users and for experimenting with the wizard.</p>
+<p>If you, however, want to make your definition permanent and available in the 
+  future via <a href="d_ascii.html">ASCII importer</a>, you should check <b>Add 
+  current settings to ASCII importer definitions</b> box. Then you should enter 
+  the <b>Format description</b>, <b>File mask</b>, and <b>Format file name</b> 
+  (or you can accept automatically generated defaults). If you do so, you will 
+  be able to use the format defined in the ASCII importer window - just by selecting 
+  your own format (as typed in <b>Format description</b> field) from the &quot;Files 
+  of type&quot; combo-box of a file dialog box.</p>
+<p>Whatever you decide, you should click the &quot;Finish&quot; button to 
+  start importing your data.</p>
+</body>
+</html>
